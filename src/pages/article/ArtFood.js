@@ -3,11 +3,13 @@ import React from 'react'
 import { imgUrl } from '../../config'
 import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
+import BreadCrumb from '../../components/BreadCrumb'
 
 function ArtFood(props) {
   return (
     <>
       <div className="container" id="col-cat-article">
+        <BreadCrumb />
         <div className="row">
           <div className="col-lg">
             <div>

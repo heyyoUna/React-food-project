@@ -154,8 +154,13 @@ width: 120px;
   // color: black;
 }
 
-main{
+main{ //讓navbar不要蓋到內容
   margin-top: 60px;
+}
+
+.breadcrumb{
+  margin: auto;
+  padding: 10px;
 }
 
 

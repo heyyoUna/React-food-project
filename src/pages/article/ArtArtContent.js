@@ -7,33 +7,13 @@ import { imgUrl } from './config'
 import '../../styles/article/Article.scss'
 import ArCardTxt from './components/ArCardTxt'
 import ArMoreBtn from './components/ArMoreBtn'
+import BreadCrumb from '../../components/BreadCrumb'
 
 function ArtArtContent() {
   return (
     <>
       <div className="container-fluid" id="col-article">
-        {/* <!------------ 麵包屑 ------------>   */}
-        <div className="row">
-          <div className="col-1"></div>
-          <div className="col-7">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="#/">Home</a>
-                </li>
-                <li className="breadcrumb-item">
-                  <a href="#/">Library</a>
-                </li>
-                <li
-                  className="breadcrumb-item active"
-                  aria-current="page"
-                >
-                  Data
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </div>
+        <BreadCrumb />
 
         {/* <!------------ 互動nav ------------>   */}
         <div className="row interNav">
