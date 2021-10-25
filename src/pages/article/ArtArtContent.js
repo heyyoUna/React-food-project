@@ -4,7 +4,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { imgUrl } from './config'
-import './App.scss'
+import '../../styles/article/Article.scss'
 import ArCardTxt from './components/ArCardTxt'
 import ArMoreBtn from './components/ArMoreBtn'
 

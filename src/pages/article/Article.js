@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom'
 import React from 'react'
 import { imgUrl } from '../../config'
-import './Article.scss'
+import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
 import LineTitle from '../../components/article/LineTitle'
 
