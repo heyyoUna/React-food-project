@@ -1,0 +1,455 @@
+/*------------------------------ 顏色、文字大小 ------------------------------*/
+$f_darkgreen: #2a593e;
+$f_green: #8fc065;
+$f_orange: #ffb606;
+$f_red: #fb6107;
+
+.f_green {
+  color: $f_green;
+}
+.f_darkgreen {
+  color: $f_darkgreen;
+}
+.f_orange {
+  color: $f_orange;
+}
+.f_red {
+  color: $f_red;
+}
+//banner 標題
+.bannerTitle {
+  font-size: 60px;
+  @media (max-width: 992px) {
+    font-size: 30px;
+  }
+}
+
+//banner 副標題
+.bannerSubTitle {
+  font-size: 44px;
+  letter-spacing: 3px;
+  @media (max-width: 992px) {
+    font-size: 28px;
+  }
+}
+
+//卡片 標題
+.productTitle {
+  font-size: 24px;
+  letter-spacing: 3px;
+  @media (max-width: 992px) {
+    font-size: 20px;
+  }
+}
+
+@mixin NOmobile {
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+/*------------------------------ 元件 ------------------------------*/
+/*----------- footer -----------*/
+footer {
+  color: $f_green;
+
+  .logo {
+    margin: auto;
+    text-align: center;
+    img {
+      padding-top: 12.5%;
+      width: 100%;
+    }
+    @include NOmobile;
+  }
+  .col-9 {
+    margin: auto;
+    ul {
+      display: flex;
+      list-style: none;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: 10px 0 0 0;
+    }
+    figure {
+      display: none;
+      @media (max-width: 992px) {
+        display: inline-block;
+      }
+    }
+
+    .footerNav {
+      border-bottom: 1px solid $f_green;
+      padding: 3px 5px;
+      .web {
+        display: flex;
+        justify-content: space-evenly;
+        li {
+          margin: 10px 40px 10px 0;
+        }
+        @include NOmobile;
+      }
+      .mobile {
+        display: none;
+        @media (max-width: 992px) {
+          display: flex;
+          align-items: center;
+          li {
+            margin-right: 15px;
+            font-size: 12px;
+          }
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .icons {
+      margin-top: 10px;
+    }
+    i {
+      font-size: 40px;
+      @media (max-width: 992px) {
+        font-size: 30px;
+      }
+    }
+    p {
+      margin-bottom: 0;
+      @media (max-width: 992px) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+/*----------- Navbar -----------*/
+.MyNavbar {
+  // background-color: white !important;
+  background-color: $f_green;
+  color: black !important;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.navLogoWrap{
+width: 120px;
+  padding: 0 20px;
+  img{
+    width: 100%;
+  }
+}
+
+#responsive-navbar-nav{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  // color: black;
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  // color: rgba(255, 255, 255, 0.55);
+  // color: black;
+}
+
+main{
+  margin-top: 60px;
+}
+
+
+/*----------- 首頁 -----------*/
+
+
+//首頁小按鈕
+.hp_sBtn {
+  border: 2px solid $f_green;
+  box-sizing: border-box;
+  border-radius: 50px;
+  display: inline-block;
+  letter-spacing: 3px;
+  padding: 5px 30px;
+  font-size: 16px;
+  color: $f_green;
+  cursor: pointer;
+  background-color: white;
+  margin-top: 3px;
+  &:hover {
+    filter: drop-shadow(
+      15px 15px 0px rgba(143, 192, 101, 0.5)
+    );
+  }
+}
+//文章區橫幅banner，more按鈕
+.moreBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+
+  div {
+    p {
+      margin-bottom: -4px;
+    }
+  }
+}
+
+//首頁背景圖
+.hp_bgcWrap {
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+
+  .hp_bgc {
+    max-width: 400px;
+    width: 20%;
+    position: fixed;
+  }
+
+  .hp_bgc_1 {
+    top: 50px;
+  }
+
+  .hp_bgc_2 {
+    top: 300px;
+    right: 0;
+  }
+
+  .hp_bgc_3 {
+    top: 700px;
+    left: 0;
+  }
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
+#hpTotal {
+  /*---------- kv  ----------*/
+  #hpKv {
+    margin-bottom: 20px;
+    background-color: white;
+    #HP_KV_navbar_wrap {
+      // margin: auto;
+      position: relative;
+
+      #HP_KV_logo {
+        padding: 5px 0px 5px 15px;
+        img {
+          width: 100%;
+        }
+      }
+      #icons {
+        text-align: center;
+        position: relative;
+        top: 28%;
+
+        p {
+          margin: 10px 0;
+        }
+        i {
+          font-size: 30px;
+        }
+      }
+    }
+    #HP_KV_title_wrap {
+      background-color: $f_orange;
+      .HP_KV_title {
+        text-align: center;
+        position: relative;
+        top: 30%;
+      }
+    }
+    #HP_KV_img_frame {
+      margin-bottom: -16px;
+      .HP_KV_img {
+        height: calc(100vh - 40px);
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .spin {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translateX(-20px) rotate(-15deg);
+
+        img {
+          width: 100px;
+        }
+      }
+    }
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: column-reverse;
+      #HP_KV_navbar_wrap {
+        display: none;
+      }
+
+      #HP_KV_title_wrap {
+        height: 30vh;
+        .HP_KV_title {
+          top: 20%;
+        }
+      }
+
+      #HP_KV_img_frame {
+        .HP_KV_img {
+          height: 70vh;
+        }
+      }
+    }
+  }
+
+  /*---------- 商城  ----------*/
+  .hp_shop {
+    .hpShopCatWrap {
+      margin-bottom: 50px;
+    }
+    .hpShopCatImg {
+      //照片們
+      text-align: center;
+      @media (max-width: 992px) {
+        // padding: 0 100px;
+      }
+    }
+
+    .hpShopCatDes {
+      //文字們
+      margin: auto;
+      @media (max-width: 992px) {
+        text-align: center;
+      }
+    }
+
+    #hp_shop_Cat_2 {
+      //排版特別的二號
+      .hpShopCatDes {
+        text-align: right;
+      }
+      @media (max-width: 992px) {
+        display: flex;
+        flex-direction: column-reverse;
+        .hpShopCatDes {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  /*---------- 專欄  ----------*/
+  .article1Warp {
+    margin-bottom: 50px;
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .hp_col_dec1Wrap {
+      text-align: right;
+      margin: auto; //置中
+      @media (max-width: 992px) {
+        margin: 10px 0 40px 0;
+        text-align: left;
+        padding: 0 50px;
+        // padding-left: 100px;
+
+        .hpSBtn_Art {
+          text-align: center;
+        }
+      }
+    }
+
+    .hp_col_img1Wrap {
+      .hp_col_img1 {
+        text-align: right;
+        img {
+          width: 80%;
+          height: 80%;
+          object-fit: cover;
+        }
+        @media (max-width: 992px) {
+          display: none;
+          // width: 50%;
+          // margin: auto;
+        }
+      }
+      .hp_col_img1_m {
+        display: none;
+        @media (max-width: 992px) {
+          display: block;
+          text-align: center;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .article2Wrap {
+    img {
+      width: 100%;
+      max-width: 60em;
+    }
+    .moreBtn {
+      margin: auto;
+    }
+    @include NOmobile;
+  }
+
+  /*---------- 餐廳  ----------*/
+  .hpRes {
+    .txtWrap {
+      margin: auto;
+      text-align: center;
+      figure {
+        display: none;
+      }
+
+      @media (max-width: 992px) {
+        figure {
+          display: block;
+          margin-right: 50px;
+          width: 15%;
+        }
+        .MobileFlex {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          h5 {
+            margin: 10px 20px;
+            font-size: 44px;
+          }
+          h6 {
+            font-size: 20px;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+    img {
+      width: 100%;
+    }
+    .imgWrap {
+      display: flex;
+      .imgbox {
+        transform: translateX(20px) rotate(15deg);
+        padding: 25px 20px;
+      }
+      @include NOmobile;
+    }
+    .deliveryWrap {
+      margin-top: 30%;
+      img {
+        width: 80%;
+      }
+      @include NOmobile;
+    }
+  }
+}

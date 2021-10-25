@@ -1,0 +1,66 @@
+// 預設變數覆蓋需要在導入Bootstrap之前
+$primary: #8FC065;
+$secondary: #131010;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+// 其它要導入覆蓋掉原本的預設bootstrap樣式要放在這下面
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.footer {
+  background-color: #f5f5f5;
+}
+
+/*------------------------------ 顏色、文字大小 ------------------------------*/
+$f_darkgreen: #2a593e;
+$f_green: #8fc065;
+$f_orange: #ffb606;
+$f_red: #fb6107;
+
+.f_green {
+  color: $f_green;
+}
+.f_darkgreen {
+  color: $f_darkgreen;
+}
+.f_orange {
+  color: $f_orange;
+}
+.f_red {
+  color: $f_red;
+}
+//banner 標題
+.bannerTitle {
+  font-size: 60px;
+  @media (max-width: 992px) {
+    font-size: 30px;
+  }
+}
+
+//banner 副標題
+.bannerSubTitle {
+  font-size: 44px;
+  letter-spacing: 3px;
+  @media (max-width: 992px) {
+    font-size: 28px;
+  }
+}
+
+//卡片 標題
+.productTitle {
+  font-size: 24px;
+  letter-spacing: 3px;
+  @media (max-width: 992px) {
+    font-size: 20px;
+  }
+}
+
+@mixin NOmobile {
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
