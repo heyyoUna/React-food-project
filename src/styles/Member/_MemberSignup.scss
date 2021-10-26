@@ -1,0 +1,106 @@
+@media (min-width: 576px) {
+        // .karin-signup-container {
+        // background: url("http://localhost:3006/images/member/4.jpeg") no-repeat center center;
+        // background-size:cover;
+        // }
+        #karin-signup-h1 {
+          margin: 80px 0 30px 0;
+          letter-spacing: 3px;
+          font-size: 60px;
+        }
+        .karin-form-control{
+          height: 65px;
+          width: 320px;
+        }
+        .karin-btn-signuppage-signup {
+          background-color: #8fc065;
+          height: 65px;
+          width: 320px;
+          border-radius: 50px;
+          border-color: transparent;
+          color: #fff;
+          font-size: 24px;
+          letter-spacing: 1px;
+          text-indent: 1px;
+          margin:20px 0;
+        }
+        .karin-btn-signuppage-login {
+          background-color: #f5f4f2;
+          height: 65px;
+          width: 320px;
+          border-radius: 50px;
+          border-color: transparent;
+          color: #000;
+          font-size: 24px;
+          letter-spacing: 1px;
+          text-indent: 1px;
+          margin: 0 0 20px 0;
+        }
+      } 
+      @media (max-width: 575.99px) {
+        #karin-signup-h1 {
+          font-size: 50px;
+          margin: 50px 0 30px 0;
+          letter-spacing: 1px;
+        }
+        .karin-form-control{
+          height: 60px;
+          width: 300px;
+        }
+        .karin-btn-signuppage-signup {
+          background-color: #8fc065;
+          height: 60px;
+          width: 300px;
+          border-radius: 50px;
+          border-color: transparent;
+          color: #fff;
+          font-size: 24px;
+          letter-spacing: 1px;
+          text-indent: 1px;
+          margin: 100px 0 20px 0;
+        }
+        .karin-btn-signuppage-login {
+          background-color: #f5f4f2;
+          height: 60px;
+          width: 300px;
+          border-radius: 50px;
+          border-color: transparent;
+          color: #000;
+          font-size: 24px;
+          letter-spacing: 1px;
+          text-indent: 1px;
+          margin: 0 0 20px 0;
+        }
+      }
+      #karin-signup-h1 {
+          color: #2a593e;
+          font-family: "Yeseva One";
+        }
+        .karin-form-control {
+          background-color: #f5f4f2;
+          border-radius: 50px;
+          border-color: transparent;
+          margin-bottom: 15px;
+          padding-left: 15px;
+        }
+      .karin-signup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Poppins";
+      }
+      .karin-btn-signuppage-signup:hover,
+      .karin-btn-signuppage-login:hover {
+        color: #fff;
+        background-color: #2a593e;
+      }
+      .karin-btn-signuppage-signup:focus,
+      .karin-btn-signuppage-login:focus {
+        box-shadow: none;
+      }
+      #karin-forgot-password {
+        color: #ff904f;
+      }
+     .breadcrumb,.footer,.text-muted{
+        display:none;
+      }

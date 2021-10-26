@@ -96,7 +96,7 @@ function MyNavbar(props) {
             <Nav.Link as={NavLink} to="/restaurants">
               健康餐盒
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/about">
+            <Nav.Link as={NavLink} to="/game/GameChoose">
               餐食輪盤
             </Nav.Link>
           </Nav>
@@ -107,6 +107,49 @@ function MyNavbar(props) {
             <Nav.Link as={NavLink} to="/login">
               <i class="far fa-user"></i>
             </Nav.Link>
+            <Nav>
+              <NavDropdown
+                title="會員專區"
+                id="collasible-nav-dropdown"
+              >
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/profile">
+                  個人檔案
+              </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/order">
+                  歷史訂單
+              </NavDropdown.Item>
+                {/* <NavDropdown.Divider /> */}
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/review">
+                  我的評價
+              </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/point">
+                  會員點數
+              </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/FavoriteProduct">
+                  商品追蹤清單
+              </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/FavoriteArticle">
+                  文章收藏清單
+              </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/member/FavoriteRestaurant">
+                  餐廳收藏清單
+              </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
             <Nav.Link as={NavLink} to="/search">
               <i class="fas fa-shopping-cart"></i>
             </Nav.Link>

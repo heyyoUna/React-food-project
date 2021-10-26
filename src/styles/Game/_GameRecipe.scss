@@ -1,0 +1,98 @@
+@media screen and (min-width: 576px) {
+      .karin-rotate{
+        height: 60vh;
+      }
+      .karin-rotate-img {
+        height: 100%;
+        // width: 100%;
+      }
+      .karin-game-title{
+        margin-top: 50px;
+        width: 50%;
+        margin-bottom: 40px;
+      }
+      .karin-game-again,.karin-game-leave {
+      font-size: 24px;
+      padding: 10px 80px;
+      letter-spacing: 3px;
+    }
+    }
+    @media screen and (max-width: 575.99px) {
+      /* 手機版轉盤高度 */
+      .karin-rotate {
+        height: 65vh;
+        /* margin-left: 1px !important; */
+      }
+      .karin-rotate-img{
+        /* height: 75%; */
+        width: 100%;
+      }
+      .karin-rotate-fork{
+        height: 90px;
+      }
+      .karin-game-btn-wrap {
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+      .karin-game-title{
+        margin-bottom:20px;
+      }
+      .karin-game-title h1{
+        font-size:30px;
+      }
+      .karin-game-again,.karin-game-leave {
+      font-size: 20px;
+      padding: 10px 80px;
+      letter-spacing: 1px;
+    }
+    }
+    body {
+      height: 100vh;
+    }
+    .karin-game-title {
+      height: 80px;
+      background-color: #ffb606;
+      text-align: center;
+      
+    }
+    .karin-game-title h1 {
+      line-height: 80px;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 3px;
+    }
+    .karin-rotate {
+      margin: auto;
+      width: 80%;
+      text-align: center;
+    }
+    .karin-rotate-img {
+      margin: auto;
+      cursor: pointer;
+    }
+    .karin-game-again {
+      border-radius: 100px;
+      text-align: center;
+      background-color: #fb6107;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .karin-game-leave {
+      color: #8fc065;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .karin-game-again:hover,
+    .karin-game-leave:hover {
+      color: #fff;
+      background-color: #2a593e;
+      border-radius: 50px;
+    }
+    .karin-game-btn-wrap {
+      justify-content: space-between;
+      width: 80%;
+      margin: auto;
+      white-space: nowrap;
+    }

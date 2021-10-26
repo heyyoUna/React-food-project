@@ -1,0 +1,88 @@
+//電腦版
+@media screen and (min-width: 576px) {
+  // 隱藏手機版
+  .member-favorite-card-mobile {
+    display: none;
+  }
+  #member-favorite-h1 {
+    font-size: 44px;
+    letter-spacing: 3px;
+    margin: 50px 0 70px 0;
+  }
+  .member-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .member-favorite-card .card {
+    max-width: 540px;
+  }
+}
+//手機版
+@media screen and (max-width: 575.99px) {
+  .member-favorite-card-mobile .card{
+    max-width: 540px;
+  }
+  .member-favorite-title,
+  .member-favorite {
+    margin: 0px !important;
+  }
+  .member-nav,
+  .member-favorite-card,
+  .member-n {
+    display: none;
+  }
+  #member-favorite-h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin: 50px 0 50px 0;
+  }
+  .member-card-text {
+    display: flex;
+    justify-content: space-between
+  }
+}
+/* 大標 */
+.member-favorite-title {
+  justify-content: center;
+}
+#member-favorite-h1 {
+  color: #2a593e;
+}
+.member-favorite-product {
+  margin: 0 !important;
+}
+/* icon */
+// .fa-heart {
+//   font-size: 30px;
+//   color: #d96e30;
+//   cursor: pointer;
+// }
+// .fa-shopping-cart {
+//   font-size: 30px;
+//   color: #2a593e;
+//   cursor: pointer;
+// }
+.card {
+  border: 0;
+}
+/* nav active */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #000;
+  background-color: transparent;
+  border-left: 5px solid #8fc065;
+  border-radius: 0;
+}
+.nav-link {
+  padding: 8px;
+}
+a {
+  color: #000;
+  width: 120px;
+}
+.row {
+  margin-left: 3px;
+  margin-right: 50px;
+}
