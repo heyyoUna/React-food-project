@@ -21,6 +21,10 @@ import Article from './pages/article/Article'
 import ArtFood from './pages/article/ArtFood'
 import ArtFit from './pages/article/ArtFit'
 import ArtRecipe from './pages/article/ArtRecipe'
+// 餐廳
+import Restaurants from './pages/Restaurant/Restaurants'
+import ResMap from './pages/Restaurant/ResMap'
+import ResProducts from './pages/Restaurant/ResProducts'
 import Signup from './pages/Member/MemberSignup'
 import Login from './pages/Member/MemberLogin'
 import MemberProfile from './pages/Member/MemberProfile'
@@ -93,7 +97,18 @@ function App() {
               <Route path="/article/recipe">
                 <ArtRecipe auth={auth} />
               </Route>
-
+            {/* 餐廳 */}
+            <Route path="/restaurants">
+              <Restaurants />
+            </Route>
+            <Route path="/resmap">
+              <ResMap />
+            </Route>
+            <Route path="/resprdoucts/:id" component={ResProducts}  />
+            <Route exact path="/">
+              <Home />
+            </Route>
+       
               <Route path="/article/food">
                 <ArtFood auth={auth} />
               </Route>

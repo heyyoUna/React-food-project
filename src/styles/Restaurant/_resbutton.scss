@@ -1,0 +1,42 @@
+@mixin sortBtn($color, $padding,$font-size) {
+  border-radius: 50px;
+  color: $color;
+  font-size: $font-size;
+  cursor: pointer;
+  outline: none;
+  letter-spacing: 3px;
+  text-indent: 3px;
+  border: 1px solid $color;
+  width: 164px;
+  height: 42px;
+  padding: $padding;
+
+  background: transparent;
+  -webkit-appearance: none; //讓箭頭不見
+
+  @include mobile {
+    margin-bottom: 16px;
+  }
+}
+
+//下拉選單
+.form-select.btn-group,
+input,
+button,
+select,
+optgroup,
+textarea {
+  @include sortBtn($light-green, 5px 32px,20px);
+}
+
+.orange-btn {
+  @include sortBtn($light-orange, 2px,20px);
+
+  &:hover {
+    background-color: #fb6007c0;
+    color:white;
+  }
+  @include mobile {
+    // width: 101%;
+  }
+}

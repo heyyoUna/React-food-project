@@ -14,11 +14,11 @@ function MyFooter(props) {
           <div className="col-9 col-lg-9">
             <ul className="footerNav">
               <div className="web">
-                <li className="f_darkgreen ">量身訂做</li>
-                <li className="f_darkgreen ">好食商城</li>
-                <li className="f_darkgreen ">好食專欄</li>
-                <li className="f_darkgreen ">健康餐盒</li>
-                <li className="f_darkgreen ">餐食轉盤</li>
+                <li className="dark-green ">量身訂做</li>
+                <li className="dark-green ">好食商城</li>
+                <li className="dark-green ">好食專欄</li>
+                <li className="dark-green ">健康餐盒</li>
+                <li className="dark-green ">餐食轉盤</li>
               </div>
 
               <div className="mobile">
@@ -30,21 +30,21 @@ function MyFooter(props) {
                 </figure>
                 <div className="col">
                   <div className="d-flex">
-                    <li className="f_darkgreen ">
+                    <li className="dark-green ">
                       量身訂做
                     </li>
-                    <li className="f_darkgreen ">
+                    <li className="dark-green ">
                       好食商城
                     </li>
                   </div>
                   <div className="d-flex">
-                    <li className="f_darkgreen ">
+                    <li className="dark-green ">
                       好食專欄
                     </li>
-                    <li className="f_darkgreen ">
+                    <li className="dark-green ">
                       健康餐盒
                     </li>
-                    <li className="f_darkgreen ">
+                    <li className="dark-green ">
                       餐食轉盤
                     </li>
                   </div>

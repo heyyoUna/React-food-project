@@ -93,7 +93,7 @@ function MyNavbar(props) {
               </NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link as={NavLink} to="/about">
+            <Nav.Link as={NavLink} to="/restaurants">
               健康餐盒
             </Nav.Link>
             <Nav.Link as={NavLink} to="/game/GameChoose">

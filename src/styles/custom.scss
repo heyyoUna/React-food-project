@@ -15,22 +15,30 @@ main > .container {
 }
 
 /*------------------------------ 顏色、文字大小 ------------------------------*/
-$f_darkgreen: #2a593e;
-$f_green: #8fc065;
-$f_orange: #ffb606;
-$f_red: #fb6107;
+$dark-green: #2a593e;
+$light-green: #8fc065;
+$light-yellow: #ffb606;
+$light-orange: #fb6107;
 
-.f_green {
-  color: $f_green;
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans TC', sans-serif,'Poppins','Yeseva One';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.f_darkgreen {
-  color: $f_darkgreen;
+
+.light-green {
+  color: $light-green;
 }
-.f_orange {
-  color: $f_orange;
+.dark-green {
+  color: $dark-green;
 }
-.f_red {
-  color: $f_red;
+.light-yellow {
+  color: $light-yellow;
+}
+.light-orange {
+  color: $light-orange;
 }
 //banner 標題
 .bannerTitle {
@@ -63,4 +71,48 @@ $f_red: #fb6107;
     display: none;
   }
 }
+
+
+
+//標題間距
+.ma-80 {
+  margin: 80px auto;
+}
+
+//標題線
+
+.titleBorder {
+  width: 100%;
+  border-bottom: 2px solid $dark-green;
+  position: relative;
+  margin: 0 auto;
+  .title-fz {
+    font-size: 32px;
+    color: $dark-green;
+  }
+  .res-title {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 0px 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-indent: 3px;
+  }
+
+  @include mobile {
+    .res-title {
+      top: -13px;
+      padding: 0px 10px;
+    }
+    .title-fz {
+      font-size: 24px;
+    }
+  }
+}
+
+
+
 
