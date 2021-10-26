@@ -11,18 +11,27 @@ import './App.scss'
 // 頁面用元件
 import Home from './pages/Home'
 import About from './pages/About'
-import Login from './pages/Login'
 import ProductBaby from './pages/ProductBaby'
 import ProductMen from './pages/ProductMen'
 import ProductWomen from './pages/ProductWomen'
 import NotFoundPage from './pages/NotFoundPage'
 import ProductCategory from './pages/ProductCategory'
-import Member from './pages/Member'
 import Student from './pages/Student'
 import Article from './pages/article/Article'
 import ArtFood from './pages/article/ArtFood'
 import ArtFit from './pages/article/ArtFit'
 import ArtRecipe from './pages/article/ArtRecipe'
+import Signup from './pages/Member/MemberSignup'
+import Login from './pages/Member/MemberLogin'
+import MemberProfile from './pages/Member/MemberProfile'
+import MemberOrder from './pages/Member/MemberOrder'
+import MemberReview from './pages/Member/MemberReview'
+import MemberPoint from './pages/Member/MemberPoint'
+import MemberFavoriteProduct from './pages/Member/MemberFavoriteProduct'
+import MemberFavoriteRestaurant from './pages/Member/MemberFavoriteRestaurant'
+import GameChoose from './pages/Game/GameChoose'
+import GameRecipe from './pages/Game/GameRecipe'
+import GameDelivery from './pages/Game/GameDelivery'
 
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
@@ -61,10 +70,16 @@ function App() {
               <Route path="/product/baby/:id?">
                 <ProductBaby />
               </Route>
+
+              <Route path="/signup">
+                {/* 利用props傳入頁面元件狀態 */}
+                <Signup auth={auth} setAuth={setAuth} />
+              </Route>
               <Route path="/login">
                 {/* 利用props傳入頁面元件狀態 */}
                 <Login auth={auth} setAuth={setAuth} />
               </Route>
+
               <Route path="/about">
                 <About auth={auth} />
               </Route>
@@ -91,8 +106,32 @@ function App() {
               <Route path="/productcategory">
                 <ProductCategory />
               </Route>
-              <Route path="/member">
-                <Member auth={auth} />
+              <Route path="/member/profile">
+                <MemberProfile auth={auth} />
+              </Route>
+              <Route path="/member/order">
+                <MemberOrder />
+              </Route>
+              <Route path="/member/review">
+                <MemberReview />
+              </Route>
+              <Route path="/member/point">
+                <MemberPoint />
+              </Route>
+              <Route path="/member/FavoriteProduct">
+                <MemberFavoriteProduct />
+              </Route>
+              <Route path="/member/FavoriteRestaurant">
+                <MemberFavoriteRestaurant />
+              </Route>
+              <Route path="/game/GameChoose">
+                <GameChoose />
+              </Route>
+              <Route path="/game/GameRecipe">
+                <GameRecipe />
+              </Route>
+              <Route path="/game/GameDelivery">
+                <GameDelivery />
               </Route>
               <Route path="*">
                 <NotFoundPage />

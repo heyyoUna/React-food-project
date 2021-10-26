@@ -1,2 +1,28 @@
 @import './styles/custom.scss';
 @import './styles/article/Article.scss';
+@import './styles/custom';
+
+//signup
+@import './styles/Member/MemberSignup';
+//login
+@import './styles/Member/MemberLogin';
+//會員profile
+@import './styles/Member/MemberProfile';
+//會員order
+@import './styles/Member/MemberOrder';
+//會員reviews
+@import './styles/Member/MemberReview';
+//會員reviews
+@import './styles/Member/MemberPoint';
+//會員商品追蹤清單
+@import './styles/Member/MemberFavoriteProduct';
+//會員餐廳收藏清單
+@import './styles/Member/MemberFavoriteRestaurant';
+//轉盤首頁
+@import './styles/Game/GameChoose';
+//轉盤(食譜)
+@import './styles/Game/GameRecipe';
+//轉盤(外送)
+@import './styles/Game/GameDelivery';
+//字體
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Yeseva+One&display=swap');
