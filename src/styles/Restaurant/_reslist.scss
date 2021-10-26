@@ -28,28 +28,13 @@
     padding: 15px 0 0 30px ;
     h3 {
       color: $dark-green;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
     }
     p {
       font-size: 18px;
     }
-    .fas.fa-truck {
-      color: $dark-green;
-      margin-right: 10px;
-    }
-  
-    .fas.fa-dollar-sign {
-      color: #ffb606;
-      margin-right: 12px;
-      font-size: 24px;
-    }
-  
-    .far.fa-clock {
-      color: #fb6107;
-      margin-right: 10px;
-      font-size: 22px;
-    }
+   
     }
     @include mobile {
       margin: 20px;

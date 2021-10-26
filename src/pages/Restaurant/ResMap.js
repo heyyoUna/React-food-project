@@ -48,7 +48,7 @@ function ResMap() {
         <ResMapsearch/>
         </div>
         <div className="col-md-2 col-6 ">
-               <button type="button" class="btn orange-btn" >
+               <button type="button" class=" orange-btn" >
             <RiMapPinLine
               style={{
                 color: '#FB6107',

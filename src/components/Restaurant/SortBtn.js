@@ -19,7 +19,7 @@ function SortBtn(props) {
     <>
       <div className="row ">
         <div className="col-md-3 col-6 ">
-          <button type="button" class="btn orange-btn" onClick={goToMap}>
+          <button type="button" class="orange-btn" onClick={goToMap}>
             <RiMapPinLine
               style={{
                 color: '#FB6107',

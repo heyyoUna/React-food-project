@@ -7,7 +7,7 @@ import { MdOutlineAttachMoney } from 'react-icons/md'
 import { FiHeart } from 'react-icons/fi'
 import { imgUrl } from '../../config'
 
-
+// import { Col, Row } from 'reactstrap'
 function ResList({listData}) {
 
 
@@ -23,7 +23,9 @@ function ResList({listData}) {
             <div class="reslist-card d-flex  ">
 
             {/* <img className="res-foodImg" src={`${imgUrl}/images/food.jpg`} alt="" /> */}
-            <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" />
+            {/* <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" /> */}
+            
+   <img className="res-foodImg" src={'http://localhost:3002/img/restaurant/'+el.res_img} alt="" />
             <div className="reslist-txt  ">
               <div className="reslist-title d-flex justify-content-between ">
 
