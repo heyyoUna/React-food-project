@@ -37,7 +37,7 @@
     ">0.2%",
     "not dead",
     "not op_mini all"
-    ],
+  ],
   "devDependencies": {
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-import": "^2.25.2",

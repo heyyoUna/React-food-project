@@ -3,6 +3,8 @@ import { imgUrl } from '../config/index'
 import HpArMoreBtn from '../components/HpArMoreBtn'
 import HpSBtn from '../components/HpSBtn'
 import HpFixedBgc from '../components/HpFixedBgc'
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Home(props) {
   // const { auth } = props
@@ -85,11 +87,14 @@ function Home(props) {
               />
             </figure>
             <figure className="spin">
-              <img
+              <Link to="/game/GameChoose">
+                <img
                 className="first"
                 src={`${imgUrl}/images/spin.png`}
                 alt=""
               />
+              </Link>
+              
             </figure>
           </div>
 
