@@ -1,3 +1,6 @@
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 function MemberSignup(props) {
   console.log(props)
 
@@ -26,7 +29,8 @@ function MemberSignup(props) {
             <label className="form-check-label" for="exampleCheck1">Remember me</label>
           </div>
           <button type="submit" className="btn karin-btn-signuppage-signup">SIGN UP</button>
-          <button type="submit" className="btn karin-btn-signuppage-login">LOG IN</button>
+          <Link to="/login"
+          button type="submit" className="btn karin-btn-signuppage-login">LOG IN</Link>
           <div className="forgot-password">
             <a href="" id="karin-forgot-password">Forgot Password?</a>
           </div>
