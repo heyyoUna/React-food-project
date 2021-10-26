@@ -121,7 +121,7 @@ function Home(props) {
 
             {/* <!------- 1st商品種類：文字  -------> */}
             <div className="hpShopCatDes col-lg">
-              <h6 className="bannerSubTitle f_darkgreen">
+              <h6 className="bannerSubTitle dark-green">
                 快速上桌
               </h6>
               <p className="productTitle ">
@@ -138,7 +138,7 @@ function Home(props) {
           >
             {/* <!------- 2nd 商品種類：文字  -------> */}
             <div className="hpShopCatDes col-lg">
-              <h6 className="bannerSubTitle f_darkgreen">
+              <h6 className="bannerSubTitle dark-green">
                 快速上桌
               </h6>
               <p className="productTitle ">
@@ -175,7 +175,7 @@ function Home(props) {
 
             {/* <!------- 3rd 商品種類：文字  -------> */}
             <div className="hpShopCatDes col-lg">
-              <h6 className="bannerSubTitle f_darkgreen">
+              <h6 className="bannerSubTitle dark-green">
                 快速上桌
               </h6>
               <p className="productTitle ">
@@ -191,7 +191,7 @@ function Home(props) {
           {/* <!-------- 文章1__文字 --------> */}
           <div className="hp_col_dec1Wrap col-lg-8 px-5">
             <p>首頁 / 聰明飲食</p>
-            <h6 className="f_darkgreen bannerSubTitle">
+            <h6 className="dark-green bannerSubTitle">
               防疫在家最怕久坐不動！
               <br />
               注意飲食 三多三少 肥胖不上身
@@ -245,10 +245,10 @@ function Home(props) {
           <div class="row">
             <div class="col-lg-4 txtWrap">
               <div className="MobileFlex ">
-                <h5 className="bannerSubTitle f_green">
+                <h5 className="bannerSubTitle light-green">
                   HEALTHY
                 </h5>
-                <h5 className="bannerSubTitle f_red">
+                <h5 className="bannerSubTitle light-orange">
                   FOOD
                 </h5>
               </div>
@@ -260,7 +260,7 @@ function Home(props) {
                   />
                 </figure>
                 <div>
-                  <h6 className="bannerSubTitle f_orange">
+                  <h6 className="bannerSubTitle light-yellow">
                     查看附近的美味
                   </h6>
                   <HpSBtn text="Find the lunchbox" />

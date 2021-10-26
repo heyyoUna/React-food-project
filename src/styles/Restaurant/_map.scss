@@ -1,0 +1,148 @@
+
+// .leaflet-container{
+//     @include mobile {
+//   width: 100%;
+//       } 
+// }
+
+// #root{
+//     overflow-x: hidden;
+// }
+//POPUP
+.map-card {
+    width: 255px;
+    // height: 150px;
+    
+  
+    .map-txt{
+       margin-top: 2px;
+       padding: 5px 12px;
+       width: 145px;
+        h5{
+            color: $light-green;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        span{
+            font-size: 14px;
+            font-weight: 700;
+        }
+        p{
+            font-weight: 700;
+            color: $dark-green;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+    }
+
+   
+}
+
+//共用
+  .mapImg{
+        width: 100%;
+        height: 85%;
+        object-fit: cover;
+ 
+        @include mobile {
+           height: 110px ;
+           padding-top: 10px;
+     
+        }
+        
+    }
+
+
+    .orange-btn {
+     a   {
+         color:$light-orange;
+       text-decoration: none;
+       &:hover{
+               color:white;
+       }
+     
+     }
+    }
+
+
+//左側餐廳列表
+.map-res-introduce{
+    border-bottom: 2px solid rgba(42, 89, 62, 0.2);
+    padding: 18px 5px;
+
+}
+
+
+.map-list{
+// float: left;
+// width: 30%;  
+overflow: auto;
+padding: 25px 20px;
+height: 100vh;
+
+.map-res-info{
+    padding-left: 26px;
+    h4{
+        color:$dark-green;
+        font-weight: 700;
+        padding-bottom: 5px;
+        font-size: 20px;
+    }
+    span{
+        font-size: 14px;
+    }
+    h5{    font-size: 16px;
+    
+        line-height: 1.8;
+    }
+}
+
+@include mobile {
+    width: 100%;     
+}
+
+h4{
+
+    font-size:18px;
+}
+h5{
+    font-size: 14px;
+    line-height: 1.1;
+}
+}
+
+
+.map-wrapper{
+    display: flex;
+    flex-wrap: no-wrap;  
+    @include mobile {
+        flex-wrap: wrap;  
+        flex-direction: column-reverse  //順序交換
+    }
+}
+.map-container{
+
+    // width: 100%;
+  
+}
+
+.leaflet-container{
+    height: 100vh;
+    @include mobile {
+        height: 60vh;
+       }
+}
+
+
+//search-bar
+
+// .map-searchbar{
+//     text-align: right;
+// }
+
+
+
+
+// <a href='https://.pngtree.com/so/定位'>定位 png來自 .pngtree.com/</a>
+
+

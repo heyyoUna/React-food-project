@@ -1,20 +1,20 @@
 /*------------------------------ 顏色、文字大小 ------------------------------*/
-$f_darkgreen: #2a593e;
-$f_green: #8fc065;
-$f_orange: #ffb606;
-$f_red: #fb6107;
+$dark-green: #2a593e;
+$light-green: #8fc065;
+$light-yellow: #ffb606;
+$light-orange: #fb6107;
 
-.f_green {
-  color: $f_green;
+.light-green {
+  color: $light-green;
 }
-.f_darkgreen {
-  color: $f_darkgreen;
+.dark-green {
+  color: $dark-green;
 }
-.f_orange {
-  color: $f_orange;
+.light-yellow {
+  color: $light-yellow;
 }
-.f_red {
-  color: $f_red;
+.light-orange {
+  color: $light-orange;
 }
 //banner 標題
 .bannerTitle {
@@ -50,7 +50,7 @@ $f_red: #fb6107;
 /*------------------------------ 元件 ------------------------------*/
 /*----------- footer -----------*/
 footer {
-  color: $f_green;
+  color: $light-green;
 
   .logo {
     margin: auto;
@@ -78,7 +78,7 @@ footer {
     }
 
     .footerNav {
-      border-bottom: 1px solid $f_green;
+      border-bottom: 1px solid $light-green;
       padding: 3px 5px;
       .web {
         display: flex;
@@ -125,7 +125,7 @@ footer {
 /*----------- Navbar -----------*/
 .MyNavbar {
   // background-color: white !important;
-  background-color: $f_green;
+  background-color: $light-green;
   color: black !important;
   height: 60px;
   margin-bottom: 10px;
@@ -169,14 +169,14 @@ main{ //讓navbar不要蓋到內容
 
 //首頁小按鈕
 .hp_sBtn {
-  border: 2px solid $f_green;
+  border: 2px solid $light-green;
   box-sizing: border-box;
   border-radius: 50px;
   display: inline-block;
   letter-spacing: 3px;
   padding: 5px 30px;
   font-size: 16px;
-  color: $f_green;
+  color: $light-green;
   cursor: pointer;
   background-color: white;
   margin-top: 3px;
@@ -260,7 +260,7 @@ main{ //讓navbar不要蓋到內容
       }
     }
     #HP_KV_title_wrap {
-      background-color: $f_orange;
+      background-color: $light-yellow;
       .HP_KV_title {
         text-align: center;
         position: relative;
