@@ -26,7 +26,7 @@ function ResList({listData}) {
             {/* <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" /> */}
             
    <img className="res-foodImg" src={'http://localhost:3002/img/restaurant/'+el.res_img} alt="" />
-            <div className="reslist-txt  ">
+            <div className="reslist-txt ">
               <div className="reslist-title d-flex justify-content-between ">
 
                 <Link to={"/resprdoucts/"+el.res_id}

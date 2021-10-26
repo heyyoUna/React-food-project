@@ -2,7 +2,8 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { RiMapPinLine } from 'react-icons/ri'
 import { imgUrl } from '../../config'
-function SortBtn(props) {
+
+function MapButtonGroup(props) {
 
   const { mapData, lat, lng, options } = props;
   const history = useHistory();
@@ -15,8 +16,7 @@ function SortBtn(props) {
 
     });
   }
-  return (
-    <>
+  return (    
       <div className="row ">
         <div className="col-md-3 col-6 ">
           <button type="button" class="orange-btn" onClick={goToMap}>
@@ -30,27 +30,10 @@ function SortBtn(props) {
             {props.name}
           </button>
         </div>
+        
+        {/* 從restaurant 三個sortbutton */}
+        {props.children}
 
-        {options && options.map((el, i) => {
-          return <div className="col-md-3  col-6 ">
-            <select
-              style={{
-                // backgroundImage: `url(${`${imgUrl}/images/arrow-icon.png`}) `,
-                backgroundImage: `url('http://localhost:3000/images/Restaurant/arrow-icon.png')`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '90% center',
-              }}
-
-            >
-              {/* <option value=""{el.name}>{el.name}</option> */}
-              <option value="{el.value1}">{el.name1}</option>
-              <option value="{el.value2}">{el.name2}</option>
-              <option value="{el.value3}">{el.name3}</option>
-              <option value="{el.value4}">{el.name4}</option>
-              <option value="{el.value4}">{el.name5}</option>
-            </select>
-          </div>
-        })}
 
         {/* <div className="col-md-4  col-6 ">
           <select
@@ -68,8 +51,7 @@ function SortBtn(props) {
           </select>
         </div> */}
       </div>
-    </>
   )
 }
 
-export default SortBtn
+export default MapButtonGroup

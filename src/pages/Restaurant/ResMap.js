@@ -13,7 +13,7 @@ import { RiMapPinLine } from 'react-icons/ri'
 import { MdOutlineAttachMoney } from 'react-icons/md'
 import { FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
-import SortBtn from '../../components/Restaurant/SortBtn'
+import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
 import { Link } from 'react-router-dom'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 
