@@ -5,21 +5,13 @@ import { imgUrl } from '../../config'
 
 function MapButtonGroup(props) {
 
-  const { mapData, lat, lng, options } = props;
-  const history = useHistory();
+  const {linkFunction } = props;
 
-
-  const goToMap = () => {
-    history.push({
-      pathname: '/resmap',
-      state: { mapData, lat, lng, options },
-
-    });
-  }
   return (    
+    
       <div className="row ">
         <div className="col-md-3 col-6 ">
-          <button type="button" class="orange-btn" onClick={goToMap}>
+          <button type="button" class="orange-btn" onClick={linkFunction}>
             <RiMapPinLine
               style={{
                 color: '#FB6107',

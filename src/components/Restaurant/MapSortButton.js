@@ -16,7 +16,7 @@ const MapSortButton = ({options, onChange, name}) => {
           }}
         >
           {
-            options.map((item, index) => {
+            options&&options.map((item, index) => {
               return(
                 <option key={index} value={item.value}>{item.name}</option>
               )    
