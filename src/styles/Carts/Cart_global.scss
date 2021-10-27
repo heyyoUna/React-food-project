@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --Primary-color: #8fc065;
+  --Second-color: #fb6107;
+  --Third-color: #2a593e;
+  --Process-hide-color: #a8a8a8;
+
+  --Font-Family: "Noto Sans TC";
+  --Font-English-Family: "Poppins";
+
+  /* 20px */
+  --Order-list-title-size: 1.25rem;
+  --Orderinfo-list-font-size: 1.25rem;
+  --ConfirmReturn-button-font-size-mobile:1.25rem;
+
+
+  /* 16px */
+  --Order-list-content-size: 1rem;
+  --Orderinfo-list-font-size-mobile: 1rem;
+  --Font-table-content-size-mobile: 1rem;
+  --Font-OrderDetail-size-mobile: 1rem;
+
+  --Section-Title-font-size-mobile: 1rem;
+
+  --button-padding: 5px 30px;
+  --bigbutton-padding: 15px 80px;
+  --bigbutton-padding-mobile: 15px 80px;
+
+
+  /* 60px */
+  --Banner-font-size: 3.75rem;
+
+  /* 49.6px */
+  --Process-font-size: 3.1rem;
+
+  /* 89.6px */
+  --Process-arrow-size: 5.6rem;
+
+  /* 24px */
+  --Button-font-size: 1.5rem;
+  --Orderinfo-list-title-size: 1.5rem;
+
+  --Second-Font-Weight: 700;
+
+  /* 28px */
+  --Font-banner-size-mobile: 1.75rem;
+
+  /* 14px */
+  --Order-button-size-mobile: 0.875rem;
+
+  /* 12px */
+  --Font-process-size-mobile: 0.75rem;
+  --Font-checkpay-size-mobile: 0.75rem;
+  --Font-confirreturn-size-mobile:0.75rem;
+  --Font-orderdetail-size-mobile:0.75rem;
+  --Font-orderconfirmdetail-size-mobile:0.75rem;
+  --Font-7-11-font-size-mobile:0.75rem;
+  --Font-morecard-font-size-mobile:0.75rem;
+
+
+  /* 24.96px */
+  --Process-font-size-mobile: 1.56rem;
+
+  /* 44.96px */
+  --Process-arrow-size-mobile: 2.81rem;
+}
+

@@ -1,0 +1,572 @@
+// 手機板(375px)
+
+@mixin mobile {
+  @media (max-width: 380px) {
+    @content;
+  }
+}
+
+// .Process {
+//   .first,
+//   .firstArrow,
+//   .second {
+//     color: var(--Primary-color);
+//   }
+//   .third {
+//     color: var(--Process-hide-color);
+//   }
+
+//   .FinishInfo,
+//   .secondArrow {
+//     opacity: 0.3;
+//   }
+// }
+
+/* Section 標題樣式 */
+
+.title-fz {
+  font-size: 32px;
+  color: var(--Third-color);
+}
+
+.titleBorder {
+  border-bottom: 2px solid var(--Third-color);
+  position: relative;
+  margin: 80px auto;
+
+  .res-title {
+    position: absolute;
+    top: -17px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    padding: 0px 17px;
+    letter-spacing: 3px;
+    text-indent: 3px;
+    color: var(--Third-color);
+    font-weight: var(--Second-Font-Weight);
+    font-family: var(--Font-Family);
+  }
+
+  @include mobile() {
+    /* Section 標題與密碼 */
+
+    margin: 60px auto;
+
+    .res-title {
+      text-align: center;
+      font-size: var(--Section-Title-font-size-mobile);
+      /* margin-bottom: 0px; */
+      margin: 10px 0px;
+    }
+  }
+}
+
+/* 訂單詳細展開紐 */
+.square {
+  border: 0.5px solid var(--Primary-color);
+  margin: 10px auto 0px auto;
+  background-color: var(--Primary-color);
+
+  h3 {
+    text-align: center;
+    line-height: 50px;
+    color: #ffffff;
+    font-weight: 900;
+    font-family: var(--Font-Family);
+    margin: 0px 100px;
+  }
+
+  .ChevronDown {
+    font-size: 25px;
+    color: #ffffff;
+    top: 30%;
+    left: 90%;
+  }
+
+  @include mobile() {
+    h3 {
+      font-size: var(--Font-OrderDetail-size-mobile);
+    }
+  }
+}
+
+/* 訂單詳細內容 */
+.orderdetail {
+  border: 1px solid var(--Primary-color);
+  border-radius: 0 0 20px 20px;
+
+  .detailinfo {
+    th {
+      font-size: var(--Order-list-title-size);
+      font-family: var(--Font-Family);
+      color: var(--Third-color);
+      padding: 0px;
+      /* text-align: center; */
+    }
+
+    td {
+      font-size: var(--Order-list-content-size);
+      font-family: var(--Font-Family);
+      vertical-align: middle;
+    }
+    @include mobile() {
+      display: none;
+    }
+  }
+  .detailinfomobile {
+    display: none;
+
+    @include mobile() {
+      display: block;
+
+      img {
+        width: 80px;
+      }
+
+      td {
+        width: 40%;
+      }
+    }
+  }
+
+  .detailcheck {
+    width: 95%;
+    th,
+    td {
+      font-weight: var(--Second-Font-Weight);
+      color: var(--Third-color);
+      font-family: var(--Font-Family);
+    }
+
+    .detailtd {
+      text-align: end;
+    }
+  }
+}
+
+/* 付款方式 */
+
+.checkout {
+  text-align: center;
+  .check {
+    width: 100%;
+    margin-bottom: 50px;
+    span {
+      font-size: 10px;
+      font-family: var(--Font-Family);
+    }
+    label {
+      font-family: var(--Font-Family);
+      font-size: var(--Order-list-title-size);
+      font-weight: var(--Second-Font-Weight);
+      color: var(--Third-color);
+    }
+    input {
+      font-family: var(--Font-Family);
+      width: 30px;
+      height: 30px;
+      color: var(--Third-color);
+      margin: 0 20px;
+    }
+    img {
+      width: 40px;
+    }
+  }
+  @include mobile() {
+    display: none;
+  }
+}
+
+.checkoutmobileform {
+  display: none;
+  @include mobile() {
+    display: block;
+
+    .checkmobile {
+      margin: 20px auto;
+
+      input {
+        width: 28px;
+        height: 28px;
+        margin: auto 0px;
+      }
+      label {
+        margin: auto 0px;
+        font-family: var(--Font-Family);
+        color: var(--Third-color);
+        font-size: var(--Font-checkpay-size-mobile);
+        font-weight: var(--Second-Font-Weight);
+      }
+
+      .payicon {
+        img {
+          width: 30px;
+          margin: 0 2px;
+        }
+      }
+    }
+  }
+}
+
+/* 711取貨資料 */
+.store_711 {
+  h4 {
+    font-family: var(--Font-Family);
+    font-size: var(--Order-list-title-size);
+    font-weight: var(--Second-Font-Weight);
+    color: var(--Third-color);
+    margin: 20px auto;
+  }
+  .storeform {
+    label {
+      color: var(--Third-color);
+      font-family: var(--Font-Family);
+      font-weight: var(--Second-Font-Weight);
+      margin: 20px auto;
+    }
+    button {
+      width: 100%;
+      border-radius: 50px;
+      border: transparent;
+      height: 50px;
+      background-color: #f5f4f2;
+      margin-bottom: 20px;
+    }
+    span {
+      color: #ff0000;
+      font-family: var(--Font-English-Family);
+    }
+    .dropdown {
+      select {
+        width: 100%;
+        border-radius: 50px;
+        border: transparent;
+        height: 50px;
+        background-color: #f5f4f2;
+        margin-bottom: 20px;
+        padding: 0 20px;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      .ChevronDown {
+        font-size: 25px;
+        color: var(--Primary-color);
+        top: 20%;
+        left: 92%;
+      }
+    }
+    .storeinput {
+      input {
+        width: 100%;
+        border-radius: 50px;
+        border: transparent;
+        height: 50px;
+        background-color: #f5f4f2;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  @include mobile() {
+    .store_711_image {
+      img {
+        width: 60px;
+      }
+    }
+
+    .store_711_info h4,
+    .store_711_address h4 {
+      font-size: var(--Font-7-11-font-size-mobile);
+    }
+    .storeform {
+      .dropdown {
+        .ChevronDown {
+          left: 82%;
+        }
+      }
+    }
+  }
+}
+
+/* 信用卡資料 */
+.creditcard {
+  label {
+    display: block;
+    color: var(--Third-color);
+    font-family: var(--Font-Family);
+    font-weight: var(--Second-Font-Weight);
+    margin: 20px auto;
+  }
+  .creditcard_number {
+    input {
+      width: 22%;
+      border-radius: 50px;
+      border: transparent;
+      height: 50px;
+      background-color: #f5f4f2;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+  .creditcard_duedate {
+    input {
+      width: 45%;
+      border-radius: 50px;
+      border: transparent;
+      height: 50px;
+      background-color: #f5f4f2;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .star {
+      color: #ff0000;
+      font-family: var(--Font-English-Family);
+    }
+    span {
+      font-size: var(--Order-list-title-size);
+      color: var(--Third-color);
+    }
+  }
+  .creditcard_duedate ::placeholder {
+    color: var(--Third-color);
+    font-size: var(--Order-list-title-size);
+    font-weight: var(--Second-Font-Weight);
+    font-family: var(--Font-English-Family);
+  }
+
+  .creditcard_checkcode {
+    label {
+      display: block;
+      color: var(--Third-color);
+      font-family: var(--Font-Family);
+      font-weight: var(--Second-Font-Weight);
+      margin: 20px auto;
+    }
+    input {
+      width: 100%;
+      border-radius: 50px;
+      border: transparent;
+      height: 50px;
+      background-color: #f5f4f2;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+  .creditcard_checkcode ::placeholder {
+    color: var(--Third-color);
+    font-size: var(--Order-list-title-size);
+    font-weight: var(--Second-Font-Weight);
+    font-family: var(--Font-English-Family);
+  }
+  .warning_text h6 {
+    color: var(--Primary-color);
+    font-size: var(--Order-list-title-size);
+    font-weight: var(--Second-Font-Weight);
+    font-family: var(--Font-Family);
+  }
+  span {
+    font-size: var(--Order-list-title-size);
+    color: var(--Third-color);
+  }
+
+  .star {
+    color: #ff0000;
+    font-family: var(--Font-English-Family);
+  }
+  @include mobile() {
+    .creditcard_number {
+      input {
+        width: 20%;
+        height: 30px;
+      }
+      span {
+        display: none;
+      }
+      .star {
+        display: inline;
+      }
+    }
+
+    .creditcard_duedate {
+      input {
+        width: 40%;
+        height: 30px;
+      }
+    }
+
+    .creditcard_checkcode {
+      input {
+        width: 100%;
+        border-radius: 30px;
+        height: 30px;
+      }
+    }
+
+    .warning_text {
+      h6 {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+/* 訂購人資料 - 收件人/匯入會員 */
+.importinfo {
+  h2 {
+    font-family: var(--Font-Family);
+    font-size: var(--Button-font-size);
+    font-weight: var(--Second-Font-Weight);
+    color: var(--Third-color);
+  }
+
+  .import {
+    padding: var(--button-padding);
+    background-color: var(--Primary-color);
+    border-radius: 50px;
+    border: transparent;
+    color: #ffffff;
+    font-family: var(--Font-Family);
+    font-weight: var(--Second-Font-Weight);
+    font-size: var(--Order-list-contnet-size);
+  }
+  @include mobile() {
+    justify-content: center;
+
+    h2 {
+      display: none;
+    }
+  }
+}
+
+/* 訂購人資料 */
+
+.orderform {
+  .order {
+    label {
+      display: block;
+      color: var(--Third-color);
+      font-family: var(--Font-Family);
+      font-weight: var(--Second-Font-Weight);
+    }
+    input {
+      width: 100%;
+      border-radius: 50px;
+      border: transparent;
+      height: 50px;
+      background-color: #f5f4f2;
+      margin-bottom: 20px;
+      padding: 0 20px;
+    }
+  }
+  span {
+    color: #ff0000;
+    font-family: var(--Font-English-Family);
+  }
+}
+
+/* 發票方式 */
+.invoice {
+  .info1 {
+    border-radius: 50px;
+    outline: 1px solid var(--Third-color);
+    border: transparent;
+    background-color: #ffffff;
+    padding: var(--button-padding);
+    font-size: var(--Order-list-content-size);
+    font-family: var(--Font-Family);
+    color: var(--Third-color);
+    font-weight: var(--Second-Font-Weight);
+  }
+  .info1:focus,
+  .info_mobile:focus {
+    color: #ffffff;
+    background-color: var(--Primary-color);
+    border: transparent;
+    outline: transparent;
+  }
+  .info_mobile {
+    border-radius: 50px;
+    border: transparent;
+    background-color: #ffffff;
+    padding: var(--button-padding);
+    font-size: var(--Order-list-content-size);
+    font-family: var(--Font-Family);
+    font-weight: var(--Second-Font-Weight);
+    outline: 1px solid var(--Third-color);
+    color: var(--Third-color);
+  }
+  // 其他兩種發票方式的顯示內容
+  .infoinput {
+    width: 100%;
+    border-radius: 50px;
+    border: transparent;
+    height: 50px;
+    background-color: #f5f4f2;
+    margin-bottom: 20px;
+  }
+
+  #warn {
+    color: #ff0000;
+    margin: 20px auto;
+    font-family: var(--Font-Family);
+  }
+  @include mobile() {
+    .invoice .info1,
+    .info_mobile {
+      margin: 20px auto;
+      font-size: var(--Font-confirreturn-size-mobile);
+      padding: var(--button-padding);
+    }
+  }
+}
+
+/* 確認訂單與返回按鈕 */
+.returninfo {
+  border-radius: 50px;
+  border: transparent;
+  border: 1px solid var(--Third-color);
+  padding: var(--bigbutton-padding);
+  background-color: #ffffff;
+  font-family: var(--Font-Family);
+  font-size: var(--Button-font-size);
+  font-weight: var(--Second-Font-Weight);
+  color: var(--Third-color);
+}
+
+.returninfo:hover {
+  background-color: var(--Primary-color);
+  color: #ffffff;
+  border: 1px solid var(--Primary-color);
+}
+
+.confirminfo {
+  border-radius: 50px;
+  border: 1px solid var(--Third-color);
+  background-color: #ffffff;
+  padding: var(--bigbutton-padding);
+  color: var(--Third-color);
+  font-family: var(--Font-Family);
+  font-size: var(--Button-font-size);
+  font-weight: var(--Second-Font-Weight);
+}
+
+.confirminfo:hover {
+  background-color: var(--Second-color);
+  color: #ffffff;
+  border: 1px solid var(--Second-color);
+}
+
+@include mobile() {
+  .returninfo {
+    font-size: var(--ConfirmReturn-button-font-size-mobile);
+    padding: var(--bigbutton-padding-mobile);
+    margin: 20px auto;
+  }
+  .confirminfo {
+    font-size: var(--ConfirmReturn-button-font-size-mobile);
+    padding: var(--bigbutton-padding-mobile);
+    margin: 20px auto;
+  }
+}

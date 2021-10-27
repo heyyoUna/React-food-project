@@ -1,0 +1,60 @@
+// 手機板(375px)
+
+@mixin mobile {
+  @media (max-width: 380px) {
+    @content;
+  }
+}
+
+/* 流程圖示 */
+.Process {
+  margin: 80px auto;
+
+  /* 流程圖狀態 */
+  .FinishInfo,
+  .CartImage,
+  .EditInfo {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .icons,
+  .arrow {
+    font-size: 80px;
+    opacity: 0.3;
+  }
+
+  .first,
+  .second,
+  .third,
+  .firstArrow,
+  .secondArrow {
+    opacity: 1;
+    color: var(--Primary-color);
+  }
+
+  h3 {
+    font-size: var(--Button-font-size);
+    font-family: var(--Font-Family);
+    // color: var(--Third-color);
+    text-align: center;
+    padding: 20px 0px;
+    font-weight: var(--Second-Font-Weight);
+    opacity: 0.3;
+  }
+
+  @include mobile() {
+    margin: 80px auto;
+
+    .icons {
+      font-size: 40px;
+    }
+
+    h3 {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: var(--Second-Font-Weight);
+      font-size: var(--Font-process-size-mobile);
+    }
+  }
+}

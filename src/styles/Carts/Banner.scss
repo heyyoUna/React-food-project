@@ -1,0 +1,51 @@
+// 手機板(375px)
+
+@mixin mobile {
+  @media (max-width: 380px) {
+    @content;
+  }
+}
+
+/* Banner */
+.Banner {
+  background-image: url(http://localhost:3000/images/Cart/Banner.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 300px;
+
+  .bannerTitle {
+    padding: 80px 60px;
+
+    .bannerTitle1 {
+      font-size: var(--Banner-font-size);
+      color: var(--Second-color);
+      margin: 0px auto;
+      font-weight: var(--Second-Font-Weight);
+      font-family: var(--Font-Family);
+    }
+
+    .bannerTitle2 {
+      text-indent: 2em;
+      font-size: var(--Banner-font-size);
+      font-weight: var(--Second-Font-Weight);
+      font-family: var(--Font-Family);
+      margin: 0px auto 40px;
+      color: var(--Third-color);
+    }
+  }
+
+  @include mobile() {
+    // Banner
+    .bannerTitle {
+      padding: 80px 0px;
+
+      .bannerTitle1 {
+        font-size: var(--Font-banner-size-mobile);
+      }
+      .bannerTitle2 {
+        font-size: var(--Font-banner-size-mobile);
+      }
+    }
+  }
+}
