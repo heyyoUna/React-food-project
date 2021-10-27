@@ -16,7 +16,16 @@ import {
 function OrderDetail(props) {
   const [Likeicon, setLikeicon] = useState('full')
   const [unLikeicon, setunLikeicon] = useState('heart')
-  let { data, Count, setCount, setPos, setODPos, setDeleteODPos } = props
+  let {
+    data,
+    Count,
+    setCount,
+    setPos,
+    setODPos,
+    setDeleteODPos,
+    addProduct,
+    setaddProduct,
+  } = props
   let NewCount = [...Count]
   // console.log('第二層Data展開', Pos)
   // console.log('第二層', NewCount)
@@ -30,7 +39,6 @@ function OrderDetail(props) {
             <tr className="border-bottom">
               <th scope="col"></th>
               <th scope="col">商品資訊</th>
-              <th scope="col">優惠</th>
               <th scope="col">商品數量</th>
               <th scope="col">商品單價</th>
               <th scope="col"></th>
@@ -47,8 +55,9 @@ function OrderDetail(props) {
                           alt=""
                         />
                       </td>
-                      <td className="text-start">{v.name}</td>
-                      <td className="text-start ">{v.Promotion_Number}</td>
+                      <td className="text-start">
+                        {v.name}
+                      </td>
                       <td className="text-start">
                         <FaMinusCircle
                           className="countIcon"
@@ -73,7 +82,9 @@ function OrderDetail(props) {
                           }}
                         />
                       </td>
-                      <td className="text-start">{v.price}</td>
+                      <td className="text-start">
+                        {v.price}
+                      </td>
                       <td>
                         <FaTrash
                           className="trashIcon"
@@ -160,12 +171,16 @@ function OrderDetail(props) {
 
         <div className="bottomline col-lg-9"></div>
 
-        <h4 className="col-lg-10 text-lg-start">你可能也會喜歡</h4>
+        <h4 className="col-lg-10 text-lg-start">
+          你可能也會喜歡
+        </h4>
         <StoreCard
           Likeicon={Likeicon}
           setLikeicon={setLikeicon}
           unLikeicon={unLikeicon}
           setunLikeicon={setunLikeicon}
+          addProduct={addProduct}
+          setaddProduct={setaddProduct}
         />
 
         <StoreCardMobile />

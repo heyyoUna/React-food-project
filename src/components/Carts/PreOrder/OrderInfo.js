@@ -1,8 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 function OrderInfo(props) {
-  const { productPrice, totalPrice, totalPromotion } = props
-
+  const {
+    productPrice,
+    totalPrice,
+    Promotion,
+    setPromotion,
+  } = props
+  let textvalue = ''
   return (
     <>
       <div className="orderinfolist col-lg-3 mx-lg-3 mt-3">
@@ -19,22 +24,37 @@ function OrderInfo(props) {
             </tr>
             <tr scope="row" className="border-bottom">
               <th>優惠</th>
-              <td>-NT${totalPromotion()}</td>
+              <td>-NT${Promotion}</td>
             </tr>
             <tr scope="row">
               <th>商品總計</th>
               <td>NT${totalPrice()}</td>
             </tr>
             <tr scope="row">
-              <th>優惠代碼</th>
+              <th>使用點數</th>
               <td></td>
             </tr>
           </tbody>
         </table>
 
         <div className="promotion d-flex justify-content-between">
-          <input type="text" placeholder="請輸入優惠代碼" />
-          <button>使用</button>
+          <input
+            type="text"
+            placeholder="請輸入使用點數"
+            onChange={(e) => {
+              if (e.target.value > 50) {
+                alert('超過您持有的點數')
+              }
+              textvalue = e.target.value
+            }}
+          />
+          <button
+            onClick={(e) => {
+              setPromotion(textvalue)
+            }}
+          >
+            使用
+          </button>
         </div>
 
         <div className="my-3">
@@ -44,7 +64,9 @@ function OrderInfo(props) {
           >
             結帳去
           </button>
-          <button className="returnstore col-12 my-3">返回商城</button>
+          <button className="returnstore col-12 my-3">
+            返回商城
+          </button>
         </div>
       </div>
     </>

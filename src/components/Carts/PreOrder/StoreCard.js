@@ -9,6 +9,7 @@ import {
 function StoreCard(props) {
   const { Likeicon, setLikeicon } = props
   const { unLikeicon, setunLikeicon } = props
+  let { addProduct, setaddProduct } = props
 
   return (
     <>
@@ -17,20 +18,26 @@ function StoreCard(props) {
           {/* <img src="../../../image/2/PW005.jpg" className="position-absolute" /> */}
           <div className="storeproduct">
             <div className="body py-2">
-              <p className="text ps-5 text-center">特選草飼沙朗牛</p>
+              <p className="text ps-5 text-center">
+                特選草飼沙朗牛
+              </p>
               <p className="text ps-5 text-center">NT$80</p>
               <div className="storeicon text-center">
                 <FaRegHeart
                   className={unLikeicon}
                   onClick={(e) => {
-                    setLikeicon(e.target === true ? Likeicon : 'heart')
+                    setLikeicon(
+                      e.target === true ? Likeicon : 'heart'
+                    )
                     setunLikeicon('full')
                   }}
                 />
                 <FaHeart
                   className={Likeicon}
                   onClick={(e) => {
-                    setLikeicon(e.target === true ? Likeicon : 'full')
+                    setLikeicon(
+                      e.target === true ? Likeicon : 'full'
+                    )
                     setunLikeicon('heart')
                   }}
                 />
@@ -46,7 +53,9 @@ function StoreCard(props) {
           /> */}
           <div className="storeproduct">
             <div className="body py-2">
-              <p className="text ps-5 text-center">冰烤地瓜</p>
+              <p className="text ps-5 text-center">
+                冰烤地瓜
+              </p>
               <p className="text ps-5 text-center">NT$79</p>
               <div
                 className="storeicon text-center"
@@ -56,18 +65,34 @@ function StoreCard(props) {
                 <FaRegHeart
                   className={unLikeicon}
                   onClick={(e) => {
-                    setLikeicon(e.target === true ? Likeicon : 'heart')
+                    setLikeicon(
+                      e.target === true ? Likeicon : 'heart'
+                    )
                     setunLikeicon('full')
                   }}
                 />
                 <FaHeart
                   className={Likeicon}
                   onClick={(e) => {
-                    setLikeicon(e.target === true ? Likeicon : 'full')
+                    setLikeicon(
+                      e.target === true ? Likeicon : 'full'
+                    )
                     setunLikeicon('heart')
                   }}
                 />{' '}
-                <FaCartPlus className="cartlike" />
+                <FaCartPlus
+                  className="cartlike"
+                  onClick={() => {
+                    let NewAddProduct = [...addProduct]
+                    NewAddProduct.push(
+                      1,
+                      'PM001',
+                      'st880517'
+                    )
+                    console.log('物件新增', NewAddProduct)
+                    setaddProduct(NewAddProduct)
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -80,5 +105,4 @@ function StoreCard(props) {
     </>
   )
 }
-
 export default StoreCard

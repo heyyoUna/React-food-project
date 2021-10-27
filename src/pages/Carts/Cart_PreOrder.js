@@ -19,6 +19,8 @@ function Cart_PreOrder() {
   let [Pos, setPos] = useState()
   let [ODPos, setODPos] = useState()
   let [DeletePos, setDeleteODPos] = useState()
+  let [addProduct, setaddProduct] = useState([])
+  let [Promotion, setPromotion] = useState(0)
 
   useEffect(() => {
     console.log('這邊是初始化')
@@ -36,9 +38,13 @@ function Cart_PreOrder() {
     DeleteProduct(DeletePos)
   }, [DeletePos])
 
+  useEffect(() => {
+    // console.log('目前新增位置', addProduct)
+    AddProduct(addProduct)
+  }, [addProduct])
+
   async function DataAxios() {
     let r = await axios.get('http://localhost:3001/cart/')
-    console.log('data', r)
     if (r.status === 200) {
       setData(r.data)
       for (let i = 0; i < r.data.length; i++) {
@@ -47,9 +53,29 @@ function Cart_PreOrder() {
       console.log('DataAxios裡面', Count)
       setCount(Count)
       productPrice()
-      totalPromotion()
+      // totalPromotion()
       totalPrice()
       // return Count
+    }
+  }
+
+  async function AddProduct(addProduct) {
+    // console.log('我在這喔')
+    let newAddProduct = [...addProduct]
+    console.log(newAddProduct[0])
+    let Add = await axios.post(
+      `http://localhost:3001/cart/`,
+      {
+        Order_Amount: newAddProduct[0],
+        Product_id: newAddProduct[1],
+        Member_id: newAddProduct[2],
+      }
+    )
+    if (Add.status === 200) {
+      setaddProduct([])
+      // console.log('現在的addProduct', addProduct)
+      DataAxios()
+      return Count
     }
   }
 
@@ -91,32 +117,32 @@ function Cart_PreOrder() {
 
     // for (let i = 0; i < Count.length; i++) {
     // }
-    console.log('商品總數量', totalCount)
+    console.log('商品小計', totalCount)
 
     return totalCount
   }
 
   // // 計算目前所有的商品優惠總價
-  const totalPromotion = () => {
-    let Promotionsum = 0
-    let Promoinfo = [...data]
+  // const totalPromotion = () => {
+  //   let Promotionsum = 0
+  //   let Promoinfo = [...data]
 
-    Promoinfo.map((v, i) => {
-      Promotionsum += v.Promotion_Number
-    })
+  //   Promoinfo.map((v, i) => {
+  //     Promotionsum += v.Promotion_Number
+  //   })
 
-    console.log('商品總優惠', Promotionsum)
-    return Promotionsum
-  }
+  //   console.log('商品總優惠', Promotionsum)
+  //   return Promotionsum
+  // }
 
   const totalPrice = () => {
     let Pricesum = 0
     let Priceinfo = [...data]
 
     Priceinfo.map((v, i) => {
-      Pricesum +=
-        v.Order_Amount * v.price - v.Promotion_Number
+      Pricesum += v.Order_Amount * v.price
     })
+    Pricesum -= Promotion
 
     console.log('商品總價', Pricesum)
     return Pricesum
@@ -166,15 +192,18 @@ function Cart_PreOrder() {
           setODPos={setODPos}
           setPos={setPos}
           setDeleteODPos={setDeleteODPos}
+          addProduct={addProduct}
+          setaddProduct={setaddProduct}
         />
         <OrderInfo
           productPrice={productPrice}
           totalPrice={totalPrice}
-          totalPromotion={totalPromotion}
+          // totalPromotion={totalPromotion}
+          Promotion={Promotion}
+          setPromotion={setPromotion}
         />
       </div>
     </>
   )
 }
-
 export default Cart_PreOrder

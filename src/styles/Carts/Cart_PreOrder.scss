@@ -36,6 +36,7 @@
 .ordercheck {
   .orderlist {
     .table {
+      table-layout: fixed;
       th {
         font-size: var(--Order-list-title-size);
         font-family: var(--Font-Family);
@@ -46,11 +47,11 @@
         font-size: var(--Order-list-content-size);
         vertical-align: middle;
         font-family: var(--Font-Family);
-
         img {
           width: 100px;
         }
       }
+   
 
       .countIcon {
         font-size: var(--Order-list-title-size);
