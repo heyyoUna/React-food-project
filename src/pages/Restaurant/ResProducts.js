@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Link, Switch, useHistory } from 'react-
 import React, { useEffect, useState } from 'react'
 import { imgUrl } from '../../config'
 import TitleBorder from '../../components/TitleBorder'
-import ResProductCard from '../../components/Restaurant/ResProductCard'
 import ResPopular from '../../components/Restaurant/ResPopular'
 import { FiPhone } from 'react-icons/fi'
 import { RiMapPinLine } from 'react-icons/ri'
@@ -48,17 +47,19 @@ function ResPrdoucts(props) {
 
   return (
     <>
-      <div className="container">
-        <div className="ma-80">
+      <div className="container p-0 ">
+        <div className="ma-80 pt-5">
           <TitleBorder name={restaurant.res_name} />
         </div>
+    
+
         <div className="row  justify-content-center">
 
           <div className="col-md-5 col-sm-6 p-0">
             <img
               className="resImg"
               // src={`${imgUrl}/images/res.png`}
-               src={'http://localhost:3002/img/restaurant/'+restaurant.res_img}
+               src={'http://localhost:3002/img/restaurant/'+restaurant.res_introduce_img}
          
               alt=""
               style={{
@@ -126,6 +127,9 @@ function ResPrdoucts(props) {
               <div className="col-md-3 col-12 m-4">
                 <div class="res-menu">
                   <div className="res-pic-wrapper">
+                  <div className="res-product-card-overlay d-flex justify-content-center ">  
+                  <div className="res-orderBtn">前往訂餐</div>
+                  </div> 
                     <img
                       className="res-product-Img"
                       // src={`${imgUrl}/images/food.jpg`}
@@ -146,169 +150,18 @@ function ResPrdoucts(props) {
                       <h3>NT$ {v.res_product_price}</h3>
                     </div>
                     <div className="res-product-kcal d-flex justify-content-between">
-                      <p>蛋白質:{v.protein}</p>
-                      <p>碳水:{v.adipose}</p>
-                      <p>脂防:{v.carbohydrate}</p>
+                      <p>蛋白質:{v.protein}g</p>
+                      <p>碳水:{v.adipose}g</p>
+                      <p>脂防:{v.carbohydrate}g</p>
                     </div>
-                    <p className="text-right">熱量:{v.carbohydrate}</p>
+                    <p className="text-right">熱量:{v.calories}kcal</p>
                   </div>
                 </div>
               </div>
             )
           })}
 
-          {/* <div className="col-md-3 col-12 m-4">
-            <div class="res-menu">
-              <div className="res-pic-wrapper">
-                <img
-                  className="res-product-Img"
-                  src={`http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '165px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-product-body fw-700 ">
-                <div className="res-product-title d-flex justify-content-between">
-                  <h3>椒鹽松阪豬</h3>
-                  <h3>NT$ 270</h3>
-                </div>
-                <div className="res-product-kcal d-flex justify-content-between">
-                  <p>蛋白質:34g</p>
-                  <p>碳水:80g</p>
-                  <p>脂防:5.8g</p>
-                </div>
-                <p className="text-right">熱量:513kcal</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-menu">
-              <div className="res-pic-wrapper">
-                <img
-                  className="res-product-Img"
-                  src={`http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '165px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-product-body fw-700 ">
-                <div className="res-product-title d-flex justify-content-between">
-                  <h3>椒鹽松阪豬</h3>
-                  <h3>NT$ 270</h3>
-                </div>
-                <div className="res-product-kcal d-flex justify-content-between">
-                  <p>蛋白質:34g</p>
-                  <p>碳水:80g</p>
-                  <p>脂防:5.8g</p>
-                </div>
-                <p className="text-right">熱量:513kcal</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-100"></div>
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-menu">
-              <div className="res-pic-wrapper">
-                <img
-                  className="res-product-Img"
-                  src={`http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '165px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-product-body fw-700 ">
-                <div className="res-product-title d-flex justify-content-between">
-                  <h3>椒鹽松阪豬</h3>
-                  <h3>NT$ 270</h3>
-                </div>
-                <div className="res-product-kcal d-flex justify-content-between">
-                  <p>蛋白質:34g</p>
-                  <p>碳水:80g</p>
-                  <p>脂防:5.8g</p>
-                </div>
-                <p className="text-right">熱量:513kcal</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-menu">
-              <div className="res-pic-wrapper">
-                <img
-                  className="res-product-Img"
-                  src={`http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '165px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-product-body fw-700  ">
-                <div className="res-product-title d-flex justify-content-between">
-                  <h3>椒鹽松阪豬</h3>
-                  <h3>NT$ 270</h3>
-                </div>
-                <div className="res-product-kcal d-flex justify-content-between">
-                  <p>蛋白質:34g</p>
-                  <p>碳水:80g</p>
-                  <p>脂防:5.8g</p>
-                </div>
-                <p className="text-right">熱量:513kcal</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-menu">
-              <div className="res-pic-wrapper">
-                <img
-                  className="res-product-Img"
-                  src={`http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '165px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-product-body fw-700 ">
-                <div className="res-product-title d-flex justify-content-between">
-                  <h3>椒鹽松阪豬</h3>
-                  <h3>NT$ 270</h3>
-                </div>
-                <div className="res-product-kcal d-flex justify-content-between">
-                  <p>蛋白質:34g</p>
-                  <p>碳水:80g</p>
-                  <p>脂防:5.8g</p>
-                </div>
-                <p className="text-right">熱量:513kcal</p>
-              </div>
-            </div>
-          </div> */}
+         
         </div>
       </div>
     </>
