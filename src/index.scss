@@ -2,14 +2,13 @@
 @import './styles/custom.scss';
 @import './styles/article/Article.scss';
 
-
 //餐廳區
 @import './styles/Restaurant/resbutton';
 @import './styles/Restaurant/resbanner';
-@import'./styles/Restaurant/reslist';
-@import'./styles/Restaurant/resproduct';
-@import'./styles/Restaurant/map';
-@import'./styles/Restaurant/resmapsearch';
+@import './styles/Restaurant/reslist';
+@import './styles/Restaurant/resproduct';
+@import './styles/Restaurant/map';
+@import './styles/Restaurant/resmapsearch';
 @import './styles/custom';
 
 //signup
@@ -36,3 +35,12 @@
 @import './styles/Game/GameDelivery';
 //字體
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Yeseva+One&display=swap');
+
+// 購物車
+@import './styles/Carts/Cart_global.scss';
+@import './styles/Carts/Cart_PreOrder.scss';
+// @import './style/Carts/Cart_Manage.scss';
+// @import './style/Carts/Banner.scss';
+// @import './style/Carts/ProcessChart.scss';
+// @import './style/Carts/Cart_ConfirmOrder.scss';
+// @import './style/Carts/Cart_Complete.scss';

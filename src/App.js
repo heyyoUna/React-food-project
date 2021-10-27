@@ -37,6 +37,12 @@ import GameChoose from './pages/Game/GameChoose'
 import GameRecipe from './pages/Game/GameRecipe'
 import GameDelivery from './pages/Game/GameDelivery'
 
+// 購物車
+import Cart_PreOrder from './pages/Carts/Cart_PreOrder'
+import Cart_Manage from './pages/Carts/Cart_Manage'
+import Cart_ConfimOrder from './pages/Carts/Cart_ConfimOrder'
+import Cart_Complete from './pages/Carts/Cart_Complete'
+
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
 import MyFooter from './components/MyFooter'
@@ -97,18 +103,21 @@ function App() {
               <Route path="/article/recipe">
                 <ArtRecipe auth={auth} />
               </Route>
-            {/* 餐廳 */}
-            <Route path="/restaurants">
-              <Restaurants />
-            </Route>
-            <Route path="/resmap">
-              <ResMap />
-            </Route>
-            <Route path="/resprdoucts/:id" component={ResProducts}  />
-            <Route exact path="/">
-              <Home />
-            </Route>
-       
+              {/* 餐廳 */}
+              <Route path="/restaurants">
+                <Restaurants />
+              </Route>
+              <Route path="/resmap">
+                <ResMap />
+              </Route>
+              <Route
+                path="/resprdoucts/:id"
+                component={ResProducts}
+              />
+              <Route exact path="/">
+                <Home />
+              </Route>
+
               <Route path="/article/food">
                 <ArtFood auth={auth} />
               </Route>
@@ -147,6 +156,20 @@ function App() {
               </Route>
               <Route path="/game/GameDelivery">
                 <GameDelivery />
+              </Route>
+
+              {/* 購物車 */}
+              <Route exact path="/carts/PreOrder">
+                <Cart_PreOrder />
+              </Route>
+              <Route exact path="/carts/Manage">
+                <Cart_Manage />
+              </Route>
+              <Route exact path="/carts/ConfirmOrder">
+                <Cart_ConfimOrder />
+              </Route>
+              <Route exact path="/carts/Complete">
+                <Cart_Complete />
               </Route>
               <Route path="*">
                 <NotFoundPage />
