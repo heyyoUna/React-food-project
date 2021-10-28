@@ -155,7 +155,7 @@ function MyNavbar(props) {
               </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Nav.Link as={NavLink} to="/search">
+            <Nav.Link as={NavLink} to="/carts/PreOrder">
               <i class="fas fa-shopping-cart"></i>
             </Nav.Link>
           </Nav>

@@ -15,7 +15,7 @@ function StoreCard(props) {
   async function AddProduct(addProductPos) {
     console.log('我在這喔', addProductPos)
     let Add = await axios.post(
-      `http://localhost:3001/cart/`,
+      `http://localhost:3002/cart/`,
       {
         Order_Amount: 1,
         Product_id: 'PM001',

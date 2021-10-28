@@ -25,9 +25,9 @@ function Cart_ConfimOrder(props) {
   }, [])
 
   async function DataAxios() {
-    let r = await axios.get('http://localhost:3001/cart/')
+    let r = await axios.get('http://localhost:3002/cart/')
     let rD = await axios.get(
-      `http://localhost:3001/cart/addList/${member}`
+      `http://localhost:3002/cart/addList/${member}`
     )
     if (r.status === 200 && rD.status === 200) {
       setData(r.data)
@@ -43,7 +43,7 @@ function Cart_ConfimOrder(props) {
     console.log('這是暫存資料', a)
     console.log('完成訂單')
     let r = await axios.post(
-      'http://localhost:3001/cart/ConfirmList',
+      'http://localhost:3002/cart/ConfirmList',
       {
         Order_Sid: '',
         Member_id: 'st880517',
