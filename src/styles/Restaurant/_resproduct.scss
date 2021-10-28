@@ -58,9 +58,38 @@
         font-size: 20px;
         color: $dark-green;
         padding-top: 15px;
+      }  }
+      .res-pic-wrapper{
+        position: relative;
+        overflow: hidden;
+      
       }
-    }
+
+      .res-product-card-overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        transform: translateY(100%);
+        transition: transform .7s;
+        background-color: transparent;
+        height: 360px;
+        .res-orderBtn{
+      border: 1px solid $dark-green;
+      color:$dark-green;
+      font-weight: 700;
+      text-align: center;
+      width: 150px;
+  height:45px;
+  line-height: 45px;
+      border-radius: 50px;
   
+    }
+
+    }
+ 
+
     @include mobile {
       margin: 5px 35px;
   
@@ -72,4 +101,13 @@
       }
     }
   }
+
+
+  .res-menu:hover .res-product-card-overlay{
+    transform: translateY(0%);
+    background-color: rgba(245, 245, 245, 0.548);
+    cursor: pointer;
+   
+}
+
   

@@ -21,11 +21,9 @@
 
 //下拉選單
 .form-select.btn-group,
-input,
-button,
-select,
-optgroup,
-textarea {
+.map-select,
+.map-seacrh
+{
   @include sortBtn($light-green, 5px 32px,20px);
 }
 

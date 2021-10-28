@@ -26,20 +26,13 @@ body {
   font-family: 'Noto Sans TC', sans-serif,'Poppins','Yeseva One';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
-.light-green {
-  color: $light-green;
+a{
+  text-decoration: none;
 }
-.dark-green {
-  color: $dark-green;
-}
-.light-yellow {
-  color: $light-yellow;
-}
-.light-orange {
-  color: $light-orange;
-}
+
 //banner 標題
 .bannerTitle {
   font-size: 60px;

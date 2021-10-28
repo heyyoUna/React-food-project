@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
@@ -13,9 +13,10 @@ import { RiMapPinLine } from 'react-icons/ri'
 import { MdOutlineAttachMoney } from 'react-icons/md'
 import { FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
-import SortBtn from '../../components/Restaurant/SortBtn'
+import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
 import { Link } from 'react-router-dom'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
+import MapSortButton from '../../components/Restaurant/MapSortButton'
 
 
 function ResMap() {
@@ -27,89 +28,172 @@ function ResMap() {
   })
 
   const [location, setLocation] = useState();
+  const [filterData, setFilterData] = useState([]);
+  const [filter, setFilter] = useState({
+    price: '',
+    rate: '',
+    distance: '',
+  });
+
+
 
 
   const history = useHistory();
 
   console.log(history.location.state.mapData);
   console.log(history.location.state);
- 
+
+  const onFilterChange = (e) => {
+    setFilter({
+      ...filter,
+      // 物件中給變數要用[]包起來
+      [e.target.name]: e.target.value //下拉選單的值
+    })
+  }
+
+
+  const goList = () => {
+    history.push({
+      pathname: '/restaurants',
+
+    });
+  }
+
+  useEffect(() => {
+    setFilterData(history.location.state.mapData)
+  }, [])
+
+  useEffect(()=>{
+    
+  if (filter.price || filter.rate || filter.distance) {
+    // 避免指到同一個記憶體位置，引響原始資料，故淺拷貝一份apiData
+    let processFilterData = [...history.location.state.mapData];
+    // 當選取價錢區間
+    if (filter.price) {
+      // 切割~，取得價錢範圍
+      const rangeArr = filter.price.split('~');
+      // 用原始資料做filter
+      processFilterData = processFilterData.filter(item => {
+        return item.res_aveprice >= rangeArr[0] && item.res_aveprice <= rangeArr[1];
+      })
+    }
+    // TODO: 評分排序
+    if (filter.rate) {
+      // rate ===0  就用 原始資料由小到大排序
+      // rate ===1  就用 原始資料由大到小排序
+      processFilterData = processFilterData.sort((a, b) => { return filter.rate === '1' ? a.res_rate - b.res_rate : b.res_rate - a.res_rate }); //原本是a+b?
+      console.log(processFilterData);
+    }
+    setFilterData(processFilterData);
+  }
+  },[filter])
   return (
 
     <div>
 
       <div className="map-searchbar">
 
-     
-    
-  <div className="container   justify-content-center py-4 ">
-        <div className="row  "> 
-       <div className="col-4 ">  
-        <ResMapsearch/>
-        </div>
-        <div className="col-md-2 col-6 ">
-               <button type="button" class="btn orange-btn" >
-            <RiMapPinLine
-              style={{
-                color: '#FB6107',
-                fontSize: '24px',
-                marginBottom: '4px',
-              }}
-            />{' '}
-           <Link to={"/restaurants/"}  >列表模式</Link>
-          </button>
-          </div>
-        {
-            history.location && history.location.state && history.location.state.options &&
-            history.location.state.options.map((el, index) => {
-              return (
-                <>
-                 <div className="col-md-2  col-6 ">
-        
-            <select
-              style={{
-                // backgroundImage: `url(${`${imgUrl}/images/arrow-icon.png`}) `,
-                backgroundImage: `url('http://localhost:3000/images/Restaurant/arrow-icon.png')`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '90% center',
-              }}
 
-            >
-              {/* <option value=""{el.name}>{el.name}</option> */}
-              <option value="{el.value1}">{el.name1}</option>
-              <option value="{el.value2}">{el.name2}</option>
-              <option value="{el.value3}">{el.name3}</option>
-              <option value="{el.value4}">{el.name4}</option>
-              <option value="{el.value4}">{el.name5}</option>
-            </select>
-          </div>
-         
-                </>
-              )
-            })
-          }
 
- </div>
+        <div className="container   justify-content-center py-4 ">
+          <div className="row  ">
+            <div className="col-md-3">
+              {/* <ResMapsearch /> */}
+            </div>
+            {/* <div className="col-md-2 col-6 ">
+               <button type="button" class=" orange-btn" >
+                <RiMapPinLine
+                  style={{
+                    color: '#FB6107',
+                    fontSize: '24px',
+                    marginBottom: '4px',
+                  }}
+                />{' '}
+                <Link to={"/restaurants/"}  >列表模式</Link>
+              </button>           
+              </div> */}
+            <MapButtonGroup name="列表模式" linkFunction={goList}>
+              <div className="col-md-3  col-6 ">
+
+                <MapSortButton
+                  name='price'
+                  options={[
+                    { name: "平均價格", value: "" },
+                    { name: "100~200", value: "100~200" },
+                    { name: "200~300", value: "200~300" },
+                    { name: "300~400", value: "300~400" }
+                  ]}
+                  onChange={onFilterChange}
+                />
+              </div>
+
+              <div className="col-md-3  col-6 ">
+                <MapSortButton
+                  name='rate'
+                  options={[
+                    { name: "評分排序", value: "" },
+                    { name: "由高到低", value: "0" },
+                    { name: "由低到高", value: "1", },
+                  ]
+                  }
+                  onChange={onFilterChange}
+                />
+
+              </div>
+              <div className="col-md-3  col-6 ">
+                <MapSortButton
+                  name='distance'
+                  options={[
+                    { name: "最佳距離", value: "" },
+                    { name: "3公里", value: "1" },
+                    { name: "2公里", value: "2" },
+                    { name: "1公里", value: "3" },
+                    { name: "500公尺", value: "4" }
+                  ]}
+                  onChange={onFilterChange}
+                />
+              </div>
+
+            </MapButtonGroup>
+
+
+
+            {/* {
+              history.location && history.location.state && history.location.state.options &&
+              history.location.state.options.map((el, index) => {
+                return (
+                  <>
+
+                  </>
+                )
+              })
+            } */}
+
+          </div>
         </div>
       </div>
 
       <div className=" map-wrapper ">
-     
+
         <div className=" col-md-4  col-12 map-list ">
           {
-            history.location && history.location.state && history.location.state.mapData &&
-            history.location.state.mapData.map((item, index) => {
+         filterData.map((item, index) => {
               return (
                 <>
 
                   <div className="map-res-introduce d-flex">
                     <div class="col-md-4 col-4  p-0 ">
-                      <img className="mapImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" />
+
+                      <img className="mapImg" src={'http://localhost:3002/img/restaurant/' + item.res_img} alt="" />
 
                     </div>
                     <div className="col-md-8 map-res-info">
                       <div className="map-res-title d-flex justify-content-between">
-                        <h4>{item.res_name} </h4>
+                        <Link to={"/resprdoucts/" + item.res_id}
+                        >
+                          <h4>{item.res_name} </h4>
+                        </Link>
+
                         <span>{item.res_rate} <BsStarFill
                           style={{
                             fontSize: '22px',
@@ -183,10 +267,10 @@ function ResMap() {
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
+  {/* history.location && history.location.state && history.location.state.mapData &&
+              history.location.state.mapData */}
             {
-              history.location && history.location.state && history.location.state.mapData &&
-              history.location.state.mapData.map((item, index) => {
+            filterData.map((item, index) => {
                 return (
                   <>
 
@@ -195,7 +279,7 @@ function ResMap() {
 
                         <div className="map-card  d-flex align-items-center justify-content-between">
                           <div class="col-md-5 p-0">
-                            <img className="mapImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" />
+                            <img className="mapImg" src={'http://localhost:3002/img/restaurant/' + item.res_img} alt="" />
 
                           </div>
                           <div class="col-md-7 ">
@@ -235,7 +319,7 @@ function ResMap() {
           </MapContainer>
         </div>
       </div>
-      </div>
+    </div>
 
   )
 }

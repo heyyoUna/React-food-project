@@ -1,0 +1,76 @@
+// 手機板(375px)
+
+@mixin mobile {
+  @media (max-width: 380px) {
+    @content;
+  }
+}
+
+/* 訂單確認內容 */
+
+/* 確認訂購人與資料 */
+
+.confirmorderdetail {
+  .importinfo {
+    .importinfotitle {
+      h2 {
+        font-family: var(--Font-Family);
+        font-size: var(--Order-list-title-size);
+        font-weight: var(--Second-Font-Weight);
+        color: var(--Third-color);
+      }
+      h6 {
+        font-family: var(--Font-Family);
+        font-size: var(--Order-list-contnet-size);
+        font-weight: var(--Second-Font-Weight);
+        color: var(--Third-color);
+      }
+    }
+    // p {
+    //   font-family: var(--Font-English-Family);
+    //   margin-bottom: 0px;
+    //   font-weight: var(--Second-Font-Weight);
+    //   margin: auto 0;
+    // }
+  }
+  .favisa {
+    font-size: 40px;
+    color: var(--Third-color);
+    margin: auto 0;
+  }
+
+  h1 {
+    font-family: var(--Font-Family);
+    color: var(--Second-color);
+    font-weight: var(--Second-Font-Weight);
+    margin: 80px auto;
+  }
+
+  .table {
+    .title {
+      font-family: var(--Font-Family);
+      font-weight: var(--Second-Font-Weight);
+      color: var(--Third-color);
+    }
+    td {
+      font-family: var(--Font-English-Family);
+      font-size: var(--Order-list-title-size);
+      color: var(--Third-color);
+    }
+  }
+  @include mobile() {
+    .favisa {
+      width: 30px;
+      margin: 0 2px;
+    }
+
+    .table {
+      td {
+        font-size: var(--Font-orderconfirmdetail-size-mobile);
+      }
+    }
+    h1 {
+      font-size: var(--Font-banner-size-mobile);
+    }
+  }
+}

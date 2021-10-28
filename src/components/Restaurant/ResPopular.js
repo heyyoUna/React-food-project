@@ -18,7 +18,7 @@ function ResPopular (props) {
                   alt=""
                   style={{
                     width: '100%',
-                    height: '160px',
+                    height: '175px',
                     borderRadius: '15px 15px 0 0',
                     objectFit: 'cover',
                   }}
@@ -56,7 +56,7 @@ function ResPopular (props) {
                   alt=""
                   style={{
                     width: '100%',
-                    height: '160px',
+                    height: '175px',
                     borderRadius: '15px 15px 0 0',
                     objectFit: 'cover',
                   }}
@@ -94,7 +94,7 @@ function ResPopular (props) {
                   alt=""
                   style={{
                     width: '100%',
-                    height: '160px',
+                    height: '175px',
                     borderRadius: '15px 15px 0 0',
                     objectFit: 'cover',
                   }}
