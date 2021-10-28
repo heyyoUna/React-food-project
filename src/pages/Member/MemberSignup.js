@@ -2,6 +2,7 @@ import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function MemberSignup(props) {
+
    const handleSubmit = (e) => {
     //阻擋form的預設送出行為
     e.preventDefault()
@@ -57,9 +58,6 @@ function MemberSignup(props) {
           <button type="submit" className="btn karin-btn-signuppage-signup">SIGN UP</button>
           <Link to="/login"
           button type="submit" className="btn karin-btn-signuppage-login">LOG IN</Link>
-          <div className="forgot-password">
-            <a href="" id="karin-forgot-password">Forgot Password?</a>
-          </div>
         </div>
       </div>
       </form>

@@ -1,22 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import { withRouter, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function MemberProfile(props) {
-  // const { auth } = props
+   const { member } = props
+   const [profile, setProfile] = useState({
+     sid: 0
+   })
  
-  // if (!auth) return <Redirect to="/login" />
+  useEffect(()=>{
+    if( member.id ){
+      // TODO: 欄位檢查
+      fetch(`http://localhost:3002/memberprofile/${member.id}`, {
+        method: 'GET',
+      }).then(r => r.json()).then(obj => {
+        console.log(JSON.stringify(obj, null, 4));
+        if (obj.length) {
+          setProfile(obj[0])
+        } else {
+          alert(obj.error || '資料修改失敗');
+        }
+      });
 
-  //   if (!auth)
-  //     return (
-  //       <Redirect>
-  //         你沒登入，請連到<Link to="/login">登入頁面</Link>
-  //       </Redirect>
-  //     )
+    }else{
+      return (
+        <Redirect>
+          尚未登入，請連到<Link to="/login">登入頁面</Link>
+        </Redirect>
+      )
+    }
+  })
+
+  const handleSubmit = (e) => {
+    //阻擋form的預設送出行為
+    e.preventDefault()
+  // TODO: 欄位檢查
+    const fd = new FormData(document.memberForm);
+    fetch('http://localhost:3002/memberprofile', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams(fd).toString(),
+  }).then(r => r.json()).then(obj => {
+    console.log(JSON.stringify(obj, null, 4));
+    if (obj.success) {
+      alert('資料修改成功');
+      <Link to='/memberprofile' ></Link>;
+    } else {
+      alert(obj.error || '資料修改失敗');
+    }
+  });
+}
 
   return (
     <>
+      <form name="memberForm" onSubmit={handleSubmit}>
       <div className="karin-profile-container">
         <div className="row karin-profile-title">
           <h1 id="karin-profile-h1">個人檔案</h1>
@@ -95,6 +136,7 @@ function MemberProfile(props) {
                     className="karin-profile-form-control"
                     id="membername"
                     name="name"
+                    value={profile.name}
                     />
                 </div>
               </div>
@@ -106,6 +148,7 @@ function MemberProfile(props) {
                     className="karin-profile-form-control"
                     id="memberemail"
                     name="email"
+                    value={profile.email}
                     />
                 </div>
               </div>
@@ -117,6 +160,7 @@ function MemberProfile(props) {
                     className="karin-profile-form-control"
                     id="membermobile"
                     name="mobile"
+                    value={profile.mobile}
                     />
                 </div>
               </div>
@@ -171,6 +215,7 @@ function MemberProfile(props) {
           <div className="karin-profile-right col-2"></div>
         </div>
       </div>
+      </form>
     </>
   )
 }

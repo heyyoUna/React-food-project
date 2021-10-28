@@ -53,6 +53,9 @@ import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
   const [auth, setAuth] = useState(false)
+  const [member, setMember] = useState({
+    id: 0
+  })
 
   return (
     <Router>
@@ -83,11 +86,12 @@ function App() {
 
               <Route path="/signup">
                 {/* 利用props傳入頁面元件狀態 */}
-                <Signup auth={auth} setAuth={setAuth} />
+                <Signup auth={auth} setAuth={setAuth} 
+                />
               </Route>
               <Route path="/login">
                 {/* 利用props傳入頁面元件狀態 */}
-                <Login auth={auth} setAuth={setAuth} />
+                <Login auth={auth} setAuth={setAuth}   setMember={setMember} />
               </Route>
 
               <Route path="/about">
@@ -131,7 +135,7 @@ function App() {
                 <ProductCategory />
               </Route>
               <Route path="/member/profile">
-                <MemberProfile auth={auth} />
+                <MemberProfile auth={auth} member={member} />
               </Route>
               <Route path="/member/order">
                 <MemberOrder />

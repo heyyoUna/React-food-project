@@ -1,11 +1,15 @@
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 function MemberLogin(props) {
+  const { setMember } = props
+  let history = useHistory();
+
   const handleSubmit = (e) => {
     //阻擋form的預設送出行為
     e.preventDefault()
-
+    
     // 用fetch api/axios送到伺服器
     // // TODO: 欄位檢查
     const fd = new FormData(document.memberForm);
@@ -20,7 +24,8 @@ function MemberLogin(props) {
       console.log(JSON.stringify(obj, null, 4));
       if (obj.success) {
         alert('登入成功');
-        <Link to='/login' ></Link>;
+        setMember({id: obj.id});
+        history.push('/member/profile')
       } else {
         alert('登入失敗\n' + (obj.error || ''));
       }
