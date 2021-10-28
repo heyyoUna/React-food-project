@@ -88,68 +88,76 @@ function MemberProfile(props) {
                 <img src="" alt=""/>
               </div>
               <div className="karin-form-group row">
-                <label for="inputEmail3" className="col-sm-3 col-form-label">姓名</label>
+                <label for="name" className="col-sm-3 col-form-label">姓名</label>
                 <div className="col-sm-9">
                   <input
-                    type="email"
+                    type="text"
                     className="karin-profile-form-control"
-                    id="inputEmail3"/>
+                    id="membername"
+                    name="name"
+                    />
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="inputEmail3" className="col-sm-3 col-form-label">Email</label>
+                <label for="email" className="col-sm-3 col-form-label">Email</label>
                 <div className="col-sm-9">
                   <input
                     type="email"
                     className="karin-profile-form-control"
-                    id="inputEmail3"/>
+                    id="memberemail"
+                    name="email"
+                    />
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="inputEmail3" className="col-sm-3 col-form-label">手機</label>
+                <label for="mobile" className="col-sm-3 col-form-label">手機</label>
                 <div className="col-sm-9">
                   <input
-                    type="email"
+                    type="text"
                     className="karin-profile-form-control"
-                    id="inputEmail3"/>
+                    id="membermobile"
+                    name="mobile"
+                    />
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="inputEmail3" className="col-sm-3 col-form-label">地址</label>
+                <label for="address" className="col-sm-3 col-form-label">地址</label>
                 <div className="col-sm-9">
                   <input
-                    type="email"
+                    type="text"
                     className="karin-profile-form-control"
-                    id="inputEmail3"/>
+                    id="memberaddress"
+                    name="address"
+                    />
                 </div>
               </div>
 
               {/* 更換密碼 */}
             <div className="karin-form-group row">
-                <label for="inputPassword3" className="col-sm-3 col-form-label">舊密碼</label>
+                <label for="password" className="col-sm-3 col-form-label">舊密碼</label>
                 <div className="col-sm-9">
                   <input
                     type="password"
                     className="karin-profile-form-control"
-                    id="inputPassword3"/>
+                    id="oldpassword"/>
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="inputPassword3" className="col-sm-3 col-form-label">新密碼</label>
+                <label for="password" className="col-sm-3 col-form-label">新密碼</label>
                 <div className="col-sm-9">
                   <input
                     type="password"
                     className="karin-profile-form-control"
-                    id="inputPassword3"/>
+                    id="newpassword"/>
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="inputPassword3" className="col-sm-3 col-form-label">確認新密碼</label>
+                <label for="password" className="col-sm-3 col-form-label">確認新密碼</label>
                 <div className="col-sm-9">
                   <input
                     type="password"
                     className="karin-profile-form-control"
-                    id="inputPassword3"/>
+                    id="checknewpassword"/>
                 </div>
               </div>
                {/* 更換密碼  */}

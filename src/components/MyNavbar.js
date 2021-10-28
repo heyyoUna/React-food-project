@@ -122,8 +122,7 @@ function MyNavbar(props) {
                   to="/member/order">
                   歷史訂單
               </NavDropdown.Item>
-                {/* <NavDropdown.Divider /> */}
-                <NavDropdown.Item
+              <NavDropdown.Item
                   as={NavLink}
                   to="/member/review">
                   我的評價
@@ -147,6 +146,12 @@ function MyNavbar(props) {
                   as={NavLink}
                   to="/member/FavoriteRestaurant">
                   餐廳收藏清單
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/logout">
+                  登出
               </NavDropdown.Item>
               </NavDropdown>
             </Nav>

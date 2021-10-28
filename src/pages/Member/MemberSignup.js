@@ -2,33 +2,11 @@ import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function MemberSignup(props) {
-  // console.log(props)
-  // const email = document.querySelector('#email');
-
-  // const keyHandler = event => {
-  //   // console.log(event.type, event.key);
-  //   // TODO: 檢查格式是否符合 email 格式
-
-  //   const usp = new URLSearchParams();
-  //   usp.set('email', email.value.toLowerCase().trim());
-  //   //email沒給值就會跳錯
-
-  //   fetch('/account-check?' + usp).then(r => r.json()).then(data => {
-  //     if (data.used) {
-  //       // email 已被使用
-  //       email.style.border = '2px solid red';
-  //     } else {
-  //       email.style.border = '1px solid #CCCCCC';
-  //     }
-  //   });
-  // }
-  // email.addEventListener('input', keyHandler);
-
    const handleSubmit = (e) => {
-    //這行一定要寫 為了阻擋form的預設送出行為
+    //阻擋form的預設送出行為
     e.preventDefault()
 
-    // ex. 以下用fetch api/axios送到伺服器
+    // 用fetch api/axios送到伺服器
      // // TODO: 欄位檢查
      const fd = new FormData(document.memberForm);
      console.log(new URLSearchParams(fd).toString())
@@ -84,13 +62,6 @@ function MemberSignup(props) {
           </div>
         </div>
       </div>
-      {/* <button
-        onClick={() => {
-          setAuth(!auth)
-        }}
-      >
-        {auth ? '登出' : '登入'}
-      </button> */}
       </form>
     </>
   )
