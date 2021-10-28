@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Cart_OrderDetail from '../../components/Carts/Manage/Cart_OrderDetail'
 import TitleBorder from '../../components/TitleBorder'
 import { FaCcVisa } from 'react-icons/fa'
@@ -11,8 +11,53 @@ import {
 import '../../styles/Carts/Cart_ConfirmOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
+import { withRouter } from 'react-router-dom'
+import axios from 'axios'
 
 function Cart_ConfimOrder(props) {
+  let [data, setData] = useState([{}])
+  let [DataDetail, setDataDetail] = useState({})
+  let member = 'st880517'
+
+  useEffect(() => {
+    console.log('這邊是初始化')
+    DataAxios()
+  }, [])
+
+  async function DataAxios() {
+    let r = await axios.get('http://localhost:3002/cart/')
+    let rD = await axios.get(
+      `http://localhost:3002/cart/addList/${member}`
+    )
+    if (r.status === 200 && rD.status === 200) {
+      setData(r.data)
+      console.log('rD', rD)
+      setDataDetail(rD.data.data)
+      // console.log(rD.data)
+    }
+  }
+
+  async function ConfirmOrder() {
+    let a = []
+    a = JSON.parse(localStorage.getItem('測試'))
+    console.log('這是暫存資料', a)
+    console.log('完成訂單')
+    let r = await axios.post(
+      'http://localhost:3002/cart/ConfirmList',
+      {
+        Order_Sid: '',
+        Member_id: 'st880517',
+        Total_Price: a[0],
+        Order_Status: '訂單成立',
+      }
+    )
+    if (r.status === 200) {
+      console.log('已完成訂單，請到 DB 查看')
+      localStorage.setItem('訂單編號', DataDetail.Sid)
+      props.history.push('/carts/Complete')
+    }
+  }
+
   return (
     <>
       <div className="container-fluid Banner col-xs-10">
@@ -43,17 +88,25 @@ function Cart_ConfimOrder(props) {
         </div>
       </div>
 
-      <TitleBorder name="確認訂單資訊" />
+      <div class="titleBorder col-lg-6 col-10">
+        <h4 class="res-title title-fz fw-700">
+          確認訂單資訊
+        </h4>
+      </div>
 
-      <Cart_OrderDetail />
+      <Cart_OrderDetail data={data} setData={setData} />
 
-      <TitleBorder name="付款與運送方式" />
+      <div class="titleBorder col-lg-6 col-10">
+        <h4 class="res-title title-fz fw-700">
+          付款與運送方式
+        </h4>
+      </div>
 
       <div className="container confirmorderdetail mx-auto col-lg-6 col-10">
         <div className="container importinfo d-flex justify-content-between">
           <div className="importinfotitle col-lg-9 col-6">
             <h2>以下列方式支付金額</h2>
-            <h6>信用卡/現金卡</h6>
+            <h6>{DataDetail.Payment_Type}</h6>
           </div>
           <FaCcVisa className="favisa" />
         </div>
@@ -70,7 +123,7 @@ function Cart_ConfimOrder(props) {
                 訂單編號
               </td>
               <td className="text-start col-lg-6">
-                AA202109190038
+                {DataDetail.Sid}
               </td>
             </tr>
             <tr>
@@ -78,27 +131,31 @@ function Cart_ConfimOrder(props) {
                 訂單時間
               </td>
               <td className="text-start col-6">
-                UTC+8 2021-09-19 00:38:40
+                UTC+8 {DataDetail.Created_At}
               </td>
             </tr>
             <tr>
               <td className="title text-end col-lg-5">
                 配送方式
               </td>
-              <td className="text-start col-6">宅配運送</td>
+              <td className="text-start col-6">
+                {DataDetail.Payment_Type}
+              </td>
             </tr>
             <tr>
               <td className="title text-end col-lg-5">
                 收件人方式
               </td>
-              <td className="text-start col-6">Nicolas</td>
+              <td className="text-start col-6">
+                {DataDetail.Order_Name}
+              </td>
             </tr>
             <tr>
               <td className="title text-end col-5">
                 手機號碼
               </td>
               <td className="text-start col-6">
-                0912-345-678
+                {DataDetail.Order_Phone}
               </td>
             </tr>
             <tr>
@@ -106,7 +163,7 @@ function Cart_ConfimOrder(props) {
                 電子信箱
               </td>
               <td className="text-start col-6">
-                st880517@gmail.com
+                {DataDetail.E_Mail}
               </td>
             </tr>
             <tr>
@@ -114,7 +171,7 @@ function Cart_ConfimOrder(props) {
                 收件地址
               </td>
               <td className="text-start col-6">
-                台北市北投區石牌路 2 段 123 號 1 樓
+                {DataDetail.Order_Address}{' '}
               </td>
             </tr>
             <tr>
@@ -122,12 +179,14 @@ function Cart_ConfimOrder(props) {
                 發票方式
               </td>
               <td className="text-start col-6">
-                手機載具條碼 / QK2TUU2
+                {DataDetail.Invoice_Type}
               </td>
             </tr>
             <tr className="border-bottom">
               <td className="title text-end col-5">備註</td>
-              <td className="text-start col-6"></td>
+              <td className="text-start col-6">
+                {DataDetail.Order_Remark}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -138,10 +197,20 @@ function Cart_ConfimOrder(props) {
       </div>
 
       <div class="container col-lg-7 col-12 confirm my-5 d-lg-flex text-center justify-content-around">
-        <button class="returninfo col-lg-4 col-10">
+        <button
+          class="returninfo col-lg-4 col-10"
+          onClick={() => {
+            props.history.push('/carts/Manage')
+          }}
+        >
           返回
         </button>
-        <button class="confirminfo col-lg-4 col-10">
+        <button
+          class="confirminfo col-lg-4 col-10"
+          onClick={() => {
+            ConfirmOrder()
+          }}
+        >
           送出訂單
         </button>
       </div>
@@ -149,4 +218,4 @@ function Cart_ConfimOrder(props) {
   )
 }
 
-export default Cart_ConfimOrder
+export default withRouter(Cart_ConfimOrder)

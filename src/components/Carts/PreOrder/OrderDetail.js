@@ -23,8 +23,8 @@ function OrderDetail(props) {
     setPos,
     setODPos,
     setDeleteODPos,
-    addProduct,
-    setaddProduct,
+    addProductPos,
+    setaddProductPos,
   } = props
   let NewCount = [...Count]
   // console.log('第二層Data展開', Pos)
@@ -179,8 +179,8 @@ function OrderDetail(props) {
           setLikeicon={setLikeicon}
           unLikeicon={unLikeicon}
           setunLikeicon={setunLikeicon}
-          addProduct={addProduct}
-          setaddProduct={setaddProduct}
+          addProductPos={addProductPos}
+          setaddProductPos={setaddProductPos}
         />
 
         <StoreCardMobile />

@@ -10,7 +10,6 @@ import OrderDetail from '../../components/Carts/PreOrder/OrderDetail'
 import '../../styles/Carts/Cart_PreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
-
 import axios from 'axios'
 
 function Cart_PreOrder() {
@@ -19,38 +18,39 @@ function Cart_PreOrder() {
   let [Pos, setPos] = useState()
   let [ODPos, setODPos] = useState()
   let [DeletePos, setDeleteODPos] = useState()
-  let [addProduct, setaddProduct] = useState([])
+  let [addProductPos, setaddProductPos] = useState()
   let [Promotion, setPromotion] = useState(0)
+  let [judge, setjudge] = useState(false)
 
   useEffect(() => {
     console.log('這邊是初始化')
     DataAxios()
-  }, [])
+  }, [addProductPos])
 
   useEffect(() => {
-    // console.log('有傳到這裡')
     // console.log('目前商品位置', Pos, ODPos)
+
     ModifyProduct(Count, Pos, ODPos)
-  }, [Count])
+  }, [Count[Pos]])
 
   useEffect(() => {
     // console.log('目前刪除位置', DeletePos)
     DeleteProduct(DeletePos)
   }, [DeletePos])
 
-  useEffect(() => {
-    // console.log('目前新增位置', addProduct)
-    AddProduct(addProduct)
-  }, [addProduct])
+  // useEffect(() => {
+  //   console.log('目前新增位置', addProductPos)
+  //   AddProduct(addProductPos)
+  // }, [addProductPos])
 
   async function DataAxios() {
-    let r = await axios.get('http://localhost:3001/cart/')
+    let r = await axios.get('http://localhost:3002/cart/')
     if (r.status === 200) {
       setData(r.data)
       for (let i = 0; i < r.data.length; i++) {
         Count[i] = r.data[i].Order_Amount
       }
-      console.log('DataAxios裡面', Count)
+      // console.log('DataAxios裡面', Count)
       setCount(Count)
       productPrice()
       // totalPromotion()
@@ -59,30 +59,24 @@ function Cart_PreOrder() {
     }
   }
 
-  async function AddProduct(addProduct) {
-    // console.log('我在這喔')
-    let newAddProduct = [...addProduct]
-    console.log(newAddProduct[0])
-    let Add = await axios.post(
-      `http://localhost:3001/cart/`,
-      {
-        Order_Amount: newAddProduct[0],
-        Product_id: newAddProduct[1],
-        Member_id: newAddProduct[2],
-      }
-    )
-    if (Add.status === 200) {
-      setaddProduct([])
-      // console.log('現在的addProduct', addProduct)
-      DataAxios()
-      return Count
-    }
-  }
+  // async function AddProduct(addProduct) {
+  //   console.log('我在這喔')
+  //   let Add = await axios.post(`http://localhost:3001/cart/`, {
+  //     Order_Amount: 1,
+  //     Product_id: 'PM001',
+  //     Member_id: 'st880517',
+  //   })
+  //   if (Add.status === 200) {
+  //     setaddProductPos(0)
+  //     console.log('現在的addProduct', addProductPos)
+  //     // DataAxios()
+  //   }
+  // }
 
   async function ModifyProduct(Count, Pos) {
     // console.log('修改函數', Count, Pos, ODPos, Count[Pos])
     let Mod = await axios.put(
-      `http://localhost:3001/cart/${ODPos}`,
+      `http://localhost:3002/cart/${ODPos}`,
       {
         Order_Amount: Count[Pos],
       }
@@ -96,7 +90,7 @@ function Cart_PreOrder() {
 
   async function DeleteProduct(DeletePos) {
     let del = await axios.delete(
-      `http://localhost:3001/cart/${DeletePos}`
+      `http://localhost:3002/cart/${DeletePos}`
     )
     if (del.status === 200) {
       console.log('已經刪除')
@@ -192,8 +186,8 @@ function Cart_PreOrder() {
           setODPos={setODPos}
           setPos={setPos}
           setDeleteODPos={setDeleteODPos}
-          addProduct={addProduct}
-          setaddProduct={setaddProduct}
+          addProductPos={addProductPos}
+          setaddProductPos={setaddProductPos}
         />
         <OrderInfo
           productPrice={productPrice}
@@ -206,4 +200,5 @@ function Cart_PreOrder() {
     </>
   )
 }
+
 export default Cart_PreOrder

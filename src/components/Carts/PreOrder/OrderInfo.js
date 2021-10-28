@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 function OrderInfo(props) {
   const {
     productPrice,
@@ -7,7 +8,10 @@ function OrderInfo(props) {
     Promotion,
     setPromotion,
   } = props
+  localStorage.clear()
   let textvalue = ''
+  let a = [totalPrice(), Promotion, productPrice()]
+  localStorage.setItem('測試', JSON.stringify(a))
   return (
     <>
       <div className="orderinfolist col-lg-3 mx-lg-3 mt-3">
@@ -60,7 +64,10 @@ function OrderInfo(props) {
         <div className="my-3">
           <button
             className="orderconfirm col-12 my-3"
-            onclick="location.href='./Cart_Manage.html'"
+            onClick={(e) => {
+              console.log(props)
+              props.history.push('/carts/Manage')
+            }}
           >
             結帳去
           </button>
@@ -73,4 +80,4 @@ function OrderInfo(props) {
   )
 }
 
-export default OrderInfo
+export default withRouter(OrderInfo)
