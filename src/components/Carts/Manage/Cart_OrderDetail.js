@@ -2,6 +2,10 @@ import React from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 
 function Cart_OrderDetail(props) {
+  let { data } = props
+  let a = []
+  console.log('這是裡面的', data)
+  a = JSON.parse(localStorage.getItem('測試'))
   return (
     <>
       <div className="container col-lg-6 col-10">
@@ -14,29 +18,34 @@ function Cart_OrderDetail(props) {
             <table className="table detailinfo table-borderless">
               <thead>
                 <tr className="border-bottom">
-                  <th scope="col">商品資訊</th>
                   <th scope="col"></th>
-                  <th scope="col">優惠</th>
+                  <th scope="col">商品資訊</th>
                   <th scope="col">數量</th>
                   <th scope="col">單價</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img src="../../../image/product1.png" alt="" />
-                  </td>
-                  <td>Optimum Nutrition 100% 乳清蛋白</td>
-                  <td>折扣 50 Points</td>
-                  <td>2</td>
-                  <td>2000</td>
-                </tr>
-                <tr>
+                {data.map((v) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          src={`http://localhost:3000/image/${v.cate_sid}/${v.Product_id}.jpg`}
+                          alt=""
+                        />
+                      </td>
+                      <td>{v.name}</td>
+                      <td>{v.Order_Amount}</td>
+                      <td>{v.price}</td>
+                    </tr>
+                  )
+                })}
+
+                {/* <tr>
                   <td>
                     <img src="../../../image/product1.png" alt="" />
                   </td>
                   <td>名富米酒(保)</td>
-                  <td>折扣 50 Points</td>
                   <td>1</td>
                   <td>354</td>
                 </tr>
@@ -45,10 +54,9 @@ function Cart_OrderDetail(props) {
                     <img src="../../../image/product1.png" alt="" />
                   </td>
                   <td>奧利塔冷壓純橄欖油 1L</td>
-                  <td>折扣 50 Points</td>
                   <td>2</td>
                   <td>354</td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
 
@@ -59,7 +67,10 @@ function Cart_OrderDetail(props) {
               <tbody>
                 <tr>
                   <td>
-                    <img src="../../../image/product1.png" alt="" />
+                    <img
+                      src="../../../image/product1.png"
+                      alt=""
+                    />
                   </td>
                   <td>
                     Optimum Nutrition 100% 乳清蛋白
@@ -70,7 +81,10 @@ function Cart_OrderDetail(props) {
                 </tr>
                 <tr>
                   <td>
-                    <img src="../../../image/product1.png" alt="" />
+                    <img
+                      src="../../../image/product1.png"
+                      alt=""
+                    />
                   </td>
                   <td>
                     名富米酒(保)
@@ -81,7 +95,10 @@ function Cart_OrderDetail(props) {
                 </tr>
                 <tr>
                   <td>
-                    <img src="../../../image/product1.png" alt="" />
+                    <img
+                      src="../../../image/product1.png"
+                      alt=""
+                    />
                   </td>
                   <td>
                     奧利塔冷壓純橄欖油 1L
@@ -98,11 +115,11 @@ function Cart_OrderDetail(props) {
                 <tr className="border-top"></tr>
                 <tr>
                   <th>商品小計</th>
-                  <td className="detailtd">4,708</td>
+                  <td className="detailtd">{a[2]}</td>
                 </tr>
                 <tr>
                   <th>優惠</th>
-                  <td className="detailtd">-100</td>
+                  <td className="detailtd">{a[1]}</td>
                 </tr>
                 <tr>
                   <th>運費</th>
@@ -110,7 +127,7 @@ function Cart_OrderDetail(props) {
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">4,608</td>
+                  <td className="detailtd">{a[0]}</td>
                 </tr>
               </tbody>
             </table>

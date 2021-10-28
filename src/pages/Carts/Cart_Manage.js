@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Cart_OrderDetail from '../../components/Carts/Manage/Cart_OrderDetail'
 import Cart_OrderInfoInput from '../../components/Carts/Manage/Cart_OrderInfoInput'
 import Cart_CreditPay from '../../components/Carts/Manage/Cart_CreditPay'
@@ -16,8 +16,63 @@ import {
 import '../../styles/Carts/Cart_Manage.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
-function Cart_Manage() {
+
+function Cart_Manage(props) {
+  let [data, setData] = useState([{}])
+  let [OrderInfo, setOrderInfo] = useState([])
+  let [Checkout, setCheckout] = useState()
+  let [Invoice, setInvoice] = useState([])
+  console.log('Checkout', Checkout)
+
+  useEffect(() => {
+    console.log('這邊是初始化')
+    DataAxios()
+  }, [])
+
+  useEffect(() => {
+    // console.log('訂購資料', OrderInfo)
+    // console.log('付款資料', Checkout)
+    // console.log('發票資料', Invoice)
+  }, [OrderInfo, Checkout, Invoice])
+
+  async function DataAxios() {
+    let r = await axios.get('http://localhost:3001/cart/')
+    if (r.status === 200) {
+      setData(r.data)
+      console.log(r.data)
+    }
+  }
+
+  async function AddOrder(OrderInfo, Checkout, Invoice) {
+    console.log('寫出訂單')
+    let NewOrderInfo = [...OrderInfo, Checkout, ...Invoice]
+    console.log('寫出的訂購資料', NewOrderInfo)
+    let r = await axios.post(
+      'http://localhost:3001/cart/addList',
+      {
+        Sid: '',
+        Member_id: 'st880517',
+        Order_Name: NewOrderInfo[0],
+        Order_Phone: NewOrderInfo[1],
+        E_Mail: NewOrderInfo[2],
+        Order_Address:
+          NewOrderInfo[3] +
+          NewOrderInfo[4] +
+          NewOrderInfo[5],
+        Invoice_Type: NewOrderInfo[8],
+        Payment_Type: NewOrderInfo[7],
+        Order_Remark: NewOrderInfo[6],
+      }
+    )
+    if (r.status === 200) {
+      console.log('寫入 DB')
+      props.history.push('/carts/ConfirmOrder')
+    }
+  }
+
   return (
     <>
       <div className="container-fluid Banner col-xs-10">
@@ -46,21 +101,54 @@ function Cart_Manage() {
           <h3>完成訂單</h3>
         </div>
       </div>
-      <TitleBorder name="確認訂單資訊" />
-      <Cart_OrderDetail />
-      <TitleBorder name="付款方式" />
-      <Cart_CheckOut />
-      <TitleBorder name="取貨資料" />
-      <Cart_Store />
-      {/* <Cart_CreditPay /> */}
-      {/* <Cart_OrderInfoInput /> */}
-      <TitleBorder name="發票方式" />
-      <Cart_Invoice />
-      <div class="container col-lg-7 col-12 confirm my-5 d-lg-flex text-center justify-content-around">
-        <button class="returninfo col-lg-4 col-10">
+      <div className="titleBorder col-lg-6 col-10">
+        <h4 className="res-title title-fz fw-700">
+          確認訂單資訊
+        </h4>
+      </div>
+      <Cart_OrderDetail data={data} />
+      <div className="titleBorder col-lg-6 col-10">
+        <h4 className="res-title title-fz fw-700">
+          付款方式
+        </h4>
+      </div>
+      <Cart_CheckOut setCheckout={setCheckout} />
+      <div className="titleBorder col-lg-6 col-10">
+        <h4 className="res-title title-fz fw-700">
+          取貨資料
+        </h4>
+      </div>
+      {/* <Cart_Store OrderInfo={OrderInfo} setOrderInfo={setOrderInfo} /> */}
+      {/* <Cart_CreditPay OrderInfo={OrderInfo} setOrderInfo={setOrderInfo}  /> */}
+      <Cart_OrderInfoInput
+        OrderInfo={OrderInfo}
+        setOrderInfo={setOrderInfo}
+      />
+      <div className="titleBorder col-lg-6 col-10">
+        <h4 className="res-title title-fz fw-700">
+          發票方式
+        </h4>
+      </div>
+      <Cart_Invoice
+        Invoice={Invoice}
+        setInvoice={setInvoice}
+      />
+      <div className="container col-lg-7 col-12 confirm my-5 d-lg-flex text-center justify-content-around">
+        <button
+          className="returninfo col-lg-4 col-10"
+          onClick={() => {
+            console.log(props)
+            props.history.push('/carts/PreOrder')
+          }}
+        >
           返回購物車
         </button>
-        <button class="confirminfo col-lg-4 col-10">
+        <button
+          className="confirminfo col-lg-4 col-10"
+          onClick={() => {
+            AddOrder(OrderInfo, Checkout, Invoice)
+          }}
+        >
           確認訂單
         </button>
       </div>
@@ -68,4 +156,4 @@ function Cart_Manage() {
   )
 }
 
-export default Cart_Manage
+export default withRouter(Cart_Manage)

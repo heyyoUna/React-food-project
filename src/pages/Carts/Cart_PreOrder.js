@@ -10,7 +10,6 @@ import OrderDetail from '../../components/Carts/PreOrder/OrderDetail'
 import '../../styles/Carts/Cart_PreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
-
 import axios from 'axios'
 
 function Cart_PreOrder() {

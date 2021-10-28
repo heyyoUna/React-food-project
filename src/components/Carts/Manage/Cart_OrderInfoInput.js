@@ -1,6 +1,23 @@
-import React from 'react'
+import { useState } from 'react'
 
 function Cart_OrderInfoInput(props) {
+  let { OrderInfo, setOrderInfo } = props
+  let [Value, setValue] = useState()
+  let [Name, setName] = useState()
+  let [Phone, setPhone] = useState()
+  let [Email, setEmail] = useState()
+  let [City, setCity] = useState()
+  let [District, setDistrict] = useState()
+  let [Address, setAddress] = useState()
+  let [Notice, setNotice] = useState()
+
+  function UpdateInfo(value, index) {
+    let NewOrderInfo = [...OrderInfo]
+    NewOrderInfo[index] = value
+    console.log('123', NewOrderInfo)
+    setOrderInfo(NewOrderInfo)
+  }
+
   return (
     <>
       <div
@@ -23,74 +40,114 @@ function Cart_OrderInfoInput(props) {
         </button>
       </div>
 
-      <form className="container col-lg-6 col-10 orderform" action="">
+      <div
+        className="container col-lg-6 col-10 orderform"
+        action=""
+      >
         <div className="order">
-          <label for="">
+          <label for="Name">
             <span>*</span>姓名
           </label>
           <input
             type="text"
             className="ordername px-3"
-            name="ordername"
-            id="ordername"
+            name="Name"
+            value={Name}
+            onChange={(e) => {
+              setName(e.target.value)
+              UpdateInfo(e.target.value, 0)
+            }}
           />
         </div>
         <div className="order">
-          <label for="">
+          <label for="Phone">
             <span>*</span>手機號碼
           </label>
           <input
             type="text"
             className="phonenumber px-3"
-            name="phonenumber"
-            id="phonenumber"
+            name="Phone"
+            value={Phone}
+            onChange={(e) => {
+              setPhone(e.target.value)
+              UpdateInfo(e.target.value, 1)
+            }}
           />
         </div>
         <div className="order">
-          <label for="">
+          <label for="Email">
             <span>*</span>電子郵件
           </label>
-          <input type="email" className="email px-3" name="email" id="email" />
+          <input
+            type="email"
+            className="email px-3"
+            name="Email"
+            value={Email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              UpdateInfo(e.target.value, 2)
+            }}
+          />
         </div>
         <div className="order">
-          <label for="">
+          <label for="City">
             <span>*</span>請填寫縣市
           </label>
-          <input type="text" className="city px-3" name="city" id="city" />
+          <input
+            type="text"
+            className="city px-3"
+            name="City"
+            value={City}
+            onChange={(e) => {
+              setCity(e.target.value)
+              UpdateInfo(e.target.value, 3)
+            }}
+          />
         </div>
         <div className="order">
-          <label for="">
+          <label for="District">
             <span>*</span>請填寫行政區
           </label>
           <input
             type="text"
             className="district px-3"
-            name="district"
-            id="district"
+            name="District"
+            value={District}
+            onChange={(e) => {
+              setDistrict(e.target.value)
+              UpdateInfo(e.target.value, 4)
+            }}
           />
         </div>
         <div className="order">
-          <label for="">
+          <label for="Address">
             <span>*</span>請填寫地址
           </label>
           <input
             type="text"
             className="address px-3"
-            name="address"
-            id="address"
+            name="Address"
+            value={Address}
+            onChange={(e) => {
+              setAddress(e.target.value)
+              UpdateInfo(e.target.value, 5)
+            }}
           />
         </div>
         <div className="order">
-          <label for="">是否需填寫備註</label>
+          <label for="Notice">是否需填寫備註</label>
           <input
             type="text"
             classNameName="notice px-3"
-            name="notice"
-            id="notice"
-            placeholder="請在此填寫，最多 200 字"
+            name="Notice"
+            value={Notice}
+            onChange={(e) => {
+              setNotice(e.target.value)
+              UpdateInfo(e.target.value, 6)
+            }}
           />
         </div>
-      </form>
+      </div>
     </>
   )
 }
