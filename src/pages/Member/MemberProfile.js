@@ -14,7 +14,7 @@ function MemberProfile(props) {
   useEffect(()=>{
     if( id ){
       // TODO: 欄位檢查
-      fetch(`http://localhost:3002/memberprofile/${id}`, {
+      fetch(`http://localhost:3002/member/memberprofile/${id}`, {
         method: 'GET',
       }).then(r => r.json()).then(obj => {
         console.log(JSON.stringify(obj, null, 4));

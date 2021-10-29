@@ -13,7 +13,7 @@ function MemberLogin(props) {
     
     const fd = new FormData(document.memberForm);
 
-    fetch('http://localhost:3002/login', {
+    fetch('http://localhost:3002/member/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
