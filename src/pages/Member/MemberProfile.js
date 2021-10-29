@@ -173,6 +173,7 @@ function MemberProfile(props) {
                     className="karin-profile-form-control"
                     id="memberaddress"
                     name="address"
+                    value={profile.address}
                     />
                 </div>
               </div>
@@ -184,7 +185,8 @@ function MemberProfile(props) {
                   <input
                     type="password"
                     className="karin-profile-form-control"
-                    id="oldpassword"/>
+                    id="oldpassword"
+                    />
                 </div>
               </div>
               <div className="karin-form-group row">

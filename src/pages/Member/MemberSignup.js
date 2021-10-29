@@ -1,7 +1,9 @@
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 function MemberSignup(props) {
+  let history = useHistory();
 
    const handleSubmit = (e) => {
     //阻擋form的預設送出行為
@@ -21,7 +23,7 @@ function MemberSignup(props) {
        console.log(JSON.stringify(obj, null, 4));
        if (obj.success) {
          alert('註冊成功');
-         <Link to = '/login' ></Link>;
+         history.push('/login')
        } else {
          alert('註冊失敗\n' + (obj.error || ''));
        }
