@@ -1,9 +1,9 @@
 import React from 'react'
-import '../../styles/Carts/Cart_Complete.scss'
+import '../../styles/Carts/CartComplete.scss'
 import '../../styles/Carts/Banner.scss'
 import { withRouter } from 'react-router-dom'
 
-function Cart_Complete(props) {
+function CartComplete(props) {
   return (
     <>
       <div className="container-fluid Banner col-xs-10">
@@ -57,4 +57,4 @@ function Cart_Complete(props) {
     </>
   )
 }
-export default withRouter(Cart_Complete)
+export default withRouter(CartComplete)

@@ -38,10 +38,10 @@ import GameRecipe from './pages/Game/GameRecipe'
 import GameDelivery from './pages/Game/GameDelivery'
 
 // 購物車
-import Cart_PreOrder from './pages/Carts/Cart_PreOrder'
-import Cart_Manage from './pages/Carts/Cart_Manage'
-import Cart_ConfimOrder from './pages/Carts/Cart_ConfimOrder'
-import Cart_Complete from './pages/Carts/Cart_Complete'
+import CartPreOrder from './pages/Carts/CartPreOrder'
+import CartManage from './pages/Carts/CartManage'
+import CartConfimOrder from './pages/Carts/CartConfimOrder'
+import CartComplete from './pages/Carts/CartComplete'
 
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
@@ -54,7 +54,7 @@ import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 function App() {
   const [auth, setAuth] = useState(false)
   const [member, setMember] = useState({
-    id: 0
+    id: 0,
   })
 
   return (
@@ -86,12 +86,15 @@ function App() {
 
               <Route path="/signup">
                 {/* 利用props傳入頁面元件狀態 */}
-                <Signup auth={auth} setAuth={setAuth} 
-                />
+                <Signup auth={auth} setAuth={setAuth} />
               </Route>
               <Route path="/login">
                 {/* 利用props傳入頁面元件狀態 */}
-                <Login auth={auth} setAuth={setAuth}   setMember={setMember} />
+                <Login
+                  auth={auth}
+                  setAuth={setAuth}
+                  setMember={setMember}
+                />
               </Route>
 
               <Route path="/about">
@@ -135,7 +138,10 @@ function App() {
                 <ProductCategory />
               </Route>
               <Route path="/member/profile">
-                <MemberProfile auth={auth} member={member} />
+                <MemberProfile
+                  auth={auth}
+                  member={member}
+                />
               </Route>
               <Route path="/member/order">
                 <MemberOrder />
@@ -164,16 +170,16 @@ function App() {
 
               {/* 購物車 */}
               <Route exact path="/carts/PreOrder">
-                <Cart_PreOrder />
+                <CartPreOrder />
               </Route>
               <Route exact path="/carts/Manage">
-                <Cart_Manage />
+                <CartManage />
               </Route>
               <Route exact path="/carts/ConfirmOrder">
-                <Cart_ConfimOrder />
+                <CartConfimOrder />
               </Route>
               <Route exact path="/carts/Complete">
-                <Cart_Complete />
+                <CartComplete />
               </Route>
               <Route path="*">
                 <NotFoundPage />
