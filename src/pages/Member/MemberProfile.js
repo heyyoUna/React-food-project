@@ -31,7 +31,8 @@ function MemberProfile(props) {
         </Redirect>
       )
     }
-  })
+  }, [])
+
 
   const handleSubmit = (e) => {
     //阻擋form的預設送出行為
