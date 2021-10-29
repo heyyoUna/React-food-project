@@ -1,8 +1,9 @@
 import React from 'react'
-import '../../styles/Carts/Cart_Complete.scss'
+import '../../styles/Carts/CartComplete.scss'
 import '../../styles/Carts/Banner.scss'
+import { withRouter } from 'react-router-dom'
 
-function Cart_Complete(props) {
+function CartComplete(props) {
   return (
     <>
       <div className="container-fluid Banner col-xs-10">
@@ -20,7 +21,9 @@ function Cart_Complete(props) {
         <h1>訂單已送出，感謝您的訂購</h1>
       </div>
       <div class="container confirmnumber my-5 text-center">
-        <h3>訂單編號: AA202109190038</h3>
+        <h3>
+          訂單編號: {localStorage.getItem('訂單編號')}
+        </h3>
       </div>
 
       <div
@@ -34,15 +37,24 @@ function Cart_Complete(props) {
         text-center
       "
       >
-        <button class="info col-lg-4 col-10 my-3">
+        <button
+          class="info col-lg-4 col-10 my-3"
+          onClick={() => {
+            props.history.push('/')
+          }}
+        >
           返回商城
         </button>
-        <button class="info col-lg-4 col-10 my-3">
+        <button
+          class="info col-lg-4 col-10 my-3"
+          onClick={() => {
+            props.history.push('/')
+          }}
+        >
           查看其他訂單
         </button>
       </div>
     </>
   )
 }
-
-export default Cart_Complete
+export default withRouter(CartComplete)

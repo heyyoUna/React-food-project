@@ -97,6 +97,7 @@
   border-radius: 0 0 20px 20px;
 
   .detailinfo {
+    table-layout: fixed;
     th {
       font-size: var(--Order-list-title-size);
       font-family: var(--Font-Family);
@@ -109,6 +110,9 @@
       font-size: var(--Order-list-content-size);
       font-family: var(--Font-Family);
       vertical-align: middle;
+      img {
+        width: 80px;
+      }
     }
     @include mobile() {
       display: none;
