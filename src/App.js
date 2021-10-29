@@ -10,13 +10,13 @@ import './App.scss'
 
 // 頁面用元件
 import Home from './pages/Home'
-// import About from './pages/About'
-// import ProductBaby from './pages/ProductBaby'
-// import ProductMen from './pages/ProductMen'
-// import ProductWomen from './pages/ProductWomen'
-// import NotFoundPage from './pages/NotFoundPage'
-// import ProductCategory from './pages/ProductCategory'
-// import Student from './pages/Student'
+import About from './pages/About'
+import ProductBaby from './pages/ProductBaby'
+import ProductMen from './pages/ProductMen'
+import ProductWomen from './pages/ProductWomen'
+import NotFoundPage from './pages/NotFoundPage'
+import ProductCategory from './pages/ProductCategory'
+import Student from './pages/Student'
 
 //文章
 import Article from './pages/article/Article'
@@ -63,6 +63,7 @@ import ScrollToTop from './components/ScrollToTop'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
+  const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
   const [member, setMember] = useState({
     id: 0,
