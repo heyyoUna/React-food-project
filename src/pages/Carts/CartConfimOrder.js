@@ -8,13 +8,13 @@ import {
   FaRegEdit,
   FaCheck,
 } from 'react-icons/fa'
-import '../../styles/Carts/Cart_ConfirmOrder.scss'
+import '../../styles/Carts/CartConfirmOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
-function Cart_ConfimOrder(props) {
+function CartConfimOrder(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
   let member = 'st880517'
@@ -218,4 +218,4 @@ function Cart_ConfimOrder(props) {
   )
 }
 
-export default withRouter(Cart_ConfimOrder)
+export default withRouter(CartConfimOrder)

@@ -13,14 +13,13 @@ import {
   FaRegEdit,
   FaCheck,
 } from 'react-icons/fa'
-import '../../styles/Carts/Cart_Manage.scss'
+import '../../styles/Carts/CartManage.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
-
-function Cart_Manage(props) {
+function CartManage(props) {
   let [data, setData] = useState([{}])
   let [OrderInfo, setOrderInfo] = useState([])
   let [Checkout, setCheckout] = useState()
@@ -156,4 +155,4 @@ function Cart_Manage(props) {
   )
 }
 
-export default withRouter(Cart_Manage)
+export default withRouter(CartManage)
