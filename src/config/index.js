@@ -4,6 +4,9 @@ export const devUrl = 'http://localhost:3000'
 export const prodUrl = 'http://www.abc.com'
 export const imgUrl = debug ? devUrl : prodUrl
 
+export const API_img =
+  'http://localhost:3002/img/article/index/'
+
 export const pathnameList = [
   '/about',
   '/login',

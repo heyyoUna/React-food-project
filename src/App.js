@@ -17,10 +17,15 @@ import ProductWomen from './pages/ProductWomen'
 import NotFoundPage from './pages/NotFoundPage'
 import ProductCategory from './pages/ProductCategory'
 import Student from './pages/Student'
+
+//文章
 import Article from './pages/article/Article'
 import ArtFood from './pages/article/ArtFood'
-import ArtFit from './pages/article/ArtFit'
+import ArtExercise from './pages/article/ArtExercise'
 import ArtRecipe from './pages/article/ArtRecipe'
+import FoodContent from './pages/article/FoodContent'
+import ExerciseContent from './pages/article/ExerciseContent'
+
 // 餐廳
 import Restaurants from './pages/Restaurant/Restaurants'
 import ResMap from './pages/Restaurant/ResMap'
@@ -45,11 +50,12 @@ import CartComplete from './pages/Carts/CartComplete'
 
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
+import MyNavbarOriginal from './components/MyNavbarOriginal'
 import MyFooter from './components/MyFooter'
 import MainContent from './components/MainContent'
 import ScrollToTop from './components/ScrollToTop'
 //import BreadCrumb from './components/BreadCrumb'
-import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
+// import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
   const [auth, setAuth] = useState(false)
@@ -62,6 +68,8 @@ function App() {
       <>
         {/* LOGO+標題+導覽列+上方選單 */}
         <MyNavbar auth={auth} />
+        {/* <MyNavbarOriginal auth={auth} /> */}
+
         {/* 主內容區 */}
         <MainContent className="mt-5">
           {/* <MultiLevelBreadCrumb /> */}
@@ -97,19 +105,31 @@ function App() {
                 />
               </Route>
 
-              <Route path="/about">
-                <About auth={auth} />
+              {/* 文章 */}
+              <Route path="/article/ExerciseContent">
+                <ExerciseContent auth={auth} />
+              </Route>
+
+              <Route path="/article/FoodContent">
+                <FoodContent auth={auth} />
+              </Route>
+
+              <Route path="/article/recipe">
+                <ArtRecipe auth={auth} />
+              </Route>
+
+              <Route path="/article/exercise">
+                <ArtExercise auth={auth} />
               </Route>
 
               <Route path="/article/food">
                 <ArtFood auth={auth} />
               </Route>
-              <Route path="/article/fitness">
-                <ArtFit auth={auth} />
+
+              <Route path="/article">
+                <Article auth={auth} />
               </Route>
-              <Route path="/article/recipe">
-                <ArtRecipe auth={auth} />
-              </Route>
+
               {/* 餐廳 */}
               <Route path="/restaurants">
                 <Restaurants />
@@ -121,19 +141,11 @@ function App() {
                 path="/resprdoucts/:id"
                 component={ResProducts}
               />
-              <Route exact path="/">
-                <Home />
-              </Route>
 
-              <Route path="/article/food">
-                <ArtFood auth={auth} />
-              </Route>
-              <Route path="/article">
-                <Article auth={auth} />
-              </Route>
               <Route exact path="/">
                 <Home auth={auth} />
               </Route>
+
               <Route path="/productcategory">
                 <ProductCategory />
               </Route>
