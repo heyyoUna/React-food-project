@@ -3,7 +3,7 @@ import {
   Navbar,
   Nav,
   NavDropdown,
-  Container
+  Container,
 } from 'react-bootstrap'
 import { imgUrl } from '../config/index'
 import '../App.scss'
@@ -82,6 +82,10 @@ function MyNavbar(props) {
             <Nav>
               <Nav.Link href="/search">
                 <i class="fas fa-search"></i>
+              </Nav.Link>
+
+              <Nav.Link href="/login">
+                <i class="far fa-user"></i>
               </Nav.Link>
 
               <NavDropdown
