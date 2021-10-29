@@ -9,7 +9,7 @@ function MemberProfile(props) {
    const [profile, setProfile] = useState({
      sid: 0
    })
- 
+   
   useEffect(()=>{
     if( member.id ){
       // TODO: 欄位檢查
@@ -150,6 +150,7 @@ function MemberProfile(props) {
                     id="memberemail"
                     name="email"
                     value={profile.email}
+                      disabled
                     />
                 </div>
               </div>
