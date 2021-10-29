@@ -65,9 +65,6 @@ import ScrollToTop from './components/ScrollToTop'
 function App() {
   const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
-  const [member, setMember] = useState({
-    id: 0,
-  })
 
   return (
     <Router>
@@ -107,7 +104,6 @@ function App() {
                 <Login
                   auth={auth}
                   setAuth={setAuth}
-                  setMember={setMember}
                 />
               </Route>
               {/* 商城 */}
@@ -175,7 +171,6 @@ function App() {
               <Route path="/member/profile">
                 <MemberProfile
                   auth={auth}
-                  member={member}
                 />
               </Route>
               <Route path="/member/order">

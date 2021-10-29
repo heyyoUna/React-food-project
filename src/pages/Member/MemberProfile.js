@@ -5,15 +5,16 @@ import { withRouter, Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function MemberProfile(props) {
-   const { member } = props
    const [profile, setProfile] = useState({
      sid: 0
    })
-   
+
+  const id = localStorage.getItem('id')
+
   useEffect(()=>{
-    if( member.id ){
+    if( id ){
       // TODO: 欄位檢查
-      fetch(`http://localhost:3002/memberprofile/${member.id}`, {
+      fetch(`http://localhost:3002/memberprofile/${id}`, {
         method: 'GET',
       }).then(r => r.json()).then(obj => {
         console.log(JSON.stringify(obj, null, 4));
@@ -150,11 +151,6 @@ function MemberProfile(props) {
                     id="memberemail"
                     name="email"
                     value={profile.email}
-<<<<<<< HEAD
-                      disabled
-=======
-                    
->>>>>>> 1773495cf322cb8f849f2293fc9c93cd5a840c52
                     />
                 </div>
               </div>

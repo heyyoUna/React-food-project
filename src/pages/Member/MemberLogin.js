@@ -7,29 +7,30 @@ function MemberLogin(props) {
   let history = useHistory();
 
   const handleSubmit = (e) => {
+
     //阻擋form的預設送出行為
     e.preventDefault()
     
-    // 用fetch api/axios送到伺服器
-    // // TODO: 欄位檢查
     const fd = new FormData(document.memberForm);
-    console.log(new URLSearchParams(fd).toString())
+
     fetch('http://localhost:3002/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams(fd).toString(),
-    }).then(r => r.json()).then(obj => {
-      console.log(JSON.stringify(obj, null, 4));
-      if (obj.success) {
-        alert('登入成功');
-        setMember({id: obj.id});
-        history.push('/member/profile')
-      } else {
-        alert('登入失敗\n' + (obj.error || ''));
-      }
-    });
+    }).then(r => r.json())
+      .then(obj => {
+        console.log(JSON.stringify(obj, null, 4));
+        if (obj.success) {
+          alert('登入成功');
+          localStorage.setItem('token', obj.token)
+          localStorage.setItem('id', obj.id)
+          history.push('/member/profile')
+        } else {
+          alert('登入失敗\n' + (obj.error || ''));
+        }
+      });
   }
 
   return (
