@@ -150,6 +150,7 @@ function MemberProfile(props) {
                     id="memberemail"
                     name="email"
                     value={profile.email}
+                    
                     />
                 </div>
               </div>
