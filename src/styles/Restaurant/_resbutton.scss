@@ -1,8 +1,7 @@
-@mixin sortBtn($color, $padding,$font-size) {
+@mixin sortBtn($color, $padding, $font-size) {
   border-radius: 50px;
   color: $color;
   font-size: $font-size;
-  cursor: pointer;
   outline: none;
   letter-spacing: 3px;
   text-indent: 3px;
@@ -20,19 +19,18 @@
 }
 
 //下拉選單
-.form-select.btn-group,
+
 .map-select,
-.map-seacrh
-{
-  @include sortBtn($light-green, 5px 32px,20px);
+.map-seacrh {
+  @include sortBtn($light-green, 5px 32px, 20px);
 }
 
 .orange-btn {
-  @include sortBtn($light-orange, 2px,20px);
+  @include sortBtn($light-orange, 2px, 20px);
 
   &:hover {
     background-color: #fb6007c0;
-    color:white;
+    color: white;
   }
   @include mobile {
     // width: 101%;
