@@ -1,15 +1,40 @@
 // 在第三個斷點就變成手機版 lg
-// <img src={`${imgUrl}/images/col_kv1-3.png`} alt="" />
+// <img src={`${imgUrl}/images/article/col_kv1-3.png`} alt="" />
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import { imgUrl } from './config'
+import { imgUrl, API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
-import ArCardTxt from './components/ArCardTxt'
-import ArMoreBtn from './components/ArMoreBtn'
+import ArCardTxt from '../../components/article/ArCardTxt'
+import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 
-function ArtArtContent() {
+function FoodContent(props) {
+  const [product, setProduct] = useState([])
+  const [article, setArticle] = useState([])
+
+  useEffect(() => {
+    if (props.match.params.id) {
+      ;(async () => {
+        let r = await fetch(
+          'http://localhost:3002/ArtFood/' +
+            props.match.params.id
+        )
+        let j = await r.json()
+
+        if (j.success) {
+          setProduct(j.data.products)
+          setArticle(j.data.article)
+          console.log(j.data.article)
+        } else {
+          alert('出事了')
+        }
+      })()
+    }
+
+    // });
+  }, [])
+
   return (
     <>
       <div className="container-fluid" id="col-article">
@@ -37,12 +62,10 @@ function ArtArtContent() {
         <div className="row">
           <div className="col-1"></div>
           <div className="col-7 col-lg-7">
-            <h3>
-              你還在一頁式網站買「在地」農產品?小心網購和包裹成非洲豬瘟入侵破口
-            </h3>
+            <h3>{article.ar_title}</h3>
             <div>
               <img
-                src={`${imgUrl}/images/col_article_kv.png`}
+                src={`${imgUrl}/images/article/col_article_kv.png`}
                 alt=""
               />
             </div>
@@ -135,7 +158,7 @@ function ArtArtContent() {
           <div className="col-3">
             <div>
               <img
-                src={`${imgUrl}/images/col_article_more1-3.png`}
+                src={`${imgUrl}/images/article/col_article_more1-3.png`}
                 alt=""
               />
             </div>
@@ -144,7 +167,7 @@ function ArtArtContent() {
           <div className="col-3">
             <div>
               <img
-                src={`${imgUrl}/images/col_article_more1-3.png`}
+                src={`${imgUrl}/images/article/col_article_more1-3.png`}
                 alt=""
               />
             </div>
@@ -153,17 +176,17 @@ function ArtArtContent() {
           <div className="col-3">
             <div>
               <img
-                src={`${imgUrl}/images/col_article_more1-3.png`}
+                src={`${imgUrl}/images/article/col_article_more1-3.png`}
                 alt=""
               />
             </div>
             <ArCardTxt />
           </div>
-          <ArMoreBtn />
+          <HpArMoreBtn />
         </div>
       </div>
     </>
   )
 }
 
-export default withRouter(ArtArtContent)
+export default withRouter(FoodContent)

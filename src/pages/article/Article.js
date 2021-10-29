@@ -1,15 +1,55 @@
 import { withRouter } from 'react-router-dom'
 import React from 'react'
-import { imgUrl } from '../../config'
+import { imgUrl, API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
 import LineTitle from '../../components/article/LineTitle'
+import { Carousel } from 'react-bootstrap'
 
 function Article(props) {
   return (
     <>
       {/* <!------------ 專欄KV ------------>  */}
-      <div className="container-fluid mt-5" id="article-kv">
+      <div className="container-fluid mt-5 p-0">
+        <div className="row p-0">
+          <Carousel id="article-kv" className="p-0">
+            <Carousel.Item className="imgWrap">
+              <img
+                className="d-block "
+                src="https://picsum.photos/300/200"
+                alt="First slide"
+              />
+              <Carousel.Caption className="car-title">
+                <h3>First slide label</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item className="imgWrap">
+              <img
+                className="d-block "
+                src="https://picsum.photos/300/200"
+                alt="Second slide"
+              />
+
+              <Carousel.Caption className="car-title">
+                <h3>Second slide label</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item className="imgWrap">
+              <img
+                className="d-block "
+                src="https://picsum.photos/300/200"
+                alt="Third slide"
+              />
+
+              <Carousel.Caption className="car-title">
+                <h3>Third slide label</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+        </div>
+      </div>
+
+      {/* <div className="container-fluid mt-5" id="article-kv">
         <div
           id="carouselExampleCaptions"
           className="carousel slide"
@@ -82,7 +122,7 @@ function Article(props) {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* <!------------ 專欄頁： 1st種類 聰明飲食  ------------>   */}
       <div className="container" id="col-cat">
@@ -132,7 +172,7 @@ function Article(props) {
           <div className="col-lg">
             <div className="col-cat-firstImg">
               <img
-                src={`${imgUrl}/images/article/col_cat2_1-3.png`}
+                src={`${API_img} + {data.ar_pic} `}
                 alt=""
               />
             </div>

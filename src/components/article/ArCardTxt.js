@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 function ArCardTxt(props) {
   return (
     <div className="px-1 py-1 arCardTxt">

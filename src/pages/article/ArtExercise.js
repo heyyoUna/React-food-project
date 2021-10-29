@@ -1,17 +1,17 @@
 import { withRouter } from 'react-router-dom'
+import React from 'react'
 import '../../styles/article/Article.scss'
-import ArCardTxtRecipe from '../../components/article/ArCardTxtRecipe'
-
+import ArCardTxtExercise from '../../components/article/ArCardTxtExercise'
 import BreadCrumb from '../../components/BreadCrumb'
 
-function ArtRecipe(props) {
+function ArtExercise(props) {
   return (
     <>
       <div className="container col-cat-article">
         <BreadCrumb />
         <div className="row">
           <div className="col-lg col-8 cardsWrap d-flex flex-wrap">
-            <ArCardTxtRecipe />
+            <ArCardTxtExercise />
           </div>
         </div>
       </div>
@@ -19,4 +19,4 @@ function ArtRecipe(props) {
   )
 }
 
-export default withRouter(ArtRecipe)
+export default withRouter(ArtExercise)
