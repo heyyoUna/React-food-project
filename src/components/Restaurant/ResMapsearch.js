@@ -12,7 +12,7 @@ import { apiKey } from '../../api/googleApi'
    const [apiData, setApiData] = useState([]);
 
    async function test() {
-  let r = await fetch('http://localhost:3002/reslist');
+  let r = await fetch('http://localhost:3002/reslist/address');
   let j = await r.json();
   if (j.length) {
     setApiData(j);

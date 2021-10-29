@@ -106,7 +106,6 @@ function ResMap() {
           <div className="row  ">
             <div className="col-md-3">
               {/* <ResMapsearch /> */}
-              
             </div>
             {/* <div className="col-md-2 col-6 ">
                <button type="button" class=" orange-btn" >
@@ -290,7 +289,7 @@ function ResMap() {
                 <>
                   <Marker
                     key={index}
-                    position={[item.res_lng, item.res_lat]}
+                    position={[item.res_lat, item.res_lng]}
                   >
                     <Popup>
                       <div className="map-card  d-flex align-items-center justify-content-between">

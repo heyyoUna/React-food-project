@@ -23,7 +23,7 @@ function Restaurants(props) {
   const [address, setAddress] = useState('')
   const [apiData, setApiData] = useState([]) //舊資料
   const [filterData, setFilterData] = useState([]) //過濾後的資料
-
+  const didMountRef = useRef(false)
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
@@ -103,30 +103,38 @@ function Restaurants(props) {
   useEffect(() => {
     listData()
   }, [])
-  
+
   useEffect(() => {
-    ;(async () => {
-      let r = await fetch(
-        'http://localhost:3002/reslist/address',
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            latitude: lat,
-            longitude: lng,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+    if (didMountRef.current) {
+      ;(async () => {
+        let r = await fetch(
+          'http://localhost:3002/reslist/address',
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              latitude: lat,
+              longitude: lng,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        const data = await r.json()
+        console.log('data', data)
+        if (data.success) {
+          setApiData(data.data)
+          setFilterData(data.data)
         }
-      )
-      const data = await r.json()
-      console.log('data', data)
-    })()
+      })()
+    } else {
+      didMountRef.current = true
+    }
   }, [lat, lng])
 
   const mySubmit = () => {
     // history.push('/map')
-    listData()
+    // listData()
     myRef.current.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
