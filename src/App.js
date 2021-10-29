@@ -10,13 +10,13 @@ import './App.scss'
 
 // 頁面用元件
 import Home from './pages/Home'
-import About from './pages/About'
-import ProductBaby from './pages/ProductBaby'
-import ProductMen from './pages/ProductMen'
-import ProductWomen from './pages/ProductWomen'
-import NotFoundPage from './pages/NotFoundPage'
-import ProductCategory from './pages/ProductCategory'
-import Student from './pages/Student'
+// import About from './pages/About'
+// import ProductBaby from './pages/ProductBaby'
+// import ProductMen from './pages/ProductMen'
+// import ProductWomen from './pages/ProductWomen'
+// import NotFoundPage from './pages/NotFoundPage'
+// import ProductCategory from './pages/ProductCategory'
+// import Student from './pages/Student'
 
 //文章
 import Article from './pages/article/Article'
@@ -47,6 +47,11 @@ import CartPreOrder from './pages/Carts/CartPreOrder'
 import CartManage from './pages/Carts/CartManage'
 import CartConfimOrder from './pages/Carts/CartConfimOrder'
 import CartComplete from './pages/Carts/CartComplete'
+
+// 商城
+import ProductDetail from './pages/Product/ProductDetail'
+import Products from './pages/Product/Products'
+import Customize from './pages/Product/Customize'
 
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
@@ -103,6 +108,23 @@ function App() {
                   setAuth={setAuth}
                   setMember={setMember}
                 />
+              </Route>
+              {/* 商城 */}
+              <Route path="/products">
+                <Products
+                  productId={productId}
+                  setProductId={setProductId}/>
+              </Route>
+
+              <Route path="/product/:id">
+                <ProductDetail
+                  productId={productId}
+                  setProductId={setProductId}
+                />
+              </Route>
+
+              <Route path="/customize">
+                <Customize />
               </Route>
 
               {/* 文章 */}
