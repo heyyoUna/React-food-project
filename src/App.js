@@ -71,7 +71,7 @@ function App() {
         {/* <MyNavbarOriginal auth={auth} /> */}
 
         {/* 主內容區 */}
-        <MainContent className="mt-5">
+        <MainContent className="pt-5">
           {/* <MultiLevelBreadCrumb /> */}
           {/* 匹配路由表(路徑單一匹配) */}
           {/* 切換顯示的元件畫面放在這下面 */}
