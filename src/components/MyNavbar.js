@@ -29,8 +29,8 @@ function MyNavbar(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
-              <Nav.Link href="/customization">
-                量身訂做
+              <Nav.Link href="/customize">
+                良身訂做
               </Nav.Link>
 
               <NavDropdown
