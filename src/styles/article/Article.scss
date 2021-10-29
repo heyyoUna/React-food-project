@@ -1,308 +1,340 @@
 /*------------------------------ 顏色、文字大小 ------------------------------*/
 @import '../../App.scss';
 
-
+.grey {
+  color: grey;
+}
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
 /*---------- 主視覺  ----------*/
 #article-kv {
-    .car-title {
-      text-align: left;
-      top: 30%;
-      font-size: 60px;
-      color: $dark-green;
-      padding: 0 20px;
+  .car-title {
+    text-align: left;
+    top: 30%;
+    font-size: 60px;
+    color: $dark-green;
+    padding: 0 20px;
+  }
+}
+/*---------- 共用部分  ----------*/
+
+.catTitle {
+  text-align: center;
+  margin: 80px auto;
+  display: flex;
+
+  .col-2 {
+    padding: 0px 20px;
+    font-size: 32px;
+  }
+}
+
+.title-fz {
+  p {
+    color: $dark-green;
+    font-size: 32px;
+  }
+}
+
+hr {
+  border: 2px solid $dark-green;
+}
+
+#col-cat {
+  img {
+    width: 100%;
+  }
+  h4,
+  p {
+    margin: 0;
+  }
+}
+
+/*---------- 按鈕：更多文章  ----------*/
+.col_RM_btn {
+  width: 100%;
+  text-align: center;
+
+  button {
+    background: $light-orange;
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
+    border-radius: 30px;
+    border: none;
+    color: white;
+    margin: 20px auto;
+    letter-spacing: 3px;
+    font-size: 24px;
+    padding: 20px 80px;
+    letter-spacing: 3px;
+
+    &:hover {
+      background: $light-orange;
     }
   }
-  /*---------- 共用部分  ----------*/
-  
-  .catTitle {
-    text-align: center;
-    margin: 80px auto;
+}
+
+//專欄卡片hover
+.cardsHover {
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+
+/*---------- 1st種類  ----------*/
+
+#col-cat1 {
+  .col-cat1-s {
+    margin-bottom: 20px;
+  }
+}
+
+/*---------- 3rd種類  ----------*/
+
+#col-cat3 .colList {
+  margin: auto;
+
+  .imgWrap {
+    padding: 30px;
+  }
+
+  ul {
+    background: rgba(242, 242, 242, 0.4);
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    padding: 35px;
+  }
+
+  div {
+    border-bottom: 2px solid rgba(42, 89, 62, 0.2);
     display: flex;
-  
-    .col-2 {
-      padding: 0px 20px;
-      font-size: 32px;
+    justify-content: space-around;
+    margin: 20px auto;
+
+    li {
+      padding-right: 10px;
+    }
+
+    span {
+      margin: auto 0;
     }
   }
-  
-  .title-fz {
-    p {
-      color: $dark-green;
-      font-size: 32px;
+}
+/*------------------------------ 專欄種類文章 (第二層) ------------------------------*/
+
+.col-cat-article {
+  padding-top: 50px;
+  width: 100%;
+
+  .artColCards {
+    width: 28%;
+    margin: auto;
+    margin-bottom: 5px;
+
+    .imgWrap {
+      height: 250px;
     }
-  }
-  
-  hr {
-    border: 2px solid $dark-green;
-  }
-  
-  #col-cat {
-    img {
-      width: 100%;
+
+    .arCardTxt {
+      height: 180px;
+      margin: auto;
     }
-    h4,
     p {
       margin: 0;
     }
-  }
-  
-  /*---------- 按鈕：更多文章  ----------*/
-  .col_RM_btn {
-    width: 100%;
-    text-align: center;
-  
-    button {
-      background: #ffb606;
-      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
-      border-radius: 30px;
-      border: none;
-      color: white;
-      margin: 20px auto;
-      letter-spacing: 3px;
-      font-size: 24px;
-      padding: 20px 80px;
-      letter-spacing: 3px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
     }
   }
-  
-  /*---------- 1st種類  ----------*/
-  
+
+  //手機版row右邊不知名的空間？？？
+  @media (max-width: 992px) {
+    .row {
+      width: 100%;
+      margin: auto;
+    }
+    .artColCards {
+      width: 80%;
+      margin: auto;
+
+      .imgWrap {
+        height: 200px;
+      }
+    }
+  }
+}
+
+/*------------------------------ 專欄文章內文 (第三層1/2) ------------------------------*/
+
+#col-article {
+  img {
+    width: 100%;
+  }
+  .article_rec img {
+    width: 100%;
+  }
+  .moreBtn {
+    width: 20px;
+    border-radius: 100px;
+  }
+  .interNav .col-7 {
+    //互動nav
+    display: flex;
+    p {
+      margin-right: 15px;
+      padding: 0 3px;
+    }
+  }
+  .art-hotlight {
+    //摘要
+    background: rgba(196, 196, 196, 0.05);
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    margin: 20px 0 25px 0;
+    p {
+      padding: 30px 40px;
+      margin: 16px 0;
+    }
+  }
+  .QA {
+    margin: 20px auto;
+    background-color: #ffe4a5;
+    border-radius: 15px;
+    padding: 20px 0;
+    text-align: center;
+
+    ul {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .QAbtn {
+      background: rgba(251, 97, 7, 0.5);
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
+      border-radius: 30px;
+      letter-spacing: 3px;
+      padding: 10px 40px;
+      border: none;
+    }
+  }
+  #mostPopular {
+    .mostPopularTitle {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 182, 6, 0.05) 0%,
+        rgba(255, 182, 6, 0.5) 100%
+      );
+      border-radius: 15px;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .mostPopularItems {
+      background: linear-gradient(
+        180deg,
+        rgba(124, 181, 24, 0) 0%,
+        rgba(124, 181, 24, 0.3) 100%
+      );
+      border-radius: 15px;
+      padding: 10px;
+      list-style: none;
+    }
+  }
+}
+
+/*------------------------------ 手機版 ------------------------------*/
+
+@media (max-width: 992px) {
+  .container,
+  .container-fluid {
+    max-width: 1140px;
+  }
+  // 有hr的標題
+  .title-fz {
+    p {
+      font-size: 24px;
+    }
+  }
+
+  //大按鈕：更多文章
+  .col_RM_btn {
+    button {
+      letter-spacing: 1px;
+      font-size: 24px;
+      padding: 10px 80px;
+    }
+  }
+  /*---------- 專欄主頁  ----------*/
+  // 專欄頁： KV
+  #article-kv {
+    .car-title {
+      text-align: center;
+      font-size: 30px;
+      padding: auto 0;
+      // top:25%;
+    }
+  }
+
+  // 專欄頁： 1st種類 聰明飲食
   #col-cat1 {
     .col-cat1-s {
       margin-bottom: 20px;
-    }
-  }
-  
-  /*---------- 3rd種類  ----------*/
-  
-  #col-cat3 .colList {
-    margin: auto;
-  
-    .imgWrap {
-      padding: 30px;
-    }
-  
-    ul {
-      background: rgba(242, 242, 242, 0.4);
-      box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
-      border-radius: 15px;
-      padding: 35px;
-    }
-  
-    div {
-      border-bottom: 2px solid rgba(42, 89, 62, 0.2);
       display: flex;
-      justify-content: space-around;
-      margin: 20px auto;
-  
-      li {
-        padding-right: 10px;
-      }
-  
-      span {
-        margin: auto 0;
+      align-items: center;
+
+      .imgWrap {
+        margin-right: 5px;
       }
     }
   }
-  /*------------------------------ 專欄種類文章 (第二層) ------------------------------*/
-  
-  #col-cat-article {
-    img {
-      width: 100%;
-    }
-  
-    #col-cat-article nav {
-      width: 100%;
-    }
-    #col-cat-article nav ul {
+
+  // 專欄頁： 2nd 種類 運動
+  #col-cat2 {
+    .col-cat-firstImg {
+      //rwd後太大的圖片
+      width: 70%;
       margin: auto;
-      text-align: center;
-    }
-  
-    nav {
-      width: 100%;
-      /* border: red; */
-    }
-  
-    nav ul {
-      display: flex;
-      justify-content: center;
-      /* border: red; */
-    }
-    nav ul li {
-      /* border: red; */
     }
   }
-  /*------------------------------ 專欄文章內文 (第三層1/2) ------------------------------*/
-  
-  #col-article {
-    img {
-      width: 100%;
-    }
-    .article_rec img {
-      width: 100%;
-    }
-    .moreBtn {
-      width: 20px;
-      border-radius: 100px;
-    }
-    .interNav .col-7 {
-      //互動nav
-      display: flex;
-      p {
-        margin-right: 15px;
-        padding: 0 3px;
-      }
-    }
-    .art-hotlight {
-      //摘要
-      background: rgba(196, 196, 196, 0.05);
-      box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.15);
-      border-radius: 15px;
-      margin: 20px 0 25px 0;
-      p {
-        padding: 30px 40px;
-        margin: 16px 0;
-      }
-    }
-    .QA {
-      margin: 20px auto;
-      background-color: #ffe4a5;
-      border-radius: 15px;
-      padding: 20px 0;
-      text-align: center;
-  
-      ul {
-        display: flex;
-        justify-content: space-around;
-      }
-  
-      .QAbtn {
-        background: rgba(251, 97, 7, 0.5);
-        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
-        border-radius: 30px;
-        letter-spacing: 3px;
-        padding: 10px 40px;
-        border: none;
-      }
-    }
-    #mostPopular {
-      .mostPopularTitle {
-        background: linear-gradient(
-          180deg,
-          rgba(255, 182, 6, 0.05) 0%,
-          rgba(255, 182, 6, 0.5) 100%
-        );
-        border-radius: 15px;
-        text-align: center;
-        padding: 10px 0;
-      }
-  
-      .mostPopularItems {
-        background: linear-gradient(
-          180deg,
-          rgba(124, 181, 24, 0) 0%,
-          rgba(124, 181, 24, 0.3) 100%
-        );
-        border-radius: 15px;
-        padding: 10px;
-        list-style: none;
-      }
-    }
-  }
-  
-  /*------------------------------ 手機版 ------------------------------*/
-  
-  @media (max-width: 992px) {
-    .container,
-    .container-fluid {
-      max-width: 1140px;
-    }
-    // 有hr的標題
-    .title-fz {
-      p {
-        font-size: 24px;
-      }
-    }
-  
-    //大按鈕：更多文章
-    .col_RM_btn {
-      button {
-        letter-spacing: 1px;
-        font-size: 24px;
-        padding: 10px 80px;
-      }
-    }
-    /*---------- 專欄主頁  ----------*/
-    // 專欄頁： KV
-    #article-kv {
-      .car-title {
-        text-align: center;
-        font-size: 30px;
-        padding: auto 0;
-        // top:25%;
-      }
-    }
-  
-    // 專欄頁： 1st種類 聰明飲食
-    #col-cat1 {
-      .col-cat1-s {
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-  
-        .imgWrap {
-          margin-right: 5px;
-        }
-      }
-    }
-  
-    // 專欄頁： 2nd 種類 運動
-    #col-cat2 {
-      .col-cat-firstImg {
-        //rwd後太大的圖片
-        width: 70%;
-        margin: auto;
-      }
-    }
-  
-    /*---------- 專欄種類文章  ----------*/
-  
-    #col-cat-article {
-      .cards {
-        display: flex;
-        margin: 10px auto;
-        border-bottom: 1px solid #f2f2f2;
-        // padding: 10px auto;
-  
-        .imgWrap {
-          // max-width: 250px;
-          // max-width: 250px;
-          // width: 150px;
-          // height: 150px;
-          width: 50%;
-  
-          // margin: auto;
-          padding: 10px;
-          // object-fit: cover;
-          overflow: hidden;
-          // padding: 20px;
-  
-          img {
-            height: 100%;
-            object-fit: cover;
-            margin: auto;
-            border-radius: 15px;
-          }
-        }
-  
-        .arCardTxt {
-          margin: auto 0;
-          // padding: 20px;
-        }
-      }
-    }
-  
-    /*---------- 專欄文章內文  ----------*/
-  }
+
+  /*---------- 專欄種類文章  ----------*/
+
+  // .col-cat-article {
+  //   .cards {
+  //     display: flex;
+  //     margin: 10px auto;
+  //     border-bottom: 1px solid #f2f2f2;
+  //     // padding: 10px auto;
+
+  //     .imgWrap {
+  //       // max-width: 250px;
+  //       // max-width: 250px;
+  //       // width: 150px;
+  //       // height: 150px;
+  //       width: 50%;
+
+  //       // margin: auto;
+  //       padding: 10px;
+  //       // object-fit: cover;
+  //       overflow: hidden;
+  //       // padding: 20px;
+
+  //       img {
+  //         height: 100%;
+  //         object-fit: cover;
+  //         margin: auto;
+  //         border-radius: 15px;
+  //       }
+  //     }
+
+  //     .arCardTxt {
+  //       margin: auto 0;
+  //       // padding: 20px;
+  //     }
+  //   }
+  // }
+
+  /*---------- 專欄文章內文  ----------*/
+}

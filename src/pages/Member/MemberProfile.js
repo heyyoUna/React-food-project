@@ -150,7 +150,11 @@ function MemberProfile(props) {
                     id="memberemail"
                     name="email"
                     value={profile.email}
+<<<<<<< HEAD
                       disabled
+=======
+                    
+>>>>>>> 1773495cf322cb8f849f2293fc9c93cd5a840c52
                     />
                 </div>
               </div>

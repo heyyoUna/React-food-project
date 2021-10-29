@@ -29,25 +29,25 @@ function MyNavbar(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
-              <Nav.Link href="/customization">
-                量身訂做
+              <Nav.Link href="/customize">
+                良身訂做
               </Nav.Link>
 
               <NavDropdown
                 title="好食商城"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="/shop/convenient">
+                <NavDropdown.Item href="/products/?cate=1&page=1">
                   快速上桌
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/shop/fitness">
+                <NavDropdown.Item href="/products/?cate=2&page=1">
                   健身專區
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/product/selected">
+                <NavDropdown.Item href="/products/?cate=3&page=1">
                   嚴選食材
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/product">
+                <NavDropdown.Item href="/products/?cate=0&page=1">
                   查看全部
                 </NavDropdown.Item>
               </NavDropdown>

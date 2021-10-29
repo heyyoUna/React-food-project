@@ -48,6 +48,11 @@ import CartManage from './pages/Carts/CartManage'
 import CartConfimOrder from './pages/Carts/CartConfimOrder'
 import CartComplete from './pages/Carts/CartComplete'
 
+// 商城
+import ProductDetail from './pages/Product/ProductDetail'
+import Products from './pages/Product/Products'
+import Customize from './pages/Product/Customize'
+
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
 import MyNavbarOriginal from './components/MyNavbarOriginal'
@@ -58,6 +63,7 @@ import ScrollToTop from './components/ScrollToTop'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
+  const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
   const [member, setMember] = useState({
     id: 0,
@@ -71,7 +77,7 @@ function App() {
         {/* <MyNavbarOriginal auth={auth} /> */}
 
         {/* 主內容區 */}
-        <MainContent className="mt-5">
+        <MainContent className="pt-5">
           {/* <MultiLevelBreadCrumb /> */}
           {/* 匹配路由表(路徑單一匹配) */}
           {/* 切換顯示的元件畫面放在這下面 */}
@@ -103,6 +109,23 @@ function App() {
                   setAuth={setAuth}
                   setMember={setMember}
                 />
+              </Route>
+              {/* 商城 */}
+              <Route path="/products">
+                <Products
+                  productId={productId}
+                  setProductId={setProductId}/>
+              </Route>
+
+              <Route path="/product/:id">
+                <ProductDetail
+                  productId={productId}
+                  setProductId={setProductId}
+                />
+              </Route>
+
+              <Route path="/customize">
+                <Customize />
               </Route>
 
               {/* 文章 */}
