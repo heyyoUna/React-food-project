@@ -47,8 +47,8 @@ function Filter(props) {
                 props.history.push(
                   '/products/?keyword=' + `${keyword}`
                 )
-              } // 如果沒有關鍵字
-            }
+              } 
+            }// 如果沒有關鍵字
             if (!e.target.value) {
               setSearchWord('')
               props.history.push('/products/?cate=0')
