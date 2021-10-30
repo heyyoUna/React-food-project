@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { imgUrl } from './config/index'
 import './App.scss'
 
@@ -66,11 +66,18 @@ function App() {
   const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
 
+  useEffect(() => {
+    const id = localStorage.getItem('id')
+    if (id > 0) {
+      setAuth(true)
+    }
+  }, [])
+
   return (
     <Router>
       <>
         {/* LOGO+標題+導覽列+上方選單 */}
-        <MyNavbar auth={auth} />
+        <MyNavbar auth={auth} setAuth={setAuth} />
         {/* <MyNavbarOriginal auth={auth} /> */}
 
         {/* 主內容區 */}
@@ -110,7 +117,7 @@ function App() {
               <Route path="/products">
                 <Products
                   productId={productId}
-                  setProductId={setProductId}/>
+                  setProductId={setProductId} />
               </Route>
 
               <Route path="/product/:id">
