@@ -55,8 +55,7 @@ function Products(props) {
     setUpdateState()
   }, [sp])
 
-
-  // // 要所有資料
+  //要所有資料
   useEffect(() => {
     
     ;(async () => {
@@ -67,7 +66,6 @@ function Products(props) {
       setProducts(obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
-      console.log('無相依性')
     })()
   }, [nowpage,productCate,searchWord,filter])
 
@@ -106,10 +104,10 @@ function Products(props) {
 
       {/* ---------- */}
       <div className="container">
-        <div className="row">
+        <div className="row pd-row">
           {/* 分類按鈕 */}
           <div className="pd-filter-btn-wrap">
-            <div className="pd-cate d-flex mb-80">
+            <div className="pd-cate">
               <CateTag
                 productCate={productCate}
                 setProductCate={setProductCate}
