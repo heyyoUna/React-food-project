@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import {
   Navbar,
   Nav,
@@ -12,7 +14,16 @@ import '../App.scss'
 import { NavLink } from 'react-router-dom'
 
 function MyNavbar(props) {
-  const { auth } = props
+  const { auth, setAuth } = props
+  let history = useHistory()
+
+  const handlingLogout = (e) => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('id')
+    setAuth(false)
+
+    history.push('/')
+  }
 
   return (
     <>
@@ -81,16 +92,17 @@ function MyNavbar(props) {
             </Nav>
             <Nav>
               <Nav.Link href="/search">
-                <i class="fas fa-search"></i>
+                <i className="fas fa-search"></i>
               </Nav.Link>
 
-              <Nav.Link href="/login">
-                <i class="far fa-user"></i>
+              <Nav.Link href="/login" style={auth ? { display: 'none' } : { display: 'block' }}>
+                <i className="far fa-user"></i>
               </Nav.Link>
 
               <NavDropdown
                 title="會員專區"
                 id="basic-nav-dropdown"
+                style={auth ? { display: 'block' } : { display: 'none' }}
               >
                 <NavDropdown.Item href="/member/profile">
                   個人檔案
@@ -120,13 +132,13 @@ function MyNavbar(props) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/logout">
+                <NavDropdown.Item onClick={handlingLogout}>
                   登出
                 </NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link href="/carts/PreOrder">
-                <i class="fas fa-shopping-cart"></i>
+                <i className="fas fa-shopping-cart"></i>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
