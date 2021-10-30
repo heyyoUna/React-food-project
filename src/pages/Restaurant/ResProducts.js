@@ -37,16 +37,6 @@ function ResPrdoucts(props) {
         }
       })()
     }
-
-    // setData({
-    //   resName:'餐廳',
-    //   resIntroduce: '站在每位食用者的立場來料理每一個食材，現點現做，手工修清所有嚴選原肉品。站在每位食用者的立場來料理每一個食材，現點現做。',
-    //   resPhone:' 02-87912383',
-    //   resStartHour:'11:00',
-    //   resEndHour:'20:00',
-    //   resAddress:'地址:台北市內湖區新湖三路134號',
-
-    // });
   }, [])
 
   return (

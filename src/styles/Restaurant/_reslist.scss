@@ -4,28 +4,26 @@
 }
 //餐廳列表
 .reslist-card {
-    margin: 25px;
-    border-radius: 15px;
-    border: 2px solid $light-green;
-    overflow: hidden;
-    height: 215px
-;
-  
-  
-    &:hover .res-foodImg {
+  margin: 25px;
+  border-radius: 15px;
+  border: 2px solid $light-green;
+  overflow: hidden;
+  height: 215px;
+
+  &:hover .res-foodImg {
     transform: scale(1.03);
   }
-  
+
   .res-foodImg {
     width: 46%;
     object-fit: cover;
     transition: 0.7s;
     border-radius: 15px 0 0 15px;
   }
-  
+
   .reslist-txt {
-    width: 235px;
-    padding: 15px 0 0 30px ;
+    width: 185px;
+    padding: 15px 0 0 30px;
     h3 {
       color: $dark-green;
       font-size: 22px;
@@ -34,74 +32,55 @@
     p {
       font-size: 18px;
     }
-   
-    }
-    @include mobile {
-      margin: 20px;
-        height: 170px;
-    
-    
-  
-        .reslist-txt {
-          padding: 5px 8px 0 7px ;
-            h3 {
+  }
+  @include mobile {
+    margin: 20px;
+    height: 170px;
+
+    .reslist-txt {
+      padding: 5px 8px 0 7px;
+      h3 {
         font-size: 18px;
       }
       p {
         font-size: 14px;
-        padding-bottom: 0;    
-        }
-        }
-      .foodImg {
-        width: 45%;
-      }
-   
-  
-      .fas.fa-truck {
-        font-size: 16px;
-      }
-  
-      .fas.fa-dollar-sign {
-        font-size: 18px;
-      }
-  
-      .far.fa-clock {
-        font-size: 18px;
+        padding-bottom: 0;
       }
     }
+    .foodImg {
+      width: 45%;
+    }
   }
-  
-  //人氣精選
-  
-  .res-popular {
+}
+
+//人氣精選
+
+.res-popular {
+  h3 {
+    color: $dark-green;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  p {
+    font-size: 16px;
+    margin-top: 2px;
+  }
+
+  .res-popular-body {
+    background-color: rgba(255, 182, 6, 0.2);
+    padding: 10px 20px 10px;
+    border-radius: 0 0 15px 15px;
+  }
+  @include mobile {
+    margin: 10px 45px;
     h3 {
-      color: $dark-green;
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 18px;
     }
-    p{
-      font-size: 16px;
-      margin-top: 2px;
+    p {
+      font-size: 14px;
     }
-  
     .res-popular-body {
-      background-color: rgba(255, 182, 6, 0.2);
-      padding: 10px 20px 10px;
-      border-radius: 0 0 15px 15px;
-    }
-    @include mobile {
-      margin: 10px 45px;
-      h3 {
-        font-size: 18px;
-      }
-      p{
-        font-size: 14px;
-      }
-      .res-popular-body {
-        padding: 5px 20px 2px;
-
-      }
-
+      padding: 5px 20px 2px;
     }
   }
-  
+}

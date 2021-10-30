@@ -22,6 +22,7 @@ import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
 import { Link } from 'react-router-dom'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
+import { BsFilterLeft } from 'react-icons/bs'
 
 function ResMap() {
   delete L.Icon.Default.prototype._getIconUrl
@@ -96,29 +97,52 @@ function ResMap() {
         )
         console.log(processFilterData)
       }
+
+      if (filter.distance) {
+        console.log(132)
+        processFilterData = processFilterData.filter(
+          (d) => {
+            console.log(d)
+            console.log(d.distance)
+            return d.distance <= filter.distance
+          }
+        )
+      }
+
+      // if (filter.distance < 0.5) {
+      //   processFilterData = processFilterData.filter(
+      //     (d) => {
+      //       return d.distance < 0.5
+      //     }
+      //   )
+      //   console.log(processFilterData)
+      // } else if (filter.distance < 1) {
+      //   processFilterData = processFilterData.filter(
+      //     (d) => {
+      //       return d.distance < 1
+      //     }
+      //   )
+      // } else {
+      //   processFilterData = processFilterData.filter(
+      //     (d) => {
+      //       return d.distance < 3
+      //     }
+      //   )
+      // }
       setFilterData(processFilterData)
+    } else {
+      setFilterData(history.location.state.mapData)
     }
   }, [filter])
   return (
     <div>
       <div className="map-searchbar">
         <div className="container   justify-content-center py-4 ">
-          <div className="row  ">
-            <div className="col-md-3">
-              {/* <ResMapsearch /> */}
-            </div>
-            {/* <div className="col-md-2 col-6 ">
-               <button type="button" class=" orange-btn" >
-                <RiMapPinLine
-                  style={{
-                    color: '#FB6107',
-                    fontSize: '24px',
-                    marginBottom: '4px',
-                  }}
-                />{' '}
-                <Link to={"/restaurants/"}  >列表模式</Link>
-              </button>           
-              </div> */}
+       
+          <div className="row">
+            {/* <ResMapsearch /> */}
+
+       
             <MapButtonGroup
               name="列表模式"
               linkFunction={goList}
@@ -152,10 +176,10 @@ function ResMap() {
                   name="distance"
                   options={[
                     { name: '最佳距離', value: '' },
-                    { name: '3公里', value: '1' },
-                    { name: '2公里', value: '2' },
-                    { name: '1公里', value: '3' },
-                    { name: '500公尺', value: '4' },
+
+                    { name: '3公里', value: '3' },
+                    { name: '1公里', value: '1' },
+                    { name: '500公尺', value: '0.5' },
                   ]}
                   onChange={onFilterChange}
                 />
@@ -175,7 +199,20 @@ function ResMap() {
           </div>
         </div>
       </div>
-
+      <div className="row justify-content-start">
+      <div className="col-6">
+            <button type="button" class="map-filter d-md-none d-block">
+              <BsFilterLeft
+                style={{
+                  color: '#FB6107',
+                  fontSize: '24px',
+                  marginBottom: '4px',
+                }}
+              />{' '}
+              篩選條件
+            </button>
+          </div>
+          </div>
       <div className=" map-wrapper ">
         <div className=" col-md-4  col-12 map-list ">
           {filterData.map((item, index) => {
@@ -192,7 +229,7 @@ function ResMap() {
                       alt=""
                     />
                   </div>
-                  <div className="col-md-8 map-res-info">
+                  <div className="col-md-7 map-res-info">
                     <div className="map-res-title d-flex justify-content-between">
                       <Link
                         to={'/resprdoucts/' + item.res_id}
@@ -278,12 +315,15 @@ function ResMap() {
             showPopup={true}
             style={{ padding: 0, marginLeft: 'auto' }}
           >
+            {console.log(history.location.state.lat)}
+
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {/* history.location && history.location.state && history.location.state.mapData &&
               history.location.state.mapData */}
+
             {filterData.map((item, index) => {
               return (
                 <>
