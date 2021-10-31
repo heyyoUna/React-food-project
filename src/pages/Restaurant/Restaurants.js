@@ -23,7 +23,7 @@ function Restaurants(props) {
   const [address, setAddress] = useState('')
   const [apiData, setApiData] = useState([]) //舊資料
   const [filterData, setFilterData] = useState([]) //過濾後的資料
-  const didMountRef = useRef(false)
+
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
@@ -71,6 +71,7 @@ function Restaurants(props) {
           }
         )
       }
+
       // 評分排序
       if (filter.rate) {
         // rate ===0  就用 原始資料由小到大排序
@@ -81,59 +82,88 @@ function Restaurants(props) {
               ? a.res_rate - b.res_rate
               : b.res_rate - a.res_rate
           }
-        ) //原本是a+b?
+        )
         console.log(processFilterData)
       }
+
+      if (filter.distance) {
+        console.log(132)
+        processFilterData = processFilterData.filter(
+          (d) => {
+            console.log(d)
+            console.log(d.distance)
+            return d.distance <= filter.distance
+          }
+        )
+      }
+
+      // if (filter.distance < 0.5) {
+      //   processFilterData = processFilterData.filter(
+      //     (d) => {
+      //       return d.distance < 0.5
+      //     }
+      //   )
+      //   console.log(processFilterData)
+      // } else if (filter.distance < 1) {
+      //   processFilterData = processFilterData.filter(
+      //     (d) => {
+      //       return d.distance < 1
+      //     }
+      //   )
+      // } else {
+      //   processFilterData = processFilterData.filter(
+      //     (d) => {
+      //       return d.distance < 3
+      //     }
+      //   )
+      // }
       setFilterData(processFilterData)
+    } else {
+      setFilterData(apiData)
     }
   }, [filter])
 
   const history = useHistory()
   const myRef = useRef(null)
 
-  async function listData() {
-    let r = await fetch('http://localhost:3002/reslist')
-    let j = await r.json()
-    if (j.length) {
-      /** apiData包存原始資料，filterData設定渲染所需的資料 */
-      setApiData(j)
-      setFilterData(j)
-    }
-  }
-  useEffect(() => {
-    listData()
-  }, [])
+  // async function listData() {
+  //   let r = await fetch('http://localhost:3002/reslist')
+  //   let j = await r.json()
+  //   if (j.length) {
+  //     /** apiData包存原始資料，filterData設定渲染所需的資料 */
+  //     setApiData(j)
+  //     setFilterData(j)
+  //   }
+  // }
+  // useEffect(() => {
+  //   listData()
+  // }, [])
 
   useEffect(() => {
-    if (didMountRef.current) {
-      ;(async () => {
-        let r = await fetch(
-          'http://localhost:3002/reslist/address',
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              latitude: lat,
-              longitude: lng,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-        const data = await r.json()
-        console.log('data', data)
-        if (data.success) {
-          setApiData(data.data)
-          setFilterData(data.data)
+    ;(async () => {
+      let r = await fetch(
+        'http://localhost:3002/reslist/address',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            latitude: lat,
+            longitude: lng,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-      })()
-    } else {
-      didMountRef.current = true
-    }
+      )
+      const data = await r.json()
+      console.log('data', data)
+      if (data.success) {
+        setApiData(data.data)
+        setFilterData(data.data)
+      }
+    })()
   }, [lat, lng])
 
   const mySubmit = () => {
-    // history.push('/map')
     // listData()
     myRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -225,10 +255,9 @@ function Restaurants(props) {
               name="distance"
               options={[
                 { name: '最佳距離', value: '' },
-                { name: '3公里', value: '1' },
-                { name: '2公里', value: '2' },
-                { name: '1公里', value: '3' },
-                { name: '500公尺', value: '4' },
+                { name: '3公里', value: '3' },
+                { name: '1公里', value: '1' },
+                { name: '500公尺', value: '0.5' },
               ]}
               onChange={onFilterChange}
             />

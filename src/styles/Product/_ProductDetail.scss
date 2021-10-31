@@ -27,13 +27,19 @@
   flex-wrap: wrap;
   align-items: center;
 }
+// 細節頁最上面
+.dt-pd-container{
+  margin-top: 58px;
+  margin-bottom: 80px;
+  z-index: 1;
+}
 .dt-bg {
   width: 450px;
   height: 450px;
   border-radius: 0 0 500px 0;
   background-color: rgba(143, 192, 101, 0.6);
   position: absolute;
-  top: 0px;
+  top: 58px;
 }
 .dt-product-imgwrap {
   width: 45%;

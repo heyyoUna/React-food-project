@@ -27,9 +27,9 @@ function ProductDetail(props) {
   }, [])
   return (
     <>
-      <div className="dt-bg"></div>
+      
       {/* 商品大圖 */}
-      <div className="container mb80">
+      <div className="container dt-pd-container">
         <div className="row d-flex dt-product">
           <ProductWrap
             name={p.name}
@@ -44,6 +44,7 @@ function ProductDetail(props) {
           />
         </div>
       </div>
+      <div className="dt-bg"></div>
       {/* detail */}
       <div className="container">
         <div className="row">

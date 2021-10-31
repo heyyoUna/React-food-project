@@ -27,22 +27,6 @@ function MapButtonGroup(props) {
 
       {/* 從restaurant 三個sortbutton */}
       {props.children}
-
-      {/* <div className="col-md-4  col-6 ">
-          <select
-          // className="form-select form-select-sm"
-            // aria-label=".form-select-sm "
-            style={{
-              backgroundImage: `url('http://localhost:3000/images/Restaurant/arrow-icon.png')`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: '90% center',
-            }}
-          >
-            <option value="">{props.sortName}</option>
-            <option value="1">最高評分</option>
-            <option value="2">最低評分</option>
-          </select>
-        </div> */}
     </div>
   )
 }

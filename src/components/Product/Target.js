@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Target(props) {
-  const { setTarget, setExercises } = props
+  const { target,setTarget, setExercises,TDEE,setTDEE} = props
   // 移除target選中CSS
   const removeTargetCss = (e) => {
     const all = document.querySelectorAll('.pd-targetImg')
