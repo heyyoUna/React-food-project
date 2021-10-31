@@ -12,12 +12,17 @@ import BreadCrumb from '../../components/BreadCrumb'
 
 function FoodContent(props) {
   const [data, setData] = useState([])
-  const usp = new URLSearchParams(new FormData())
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  // console.log('fcURL:', fcURL)
+  const fcSid = fcURL.pathname //目前網址的路徑
+  // console.log('fcid:', fcSid)
+  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+  // console.log('fcsplit[2]:', fcSplit)
 
   useEffect(() => {
     ;(async () => {
       let r = await fetch(
-        'http://localhost:3002/ArtFood/' + 1
+        'http://localhost:3002/ArtFood/' + fcSplit
       )
       let j = await r.json()
 

@@ -109,16 +109,14 @@ function App() {
               </Route>
               <Route path="/login">
                 {/* 利用props傳入頁面元件狀態 */}
-                <Login
-                  auth={auth}
-                  setAuth={setAuth}
-                />
+                <Login auth={auth} setAuth={setAuth} />
               </Route>
               {/* 商城 */}
               <Route path="/products">
                 <Products
                   productId={productId}
-                  setProductId={setProductId} />
+                  setProductId={setProductId}
+                />
               </Route>
 
               <Route path="/product/:id">
@@ -178,9 +176,7 @@ function App() {
                 <ProductCategory />
               </Route>
               <Route path="/member/profile">
-                <MemberProfile
-                  auth={auth}
-                />
+                <MemberProfile auth={auth} />
               </Route>
               <Route path="/member/order">
                 <MemberOrder />
