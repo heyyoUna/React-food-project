@@ -17,7 +17,7 @@ function ResList({ listData }) {
         {listData.map((el, i) => {
           return <div class="col-md-5  col-12  key={i}">
 
-            <div class="reslist-card d-flex  ">
+            <div class="reslist-card d-flex ">
 
               {/* <img className="res-foodImg" src={`${imgUrl}/images/food.jpg`} alt="" /> */}
               {/* <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" /> */}
@@ -81,13 +81,7 @@ function ResList({ listData }) {
         })}
 
 
-
       </div>
-
-
-
-
-
     </>
   )
 }

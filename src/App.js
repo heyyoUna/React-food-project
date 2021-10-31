@@ -25,6 +25,7 @@ import ArtExercise from './pages/article/ArtExercise'
 import ArtRecipe from './pages/article/ArtRecipe'
 import FoodContent from './pages/article/FoodContent'
 import ExerciseContent from './pages/article/ExerciseContent'
+import ArCardTxtFood from './components/article/ArCardTxtFood'
 
 // 餐廳
 import Restaurants from './pages/Restaurant/Restaurants'
@@ -110,9 +111,10 @@ function App() {
                 <ExerciseContent auth={auth} />
               </Route>
 
-              <Route path="/article/FoodContent">
-                <FoodContent auth={auth} />
-              </Route>
+              <Route
+                path="/FoodContent/:id"
+                component={FoodContent}
+              ></Route>
 
               <Route path="/article/recipe">
                 <ArtRecipe auth={auth} />
