@@ -2,33 +2,33 @@ import React, { useEffect, useState } from 'react'
 import { imgUrl } from '../../config'
 
 function ResProductCard(props) {
-  const { data, setData } = props;
+  const { data, setData } = props
 
   useEffect(() => {
-    if(props.match.params.id){
-    (async () => {
-      console.log(props);
-      let r = await fetch('http://localhost:3002/reslist/' + props.match.params.id);
-      let j = await r.json();
+    if (props.match.params.id) {
+      ;(async () => {
+        console.log(props)
+        let r = await fetch(
+          'http://localhost:3002/reslist/' +
+            props.match.params.id
+        )
+        let j = await r.json()
 
-      if (j.success) {
-        setData(j.data);
-
-      } else {
-        alert('出事了')
-      }
-      console.log(j);
-    })()
-
-}
+        if (j.success) {
+          setData(j.data)
+        } else {
+          alert('出事了')
+        }
+        console.log(j)
+      })()
+    }
   }, [])
-  
+
   return (
     <>
       <div className="container mx-auto">
         <div className="row  justify-content-center ">
-
-        {/* {data.length > 0 && data.map((el,i)=>{ */}
+          {/* {data.length > 0 && data.map((el,i)=>{ */}
           <div className="col-md-3 col-12 m-4">
             <div class="res-menu">
               <div className="res-pic-wrapper">
@@ -56,11 +56,13 @@ function ResProductCard(props) {
                   <p>碳水:{data.adipose}</p>
                   <p>脂防:{data.carbohydrate}</p>
                 </div>
-                <p className="text-right">熱量:{data.carbohydrate}</p>
+                <p className="text-right">
+                  熱量:{data.carbohydrate}
+                </p>
               </div>
             </div>
           </div>
-              // })}
+          // })}
           {/* <div className="col-md-3 col-12 m-4">
             <div class="res-menu">
               <div className="res-pic-wrapper">
@@ -219,7 +221,4 @@ function ResProductCard(props) {
   )
 }
 
-
-
 export default ResProductCard
-

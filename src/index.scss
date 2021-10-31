@@ -2,6 +2,14 @@
 @import './styles/custom.scss';
 @import './styles/article/Article.scss';
 
+// 商城區
+// 商品細節
+@import './styles/Product/ProductDetail';
+// 商品區
+@import './styles/Product/Products';
+// 客製化區
+@import './styles/Product/Customize';
+
 //餐廳區
 @import './styles/Restaurant/resbutton';
 @import './styles/Restaurant/resbanner';

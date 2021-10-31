@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { imgUrl } from './config/index'
 import './App.scss'
 
@@ -49,6 +49,11 @@ import CartManage from './pages/Carts/CartManage'
 import CartConfimOrder from './pages/Carts/CartConfimOrder'
 import CartComplete from './pages/Carts/CartComplete'
 
+// 商城
+import ProductDetail from './pages/Product/ProductDetail'
+import Products from './pages/Product/Products'
+import Customize from './pages/Product/Customize'
+
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
 import MyNavbarOriginal from './components/MyNavbarOriginal'
@@ -59,16 +64,21 @@ import ScrollToTop from './components/ScrollToTop'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
+  const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
-  const [member, setMember] = useState({
-    id: 0,
-  })
+
+  useEffect(() => {
+    const id = localStorage.getItem('id')
+    if (id > 0) {
+      setAuth(true)
+    }
+  }, [])
 
   return (
     <Router>
       <>
         {/* LOGO+標題+導覽列+上方選單 */}
-        <MyNavbar auth={auth} />
+        <MyNavbar auth={auth} setAuth={setAuth} />
         {/* <MyNavbarOriginal auth={auth} /> */}
 
         {/* 主內容區 */}
@@ -102,8 +112,24 @@ function App() {
                 <Login
                   auth={auth}
                   setAuth={setAuth}
-                  setMember={setMember}
                 />
+              </Route>
+              {/* 商城 */}
+              <Route path="/products">
+                <Products
+                  productId={productId}
+                  setProductId={setProductId} />
+              </Route>
+
+              <Route path="/product/:id">
+                <ProductDetail
+                  productId={productId}
+                  setProductId={setProductId}
+                />
+              </Route>
+
+              <Route path="/customize">
+                <Customize />
               </Route>
 
               {/* 文章 */}
@@ -154,7 +180,6 @@ function App() {
               <Route path="/member/profile">
                 <MemberProfile
                   auth={auth}
-                  member={member}
                 />
               </Route>
               <Route path="/member/order">

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import {
   Navbar,
   Nav,
@@ -12,7 +14,16 @@ import '../App.scss'
 import { NavLink } from 'react-router-dom'
 
 function MyNavbar(props) {
-  const { auth } = props
+  const { auth, setAuth } = props
+  let history = useHistory()
+
+  const handlingLogout = (e) => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('id')
+    setAuth(false)
+
+    history.push('/')
+  }
 
   return (
     <>
@@ -29,25 +40,25 @@ function MyNavbar(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
-              <Nav.Link href="/customization">
-                量身訂做
+              <Nav.Link href="/customize">
+                良身訂做
               </Nav.Link>
 
               <NavDropdown
                 title="好食商城"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="/shop/convenient">
+                <NavDropdown.Item href="/products/?cate=1&page=1">
                   快速上桌
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/shop/fitness">
+                <NavDropdown.Item href="/products/?cate=2&page=1">
                   健身專區
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/product/selected">
+                <NavDropdown.Item href="/products/?cate=3&page=1">
                   嚴選食材
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/product">
+                <NavDropdown.Item href="/products/?cate=0&page=1">
                   查看全部
                 </NavDropdown.Item>
               </NavDropdown>
@@ -81,16 +92,17 @@ function MyNavbar(props) {
             </Nav>
             <Nav>
               <Nav.Link href="/search">
-                <i class="fas fa-search"></i>
+                <i className="fas fa-search"></i>
               </Nav.Link>
 
-              <Nav.Link href="/login">
-                <i class="far fa-user"></i>
+              <Nav.Link href="/login" style={auth ? { display: 'none' } : { display: 'block' }}>
+                <i className="far fa-user"></i>
               </Nav.Link>
 
               <NavDropdown
                 title="會員專區"
                 id="basic-nav-dropdown"
+                style={auth ? { display: 'block' } : { display: 'none' }}
               >
                 <NavDropdown.Item href="/member/profile">
                   個人檔案
@@ -120,13 +132,13 @@ function MyNavbar(props) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/logout">
+                <NavDropdown.Item onClick={handlingLogout}>
                   登出
                 </NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link href="/carts/PreOrder">
-                <i class="fas fa-shopping-cart"></i>
+                <i className="fas fa-shopping-cart"></i>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

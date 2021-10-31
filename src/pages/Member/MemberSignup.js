@@ -13,7 +13,7 @@ function MemberSignup(props) {
      // // TODO: 欄位檢查
      const fd = new FormData(document.memberForm);
      console.log(new URLSearchParams(fd).toString())
-     fetch('http://localhost:3002/signup', {
+     fetch('http://localhost:3002/member/signup', {
        method: 'POST',
        headers: {
          'Content-Type': 'application/x-www-form-urlencoded'

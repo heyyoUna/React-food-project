@@ -70,7 +70,7 @@
   height: 100vh;
 
   .map-res-info {
-    padding-left: 26px;
+    padding-left: 15px;
     h4 {
       color: $dark-green;
       font-weight: 700;
@@ -83,7 +83,7 @@
     h5 {
       font-size: 16px;
 
-      line-height: 1.8;
+      line-height: 1.5;
     }
   }
 
@@ -120,6 +120,15 @@
 }
 
 //search-bar
+
+.map-filter {
+  display: none;
+  @include sortBtn($light-orange, 2px, 20px);
+  @include mobile {
+    display: block;
+    margin-top: 20px;
+  }
+}
 
 .map-searchbar {
   @include mobile {
