@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom'
 import ResMap from './ResMap'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
+import PageBtn from './../../components/Product/PageBtn'
 
 // import { data } from '../../data'
 
@@ -23,6 +24,12 @@ function Restaurants(props) {
   const [address, setAddress] = useState('')
   const [apiData, setApiData] = useState([]) //舊資料
   const [filterData, setFilterData] = useState([]) //過濾後的資料
+  const [pages, setPages] = useState({
+    currentPage: 0, //當前頁碼
+    perPage: 6, //每頁6筆
+    totalPages: 0, //總頁數
+  })
+  const [pagination, setPagination] = useState([])
 
   const [filter, setFilter] = useState({
     price: '',
@@ -38,17 +45,27 @@ function Restaurants(props) {
     })
   }
 
+  //點擊當前頁碼
+  const onperPageChange = (e) => {
+    const index =
+      e.target.attributes.getNamedItem('data-index').value
+    let newData = [...apiData]
+    console.log(parseInt(index) + 1)
+    newData = newData.slice(
+      parseInt(index) * pages.perPage,
+      pages.perPage * (parseInt(index) + 1) //0*6,6*1
+    )
+
+    setFilterData(newData)
+    setPages({ ...pages, currentPage: parseInt(index) }) //當前頁碼為點擊頁碼
+  }
+
   const goToMap = () => {
     history.push({
       pathname: '/resmap',
       state: { mapData: apiData, lat, lng },
     })
   }
-
-  //   {  price: '',
-  //   rate: '',
-  //   distance: '',
-  // price:value (100-200) 會覆蓋掉原本的}
 
   // filter 不是陣列的filter，是狀態的filter
   useEffect(() => {
@@ -87,7 +104,6 @@ function Restaurants(props) {
       }
 
       if (filter.distance) {
-        console.log(132)
         processFilterData = processFilterData.filter(
           (d) => {
             console.log(d)
@@ -97,26 +113,6 @@ function Restaurants(props) {
         )
       }
 
-      // if (filter.distance < 0.5) {
-      //   processFilterData = processFilterData.filter(
-      //     (d) => {
-      //       return d.distance < 0.5
-      //     }
-      //   )
-      //   console.log(processFilterData)
-      // } else if (filter.distance < 1) {
-      //   processFilterData = processFilterData.filter(
-      //     (d) => {
-      //       return d.distance < 1
-      //     }
-      //   )
-      // } else {
-      //   processFilterData = processFilterData.filter(
-      //     (d) => {
-      //       return d.distance < 3
-      //     }
-      //   )
-      // }
       setFilterData(processFilterData)
     } else {
       setFilterData(apiData)
@@ -159,16 +155,37 @@ function Restaurants(props) {
       if (data.success) {
         setApiData(data.data)
         setFilterData(data.data)
+
+        const dataSize = data.data.length
+        const totalPages = Math.ceil(
+          dataSize / pages.perPage
+        )
+        console.log(totalPages)
+        const arr = []
+        for (let i = 1; i <= totalPages; i++) {
+          arr.push(i)
+        }
+        console.log(arr)
+        setPages({ ...pages, totalPages })
+        setPagination(arr)
       }
+      //filter的資料切成6筆(0-6)
+      const dataPerpage = data.data.slice(
+        pages.currentPage,
+        pages.perPage
+      )
+      console.log(dataPerpage)
+      setFilterData(dataPerpage)
     })()
   }, [lat, lng])
 
   const mySubmit = () => {
     // listData()
+    //滾動效果
     myRef.current.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
-    }) //滾動效果
+    })
     Geocode.setApiKey(apiKey) //輸入地址抓經緯度
     Geocode.setLanguage('zh-TW')
     Geocode.setRegion('tw')
@@ -263,12 +280,109 @@ function Restaurants(props) {
             />
           </div>
         </MapButtonGroup>
-        {/* name="地圖模式"  sortName="評分排序" */}
       </div>
       {/* <ResMap name="列表模式"/> */}
-      <div className="container mt-35">
+      <div className="container mt-35 mb-5">
         {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
         <ResList listData={filterData} />
+      </div>
+
+      {/* 分頁 */}
+
+      <div className="page-btn-wrap d-flex">
+        {/* 前一頁 */}
+        <div
+          className="page-pre"
+          onClick={() => {
+            console.log('currentPage', pages.currentPage)
+            console.log('totalPages', pages.totalPages)
+
+            // setFilterData(
+            //   apiData.slice(
+            //     (pages.currentPage + 1) * pages.perPage,
+            //     apiData.length - 1
+            //   )
+            // )
+
+            const arr = apiData.slice(
+              (pages.currentPage - 1) * pages.perPage,
+              pages.currentPage * pages.perPage
+            )
+
+            setFilterData(arr)
+
+            setPages({
+              ...pages,
+              currentPage: pages.currentPage - 1,
+            })
+          }}
+        >
+          <i className="fas fa-chevron-left"></i>
+        </div>
+        {/* 頁數 */}
+        <div className="page d-flex">
+          {pagination.map((item, i) => {
+            return (
+              <div
+                className="res-pages"
+                key={i}
+                onClick={onperPageChange}
+                data-index={i}
+              >
+                {item}
+              </div>
+            )
+          })}
+
+          {/* <div >
+                  onClick={(e) => {
+                    pages.setcurrentPage()
+                    
+                  }}
+                >
+                 
+              </div> */}
+        </div>
+        {/* 下一頁 */}
+        <div
+          className="page-next"
+          onClick={() => {
+            console.log(
+              'currentPage',
+              pages.currentPage + 1
+            )
+            console.log('totalPages', pages.totalPages)
+            // if (
+            //   pages.currentPage + 1 ===
+            //   pages.totalPages
+            // ) {
+            console.log('1111111111111111')
+            //
+            setFilterData(
+              apiData.slice(
+                (pages.currentPage + 1) * pages.perPage,
+                apiData.length - 1
+              )
+            )
+            // } else {
+            setFilterData(
+              apiData.slice(
+                (pages.currentPage + 1) * pages.perPage,
+                (pages.currentPage + 2) * pages.perPage
+              )
+            )
+            // }
+            setPages({
+              ...pages,
+              currentPage: pages.currentPage + 1,
+            })
+          }}
+        >
+          <i className="fas fa-chevron-right"></i>
+        </div>
+        <p className="total-page">
+          共 {pages.totalPages} 頁
+        </p>
       </div>
 
       <div className="ma-80">

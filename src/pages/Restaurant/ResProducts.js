@@ -42,7 +42,7 @@ function ResPrdoucts(props) {
   return (
     <>
       <div className="container p-0 ">
-        <div className="ma-80 pt-5">
+        <div className="ma-80 ">
           <TitleBorder name={restaurant.res_name} />
         </div>
 
@@ -118,8 +118,8 @@ function ResPrdoucts(props) {
           {product.length > 0 &&
             product.map((v, i) => {
               return (
-                <div className="col-md-3 col-12 m-4">
-                  <div class="res-menu">
+                <div className="col-md-4 col-12 ">
+                  <div class="res-menu m-4">
                     <div className="res-pic-wrapper">
                       <div className="res-product-card-overlay d-flex justify-content-center  ">
                         <Link to={'/restaurants'}>
