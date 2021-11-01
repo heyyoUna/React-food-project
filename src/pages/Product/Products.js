@@ -17,7 +17,6 @@ import ProductCard from './../../components/Product/ProductCard'
 import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
-  
   const searchParams = new URLSearchParams(
     props.location.search
   )
@@ -28,26 +27,31 @@ function Products(props) {
   // 篩選後商品
   const [displayProducts, setDisplayProducts] = useState([])
   // 關鍵字搜尋狀態
-  const [searchWord, setSearchWord] = useState(searchParams.get('keyword') || '')
+  const [searchWord, setSearchWord] = useState(
+    searchParams.get('keyword') || ''
+  )
   // 商品分類標籤(radio)
-  const [productCate, setProductCate] = useState(searchParams.get('cate') || '0')
+  const [productCate, setProductCate] = useState(
+    searchParams.get('cate') || '0'
+  )
   // 總頁數
   const [totalpages, setTotalPages] = useState('')
   // 設定目前頁數狀態
-  const [nowpage, setNowPage] = useState( searchParams.get('page') || 1)
+  const [nowpage, setNowPage] = useState(
+    searchParams.get('page') || 1
+  )
   // 篩選radio
   const [filter, setFilter] = useState('')
-  
+
   // 解析URL參數
   const sp = searchParams.toString()
-  
+
   // 當跳頁的時候把URL參數設定回狀態
-  const setUpdateState = ()=>{
+  const setUpdateState = () => {
     const cate = searchParams.get('cate')
     const page = searchParams.get('page')
     setProductCate(cate)
     setNowPage(page)
-
   }
 
   // 跳轉頁面都會觸發
@@ -57,7 +61,6 @@ function Products(props) {
 
   //要所有資料
   useEffect(() => {
-    
     ;(async () => {
       const r = await fetch(
         `${Product_API}` + `${props.location.search}`
@@ -67,9 +70,8 @@ function Products(props) {
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
     })()
-  }, [nowpage,productCate,searchWord,filter])
+  }, [nowpage, productCate, searchWord, filter])
 
- 
   // 切換banner
   const All = <AllBanner />
   const Table = <TableBanner />

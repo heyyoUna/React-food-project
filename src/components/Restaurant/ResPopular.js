@@ -1,135 +1,78 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FiHeart } from 'react-icons/fi'
 import { imgUrl } from '../../config'
 
+function ResPopular(props) {
+  const [popular, setPopular] = useState([])
 
-function ResPopular (props) {
-    return (
-        <>
-               <div className="container mx-auto">
+  useEffect(() => {
+    ;(async () => {
+      let r = await fetch(
+        'http://localhost:3002/reslist/popular/list'
+      )
+
+      let data = await r.json()
+      console.log('data', data)
+      if (data.length) {
+        setPopular(data)
+      } else {
+        alert('出事了')
+      }
+    })()
+  }, [])
+  return (
+    <>
+      <div className="container mx-auto">
         <div className="row  justify-content-center ">
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-popular">
-              <div className="res-popular-pic-wrapper">
-                <img
-                  className="foodImg"
-                  // src={`${imgUrl}/images/food.jpg`}
-                  src={` http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '175px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
+          {popular &&
+            popular.map((v, i) => {
+              return (
+                <div className="col-md-3 col-12 m-4">
+                  <div class="res-popular">
+                    <div className="res-popular-pic-wrapper">
+                      <img
+                        className="foodImg"
+                        // src={`${imgUrl}/images/food.jpg`}
+                        src={
+                          'http://localhost:3002/img/restaurant/' +
+                          v.res_img
+                        }
+                        alt=""
+                        style={{
+                          width: '100%',
+                          height: '175px',
+                          borderRadius: '15px 15px 0 0',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
 
-              <div className="res-popular-body ">
-                <div className="res-popular-title d-flex justify-content-between mt-3">
-                  <h3>生活倉廚</h3>
-                  <span>
-                    <FiHeart
-                      style={{
-                        color: '#FB6107',
+                    <div className="res-popular-body ">
+                      <div className="res-popular-title d-flex justify-content-between mt-3">
+                        <h3>{v.res_name}</h3>
+                        <span>
+                          <FiHeart
+                            style={{
+                              color: '#FB6107',
 
-                        fontSize: '24px',
-                      }}
-                    />
-                  </span>
+                              fontSize: '24px',
+                            }}
+                          />
+                        </span>
+                      </div>
+
+                      <div className="res-popular-prodution">
+                        <p>{v.res_introduce}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                <div className="res-popular-prodution">
-                  <p>
-                    站在每位食用者的立場來料理每一個食材，現點現做，手工修清所有嚴選原肉品。
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-popular">
-              <div className="res-popular-pic-wrapper">
-                <img
-                  className="foodImg"
-                  src={` http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '175px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-popular-body   ">
-                <div className="res-popular-title d-flex justify-content-between mt-3">
-                  <h3>生活倉廚</h3>
-                  <span>
-                    <FiHeart
-                      style={{
-                        color: '#FB6107',
-
-                        fontSize: '24px',
-                      }}
-                    />
-                  </span>
-                </div>
-
-                <div className="res-popular-prodution">
-                  <p>
-                    站在每位食用者的立場來料理每一個食材，現點現做，手工修清所有嚴選原肉品。
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 col-12 m-4">
-            <div class="res-popular">
-              <div className="res-popular-pic-wrapper">
-                <img
-                  className="foodImg"
-                  src={` http://localhost:3000/images/Restaurant/food.jpg`}
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '175px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-
-              <div className="res-popular-body ">
-                <div className="res-popular-title d-flex justify-content-between mt-3">
-                  <h3>生活倉廚</h3>
-                  <span>
-                    <FiHeart
-                      style={{
-                        color: '#FB6107',
-
-                        fontSize: '24px',
-                      }}
-                    />
-                  </span>
-                </div>
-
-                <div className="res-popular-prodution">
-                  <p>
-                    站在每位食用者的立場來料理每一個食材，現點現做，手工修清所有嚴選原肉品。
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+              )
+            })}
         </div>
       </div>
-        </>
-    )
+    </>
+  )
 }
 
-
-
 export default ResPopular
-
