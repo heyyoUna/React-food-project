@@ -40,24 +40,20 @@ function Products(props) {
   
   // 解析URL參數
   const sp = searchParams.toString()
-  
+  // 跳轉頁面都會觸發,將URL參數設定回狀態
+  useEffect(() => {
+    setUpdateState()
+  }, [sp])
   // 當跳頁的時候把URL參數設定回狀態
   const setUpdateState = ()=>{
     const cate = searchParams.get('cate')
     const page = searchParams.get('page')
     setProductCate(cate)
     setNowPage(page)
-
   }
-
-  // 跳轉頁面都會觸發
-  useEffect(() => {
-    setUpdateState()
-  }, [sp])
 
   //要所有資料
   useEffect(() => {
-    
     ;(async () => {
       const r = await fetch(
         `${Product_API}` + `${props.location.search}`
@@ -79,7 +75,6 @@ function Products(props) {
   // 換分類banner
   const switchBanner = (productCate) => {
     switch (productCate) {
-      // console.log('ok')
       case '0':
         return All
       case '1':
@@ -95,13 +90,7 @@ function Products(props) {
 
   return (
     <>
-      {/* ----------Banner 元件區-------- */}
-      {/* <AllBanner /> */}
-      {/* <MaterialBanner /> */}
-      {/* <WorkoutBanner /> */}
-      {/* <TableBanner /> */}
       <>{switchBanner(productCate)}</>
-
       {/* ---------- */}
       <div className="container">
         <div className="row pd-row">
