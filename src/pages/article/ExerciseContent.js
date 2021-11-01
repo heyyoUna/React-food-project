@@ -1,6 +1,3 @@
-// 在第三個斷點就變成手機版 lg
-// <img src={`${imgUrl}/images/article/col_kv1-3.png`} alt="" />
-
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { imgUrl, API_img } from '../../config/index'

@@ -3,17 +3,19 @@ import React from 'react'
 function Cart_CheckOut(props) {
   let { setCheckout } = props
 
-
   return (
     <>
-      <div className="container col-lg-6 checkout" action="">
+      <div
+        className="container col-lg-6 checkout"
+        action=""
+      >
         <div className="check d-flex justify-content-between">
           <div className="choose">
             <input
               type="radio"
               name="checkout"
               id="checkout"
-              value="StoreA"
+              value="7-11取貨付款"
               onChange={(e) => {
                 setCheckout(e.target.value)
               }}
@@ -25,7 +27,7 @@ function Cart_CheckOut(props) {
               type="radio"
               name="checkout"
               id="checkout"
-              value="StoreB"
+              value="全家取貨付款"
               onChange={(e) => {
                 setCheckout(e.target.value)
                 // setStoreA(e.target.value)
@@ -39,7 +41,7 @@ function Cart_CheckOut(props) {
               type="radio"
               name="checkout"
               id="checkout"
-              value="Delivery"
+              value="宅配貨到付款"
               onChange={(e) => {
                 setCheckout(e.target.value)
                 // setStoreA(e.target.value)
@@ -57,7 +59,7 @@ function Cart_CheckOut(props) {
               type="radio"
               name="checkout"
               id="checkout"
-              value="CreditPay"
+              value="信用卡支付 - 宅配到府"
               onChange={(e) => {
                 setCheckout(e.target.value)
                 // setStoreA(e.target.value)
@@ -89,7 +91,7 @@ function Cart_CheckOut(props) {
               type="radio"
               name="checkout"
               id="checkout"
-              value="LINEPAY"
+              value="LINE PAY 支付 - 宅配到府"
               onChange={(e) => {
                 setCheckout(e.target.value)
                 // setStoreA(e.target.value)
@@ -100,7 +102,10 @@ function Cart_CheckOut(props) {
           </div>
         </div>
       </div>
-      <form className="container checkoutmobileform col-10" action="">
+      <form
+        className="container checkoutmobileform col-10"
+        action=""
+      >
         <div className="checkmobile d-flex justify-content-between align-content-center">
           <input
             type="radio"
@@ -112,11 +117,22 @@ function Cart_CheckOut(props) {
           <label for="">7-11取貨付款</label>
         </div>
         <div className="checkmobile d-flex justify-content-between align-content-center">
-          <input type="radio" name="delivery" id="delivery" value="B" />
+          <input
+            type="radio"
+            name="delivery"
+            id="delivery"
+            value="B"
+          />
           <label for="">全家取貨付款</label>
         </div>
         <div className="checkmobile d-flex justify-content-between align-content-center">
-          <input type="radio" name="delivery" id="delivery" value="C" checked />
+          <input
+            type="radio"
+            name="delivery"
+            id="delivery"
+            value="C"
+            checked
+          />
           <label for="">
             宅配 貨到付款<span>(僅限台灣本島)</span>
           </label>
@@ -130,21 +146,37 @@ function Cart_CheckOut(props) {
             onclick="radiochange(event)"
           />
           <div className="payicon d-flex align-content-center">
-            <img src="../../../image/cc-apple-pay-brands.svg" alt="" />
-            <img src="../../../image/cc-mastercard-brands.svg" alt="" />
-            <img src="../../../image/cc-visa-brands.svg" alt="" />
-            <img src="../../../image/google-pay-brands.svg" alt="" />
+            <img
+              src="../../../image/cc-apple-pay-brands.svg"
+              alt=""
+            />
+            <img
+              src="../../../image/cc-mastercard-brands.svg"
+              alt=""
+            />
+            <img
+              src="../../../image/cc-visa-brands.svg"
+              alt=""
+            />
+            <img
+              src="../../../image/google-pay-brands.svg"
+              alt=""
+            />
           </div>
           <label for="">信用卡支付</label>
         </div>
         <div className="checkmobile d-flex justify-content-between align-content-center">
-          <input type="radio" name="delivery" id="delivery" value="E" />
+          <input
+            type="radio"
+            name="delivery"
+            id="delivery"
+            value="E"
+          />
           <label for="">LINE PAY 支付</label>
         </div>
       </form>
     </>
   )
 }
-
 
 export default Cart_CheckOut

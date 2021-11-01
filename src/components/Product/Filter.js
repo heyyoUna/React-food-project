@@ -25,10 +25,10 @@ function Filter(props) {
           type="text"
           className="pd-search-input"
           placeholder="請輸入關鍵字"
-          value={input}
+          value={searchWord}
           // 輸入框狀態改變時設定回值
           onChange={(e) => {
-            setInput(e.target.value)
+            setSearchWord(e.target.value)
             // 如果沒有關鍵字, 回到全部商品
             if (!e.target.value) {
               setSearchWord('')
@@ -41,8 +41,9 @@ function Filter(props) {
             // 如果有關鍵字
             if (e.target.value) {
               if (e.keyCode === 13) {
-                setSearchWord(input)
+                // setSearchWord(input)
                 setProductCate('0')
+                setFilter('')
                 const keyword = e.target.value
                 props.history.push(
                   '/products/?keyword=' + `${keyword}`
@@ -67,6 +68,7 @@ function Filter(props) {
           checked={filter === '低熱量'}
           onChange={(e) => {
             setFilter(e.target.value)
+            setSearchWord('')
             props.history.push('/products/?cate=0&filter=低熱量')
           }}
         />
@@ -81,6 +83,7 @@ function Filter(props) {
           checked={filter === '高蛋白'}
           onChange={(e) => {
             setFilter(e.target.value)
+            setSearchWord('')
             props.history.push('/products/?cate=0&filter=高蛋白')
           }}
         />
@@ -95,6 +98,7 @@ function Filter(props) {
           checked={filter === '低醣'}
           onChange={(e) => {
             setFilter(e.target.value)
+            setSearchWord('')
             props.history.push('/products/?cate=0&filter=低醣')
           }}
         />

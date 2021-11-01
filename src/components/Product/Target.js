@@ -1,7 +1,11 @@
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  withRouter,
+} from 'react-router-dom'
 
 function Target(props) {
-  const { setTarget, setExercises } = props
+  const { target,setTarget, setExercises,TDEE,setTDEE} = props
   // 移除target選中CSS
   const removeTargetCss = (e) => {
     const all = document.querySelectorAll('.pd-targetImg')
@@ -18,6 +22,8 @@ function Target(props) {
     }
     e.classList.add('pd-cusClick')
   }
+
+
   return (
     <>
       {/* 運動目標------------------- */}
@@ -27,8 +33,13 @@ function Target(props) {
           <div
             className="pd-gain pd-targetImg"
             onClick={(e) => {
-              setTarget('增肌減脂')
-              removeTargetCss(e.target)
+              if(!TDEE){
+                // alert('請先輸入基本資料')
+              }if(TDEE){
+                setTarget('增肌減脂')
+                removeTargetCss(e.target)
+                props.history.push('/customize/?target=增肌減脂')
+              }
             }}
           ></div>
           <p>增肌減脂</p>
@@ -38,8 +49,13 @@ function Target(props) {
           <div
             className="pd-slim pd-targetImg"
             onClick={(e) => {
-              setTarget('變瘦')
-              removeTargetCss(e.target)
+              if(!TDEE){
+                // alert('請先輸入基本資料')
+              }if(TDEE){
+                setTarget('變瘦')
+                removeTargetCss(e.target)
+                props.history.push('/customize/?target=變瘦')
+              }
             }}
           ></div>
           <p>變瘦</p>
@@ -52,8 +68,12 @@ function Target(props) {
           <div
             className="pd-five pd-timesImg"
             onClick={(e) => {
-              setExercises('五次以上')
-              removeTimesCss(e.target)
+              if(!TDEE){
+                alert('請先輸入基本資料')
+              }if(TDEE){
+                setExercises('五次以上')
+                removeTimesCss(e.target)
+              }
             }}
           ></div>
           <p>五次以上</p>
@@ -62,8 +82,12 @@ function Target(props) {
           <div
             className="pd-three pd-timesImg"
             onClick={(e) => {
-              setExercises('三次左右')
-              removeTimesCss(e.target)
+              if(!TDEE){
+                alert('請先輸入基本資料')
+              }if(TDEE){
+                setExercises('三次左右')
+                removeTimesCss(e.target)
+              }
             }}
           ></div>
           <p>三次左右</p>
@@ -72,8 +96,12 @@ function Target(props) {
           <div
             className="pd-none pd-timesImg"
             onClick={(e) => {
-              setExercises('不運動')
-              removeTimesCss(e.target)
+              if(!TDEE){
+                alert('請先輸入基本資料')
+              }if(TDEE){
+                setExercises('不運動')
+                removeTimesCss(e.target)
+              }
             }}
           ></div>
           <p>不運動</p>
@@ -83,4 +111,4 @@ function Target(props) {
   )
 }
 
-export default Target
+export default withRouter(Target)

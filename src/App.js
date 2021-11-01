@@ -25,6 +25,7 @@ import ArtExercise from './pages/article/ArtExercise'
 import ArtRecipe from './pages/article/ArtRecipe'
 import FoodContent from './pages/article/FoodContent'
 import ExerciseContent from './pages/article/ExerciseContent'
+import ArCardTxtFood from './components/article/ArCardTxtFood'
 
 // 餐廳
 import Restaurants from './pages/Restaurant/Restaurants'
@@ -109,16 +110,14 @@ function App() {
               </Route>
               <Route path="/login">
                 {/* 利用props傳入頁面元件狀態 */}
-                <Login
-                  auth={auth}
-                  setAuth={setAuth}
-                />
+                <Login auth={auth} setAuth={setAuth} />
               </Route>
               {/* 商城 */}
               <Route path="/products">
                 <Products
                   productId={productId}
-                  setProductId={setProductId} />
+                  setProductId={setProductId}
+                />
               </Route>
 
               <Route path="/product/:id">
@@ -137,9 +136,10 @@ function App() {
                 <ExerciseContent auth={auth} />
               </Route>
 
-              <Route path="/article/FoodContent">
-                <FoodContent auth={auth} />
-              </Route>
+              <Route
+                path="/FoodContent/:id"
+                component={FoodContent}
+              ></Route>
 
               <Route path="/article/recipe">
                 <ArtRecipe auth={auth} />
@@ -177,9 +177,7 @@ function App() {
                 <ProductCategory />
               </Route>
               <Route path="/member/profile">
-                <MemberProfile
-                  auth={auth}
-                />
+                <MemberProfile auth={auth} />
               </Route>
               <Route path="/member/order">
                 <MemberOrder />
