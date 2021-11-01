@@ -15,6 +15,8 @@ function PageBtn(props) {
   // 取的分類號,跟關鍵字
   const searchCate = searchParams.get('cate')
   const searchKeyword = searchParams.get('keyword')
+  const searchFilter = searchParams.get('filter')
+  console.log(searchFilter)
 
   return (
     <>
@@ -32,6 +34,9 @@ function PageBtn(props) {
               }
               if(searchKeyword){
                 usp.set('keyword', searchKeyword);
+              }
+              if(searchFilter){
+                usp.set('filter',searchFilter)
               }
               props.history.push(
                 `?${usp.toString()}`
@@ -51,6 +56,9 @@ function PageBtn(props) {
             if(searchKeyword){
               usp.set('keyword', searchKeyword);
             }
+            if(searchFilter){
+                usp.set('filter',searchFilter)
+              }
             return (
               <div key={i}>
                 <Link
@@ -80,6 +88,9 @@ function PageBtn(props) {
               }
               if(searchKeyword){
                 usp.set('keyword', searchKeyword);
+              }
+              if(searchFilter){
+                usp.set('filter',searchFilter)
               }
               props.history.push(
                 `?${usp.toString()}`
