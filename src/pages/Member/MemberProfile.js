@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter, Link, useHistory } from 'react-router-dom'
+import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
 
 function MemberProfile(props) {
