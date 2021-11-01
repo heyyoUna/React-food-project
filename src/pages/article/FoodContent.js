@@ -11,13 +11,12 @@ import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 
 function FoodContent(props) {
-  const [data, setData] = useState([])
   const fcURL = new URL(document.location.href) //目前網頁網址
-  // console.log('fcURL:', fcURL)
   const fcSid = fcURL.pathname //目前網址的路徑
-  // console.log('fcid:', fcSid)
   const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
-  // console.log('fcsplit[2]:', fcSplit)
+
+  const [data, setData] = useState([])
+  const [answers, setAnswers] = useState([])
 
   useEffect(() => {
     ;(async () => {
@@ -27,13 +26,12 @@ function FoodContent(props) {
       let j = await r.json()
 
       if (j.success) {
-        // setProduct(j.products)
         setData(j.data)
-        console.log(j.data)
+        console.log('j.data:', j.data)
+        setAnswers(JSON.parse(j.data.ar_answers))
       }
     })()
   }, [])
-
   return (
     <>
       <div
@@ -84,7 +82,18 @@ function FoodContent(props) {
             <div className="QA">
               <h3> {data.ar_question}</h3>
               <ul>
-                <li>{data.ar_answers}</li>
+                {console.log('ans:', answers)}
+                {answers ? (
+                  answers.map((v, i) => {
+                    return (
+                      <li name="answers" key={i} value={v}>
+                        {v}
+                      </li>
+                    )
+                  })
+                ) : (
+                  <h1>hello</h1>
+                )}
               </ul>
               <div>
                 <button className="QAbtn">作答</button>
@@ -94,7 +103,6 @@ function FoodContent(props) {
           <div className="col-3 col-lg-3" id="mostPopular">
             <ul>
               <div className="mostPopularTitle">
-                {' '}
                 Most Popular
               </div>
               <div className="d-flex my-3 mostPopularItems">
