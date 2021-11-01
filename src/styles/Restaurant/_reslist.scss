@@ -38,7 +38,7 @@
     height: 170px;
 
     .reslist-txt {
-      padding: 5px 8px 0 7px;
+      padding: 10px 8px 0 7px;
       h3 {
         font-size: 18px;
       }
@@ -82,5 +82,17 @@
     .res-popular-body {
       padding: 5px 20px 2px;
     }
+  }
+}
+
+.res-pages {
+  margin-right: 15px;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    color: #729a51;
+  }
+  &:active {
+    color: #729a51;
   }
 }

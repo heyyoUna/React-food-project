@@ -25,9 +25,9 @@ function CartConfimOrder(props) {
   }, [])
 
   async function DataAxios() {
-    let r = await axios.get('http://localhost:3002/cart/')
+    let r = await axios.get('http://localhost:3001/cart/')
     let rD = await axios.get(
-      `http://localhost:3002/cart/addList/${member}`
+      `http://localhost:3001/cart/addList/${member}`
     )
     if (r.status === 200 && rD.status === 200) {
       setData(r.data)
@@ -43,7 +43,7 @@ function CartConfimOrder(props) {
     console.log('這是暫存資料', a)
     console.log('完成訂單')
     let r = await axios.post(
-      'http://localhost:3002/cart/ConfirmList',
+      'http://localhost:3001/cart/ConfirmList',
       {
         Order_Sid: '',
         Member_id: 'st880517',
@@ -88,19 +88,11 @@ function CartConfimOrder(props) {
         </div>
       </div>
 
-      <div class="titleBorder col-lg-6 col-10">
-        <h4 class="res-title title-fz fw-700">
-          確認訂單資訊
-        </h4>
-      </div>
+      <TitleBorder name="確認訂單資訊" />
 
       <Cart_OrderDetail data={data} setData={setData} />
 
-      <div class="titleBorder col-lg-6 col-10">
-        <h4 class="res-title title-fz fw-700">
-          付款與運送方式
-        </h4>
-      </div>
+      <TitleBorder name="付款與運送方式" />
 
       <div className="container confirmorderdetail mx-auto col-lg-6 col-10">
         <div className="container importinfo d-flex justify-content-between">
@@ -108,7 +100,11 @@ function CartConfimOrder(props) {
             <h2>以下列方式支付金額</h2>
             <h6>{DataDetail.Payment_Type}</h6>
           </div>
-          <FaCcVisa className="favisa" />
+          {DataDetail.Payment_Type === '信用卡支付' ? (
+            <FaCcVisa className="favisa" />
+          ) : (
+            ''
+          )}
         </div>
         <table className="table text-center table-borderless mx-auto">
           <thead>
@@ -179,7 +175,8 @@ function CartConfimOrder(props) {
                 發票方式
               </td>
               <td className="text-start col-6">
-                {DataDetail.Invoice_Type}
+                {DataDetail.Invoice_Type} /{' '}
+                {DataDetail.Invoice_Number}
               </td>
             </tr>
             <tr className="border-bottom">
