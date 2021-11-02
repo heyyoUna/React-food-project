@@ -17,22 +17,30 @@ function MemberProfile(props) {
   let history = useHistory()
 
   useEffect(() => {
-    const id = localStorage.getItem('id')
-    if (id > 0) {
-      fetch(`http://localhost:3002/member/memberprofile/${id}`, {
-        method: 'GET',
-      }).then(r => r.json())
-        .then(obj => {
-          if (obj.length) {
-            setProfile(obj[0])
-          } else {
-            alert(obj.error || '資料修改失敗')
-          }
-        })
-    } else {
+    const token = localStorage.getItem('token')
+
+    if (!token) {
       alert('尚未登入，請連到登入頁面')
       history.push('/login')
     }
+
+    fetch(`http://localhost:3002/member/memberprofile`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }).then(r => r.json())
+      .then(obj => {
+        if (obj.success) {
+          if (obj.data.length) {
+            setProfile(obj.data[0])
+          } else {
+            alert(obj.error || '資料讀取失敗')
+          }
+        } else {
+          alert(obj.error)
+        }
+      })
   }, [])
 
   const handleProfileChange = (e) => {

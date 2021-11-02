@@ -16,7 +16,7 @@ function MemberFavoriteRestaurant(props) {
 
   const favoriteRestaurantGet = () => {
     if (id > 0) {
-      fetch(`http://localhost:3002/member/favorite-restaurant-get/${id}}`, {
+      fetch(`http://localhost:3002/member/favorite-restaurant-get/${id}`, {
         method: 'GET',
       }).then(r => r.json())
         .then(obj => {
@@ -125,7 +125,7 @@ function MemberFavoriteRestaurant(props) {
                                 paddingRight: '3px',
                               }}
                             />
-                      平均消費：{value.res_aveprice}</p>
+                            平均消費：{value.res_aveprice}</p>
                           {/* <p className="member-clock"> 
                       <BsClock
                         className="member-clock-icon"
@@ -214,7 +214,7 @@ function MemberFavoriteRestaurant(props) {
                                 paddingRight: '3px',
                               }}
                             />
-                      平均消費：{value.res_aveprice}</p>
+                              平均消費：{value.res_aveprice}</p>
                             {/* <p className="member-clock"> <BsClock
                           className="member-clock-icon"
                         style={{
