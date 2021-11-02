@@ -25,7 +25,7 @@ import ArtExercise from './pages/article/ArtExercise'
 import ArtRecipe from './pages/article/ArtRecipe'
 import FoodContent from './pages/article/FoodContent'
 import ExerciseContent from './pages/article/ExerciseContent'
-import ArCardTxtFood from './components/article/ArCardTxtFood'
+import RecipeContent from './pages/article/RecipeContent'
 
 // 餐廳
 import Restaurants from './pages/Restaurant/Restaurants'
@@ -131,9 +131,18 @@ function App() {
               </Route>
 
               {/* 文章 */}
-              <Route path="/article/ExerciseContent">
+              {/* <Route path="/article/ExerciseContent">
                 <ExerciseContent auth={auth} />
-              </Route>
+              </Route> */}
+              <Route
+                path="/RecipeContent/:id"
+                component={RecipeContent}
+              ></Route>
+
+              <Route
+                path="/ExerciseContent/:id"
+                component={ExerciseContent}
+              ></Route>
 
               <Route
                 path="/FoodContent/:id"

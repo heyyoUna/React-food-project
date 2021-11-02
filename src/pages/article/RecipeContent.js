@@ -12,18 +12,19 @@ import BreadCrumb from '../../components/BreadCrumb'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
 
-function ExerciseContent(props) {
+function FoodContent(props) {
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  const fcSid = fcURL.pathname //目前網址的路徑
+  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+
   const [data, setData] = useState([])
   const [options, setOptions] = useState([])
   const [reply, setReply] = useState('')
 
   useEffect(() => {
-    const fcURL = new URL(document.location.href) //目前網頁網址
-    const fcSid = fcURL.pathname //目前網址的路徑
-    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
     ;(async () => {
       let r = await fetch(
-        'http://localhost:3002/ArtExercise/' + fcSplit
+        'http://localhost:3002/ArtRecipe/' + fcSplit
       )
       let j = await r.json()
 
@@ -91,6 +92,53 @@ function ExerciseContent(props) {
             <div>{data.ar_index2}</div>
             <h3>{data.ar_index_title3}</h3>
             <div>{data.ar_index3}</div>
+            <form onSubmit={handleSubmit}>
+              <div className="QA">
+                <h3> {data.ar_question}</h3>
+                <ul>
+                  {/* {console.log('options', options)} */}
+                  {options ? (
+                    options.map((v, i) => {
+                      return (
+                        <ArQARadioButton
+                          name="reply"
+                          key={i}
+                          value={v}
+                          checked={reply === v}
+                          onChange={(e) => {
+                            setReply(e.target.value)
+                          }}
+                          // onChange={(e) => {
+                          //   if (
+                          //     e.target.value ===
+                          //     data.ar_correct_answer
+                          //   ) {
+                          //     // console.log('e.target.value:', typeof e.target.value )
+                          //     // console.log('typeof ar_correct_answer:', typeof data.ar_correct_answer)
+                          //     setOptions(e.target.value)
+                          //   } else {
+                          //     alert('答錯囉')
+                          //   }
+                          // }}
+                        />
+                      )
+                    })
+                  ) : (
+                    <Spinner
+                      animation="border"
+                      variant="primary"
+                    />
+                  )}
+                </ul>
+                <div>
+                  {}
+
+                  <button className="QAbtn" type="submit">
+                    作答
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
           <div className="col-3 col-lg-3" id="mostPopular">
             <ul>
@@ -178,4 +226,4 @@ function ExerciseContent(props) {
   )
 }
 
-export default withRouter(ExerciseContent)
+export default withRouter(FoodContent)
