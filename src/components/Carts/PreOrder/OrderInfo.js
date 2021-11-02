@@ -15,6 +15,7 @@ function OrderInfo(props) {
   )
   let [textConfirm, settextConfirm] = useState('這邊做登入')
   let [textClose, settextClose] = useState('關閉')
+  let pointChange = false
   let promo = false
   let nextStep = false
   const {
@@ -26,7 +27,7 @@ function OrderInfo(props) {
 
   // 清空 localstorage 裡的優惠資訊
   localStorage.removeItem('訂單價格資訊')
-
+  console.log('優惠點數', Promotion)
   // 記錄會員優惠點數
   let textvalue = ''
 
@@ -39,7 +40,7 @@ function OrderInfo(props) {
 
   useEffect(() => {
     getMemberPoint()
-  }, [])
+  }, [pointChange])
 
   // 記錄到 LocalStorage 裡，使用 JSON 包進去
   localStorage.setItem(
@@ -75,14 +76,23 @@ function OrderInfo(props) {
         settextWarn('點數不足!!')
         settextConfirm('知道了')
         setShow(true)
-      }
-      else
-      {
+      } else {
         let R = await axios.post(
-          `http://localhost:3002/cart/memberpoint`
+          `http://localhost:3002/cart/modifyPoint`,
+          {
+            sid: '',
+            member_sid: data[0].member_sid,
+            change_point: textvalue,
+            change_type: 'USE',
+            left_point: data[0].left_point - textvalue,
+            change_reason: '會員使用點數',
+            create_at: '',
+          }
         )
         if (R.status === 200) {
-       
+          alert('扣點完成!')
+          pointChange = true
+          setPromotion(textvalue)
         }
       }
     }
@@ -91,17 +101,6 @@ function OrderInfo(props) {
       nextStep = false
       props.history.push('/carts/Manage')
     }
-    // let r = await axios.post(
-    //   'http://localhost:3002/cart/jwt',
-    //   {
-    //     headers: {
-    //       Authorization: 'Bearer ' + token,
-    //     },
-    //   }
-    // )
-    // if (r.status === 200) {
-    //   console.log('驗證', r)
-    // }
   }
 
   return (
