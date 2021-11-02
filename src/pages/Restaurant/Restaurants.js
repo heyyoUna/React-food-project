@@ -55,7 +55,7 @@ function Restaurants(props) {
       parseInt(index) * pages.perPage,
       pages.perPage * (parseInt(index) + 1) //0*6,6*1
     )
-
+    //計算用舊資料算  呈現塞進filterdata
     setFilterData(newData)
     setPages({ ...pages, currentPage: parseInt(index) }) //當前頁碼為點擊頁碼
   }
@@ -72,8 +72,8 @@ function Restaurants(props) {
     /* 有任意一個篩選有輸入，即進行判斷 */
     if (filter.price || filter.rate || filter.distance) {
       // 避免指到同一個記憶體位置，引響原始資料，故淺拷貝一份apiData
-      let processFilterData = apiData
-      // let processFilterData = [...apiData];
+      // let processFilterData = apiData
+      let processFilterData = [...apiData];
       // 當選取價錢區間
       if (filter.price) {
         // 切割~，取得價錢範圍
@@ -82,8 +82,8 @@ function Restaurants(props) {
         processFilterData = processFilterData.filter(
           (item) => {
             return (
-              item.res_aveprice >= rangeArr[0] &&
-              item.res_aveprice <= rangeArr[1]
+              item.res_aveprice >= +rangeArr[0] &&
+              item.res_aveprice <= +rangeArr[1]
             )
           }
         )
@@ -114,8 +114,26 @@ function Restaurants(props) {
       }
 
       setFilterData(processFilterData)
-    } else {
-      setFilterData(apiData)
+
+      //filter的資料切成6筆(0-6)
+      const dataPerpage = processFilterData.slice(
+        pages.currentPage,
+        pages.perPage
+      )
+      console.log(dataPerpage)
+
+      setFilterData(dataPerpage)
+      const totalPages = Math.ceil(
+        processFilterData.length / pages.perPage
+      )
+
+      setPages({ ...pages, totalPages })
+      const arr = []
+      for (let i = 1; i <= totalPages; i++) {
+        arr.push(i)
+      }
+      console.log(arr)
+      setPagination(arr)
     }
   }, [filter])
 
@@ -247,7 +265,7 @@ function Restaurants(props) {
             <MapSortButton
               name="price"
               options={[
-                { name: '平均價格', value: '' },
+                { name: '價格範圍', value: '' },
                 { name: '100~200', value: '100~200' },
                 { name: '200~300', value: '200~300' },
                 { name: '300~400', value: '300~400' },
@@ -296,13 +314,9 @@ function Restaurants(props) {
           onClick={() => {
             console.log('currentPage', pages.currentPage)
             console.log('totalPages', pages.totalPages)
-
-            // setFilterData(
-            //   apiData.slice(
-            //     (pages.currentPage + 1) * pages.perPage,
-            //     apiData.length - 1
-            //   )
-            // )
+            if (pages.currentPage === 0) {
+              return
+            }
 
             const arr = apiData.slice(
               (pages.currentPage - 1) * pages.perPage,
@@ -324,7 +338,11 @@ function Restaurants(props) {
           {pagination.map((item, i) => {
             return (
               <div
-                className="res-pages"
+                className={
+                  pages.currentPage === i
+                    ? 'res-pages-active res-pages'
+                    : 'res-pages'
+                }
                 key={i}
                 onClick={onperPageChange}
                 data-index={i}
@@ -333,45 +351,40 @@ function Restaurants(props) {
               </div>
             )
           })}
-
-          {/* <div >
-                  onClick={(e) => {
-                    pages.setcurrentPage()
-                    
-                  }}
-                >
-                 
-              </div> */}
         </div>
         {/* 下一頁 */}
         <div
           className="page-next"
           onClick={() => {
+            if (
+              pages.currentPage + 1 ===
+              pages.totalPages
+            ) {
+              return
+            }
             console.log(
               'currentPage',
               pages.currentPage + 1
             )
             console.log('totalPages', pages.totalPages)
-            // if (
-            //   pages.currentPage + 1 ===
-            //   pages.totalPages
-            // ) {
+
             console.log('1111111111111111')
             //
+            if()
             setFilterData(
               apiData.slice(
                 (pages.currentPage + 1) * pages.perPage,
                 apiData.length - 1
               )
             )
-            // } else {
+
             setFilterData(
               apiData.slice(
                 (pages.currentPage + 1) * pages.perPage,
                 (pages.currentPage + 2) * pages.perPage
               )
             )
-            // }
+
             setPages({
               ...pages,
               currentPage: pages.currentPage + 1,
