@@ -53,10 +53,6 @@ function MemberSignup(props) {
               minLength="5"  //最少要輸入5個字元
               required/>
           </div>
-          <div className="karin-form-group form-check">
-            <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-            <label className="form-check-label" for="exampleCheck1">Remember me</label>
-          </div>
           <button type="submit" className="btn karin-btn-signuppage-signup">SIGN UP</button>
           <Link to="/login"
           button type="submit" className="btn karin-btn-signuppage-login">LOG IN</Link>

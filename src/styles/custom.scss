@@ -98,11 +98,12 @@ a{
   @include mobile {
     .res-title {
       top: -13px;
-      padding: 0px 10px;
+      padding: 0px 10px; 
+       font-size: 24px;
     }
-    .title-fz {
-      font-size: 24px;
-    }
+    // .title-fz {
+    
+    // }
   }
 }
 
