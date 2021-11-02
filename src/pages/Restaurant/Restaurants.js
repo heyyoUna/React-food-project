@@ -15,6 +15,7 @@ import ResMap from './ResMap'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
 import PageBtn from './../../components/Product/PageBtn'
+import { FiFilter } from 'react-icons/fi'
 
 // import { data } from '../../data'
 
@@ -22,8 +23,9 @@ function Restaurants(props) {
   const [lat, setLat] = useState(25.033198)
   const [lng, setLng] = useState(121.543575)
   const [address, setAddress] = useState('')
-  const [apiData, setApiData] = useState([]) //舊資料
-  const [filterData, setFilterData] = useState([]) //過濾後的資料
+  const [apiData, setApiData] = useState([]) //原始資料
+  const [filterData, setFilterData] = useState([]) //篩選資料
+  const [displayData, setDisplayData] = useState([]) // 實際呈現的資料
   const [pages, setPages] = useState({
     currentPage: 0, //當前頁碼
     perPage: 6, //每頁6筆
@@ -49,14 +51,19 @@ function Restaurants(props) {
   const onperPageChange = (e) => {
     const index =
       e.target.attributes.getNamedItem('data-index').value
-    let newData = [...apiData]
+
+    const data =
+      filter.data || filter.price || filter.distance
+        ? filterData
+        : apiData
+    let newData = [...data]
     console.log(parseInt(index) + 1)
     newData = newData.slice(
       parseInt(index) * pages.perPage,
       pages.perPage * (parseInt(index) + 1) //0*6,6*1
     )
     //計算用舊資料算  呈現塞進filterdata
-    setFilterData(newData)
+    setDisplayData(newData)
     setPages({ ...pages, currentPage: parseInt(index) }) //當前頁碼為點擊頁碼
   }
 
@@ -113,21 +120,21 @@ function Restaurants(props) {
         )
       }
 
-      setFilterData(processFilterData)
+      setFilterData(processFilterData) //放篩選後的資料
 
-      //filter的資料切成6筆(0-6)
+      //filter的資料切成6筆(0-6) 因為篩選後的資料都會在第一頁
       const dataPerpage = processFilterData.slice(
-        pages.currentPage,
+        0,
         pages.perPage
       )
       console.log(dataPerpage)
 
-      setFilterData(dataPerpage)
+      setDisplayData(dataPerpage)
       const totalPages = Math.ceil(
         processFilterData.length / pages.perPage
       )
 
-      setPages({ ...pages, totalPages })
+      setPages({ ...pages, currentPage: 0, totalPages })
       const arr = []
       for (let i = 1; i <= totalPages; i++) {
         arr.push(i)
@@ -172,7 +179,7 @@ function Restaurants(props) {
       console.log('data', data)
       if (data.success) {
         setApiData(data.data)
-        setFilterData(data.data)
+        setDisplayData(data.data)
 
         const dataSize = data.data.length
         const totalPages = Math.ceil(
@@ -193,7 +200,7 @@ function Restaurants(props) {
         pages.perPage
       )
       console.log(dataPerpage)
-      setFilterData(dataPerpage)
+      setDisplayData(dataPerpage)
     })()
   }, [lat, lng])
 
@@ -302,7 +309,7 @@ function Restaurants(props) {
       {/* <ResMap name="列表模式"/> */}
       <div className="container mt-35 mb-5">
         {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
-        <ResList listData={filterData} />
+        <ResList listData={displayData} />
       </div>
 
       {/* 分頁 */}
@@ -318,12 +325,17 @@ function Restaurants(props) {
               return
             }
 
-            const arr = apiData.slice(
+            const data =
+              filter.distance || filter.price || filter.rate
+                ? filterData
+                : apiData
+
+            const arr = data.slice(
               (pages.currentPage - 1) * pages.perPage,
               pages.currentPage * pages.perPage
             )
 
-            setFilterData(arr)
+            setDisplayData(arr)
 
             setPages({
               ...pages,
@@ -368,18 +380,13 @@ function Restaurants(props) {
             )
             console.log('totalPages', pages.totalPages)
 
-            console.log('1111111111111111')
-            //
+            const data =
+              filter.distance || filter.price || filter.rate
+                ? filterData
+                : apiData
 
-            setFilterData(
-              apiData.slice(
-                (pages.currentPage + 1) * pages.perPage,
-                apiData.length - 1
-              )
-            )
-
-            setFilterData(
-              apiData.slice(
+            setDisplayData(
+              data.slice(
                 (pages.currentPage + 1) * pages.perPage,
                 (pages.currentPage + 2) * pages.perPage
               )
