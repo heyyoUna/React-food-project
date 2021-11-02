@@ -103,20 +103,25 @@ function FoodContent(props) {
                           name="reply"
                           key={i}
                           value={v}
-                          checked={reply === v}
+                          checkedReply={reply}
+                          setCheckReply={setReply}
                           onChange={(e) => {
-                            setReply(e.target.value)
+                            if (
+                              e.target.value !==
+                              data.ar_correct_answer
+                            ) {
+                              alert('答錯囉')
+                            }
                           }}
+
                           // onChange={(e) => {
                           //   if (
                           //     e.target.value ===
                           //     data.ar_correct_answer
                           //   ) {
-                          //     // console.log('e.target.value:', typeof e.target.value )
-                          //     // console.log('typeof ar_correct_answer:', typeof data.ar_correct_answer)
-                          //     setOptions(e.target.value)
+                          //     setReply(e.target.value)
                           //   } else {
-                          //     alert('答錯囉')
+                          //     // alert('答錯囉')
                           //   }
                           // }}
                         />
@@ -130,8 +135,6 @@ function FoodContent(props) {
                   )}
                 </ul>
                 <div>
-                  {}
-
                   <button className="QAbtn" type="submit">
                     作答
                   </button>
