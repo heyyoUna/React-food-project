@@ -19,7 +19,6 @@ function MyNavbar(props) {
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
-    localStorage.removeItem('id')
     setAuth(false)
 
     history.push('/')

@@ -22,7 +22,6 @@ function MemberLogin(props) {
         if (obj.success) {
           alert('登入成功')
           localStorage.setItem('token', obj.token)
-          localStorage.setItem('id', obj.id)
           setAuth(true)
           history.push('/member/profile')
         } else {

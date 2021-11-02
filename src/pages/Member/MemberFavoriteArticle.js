@@ -15,7 +15,7 @@ function MemberFavoriteArticle(props) {
 
   const favoriteArticleGet = () => {
     if (id > 0) {
-      fetch(`http://localhost:3002/member/favorite-article-get/${id}}`, {
+      fetch(`http://localhost:3002/member/favorite-article-get/${id}`, {
         method: 'GET',
       }).then(r => r.json())
         .then(obj => {

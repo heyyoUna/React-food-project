@@ -73,8 +73,10 @@ function App() {
   const [auth, setAuth] = useState(false)
 
   useEffect(() => {
-    const id = localStorage.getItem('id')
-    if (id > 0) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      setAuth(false)
+    } else {
       setAuth(true)
     }
   }, [])
@@ -133,7 +135,7 @@ function App() {
 
               <Route path="/customize">
                 <Customize
-                setProductId={setProductId} />
+                  setProductId={setProductId} />
               </Route>
 
               {/* 文章 */}
