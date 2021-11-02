@@ -9,16 +9,18 @@ import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
+import ArQARadioButton from '../../components/article/ArQARadioButton'
+import { Spinner } from 'react-bootstrap'
 
 function FoodContent(props) {
-  const fcURL = new URL(document.location.href) //目前網頁網址
-  const fcSid = fcURL.pathname //目前網址的路徑
-  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
-
   const [data, setData] = useState([])
-  const [answers, setAnswers] = useState([])
+  const [options, setOptions] = useState([])
+  const [reply, setReply] = useState('')
 
   useEffect(() => {
+    const fcURL = new URL(document.location.href) //目前網頁網址
+    const fcSid = fcURL.pathname //目前網址的路徑
+    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
     ;(async () => {
       let r = await fetch(
         'http://localhost:3002/ArtFood/' + fcSplit
@@ -27,11 +29,22 @@ function FoodContent(props) {
 
       if (j.success) {
         setData(j.data)
-        console.log('j.data:', j.data)
-        setAnswers(JSON.parse(j.data.ar_answers))
+        // console.log('j.data:', j.data)
+        setOptions(JSON.parse(j.data.ar_answers))
       }
     })()
   }, [])
+
+  // 在 表單完成驗証 之後，才會觸發
+  const handleSubmit = (e) => {
+    // 阻擋form的預設送出行為
+    e.preventDefault()
+
+    // 利用FormData Api 得到各欄位的值 or 利用狀態值
+    // FormData 利用的是表單元素的 name
+    const formData = new FormData(e.target)
+  }
+
   return (
     <>
       <div
@@ -78,27 +91,53 @@ function FoodContent(props) {
             <div>{data.ar_index2}</div>
             <h3>{data.ar_index_title3}</h3>
             <div>{data.ar_index3}</div>
+            <form onSubmit={handleSubmit}>
+              <div className="QA">
+                <h3> {data.ar_question}</h3>
+                <ul>
+                  {/* {console.log('options', options)} */}
+                  {options ? (
+                    options.map((v, i) => {
+                      return (
+                        <ArQARadioButton
+                          name="reply"
+                          key={i}
+                          value={v}
+                          checked={reply === v}
+                          onChange={(e) => {
+                            setReply(e.target.value)
+                          }}
+                          // onChange={(e) => {
+                          //   if (
+                          //     e.target.value ===
+                          //     data.ar_correct_answer
+                          //   ) {
+                          //     // console.log('e.target.value:', typeof e.target.value )
+                          //     // console.log('typeof ar_correct_answer:', typeof data.ar_correct_answer)
+                          //     setOptions(e.target.value)
+                          //   } else {
+                          //     alert('答錯囉')
+                          //   }
+                          // }}
+                        />
+                      )
+                    })
+                  ) : (
+                    <Spinner
+                      animation="border"
+                      variant="primary"
+                    />
+                  )}
+                </ul>
+                <div>
+                  {}
 
-            <div className="QA">
-              <h3> {data.ar_question}</h3>
-              <ul>
-                {console.log('ans:', answers)}
-                {answers ? (
-                  answers.map((v, i) => {
-                    return (
-                      <li name="answers" key={i} value={v}>
-                        {v}
-                      </li>
-                    )
-                  })
-                ) : (
-                  <h1>hello</h1>
-                )}
-              </ul>
-              <div>
-                <button className="QAbtn">作答</button>
+                  <button className="QAbtn" type="submit">
+                    作答
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
           <div className="col-3 col-lg-3" id="mostPopular">
             <ul>
