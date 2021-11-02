@@ -12,7 +12,7 @@ function ArCardTxtFood(props) {
     ;(async () => {
       let r = await fetch('http://localhost:3002/ArtFood')
       let j = await r.json()
-      // console.log(j)
+      // console.log('j:', j)
       if (j.length) {
         setData(j)
       }
