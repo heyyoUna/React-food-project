@@ -73,7 +73,7 @@ function Restaurants(props) {
     if (filter.price || filter.rate || filter.distance) {
       // 避免指到同一個記憶體位置，引響原始資料，故淺拷貝一份apiData
       // let processFilterData = apiData
-      let processFilterData = [...apiData];
+      let processFilterData = [...apiData]
       // 當選取價錢區間
       if (filter.price) {
         // 切割~，取得價錢範圍
@@ -370,7 +370,7 @@ function Restaurants(props) {
 
             console.log('1111111111111111')
             //
-            if()
+
             setFilterData(
               apiData.slice(
                 (pages.currentPage + 1) * pages.perPage,
