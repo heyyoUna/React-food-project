@@ -162,41 +162,52 @@ function MemberFavoriteProduct(props) {
             })}
           </div>
           <div className="member-favorite-card-mobile">
-            {products.map((i) => {
+            {products.map((value, index) => {
               return (
-                <div className="card mb-3 ">
+                <div className="card mb-3" key={value.sid}>
                   <div className="row member-favorite-product">
                     <div className="col-md-4">
                       <img className="img-fluid rounded-start"
-                        src={'http://localhost:3002/img/Product/' + i.detail_img}
+                        src={'http://localhost:3002/img/Product/' + value.detail_img}
                         alt="" />
                     </div>
                     <div className="col-md-7">
                       <div className="card-body">
                         <div className="member-card-title">
                           <h5 className="card-title">
-                            {i.name}
+                            {value.name}
                           </h5>
                         </div>
                         <div className="member-favorite-text">
-                          <p className="card-text">NT {i.price}</p>
+                          <p className="card-text">NT {value.price}</p>
                         </div>
                       </div>
                     </div>
-                    <div className="member-icon col-md-1" >
-                      <div className="member-like">
+                    <div className="member-icon col-md-1">
+                      <div className="member-like" onClick={() =>
+                        handlingClick(value.sid, index, value.remove_flag)
+                      }>
+                        <IoIosHeartEmpty
+                          style={{
+                            color: '#FB6107',
+                            fontSize: '26px',
+                            marginTop: '3px',
+                            display: value.remove_flag ? 'block' : 'none'
+                          }}
+                        />
                         <IoIosHeart
                           style={{
-                            fontSize: '30px',
                             color: '#d96e30',
-                            cursor: 'pointer',
+                            fontSize: '26px',
+                            marginTop: '3px',
+                            display: value.remove_flag ? 'none' : 'block'
                           }}
                         />
                       </div>
                       <div className="member-cart">
                         <CgShoppingCart
                           style={{
-                            fontSize: '30px',
+                            fontSize: '26px',
                             color: '#2a593e',
                             cursor: 'pointer',
                           }}
