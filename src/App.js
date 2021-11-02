@@ -32,6 +32,7 @@ import Restaurants from './pages/Restaurant/Restaurants'
 import ResMap from './pages/Restaurant/ResMap'
 import ResProducts from './pages/Restaurant/ResProducts'
 
+//會員
 import Signup from './pages/Member/MemberSignup'
 import Login from './pages/Member/MemberLogin'
 import MemberProfile from './pages/Member/MemberProfile'
@@ -39,7 +40,10 @@ import MemberOrder from './pages/Member/MemberOrder'
 import MemberReview from './pages/Member/MemberReview'
 import MemberPoint from './pages/Member/MemberPoint'
 import MemberFavoriteProduct from './pages/Member/MemberFavoriteProduct'
+import MemberFavoriteArticle from './pages/Member/MemberFavoriteArticle'
 import MemberFavoriteRestaurant from './pages/Member/MemberFavoriteRestaurant'
+
+//輪盤
 import GameChoose from './pages/Game/GameChoose'
 import GameRecipe from './pages/Game/GameRecipe'
 import GameDelivery from './pages/Game/GameDelivery'
@@ -190,6 +194,9 @@ function App() {
               </Route>
               <Route path="/member/FavoriteProduct">
                 <MemberFavoriteProduct />
+              </Route>
+              <Route path="/member/FavoriteArticle">
+                <MemberFavoriteArticle />
               </Route>
               <Route path="/member/FavoriteRestaurant">
                 <MemberFavoriteRestaurant />
