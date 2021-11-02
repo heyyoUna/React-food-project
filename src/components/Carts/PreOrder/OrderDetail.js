@@ -15,10 +15,10 @@ import {
 
 function OrderDetail(props) {
   // 愛心收藏 icon
-  const [Likeicon, setLikeicon] = useState('full')
+  const [Likeone, setLikeone] = useState(['heart', 'heart'])
 
   // 收回愛心收藏 icon
-  const [unLikeicon, setunLikeicon] = useState('heart')
+  const [Liketwo, setLiketwo] = useState('full')
   let {
     data,
     Count,
@@ -126,7 +126,7 @@ function OrderDetail(props) {
                     <tr>
                       <td>
                         <img
-                          src={`http://localhost:3000/image/${v.cate_sid}/${v.Product_id}.jpg`}
+                          src={`http://localhost:3002/img/Product/${v.Product_id}.jpg`}
                           alt=""
                         />
                       </td>
@@ -185,10 +185,10 @@ function OrderDetail(props) {
         </h4>
         {/* 喜歡的卡片 */}
         <StoreCard
-          Likeicon={Likeicon}
-          setLikeicon={setLikeicon}
-          unLikeicon={unLikeicon}
-          setunLikeicon={setunLikeicon}
+          Likeone={Likeone}
+          setLikeone={setLikeone}
+          Liketwo={Liketwo}
+          setLiketwo={setLiketwo}
           addProductPos={addProductPos}
           setaddProductPos={setaddProductPos}
         />
