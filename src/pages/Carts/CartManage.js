@@ -22,20 +22,42 @@ import { withRouter } from 'react-router-dom'
 function CartManage(props) {
   let [data, setData] = useState([{}])
   let [OrderInfo, setOrderInfo] = useState([])
-  let [Checkout, setCheckout] = useState()
+  let [Checkout, setCheckout] = useState('宅配貨到付款')
   let [Invoice, setInvoice] = useState([])
+  let [Credit, setCredit] = useState([])
+  let [StoreInfo, setStoreInfo] = useState([])
+  let [CityArr, setCityArr] = useState([{}])
+
   console.log('Checkout', Checkout)
 
   useEffect(() => {
     console.log('這邊是初始化')
+    CityAxios()
     DataAxios()
   }, [])
 
   useEffect(() => {
     // console.log('訂購資料', OrderInfo)
     // console.log('付款資料', Checkout)
-    // console.log('發票資料', Invoice)
+    console.log('發票資料', Invoice)
   }, [OrderInfo, Checkout, Invoice])
+
+  async function CityAxios() {
+    let r = await axios.get(
+      'https://gist.githubusercontent.com/abc873693/2804e64324eaaf26515281710e1792df/raw/a1e1fc17d04b47c564bbd9dba0d59a6a325ec7c1/taiwan_districts.json'
+    )
+    if (r.status === 200) {
+      // setData(r.data)
+      console.log(r.data)
+      for (let i = 0; i < r.data.length; i++) {
+        CityArr[i] = {
+          City: r.data[i].name,
+          districts: r.data[i].districts,
+        }
+      }
+      console.log('Store城市', CityArr)
+    }
+  }
 
   async function DataAxios() {
     let r = await axios.get('http://localhost:3002/cart/')
@@ -45,30 +67,115 @@ function CartManage(props) {
     }
   }
 
-  async function AddOrder(OrderInfo, Checkout, Invoice) {
-    console.log('寫出訂單')
-    let NewOrderInfo = [...OrderInfo, Checkout, ...Invoice]
+  async function AddOrder(
+    OrderInfo,
+    Checkout,
+    Invoice,
+    StoreInfo
+  ) {
+    // console.log('寫出訂單')
+    let NewOrderInfo
+    console.log('CHECKOUT', Checkout)
+
+    if (Checkout === '7-11取貨付款') {
+      if (!StoreInfo[7]) {
+        console.log('第8個位置沒有值', StoreInfo)
+      }
+      NewOrderInfo = [
+        Checkout,
+        StoreInfo[4],
+        StoreInfo[5],
+        StoreInfo[6],
+        StoreInfo[3] + '-' + StoreInfo[0],
+        StoreInfo[1],
+        StoreInfo[2],
+        !StoreInfo[7] ? '無' : StoreInfo[7],
+        ...Invoice,
+      ]
+      // NewOrderInfo[1] = StoreInfo[4]
+      // NewOrderInfo[2] = StoreInfo[5]
+      // NewOrderInfo[3] = StoreInfo[6]
+      // NewOrderInfo[4] = StoreInfo[3]
+      // NewOrderInfo[5] = '-' + StoreInfo[0]
+      // NewOrderInfo[6] = StoreInfo[1] + StoreInfo[2]
+    }
+    if (Checkout === '宅配貨到付款') {
+      NewOrderInfo = [
+        Checkout,
+        OrderInfo[0],
+        OrderInfo[1],
+        OrderInfo[2],
+        OrderInfo[3],
+        OrderInfo[4],
+        OrderInfo[5],
+        OrderInfo[6],
+        ...Invoice,
+      ]
+    }
+
+    // let NewOrderInfo = [Checkout, ...OrderInfo]
     console.log('寫出的訂購資料', NewOrderInfo)
+    // if (!NewOrderInfo[7]) {
+    //   console.log('這邊是 undefine')
+    //   NewOrderInfo[7] = '無'
+    //   console.log('寫出的訂購資料_加入備註', NewOrderInfo)
+    // }
+    // NewOrderInfo = [...NewOrderInfo, ...Invoice]
+    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+
+    // console.log('寫出的訂購資料', NewOrderInfo)
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
       {
         Sid: '',
-        Member_id: 'st880517',
-        Order_Name: NewOrderInfo[0],
-        Order_Phone: NewOrderInfo[1],
-        E_Mail: NewOrderInfo[2],
+        Payment_Type: NewOrderInfo[0],
+        Order_Name: NewOrderInfo[1],
+        Order_Phone: NewOrderInfo[2],
+        E_Mail: NewOrderInfo[3],
         Order_Address:
-          NewOrderInfo[3] +
           NewOrderInfo[4] +
-          NewOrderInfo[5],
+          NewOrderInfo[5] +
+          NewOrderInfo[6],
+        Member_id: 'st880517',
         Invoice_Type: NewOrderInfo[8],
-        Payment_Type: NewOrderInfo[7],
-        Order_Remark: NewOrderInfo[6],
+        Order_Remark: NewOrderInfo[7],
+        Invoice_Number: NewOrderInfo[9],
       }
     )
     if (r.status === 200) {
       console.log('寫入 DB')
+      localStorage.removeItem('門市')
       props.history.push('/carts/ConfirmOrder')
+    }
+  }
+
+  function DeliveryJudge() {
+    console.log('測試checkout', Checkout)
+    if (Checkout === '7-11取貨付款') {
+      return (
+        <Cart_Store
+          StoreInfo={StoreInfo}
+          setStoreInfo={setStoreInfo}
+          CityArr={CityArr}
+          setCityArr={setCityArr}
+        />
+      )
+    }
+    if (Checkout === '宅配貨到付款') {
+      return (
+        <Cart_OrderInfoInput
+          OrderInfo={OrderInfo}
+          setOrderInfo={setOrderInfo}
+        />
+      )
+    }
+    if (Checkout === '信用卡支付 - 宅配到府') {
+      return (
+        <Cart_CreditPay
+          Credit={Credit}
+          setCredit={setCredit}
+        />
+      )
     }
   }
 
@@ -100,34 +207,15 @@ function CartManage(props) {
           <h3>完成訂單</h3>
         </div>
       </div>
-      <div className="titleBorder col-lg-6 col-10">
-        <h4 className="res-title title-fz fw-700">
-          確認訂單資訊
-        </h4>
-      </div>
+      <TitleBorder name="確認訂單資訊" />
       <Cart_OrderDetail data={data} />
-      <div className="titleBorder col-lg-6 col-10">
-        <h4 className="res-title title-fz fw-700">
-          付款方式
-        </h4>
-      </div>
+      <TitleBorder name="付款方式" />
+
       <Cart_CheckOut setCheckout={setCheckout} />
-      <div className="titleBorder col-lg-6 col-10">
-        <h4 className="res-title title-fz fw-700">
-          取貨資料
-        </h4>
-      </div>
-      {/* <Cart_Store OrderInfo={OrderInfo} setOrderInfo={setOrderInfo} /> */}
-      {/* <Cart_CreditPay OrderInfo={OrderInfo} setOrderInfo={setOrderInfo}  /> */}
-      <Cart_OrderInfoInput
-        OrderInfo={OrderInfo}
-        setOrderInfo={setOrderInfo}
-      />
-      <div className="titleBorder col-lg-6 col-10">
-        <h4 className="res-title title-fz fw-700">
-          發票方式
-        </h4>
-      </div>
+      <TitleBorder name="取貨資料" />
+
+      {DeliveryJudge()}
+      <TitleBorder name="發票方式" />
       <Cart_Invoice
         Invoice={Invoice}
         setInvoice={setInvoice}
@@ -145,7 +233,12 @@ function CartManage(props) {
         <button
           className="confirminfo col-lg-4 col-10"
           onClick={() => {
-            AddOrder(OrderInfo, Checkout, Invoice)
+            AddOrder(
+              OrderInfo,
+              Checkout,
+              Invoice,
+              StoreInfo
+            )
           }}
         >
           確認訂單

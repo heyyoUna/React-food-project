@@ -14,7 +14,7 @@ import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
-function CartConfimOrder(props) {
+function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
   let member = 'st880517'
@@ -39,21 +39,39 @@ function CartConfimOrder(props) {
 
   async function ConfirmOrder() {
     let a = []
-    a = JSON.parse(localStorage.getItem('測試'))
+    let s
+    let NewData = [...data]
+    a = JSON.parse(localStorage.getItem('訂單價格資訊'))
     console.log('這是暫存資料', a)
-    console.log('完成訂單')
+    console.log('確認訂單資訊', NewData[0].Order_Sid)
+
     let r = await axios.post(
       'http://localhost:3002/cart/ConfirmList',
       {
-        Order_Sid: '',
+        Order_Sid: NewData[0].Order_Sid,
         Member_id: 'st880517',
         Total_Price: a[0],
         Order_Status: '訂單成立',
       }
     )
+
+    for (let i in NewData) {
+      console.log('訂單內容', NewData[i].Order_Sid)
+      s = await axios.post(
+        'http://localhost:3002/cart/addDetail',
+        {
+          Order_Sid: NewData[0].Order_Sid,
+          Product_id: NewData[i].Product_id,
+          Order_Total: a[2],
+          Promotion_Amount: a[1],
+          Order_Amount: NewData[i].Order_Amount,
+        }
+      )
+    }
+
     if (r.status === 200) {
       console.log('已完成訂單，請到 DB 查看')
-      localStorage.setItem('訂單編號', DataDetail.Sid)
+      localStorage.setItem('訂單編號', NewData[0].Order_Sid)
       props.history.push('/carts/Complete')
     }
   }
@@ -108,7 +126,11 @@ function CartConfimOrder(props) {
             <h2>以下列方式支付金額</h2>
             <h6>{DataDetail.Payment_Type}</h6>
           </div>
-          <FaCcVisa className="favisa" />
+          {DataDetail.Payment_Type === '信用卡支付' ? (
+            <FaCcVisa className="favisa" />
+          ) : (
+            ''
+          )}
         </div>
         <table className="table text-center table-borderless mx-auto">
           <thead>
@@ -179,7 +201,8 @@ function CartConfimOrder(props) {
                 發票方式
               </td>
               <td className="text-start col-6">
-                {DataDetail.Invoice_Type}
+                {DataDetail.Invoice_Type} /{' '}
+                {DataDetail.Invoice_Number}
               </td>
             </tr>
             <tr className="border-bottom">
@@ -218,4 +241,4 @@ function CartConfimOrder(props) {
   )
 }
 
-export default withRouter(CartConfimOrder)
+export default withRouter(Cart_ConfimOrder)

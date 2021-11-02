@@ -138,11 +138,9 @@ function ResMap() {
     <div>
       <div className="map-searchbar">
         <div className="container   justify-content-center py-4 ">
-       
           <div className="row">
             {/* <ResMapsearch /> */}
 
-       
             <MapButtonGroup
               name="列表模式"
               linkFunction={goList}
@@ -200,19 +198,22 @@ function ResMap() {
         </div>
       </div>
       <div className="row justify-content-start">
-      <div className="col-6">
-            <button type="button" class="map-filter d-md-none d-block">
-              <BsFilterLeft
-                style={{
-                  color: '#FB6107',
-                  fontSize: '24px',
-                  marginBottom: '4px',
-                }}
-              />{' '}
-              篩選條件
-            </button>
-          </div>
-          </div>
+        <div className="col-6">
+          <button
+            type="button"
+            class="map-filter d-md-none d-block"
+          >
+            <BsFilterLeft
+              style={{
+                color: '#FB6107',
+                fontSize: '24px',
+                marginBottom: '4px',
+              }}
+            />{' '}
+            篩選條件
+          </button>
+        </div>
+      </div>
       <div className=" map-wrapper ">
         <div className=" col-md-4  col-12 map-list ">
           {filterData.map((item, index) => {
@@ -345,10 +346,15 @@ function ResMap() {
                         </div>
                         <div class="col-md-7 ">
                           <div className="map-txt">
-                            <h5>{item.res_name} </h5>
-                            <span>
-                              {item.res_rate}
-                            </span>{' '}
+                            <Link
+                              to={
+                                '/resprdoucts/' +
+                                item.res_id
+                              }
+                            >
+                              <h5>{item.res_name} </h5>
+                            </Link>
+                            <span>{item.res_rate}</span>{' '}
                             <BsStarFill
                               style={{
                                 fontSize: '22px',
