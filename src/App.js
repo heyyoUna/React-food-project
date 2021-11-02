@@ -128,7 +128,8 @@ function App() {
               </Route>
 
               <Route path="/customize">
-                <Customize />
+                <Customize
+                setProductId={setProductId} />
               </Route>
 
               {/* 文章 */}
