@@ -1,48 +1,31 @@
 import React, { useState, useEffect } from 'react'
-import StoreCard from '../PreOrder/StoreCard'
-import StoreCardMobile from '../PreOrder/StoreCardMobile'
-import {
-  FaTrash,
-  FaPlusCircle,
-  FaMinusCircle,
-  FaAngleDoubleRight,
-} from 'react-icons/fa'
-
+import { FaChevronDown } from 'react-icons/fa'
 function Cart_OrderDetail(props) {
-  // 愛心收藏 icon
-  const [Likeicon, setLikeicon] = useState('full')
-
-  // 收回愛心收藏 icon
-  const [unLikeicon, setunLikeicon] = useState('heart')
-  let {
-    data,
-    Count,
-    setCount,
-    setPos,
-    setODPos,
-    setDeleteODPos,
-    addProductPos,
-    setaddProductPos,
-  } = props
-  let NewCount = [...Count]
+  let { data } = props
+  let a = []
+  console.log('這是裡面的', data)
+  a = JSON.parse(localStorage.getItem('訂單價格資訊'))
 
   return (
     <>
-      <div className="orderlist col-lg-8 col-12">
-        {/* 桌機版 */}
-        <table className="table table-borderless table-responsive">
-          <thead>
-            <tr className="border-bottom">
-              <th scope="col"></th>
-              <th scope="col">商品資訊</th>
-              <th scope="col">商品數量</th>
-              <th scope="col">商品單價</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map
-              ? data.map((v, i) => {
+      <div className="container col-lg-6 col-10">
+        <div class="square d-flex justify-content-center position-relative">
+          <h3>訂單詳細</h3>
+          <FaChevronDown className="ChevronDown position-absolute" />
+        </div>
+        <div className="orderdetail">
+          <div className="detail col-lg-11 col-12 mx-auto mt-3">
+            <table className="table detailinfo table-borderless">
+              <thead>
+                <tr className="border-bottom">
+                  <th scope="col"></th>
+                  <th scope="col">商品資訊</th>
+                  <th scope="col">數量</th>
+                  <th scope="col">單價</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((v) => {
                   return (
                     <tr>
                       <td>
@@ -51,144 +34,105 @@ function Cart_OrderDetail(props) {
                           alt=""
                         />
                       </td>
-                      <td className="text-start">
-                        {v.name}
-                      </td>
-                      <td className="text-start">
-                        {/* 商品數量減少 */}
-                        <FaMinusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            // 如果小於1就直接刪除
-                            NewCount[i] < 2
-                              ? setDeleteODPos(v.Sid)
-                              : (NewCount[i] -= 1)
-
-                            // 設定新的訂單數量
-                            setCount(NewCount)
-
-                            // 指定要改變商品數量的位置
-                            setPos(i)
-
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                        {NewCount[i]}
-                        {/* 商品數量增加 */}
-                        <FaPlusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            NewCount[i] += 1
-
-                            // 設定新的訂單數量
-                            setCount(NewCount)
-
-                            // 指定要改變商品數量的位置
-                            setPos(i)
-
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                      </td>
-                      <td className="text-start">
-                        {v.price}
-                      </td>
-                      <td>
-                        <FaTrash
-                          className="trashIcon"
-                          onClick={() => {
-                            // 更新 sql 路由的訂單 ID
-                            setDeleteODPos(v.Sid)
-                          }}
-                        />
-                      </td>
+                      <td>{v.name}</td>
+                      <td>{v.Order_Amount}</td>
+                      <td>{v.price}</td>
                     </tr>
                   )
-                })
-              : ' '}
-          </tbody>
-        </table>
+                })}
 
-        {/* 手機板 */}
-        <table className="tablemobile table-borderless">
-          <thead></thead>
-          <tbody>
-            {data.map
-              ? data.map((v, i) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={`http://localhost:3000/image/${v.cate_sid}/${v.Product_id}.jpg`}
-                          alt=""
-                        />
-                      </td>
-                      <td className="text-start">
-                        {v.name} <br />
-                        NT${v.price}
-                      </td>
-                      <td className="text-start col-4 text-center">
-                        <FaMinusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            // 如果小於1就直接刪除
-                            NewCount[i] < 2
-                              ? setDeleteODPos(v.Sid)
-                              : (NewCount[i] -= 1)
+                {/* <tr>
+                  <td>
+                    <img src="../../../image/product1.png" alt="" />
+                  </td>
+                  <td>名富米酒(保)</td>
+                  <td>1</td>
+                  <td>354</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="../../../image/product1.png" alt="" />
+                  </td>
+                  <td>奧利塔冷壓純橄欖油 1L</td>
+                  <td>2</td>
+                  <td>354</td>
+                </tr> */}
+              </tbody>
+            </table>
 
-                            // 設定新的訂單數量
-                            setCount(NewCount)
+            <table className="table detailinfomobile table-borderless">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img
+                      src="../../../image/product1.png"
+                      alt=""
+                    />
+                  </td>
+                  <td>
+                    Optimum Nutrition 100% 乳清蛋白
+                    <br />
+                    NT$2000
+                  </td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="../../../image/product1.png"
+                      alt=""
+                    />
+                  </td>
+                  <td>
+                    名富米酒(保)
+                    <br />
+                    NT$354
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="../../../image/product1.png"
+                      alt=""
+                    />
+                  </td>
+                  <td>
+                    奧利塔冷壓純橄欖油 1L
+                    <br />
+                    NT$354
+                  </td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+            </table>
 
-                            // 指定要改變商品數量的位置
-                            setPos(i)
-
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                        {NewCount[i]}
-                        <FaPlusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            NewCount[i] += 1
-
-                            // 設定新的訂單數量
-                            setCount(NewCount)
-
-                            // 指定要改變商品數量的位置
-                            setPos(i)
-
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  )
-                })
-              : ''}
-          </tbody>
-        </table>
-
-        <div className="bottomline col-lg-9"></div>
-
-        {/* 你可能會喜歡，的 component */}
-        <h4 className="col-lg-10 text-lg-start">
-          你可能也會喜歡
-        </h4>
-        {/* 喜歡的卡片 */}
-        <StoreCard
-          Likeicon={Likeicon}
-          setLikeicon={setLikeicon}
-          unLikeicon={unLikeicon}
-          setunLikeicon={setunLikeicon}
-          addProductPos={addProductPos}
-          setaddProductPos={setaddProductPos}
-        />
-
-        <StoreCardMobile />
+            <table className="table detailcheck table-borderless mx-auto">
+              <tbody>
+                <tr className="border-top"></tr>
+                <tr>
+                  <th>商品小計</th>
+                  <td className="detailtd">{a[2]}</td>
+                </tr>
+                <tr>
+                  <th>優惠</th>
+                  <td className="detailtd">{a[1]}</td>
+                </tr>
+                <tr>
+                  <th>運費</th>
+                  <td className="detailtd">0</td>
+                </tr>
+                <tr className="border-top">
+                  <th>總計</th>
+                  <td className="detailtd">{a[0]}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   )

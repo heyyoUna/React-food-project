@@ -79,24 +79,10 @@ function CartPreOrder() {
     }
   }
 
-  // async function AddProduct(addProduct) {
-  //   console.log('我在這喔')
-  //   let Add = await axios.post(`http://localhost:3001/cart/`, {
-  //     Order_Amount: 1,
-  //     Product_id: 'PM001',
-  //     Member_id: 'st880517',
-  //   })
-  //   if (Add.status === 200) {
-  //     setaddProductPos(0)
-  //     console.log('現在的addProduct', addProductPos)
-  //     // DataAxios()
-  //   }
-  // }
-
   // 修改商品數量函式
   async function ModifyProduct(Count, Pos, ODPos) {
     // console.log('修改函數', Count, Pos, ODPos, Count[Pos])
-
+    console.log('修改數量', ODPos, Count[Pos])
     let Mod = await axios.put(
       `http://localhost:3002/cart/${ODPos}`,
       {
