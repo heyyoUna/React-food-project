@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { API_img } from '../../config/index'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import MemberNavbar from '../../components/member/MemberNavbar'
@@ -103,7 +104,7 @@ function MemberFavoriteArticle(props) {
                   <div className="row member-favorite-product">
                     <div className="col-md-4">
                       <img className="img-fluid rounded-start"
-                        src={'http://localhost:3002/img/article/index' + value.ar_pic}
+                        src={`${API_img}` + value.ar_pic}
                         alt="" />
                     </div>
                     <div className="col-md-7">
@@ -152,7 +153,7 @@ function MemberFavoriteArticle(props) {
                   <div className="row member-favorite-product">
                     <div className="col-md-4">
                       <img className="img-fluid rounded-start"
-                        src={'http://localhost:3002/img/article/index' + value.ar_pic}
+                        src={`${API_img}` + value.ar_pic}
                         alt="" />
                     </div>
                     <div className="col-md-7">

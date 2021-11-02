@@ -23,7 +23,7 @@ function Target(props) {
     e.classList.add('pd-cusClick')
   }
 
-
+console.log(target)
   return (
     <>
       {/* 運動目標------------------- */}
@@ -31,15 +31,11 @@ function Target(props) {
       <div className="pd-target d-flex">
         <div className="pd-gain-wrap mlr">
           <div
-            className="pd-gain pd-targetImg"
+            className="pd-gain pd-targetImg "
             onClick={(e) => {
-              if(!TDEE){
-                // alert('請先輸入基本資料')
-              }if(TDEE){
-                setTarget('增肌減脂')
-                removeTargetCss(e.target)
-                props.history.push('/customize/?target=增肌減脂')
-              }
+              setTarget('增肌減脂')
+              removeTargetCss(e.target)
+              props.history.push('/customize/?target=增肌減脂')
             }}
           ></div>
           <p>增肌減脂</p>
@@ -47,15 +43,11 @@ function Target(props) {
 
         <div className="pd-slim-wrap mlr">
           <div
-            className="pd-slim pd-targetImg"
+            className="pd-slim pd-targetImg pd-cusClick"
             onClick={(e) => {
-              if(!TDEE){
-                // alert('請先輸入基本資料')
-              }if(TDEE){
-                setTarget('變瘦')
-                removeTargetCss(e.target)
-                props.history.push('/customize/?target=變瘦')
-              }
+              setTarget('變瘦')
+              removeTargetCss(e.target)
+              props.history.push('/customize/?target=變瘦')
             }}
           ></div>
           <p>變瘦</p>
@@ -64,48 +56,37 @@ function Target(props) {
       {/* 運動習慣------------------ */}
       <h1>我每周運動...</h1>
       <div className="pd-target d-flex">
-        <div className="pd-five-wrap">
+        <div className="pd-none-wrap">
           <div
-            className="pd-five pd-timesImg"
+            className="pd-none pd-timesImg pd-cusClick"
             onClick={(e) => {
-              if(!TDEE){
-                alert('請先輸入基本資料')
-              }if(TDEE){
-                setExercises('五次以上')
-                removeTimesCss(e.target)
-              }
+              setExercises('不運動')
+              removeTimesCss(e.target)
             }}
-          ></div>
-          <p>五次以上</p>
+            ></div>
+          <p>不運動</p>
         </div>
         <div className="pd-three-wrap">
           <div
             className="pd-three pd-timesImg"
             onClick={(e) => {
-              if(!TDEE){
-                alert('請先輸入基本資料')
-              }if(TDEE){
-                setExercises('三次左右')
-                removeTimesCss(e.target)
-              }
+              setExercises('三次左右')
+              removeTimesCss(e.target)
             }}
           ></div>
           <p>三次左右</p>
         </div>
-        <div className="pd-none-wrap">
+        <div className="pd-five-wrap">
           <div
-            className="pd-none pd-timesImg"
+            className="pd-five pd-timesImg"
             onClick={(e) => {
-              if(!TDEE){
-                alert('請先輸入基本資料')
-              }if(TDEE){
-                setExercises('不運動')
-                removeTimesCss(e.target)
-              }
+              setExercises('五次以上')
+              removeTimesCss(e.target)
             }}
           ></div>
-          <p>不運動</p>
+          <p>五次以上</p>
         </div>
+        
       </div>
     </>
   )

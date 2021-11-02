@@ -51,7 +51,6 @@
           width: 100px;
         }
       }
-   
 
       .countIcon {
         font-size: var(--Order-list-title-size);
@@ -246,6 +245,48 @@
 }
 
 /* 訂單簡易資訊 */
+.Modal {
+  font-family: var(--Font-Family);
+  border-radius: 20px;
+  .ModalTitle {
+    font-size: var(--Orderinfo-list-title-size);
+    color: var(--Third-color);
+    font-weight: var(--Second-Font-Weight);
+  }
+  .ModalBody {
+    font-size: var(--Order-button-size-mobile);
+  }
+  .ModalFooter {
+    font-size: var(--Order-button-size-mobile);
+    .ButtonClose {
+      padding: var(--button-padding);
+      color: var(--Third-color);
+      border: 0.5px solid var(--Third-color);
+      border-radius: 50px;
+    }
+    .ButtonClose:hover {
+      padding: var(--button-padding);
+      background-color: var(--Primary-color);
+      color: #ffffff;
+      border: transparent;
+      border-radius: 50px;
+    }
+    .ButtonLogin {
+      padding: var(--button-padding);
+      color: var(--Third-color);
+      border: 0.5px solid var(--Third-color);
+      border-radius: 50px;
+    }
+    .ButtonLogin:hover {
+      padding: var(--button-padding);
+      background-color: var(--Second-color);
+      color: #ffffff;
+      border: transparent;
+      border-radius: 50px;
+    }
+  }
+}
+
 .orderinfolist {
   h4 {
     text-align: center;

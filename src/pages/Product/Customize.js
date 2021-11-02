@@ -1,5 +1,9 @@
-import React, { useState, useEffect  } from 'react'
-import conf, { Product_API, Customize_API} from './../../config/config.js'
+import React, { useState, useEffect } from 'react'
+import conf, { Product_API, Customize_API } from './../../config/config.js'
+import {
+  BrowserRouter as Router,
+  withRouter,
+} from 'react-router-dom'
 
 // 引用元件
 import ProductCard from './../../components/Product/ProductCard'
@@ -8,9 +12,13 @@ import Clientinfo from '../../components/Product/Clientinfo'
 
 
 function Customize(props) {
+  const { setProductId } = props
+  const searchParams = new URLSearchParams(
+    props.location.search
+  )
   // 運動習慣狀態
-  const [target, setTarget] = useState('')
-  const [exercises, setExercises] = useState('')
+  const [target, setTarget] = useState('變瘦')
+  const [exercises, setExercises] = useState('不運動')
   // 基本資料狀態
   const [gender, setGender] = useState('男')
   const [years, setYears] = useState('')
@@ -18,7 +26,7 @@ function Customize(props) {
   const [weight, setWeight] = useState('')
   // 建議區
   // TDEE 初始值(記錄用)
-  const [ oriTDEE, setOriTDEE] = useState(0)
+  const [oriTDEE, setOriTDEE] = useState(0)
   // 每日消耗熱量（展示用）
   const [TDEE, setTDEE] = useState(0)
 
@@ -29,72 +37,108 @@ function Customize(props) {
   // 建議攝取熱量(展示用)
   const [sugCal, setSugCal] = useState(0)
 
-
   // 建議攝取蛋白質
   const [sugProtein, setSugProtein] = useState(0)
   // 推薦商品
-  const [ sugProducts, setSugProducts] = useState([])
+  const [sugProducts, setSugProducts] = useState([])
+
+  //Customize_API ='http://localhost:3002/product/customize/'
+
 
   // 商品區要資料
   useEffect(() => {
-    ;(async () => {
-      const r = await fetch(Customize_API)
+    ; (async () => {
+      const r = await fetch(`${Customize_API}` + `${props.location.search}`)
       const obj = await r.json()
       setSugProducts(obj.rows)
-      // console.log(obj)
     })()
   }, [target])
 
 
   // TDEE設定完在設定建議攝取量(熱量初始值/建議熱量/建議蛋白質)
+  // 預設值是變瘦＋不運動
   useEffect(() => {
-    //消耗熱量初始值
-    setOriCal(oriTDEE)
     setSugCal(oriTDEE)
-    setSugProtein(Math.ceil(weight*1.2))
+    setSugProtein(Math.ceil(weight * 1.2))
   }, [TDEE])
 
-  // 選擇飲食目標後改變建議攝取量熱量跟蛋白質
-  useEffect(() => {
-    // 蛋白質*1.6,熱量*1.2
-    if (target==='增肌減脂'){
-      // 建議熱量
-      let targetCal = Math.ceil(TDEE*1.2)
-      let targetProtein = (Math.ceil(weight*1.6))
-      setSecondCal(targetCal) //第二個暫存熱量值
-      setSugCal(targetCal)
-      setSugProtein(targetProtein)
-      // 蛋白質*1.2,熱量*0.8
-    }if(target==='變瘦'){
-      let targetCal = Math.ceil(TDEE*0.8)
-      setSecondCal(targetCal) //第二個暫存熱量值
-      setSugCal(targetCal) //建議熱量
-      setSugProtein(Math.ceil(weight*1.2)) //建議蛋白質
+  const calculate = () => {
+    if (target === '變瘦' && exercises === '不運動') {
+      //建議熱量
+      let sugCal = Math.ceil(oriTDEE * 0.8)
+      setTDEE(TDEE)
+      setSugCal(sugCal)
     }
-  }, [target])
+    if (target === '變瘦' && exercises === '三次左右') {
+      let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.375)
+      let sugCal = Math.ceil((oriTDEE / 1.2) * 1.375 * 0.8)
+      setSugCal(sugCal)
+      setTDEE(newTDEE)
+    }
+    if (target === '變瘦' && exercises === '五次以上') {
+      let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.55)
+      let sugCal = Math.ceil((oriTDEE / 1.2) * 1.55 * 0.8)
+      setSugCal(sugCal)
+      setTDEE(newTDEE)
+    }
+    if (target === '增肌減脂' && exercises === '不運動') {
+      let sugCal = Math.ceil(oriTDEE * 1.2)
+      setSugCal(sugCal)
+      setTDEE(TDEE)
+    }
+    if (target === '增肌減脂' && exercises === '三次左右') {
+      let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.375)
+      let sugCal = Math.ceil((oriTDEE / 1.2) * 1.375 * 1.2)
+      setSugCal(sugCal)
+      setTDEE(newTDEE)
+    }
+    if (target === '增肌減脂' && exercises === '五次以上') {
+      let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.55)
+      let sugCal = Math.ceil((oriTDEE / 1.2) * 1.55 * 1.2)
+      setSugCal(sugCal)
+      setTDEE(newTDEE)
+    }
+  }
 
-  //選擇運動習慣後改變熱量攝取
   useEffect(() => {
-    // 每日熱量&建議攝取量 BMR*1.55
-    if (exercises==='五次以上'){
-      let newTDEE = Math.ceil(((oriTDEE/1.2)*1.55))
-      let newsugCal = Math.ceil(((secondCal/1.2)*1.55))
-      setTDEE(newTDEE)
-      setSugCal(newsugCal)
-      console.log(secondCal)
-    }if(exercises==='三次左右'){
-      let newTDEE = Math.ceil((oriTDEE/1.2)*1.375)
-      let newsugCal = Math.ceil(((secondCal/1.2)*1.375))
-      setTDEE(newTDEE)
-      setSugCal(newsugCal)
-      console.log(secondCal)
-    }if(exercises==='不運動'){
-      //  不運動直接設定最一開始的消耗熱量
-      setTDEE(oriTDEE)
-      setSugCal(secondCal)
-      console.log(secondCal)
-    }
-  }, [exercises])
+    calculate()
+  }, [target, exercises,TDEE])
+
+  // 選擇飲食目標後改變建議攝取量熱量跟蛋白質
+  // useEffect(() => {
+
+  //   if (target==='增肌減脂'){
+  //     let targetCal = Math.ceil(TDEE*1.2)
+  //     let targetProtein = (Math.ceil(weight*1.6))
+  //     setSecondCal(targetCal) 
+  //     setSugCal(targetCal)
+  //     setSugProtein(targetProtein)
+  //   }if(target==='變瘦'){
+  //     let targetCal = Math.ceil(TDEE*0.8)
+  //     setSecondCal(targetCal) 
+  //     setSugCal(targetCal) 
+  //     setSugProtein(Math.ceil(weight*1.2)) 
+  //   }
+  // }, [target])
+
+
+  // useEffect(() => {
+  //   console.log({exercises});
+  //   if (exercises==='五次以上'){
+  //     let newTDEE = Math.ceil(((oriTDEE/1.2)*1.55))
+  //     setTDEE(newTDEE)
+  //   }if(exercises==='三次左右'){
+  //     let newTDEE = Math.ceil((oriTDEE/1.2)*1.375)
+  //     setTDEE(newTDEE)
+  //     setSugCal(1200)
+  //     console.log({exercises});
+  //   }if(exercises==='不運動'){
+  //     setTDEE(oriTDEE)
+  //     setSugCal(secondCal)
+  //   }
+  // }, [exercises])
+
+
 
   return (
     <>
@@ -140,18 +184,20 @@ function Customize(props) {
       <div className="container d-flex pd-sug-wrap">
         <h1>商品推薦</h1>
         <div className="pd-card-wrap d-flex col-12">
-        {sugProducts.map((v,i)=>{
-          return(
-            <ProductCard 
-              key={v.sid}
-              img={v.product_img}
-              name={v.name}
-              cal={v.content_cal}
-              price={v.price}
-            />
-          )
-        })}
-          
+          {sugProducts.map((v, i) => {
+            return (
+              <ProductCard
+                key={v.sid}
+                sid={v.sid}
+                img={v.product_img}
+                name={v.name}
+                cal={v.content_cal}
+                price={v.price}
+                setProductId={setProductId}
+              />
+            )
+          })}
+
         </div>
         <h1>餐盒推薦</h1>
         <h1>文章推薦</h1>
@@ -160,4 +206,4 @@ function Customize(props) {
   )
 }
 
-export default Customize
+export default withRouter(Customize)
