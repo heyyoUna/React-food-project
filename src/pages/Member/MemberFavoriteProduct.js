@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { CgShoppingCart } from 'react-icons/cg'
-import { IoIosHeart } from 'react-icons/io'
-import { FiHeart } from 'react-icons/fi'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import MemberNavbar from './../../components/member/MemberNavbar'
 
 function MemberFavoriteProduct(props) {
@@ -124,19 +123,19 @@ function MemberFavoriteProduct(props) {
                       <div className="member-like" onClick={() =>
                         handlingClick(value.sid, index, value.remove_flag)
                       }>
-                        <FiHeart
+                        <IoIosHeartEmpty
                           style={{
                             color: '#FB6107',
-                            fontSize: '22px',
+                            fontSize: '30px',
                             marginTop: '3px',
                             display: value.remove_flag ? 'block' : 'none'
                           }}
                         />
                         <IoIosHeart
                           style={{
-                            fontSize: '30px',
                             color: '#d96e30',
-                            cursor: 'pointer',
+                            fontSize: '30px',
+                            marginTop: '3px',
                             display: value.remove_flag ? 'none' : 'block'
                           }}
                         />
