@@ -11,6 +11,8 @@ import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
+import PopularRecipe from '../../components/article/PopularRecipe'
+import RelatingRecipe from '../../components/article/RelatingRecipe'
 
 function FoodContent(props) {
   const fcURL = new URL(document.location.href) //目前網頁網址
@@ -92,99 +94,14 @@ function FoodContent(props) {
             <div>{data.ar_index2}</div>
             <h3>{data.ar_index_title3}</h3>
             <div>{data.ar_index3}</div>
-            <form onSubmit={handleSubmit}>
-              <div className="QA">
-                <h3> {data.ar_question}</h3>
-                <ul>
-                  {/* {console.log('options', options)} */}
-                  {options ? (
-                    options.map((v, i) => {
-                      return (
-                        <ArQARadioButton
-                          name="reply"
-                          key={i}
-                          value={v}
-                          checked={reply === v}
-                          onChange={(e) => {
-                            setReply(e.target.value)
-                          }}
-                          // onChange={(e) => {
-                          //   if (
-                          //     e.target.value ===
-                          //     data.ar_correct_answer
-                          //   ) {
-                          //     // console.log('e.target.value:', typeof e.target.value )
-                          //     // console.log('typeof ar_correct_answer:', typeof data.ar_correct_answer)
-                          //     setOptions(e.target.value)
-                          //   } else {
-                          //     alert('答錯囉')
-                          //   }
-                          // }}
-                        />
-                      )
-                    })
-                  ) : (
-                    <Spinner
-                      animation="border"
-                      variant="primary"
-                    />
-                  )}
-                </ul>
-                <div>
-                  {}
-
-                  <button className="QAbtn" type="submit">
-                    作答
-                  </button>
-                </div>
-              </div>
-            </form>
           </div>
+
           <div className="col-3 col-lg-3" id="mostPopular">
             <ul>
               <div className="mostPopularTitle">
                 Most Popular
               </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
+              <PopularRecipe />
             </ul>
           </div>
           <div className="col-1"></div>
@@ -192,33 +109,7 @@ function FoodContent(props) {
 
         <div className="row article_rec">
           <div className="col-1"></div>
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>{' '}
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>
+          <RelatingRecipe />
           <HpArMoreBtn />
         </div>
       </div>

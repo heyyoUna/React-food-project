@@ -19,7 +19,7 @@ function ArCardTxtExercise(props) {
         setData(j)
       }
     })()
-  })
+  }, [])
 
   function articleDate(aaa) {
     let time = new Date(aaa)
@@ -74,8 +74,6 @@ function ArCardTxtExercise(props) {
                       {articleDate(el.ar_date)}
                     </p>
                   </div>
-                  
-
                 </div>
               </>
             )

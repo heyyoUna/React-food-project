@@ -17,7 +17,7 @@ function ArCardTxtRecipe(props) {
         setData(j)
       }
     })()
-  })
+  }, [])
 
   function articleDate(aaa) {
     let time = new Date(aaa)
@@ -64,11 +64,10 @@ function ArCardTxtRecipe(props) {
                             // display: value.remove_flag ? 'none' : 'block'
                           }}
                         />
-
                       </div>
                       <h6 className="productTitle f_darkgreen pt-1">
-                          {el.ar_title}
-                        </h6>
+                        {el.ar_title}
+                      </h6>
                       <p className="pb-1 grey articleDate">
                         {articleDate(el.ar_date)}
                       </p>
