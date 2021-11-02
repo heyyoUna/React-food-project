@@ -1,15 +1,55 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import {
+  withRouter,
+  BrowserRouter as Router,
+  Link,
+} from 'react-router-dom'
 import { imgUrl, API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
+import ArQARadioButton from '../../components/article/ArQARadioButton'
+import { Spinner } from 'react-bootstrap'
 
-function ExerciseContent() {
+function ExerciseContent(props) {
+  const [data, setData] = useState([])
+  const [options, setOptions] = useState([])
+  const [reply, setReply] = useState('')
+
+  useEffect(() => {
+    const fcURL = new URL(document.location.href) //目前網頁網址
+    const fcSid = fcURL.pathname //目前網址的路徑
+    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+    ;(async () => {
+      let r = await fetch(
+        'http://localhost:3002/ArtExercise/' + fcSplit
+      )
+      let j = await r.json()
+
+      if (j.success) {
+        setData(j.data)
+        // console.log('j.data:', j.data)
+        setOptions(JSON.parse(j.data.ar_answers))
+      }
+    })()
+  }, [])
+
+  // 在 表單完成驗証 之後，才會觸發
+  const handleSubmit = (e) => {
+    // 阻擋form的預設送出行為
+    e.preventDefault()
+    // 利用FormData Api 得到各欄位的值 or 利用狀態值
+    // FormData 利用的是表單元素的 name
+    const formData = new FormData(e.target)
+  }
+
   return (
     <>
-      <div className="container-fluid" id="col-article">
+      <div
+        className="container-fluid pt-5"
+        id="col-article"
+      >
         <BreadCrumb />
 
         {/* <!------------ 互動nav ------------>   */}
@@ -34,52 +74,26 @@ function ExerciseContent() {
         <div className="row">
           <div className="col-1"></div>
           <div className="col-7 col-lg-7">
-            <h3>
-              你還在一頁式網站買「在地」農產品?小心網購和包裹成非洲豬瘟入侵破口
-            </h3>
+            <h3>{data.ar_title}</h3>
             <div>
               <img
-                src={`${imgUrl}/images/article/col_article_kv.png`}
+                src={`${API_img}` + data.ar_pic}
                 alt=""
               />
             </div>
             <div className="art-hotlight">
-              <p>
-                非洲豬瘟對於台灣的入侵從未中斷，但形式逐漸從個人攜帶入境，改為主要由網購、境外包裹入侵台灣，農委會副主委黃金城呼籲民眾小心「一頁式網站」銷售謊稱台灣在地生產的境外肉製品，也切勿從國外攜帶或寄送違規物品，以免受罰甚至危害台灣養豬業。
-              </p>
+              <p>{data.ar_highlight}</p>
             </div>
-            <h3>
-              個人攜帶境外肉品比例逐漸下降
-              網購成為防疫新破口
-            </h3>
-
-            <div>
-              自從非洲豬瘟在2018年時在全球爆發後，台灣仰賴嚴格把關「個人攜帶入境」，在亞洲與日本同為少數成功守住的國家之一，但關務署副署長陳依財表示，最容易成為非洲豬瘟破口的部分為旅客挾帶、包裹，近3年旅客挾帶數量減少，反而是包裹量劇增，2021年1至9月，查緝邊境違法攜入物品案件分別為旅客挾帶19件，郵包135件。
-            </div>
-
-            <div>
-              黃金城強調，這並不只是關務署的責任，近年許多民眾在過年過節時，經常會自國外寄送肉品如肉乾禮盒、含肉月餅等至國內，或是在社群平台如臉書（Facebook）、電商平台上的一頁式詐騙網站購買謊稱是台灣在地農產，事實上來自境外的商品，他提醒民眾對於網路購物保持警戒，才能守護台灣淨土。
-            </div>
-
-            <div className="QA">
-              <h3> 一般民眾如何在防堵非洲豬瘟盡一份力？</h3>
-              <ul>
-                <li>A在一頁式網站購物</li>
-                <li>B在一頁式網站購物</li>
-              </ul>
-              <ul>
-                <li>C在一頁式網站購物</li>
-                <li>D在一頁式網站購物</li>
-              </ul>
-              <div>
-                <button className="QAbtn">作答</button>
-              </div>
-            </div>
+            <h3>{data.ar_index_title1}</h3>
+            <div>{data.ar_index1}</div>
+            <h3>{data.ar_index_title2}</h3>
+            <div>{data.ar_index2}</div>
+            <h3>{data.ar_index_title3}</h3>
+            <div>{data.ar_index3}</div>
           </div>
           <div className="col-3 col-lg-3" id="mostPopular">
             <ul>
               <div className="mostPopularTitle">
-                {' '}
                 Most Popular
               </div>
               <div className="d-flex my-3 mostPopularItems">

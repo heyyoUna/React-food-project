@@ -96,37 +96,37 @@ function MemberFavoriteRestaurant(props) {
           <h1 id="member-favorite-h1">餐廳收藏清單</h1>
         </div>
         <div className="row member-favorite">
-          <MemberNavbar/>
-        <div className="member-n col-1"></div>
-        <div className="member-favorite-card col-9">
+          <MemberNavbar />
+          <div className="member-n col-1"></div>
+          <div className="member-favorite-card col-9">
             {restaurant.map((value, index) => {
               return (
                 <div className="card mb-3" key={value.res_id}>
-            <div className="row member-favorite-restaurant">
-              <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
+                  <div className="row member-favorite-restaurant">
+                    <div className="col-md-4">
+                      <img className="img-fluid rounded-start"
                         src={'http://localhost:3002/img/restaurant/' + value.res_img}
-                  alt="" />
-              </div>
-              <div className="col-md-7">
-                <div className="card-body">
-                  <div className="member-card-title">
-                    <h5 className="card-title">
+                        alt="" />
+                    </div>
+                    <div className="col-md-7">
+                      <div className="card-body">
+                        <div className="member-card-title">
+                          <h5 className="card-title">
                             {value.res_name}
-                    </h5>
-                  </div>
-                  <div className="member-favorite-text">
-                      <p className="card-text"> 
-                      <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
+                          </h5>
+                        </div>
+                        <div className="member-favorite-text">
+                          <p className="card-text">
+                            <MdOutlineAttachMoney
+                              style={{
+                                fontSize: '28px',
+                                color: '#FFB606',
+                                marginRight: '6px',
+                                paddingRight: '3px',
+                              }}
+                            />
                       平均消費：{value.res_aveprice}</p>
-                      {/* <p className="member-clock"> 
+                          {/* <p className="member-clock"> 
                       <BsClock
                         className="member-clock-icon"
                         style={{
@@ -135,11 +135,11 @@ function MemberFavoriteRestaurant(props) {
                         }}
                       />
                       {value.time}</p> */}
-                  </div>
-                </div>
-              </div>
-              <div className="member-icon col-md-1">
-                <div className="member-like" onClick={() =>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="member-icon col-md-1">
+                      <div className="member-like" onClick={() =>
                         handlingClick(value.res_id, index, value.remove_flag)
                       }>
                         <IoIosHeartEmpty
@@ -159,68 +159,83 @@ function MemberFavoriteRestaurant(props) {
                           }}
                         />
                       </div>
-              </div>
-            </div>
-          </div>
+                    </div>
+                  </div>
+                </div>
               )
             })}
-        </div>
-        <div className="member-favorite-card-mobile">
-            <div className="card mb-3 ">
-              <div className="row member-favorite-restaurant">
-                <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                    alt="" />
-                </div>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <div className="member-card-title">
-                      <div className="member-card-text">
-                        <h5 className="card-title">
-                        生活倉儲 
-                        </h5>
-                        <div className="member-icon ">
-                          <div className="member-like">
-                              <IoIosHeart
-                                style={{
-                                  fontSize: '30px',
-                                  color: '#d96e30',
-                                  cursor: 'pointer',
-                                }}
-                              />
+          </div>
+          <div className="member-favorite-card-mobile">
+            {restaurant.map((value, index) => {
+              return (
+                <div className="card mb-3" key={value.res_id}>
+                  <div className="row member-favorite-restaurant">
+                    <div className="col-md-4">
+                      <img className="img-fluid rounded-start"
+                        src={'http://localhost:3002/img/restaurant/' + value.res_img}
+                        alt="" />
+                    </div>
+                    <div className="col-md-7">
+                      <div className="card-body">
+                        <div className="member-card-title">
+                          <div className="member-card-text">
+                            <h5 className="card-title">
+                              {value.res_name}
+                            </h5>
+                            <div className="member-icon ">
+                              <div className="member-like" onClick={() =>
+                                handlingClick(value.res_id, index, value.remove_flag)
+                              }>
+                                <IoIosHeartEmpty
+                                  style={{
+                                    color: '#FB6107',
+                                    fontSize: '30px',
+                                    marginTop: '3px',
+                                    display: value.remove_flag ? 'block' : 'none'
+                                  }}
+                                />
+                                <IoIosHeart
+                                  style={{
+                                    color: '#d96e30',
+                                    fontSize: '30px',
+                                    marginTop: '3px',
+                                    display: value.remove_flag ? 'none' : 'block'
+                                  }}
+                                />
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
+                          <div className="member-favorite-text">
+                            <p className="card-text"> <MdOutlineAttachMoney
+                              style={{
+                                fontSize: '28px',
+                                color: '#FFB606',
+                                marginRight: '6px',
+                                paddingRight: '3px',
+                              }}
+                            />
+                      平均消費：{value.res_aveprice}</p>
+                            {/* <p className="member-clock"> <BsClock
                           className="member-clock-icon"
                         style={{
                           fontSize: '28px',
                           color: '#8FC065',
                         }}
                       />
-                      11:00-20:00</p>
+                      11:00-20:00</p> */}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                </div>
-              </div>
-            </div>
-        </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </>
   )
 }
-            
+
 export default withRouter(MemberFavoriteRestaurant)

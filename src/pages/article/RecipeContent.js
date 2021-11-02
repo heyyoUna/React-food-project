@@ -13,17 +13,18 @@ import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
 
 function FoodContent(props) {
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  const fcSid = fcURL.pathname //目前網址的路徑
+  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+
   const [data, setData] = useState([])
   const [options, setOptions] = useState([])
   const [reply, setReply] = useState('')
 
   useEffect(() => {
-    const fcURL = new URL(document.location.href) //目前網頁網址
-    const fcSid = fcURL.pathname //目前網址的路徑
-    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
     ;(async () => {
       let r = await fetch(
-        'http://localhost:3002/ArtFood/' + fcSplit
+        'http://localhost:3002/ArtRecipe/' + fcSplit
       )
       let j = await r.json()
 
@@ -103,25 +104,20 @@ function FoodContent(props) {
                           name="reply"
                           key={i}
                           value={v}
-                          checkedReply={reply}
-                          setCheckReply={setReply}
+                          checked={reply === v}
                           onChange={(e) => {
-                            if (
-                              e.target.value !==
-                              data.ar_correct_answer
-                            ) {
-                              alert('答錯囉')
-                            }
+                            setReply(e.target.value)
                           }}
-
                           // onChange={(e) => {
                           //   if (
                           //     e.target.value ===
                           //     data.ar_correct_answer
                           //   ) {
-                          //     setReply(e.target.value)
+                          //     // console.log('e.target.value:', typeof e.target.value )
+                          //     // console.log('typeof ar_correct_answer:', typeof data.ar_correct_answer)
+                          //     setOptions(e.target.value)
                           //   } else {
-                          //     // alert('答錯囉')
+                          //     alert('答錯囉')
                           //   }
                           // }}
                         />
@@ -135,6 +131,8 @@ function FoodContent(props) {
                   )}
                 </ul>
                 <div>
+                  {}
+
                   <button className="QAbtn" type="submit">
                     作答
                   </button>
