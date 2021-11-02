@@ -13,29 +13,41 @@ import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
 
 function CartPreOrder() {
+  // 加入商品的 Data
   let [data, setData] = useState([{}])
+
+  // 商品數量
   let [Count, setCount] = useState([])
+
+  // 購物車內的商品位置
   let [Pos, setPos] = useState()
+
+  // 給 sql 路由的訂單 ID
   let [ODPos, setODPos] = useState()
+
+  // 購物車刪除的商品位置
   let [DeletePos, setDeleteODPos] = useState()
+
+  // 購物車內增加商品的位置
   let [addProductPos, setaddProductPos] = useState()
+
+  // 使用會員優惠
   let [Promotion, setPromotion] = useState(0)
-  let [judge, setjudge] = useState(false)
 
   useEffect(() => {
-    console.log('這邊是初始化')
+    // 讀取加入購物車的商品資料
     DataAxios()
   }, [addProductPos])
 
   useEffect(() => {
-    // console.log('目前商品位置', Pos, ODPos)
-
+    // 修改購物車內的商品資料
     ModifyProduct(Count, Pos, ODPos)
   }, [Count[Pos]])
 
   useEffect(() => {
-    // console.log('目前刪除位置', DeletePos)
+    // 刪除購物車內的商品資料
     DeleteProduct(DeletePos)
+    console.log('刪除', DeletePos)
   }, [DeletePos])
 
   // useEffect(() => {
@@ -43,19 +55,27 @@ function CartPreOrder() {
   //   AddProduct(addProductPos)
   // }, [addProductPos])
 
+  // 讀取商品資料的 function
   async function DataAxios() {
     let r = await axios.get('http://localhost:3002/cart/')
     if (r.status === 200) {
+      // 設定 data
       setData(r.data)
+      console.log('資料', r.data)
+
+      // 讀取裡面的商品數量
       for (let i = 0; i < r.data.length; i++) {
         Count[i] = r.data[i].Order_Amount
       }
-      // console.log('DataAxios裡面', Count)
+
+      // 設定商品初始數量
       setCount(Count)
+
+      // 計算訂單小計
       productPrice()
-      // totalPromotion()
+
+      // 計算訂單總計(扣除會員點數)
       totalPrice()
-      // return Count
     }
   }
 
@@ -73,8 +93,10 @@ function CartPreOrder() {
   //   }
   // }
 
-  async function ModifyProduct(Count, Pos) {
+  // 修改商品數量函式
+  async function ModifyProduct(Count, Pos, ODPos) {
     // console.log('修改函數', Count, Pos, ODPos, Count[Pos])
+
     let Mod = await axios.put(
       `http://localhost:3002/cart/${ODPos}`,
       {
@@ -88,6 +110,7 @@ function CartPreOrder() {
     }
   }
 
+  // 刪除商品函式
   async function DeleteProduct(DeletePos) {
     let del = await axios.delete(
       `http://localhost:3002/cart/${DeletePos}`
@@ -99,46 +122,34 @@ function CartPreOrder() {
     }
   }
 
-  // Summary
-  // 計算目前所有的商品小計
+  // 計算訂單的商品小計
   const productPrice = () => {
     let totalCount = 0
+
+    // 解構賦值
     let priceinfo = [...data]
 
     priceinfo.map((v, i) => {
       totalCount += v.Order_Amount * v.price
     })
 
-    // for (let i = 0; i < Count.length; i++) {
-    // }
-    console.log('商品小計', totalCount)
-
     return totalCount
   }
 
-  // // 計算目前所有的商品優惠總價
-  // const totalPromotion = () => {
-  //   let Promotionsum = 0
-  //   let Promoinfo = [...data]
-
-  //   Promoinfo.map((v, i) => {
-  //     Promotionsum += v.Promotion_Number
-  //   })
-
-  //   console.log('商品總優惠', Promotionsum)
-  //   return Promotionsum
-  // }
-
+  // 計算訂單的商品總計
   const totalPrice = () => {
     let Pricesum = 0
+
+    // 解構賦值
     let Priceinfo = [...data]
 
     Priceinfo.map((v, i) => {
       Pricesum += v.Order_Amount * v.price
     })
+
+    // 扣除商品優惠
     Pricesum -= Promotion
 
-    console.log('商品總價', Pricesum)
     return Pricesum
   }
 
@@ -178,6 +189,7 @@ function CartPreOrder() {
       </div>
 
       <div className="container ordercheck col-lg-10 d-lg-flex">
+        {/* 訂單商品詳細 */}
         <OrderDetail
           data={data}
           Count={Count}
@@ -189,6 +201,8 @@ function CartPreOrder() {
           addProductPos={addProductPos}
           setaddProductPos={setaddProductPos}
         />
+
+        {/* 訂單小計詳情 */}
         <OrderInfo
           productPrice={productPrice}
           totalPrice={totalPrice}

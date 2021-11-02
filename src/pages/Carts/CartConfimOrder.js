@@ -14,7 +14,7 @@ import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
-function CartConfimOrder(props) {
+function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
   let member = 'st880517'
@@ -25,9 +25,9 @@ function CartConfimOrder(props) {
   }, [])
 
   async function DataAxios() {
-    let r = await axios.get('http://localhost:3001/cart/')
+    let r = await axios.get('http://localhost:3002/cart/')
     let rD = await axios.get(
-      `http://localhost:3001/cart/addList/${member}`
+      `http://localhost:3002/cart/addList/${member}`
     )
     if (r.status === 200 && rD.status === 200) {
       setData(r.data)
@@ -39,21 +39,39 @@ function CartConfimOrder(props) {
 
   async function ConfirmOrder() {
     let a = []
-    a = JSON.parse(localStorage.getItem('測試'))
+    let s
+    let NewData = [...data]
+    a = JSON.parse(localStorage.getItem('訂單價格資訊'))
     console.log('這是暫存資料', a)
-    console.log('完成訂單')
+    console.log('確認訂單資訊', NewData[0].Order_Sid)
+
     let r = await axios.post(
-      'http://localhost:3001/cart/ConfirmList',
+      'http://localhost:3002/cart/ConfirmList',
       {
-        Order_Sid: '',
+        Order_Sid: NewData[0].Order_Sid,
         Member_id: 'st880517',
         Total_Price: a[0],
         Order_Status: '訂單成立',
       }
     )
+
+    for (let i in NewData) {
+      console.log('訂單內容', NewData[i].Order_Sid)
+      s = await axios.post(
+        'http://localhost:3002/cart/addDetail',
+        {
+          Order_Sid: NewData[0].Order_Sid,
+          Product_id: NewData[i].Product_id,
+          Order_Total: a[2],
+          Promotion_Amount: a[1],
+          Order_Amount: NewData[i].Order_Amount,
+        }
+      )
+    }
+
     if (r.status === 200) {
       console.log('已完成訂單，請到 DB 查看')
-      localStorage.setItem('訂單編號', DataDetail.Sid)
+      localStorage.setItem('訂單編號', NewData[0].Order_Sid)
       props.history.push('/carts/Complete')
     }
   }
@@ -88,11 +106,19 @@ function CartConfimOrder(props) {
         </div>
       </div>
 
-      <TitleBorder name="確認訂單資訊" />
+      <div class="titleBorder col-lg-6 col-10">
+        <h4 class="res-title title-fz fw-700">
+          確認訂單資訊
+        </h4>
+      </div>
 
       <Cart_OrderDetail data={data} setData={setData} />
 
-      <TitleBorder name="付款與運送方式" />
+      <div class="titleBorder col-lg-6 col-10">
+        <h4 class="res-title title-fz fw-700">
+          付款與運送方式
+        </h4>
+      </div>
 
       <div className="container confirmorderdetail mx-auto col-lg-6 col-10">
         <div className="container importinfo d-flex justify-content-between">
@@ -215,4 +241,4 @@ function CartConfimOrder(props) {
   )
 }
 
-export default withRouter(CartConfimOrder)
+export default withRouter(Cart_ConfimOrder)

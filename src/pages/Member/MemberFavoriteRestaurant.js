@@ -1,11 +1,94 @@
-import { withRouter } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { withRouter, useHistory } from 'react-router-dom'
 import { BsClock } from 'react-icons/bs'
-import { IoIosHeart } from 'react-icons/io'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { MdOutlineAttachMoney } from 'react-icons/md'
 import MemberNavbar from './../../components/member/MemberNavbar'
 
 function MemberFavoriteRestaurant(props) {
-  console.log(props)
+  const id = localStorage.getItem('id')
+  const [restaurant, setRestaurant] = useState([])
+  let history = useHistory()
+
+  useEffect(() => {
+    favoriteRestaurantGet()
+  }, [])
+
+  const favoriteRestaurantGet = () => {
+    if (id > 0) {
+      fetch(`http://localhost:3002/member/favorite-restaurant-get/${id}}`, {
+        method: 'GET',
+      }).then(r => r.json())
+        .then(obj => {
+          if (obj.length) {
+            setRestaurant(obj)
+          } else {
+            alert(obj.error || '快去收藏餐廳吧')
+          }
+        })
+    } else {
+      alert('尚未登入，請連到登入頁面')
+      history.push('/login')
+    }
+  }
+
+  const handlingClick = (restaurantid, index, remove_flag) => {
+    if (remove_flag) {
+      handlingInsert(restaurantid, index)
+    } else {
+      handlingDelete(restaurantid, index)
+    }
+  }
+
+  const handlingDelete = (restaurantid, index) => {
+    fetch(`http://localhost:3002/member/favorite-restaurant-delete/${restaurantid}`, {
+      method: 'DELETE',
+    }).then(r => r.json())
+      .then(obj => {
+        if (obj.success) {
+          //複製出新的restaurant
+          let newRestaurant = [...restaurant]
+          //註記restaurant中第index筆資料被刪除(註記刪除)
+          newRestaurant[index].remove_flag = true
+          //新的restaurant覆蓋掉原本的restaurant
+          setRestaurant(newRestaurant)
+
+          //空心愛心
+
+        } else {
+          alert(obj.error || '移除收藏餐廳失敗')
+        }
+      })
+  }
+
+  const handlingInsert = (restaurantid, index) => {
+    fetch(`http://localhost:3002/member/favorite-restaurant-insert`, {
+      method: 'POST',
+      body: JSON.stringify({
+        memberid: +id,
+        restaurantid: restaurantid
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(r => r.json())
+      .then(obj => {
+        if (obj.success) {
+          //複製出新的restaurant
+          let newRestaurant = [...restaurant]
+          //拿掉被刪除的restaurant中第index筆資料的註記(取消刪除註記)
+          newRestaurant[index].remove_flag = false
+          //新的restaurant覆蓋掉原本的restaurant
+          setRestaurant(newRestaurant)
+
+          //實心愛心
+
+        } else {
+          alert(obj.error || ' 新增收藏餐廳失敗')
+        }
+      })
+  }
+
   return (
     <>
       <div className="member-favorite-container">
@@ -14,306 +97,140 @@ function MemberFavoriteRestaurant(props) {
         </div>
         <div className="row member-favorite">
           <MemberNavbar />
-        <div className="member-n col-1"></div>
-        <div className="member-favorite-card col-9">
-          <div className="card mb-3">
-            <div className="row member-favorite-product">
-              <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                  alt="" />
-              </div>
-              <div className="col-md-7">
-                <div className="card-body">
-                  <div className="member-card-title">
-                    <h5 className="card-title">
-                      生活倉廚 
-                    </h5>
-                  </div>
-                  <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
-                        class="member-clock-icon"
+          <div className="member-n col-1"></div>
+          <div className="member-favorite-card col-9">
+            {restaurant.map((value, index) => {
+              return (
+                <div className="card mb-3" key={value.res_id}>
+                  <div className="row member-favorite-restaurant">
+                    <div className="col-md-4">
+                      <img className="img-fluid rounded-start"
+                        src={'http://localhost:3002/img/restaurant/' + value.res_img}
+                        alt="" />
+                    </div>
+                    <div className="col-md-7">
+                      <div className="card-body">
+                        <div className="member-card-title">
+                          <h5 className="card-title">
+                            {value.res_name}
+                          </h5>
+                        </div>
+                        <div className="member-favorite-text">
+                          <p className="card-text">
+                            <MdOutlineAttachMoney
+                              style={{
+                                fontSize: '28px',
+                                color: '#FFB606',
+                                marginRight: '6px',
+                                paddingRight: '3px',
+                              }}
+                            />
+                      平均消費：{value.res_aveprice}</p>
+                          {/* <p className="member-clock"> 
+                      <BsClock
+                        className="member-clock-icon"
                         style={{
                           fontSize: '28px',
                           color: '#8FC065',
                         }}
                       />
-                      11:00-20:00</p>
+                      {value.time}</p> */}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="member-icon col-md-1">
+                      <div className="member-like" onClick={() =>
+                        handlingClick(value.res_id, index, value.remove_flag)
+                      }>
+                        <IoIosHeartEmpty
+                          style={{
+                            color: '#FB6107',
+                            fontSize: '30px',
+                            marginTop: '3px',
+                            display: value.remove_flag ? 'block' : 'none'
+                          }}
+                        />
+                        <IoIosHeart
+                          style={{
+                            color: '#d96e30',
+                            fontSize: '30px',
+                            marginTop: '3px',
+                            display: value.remove_flag ? 'none' : 'block'
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="member-icon col-md-1">
-                <div className="member-like">
-                  <IoIosHeart
-                    style={{
-                      fontSize: '30px',
-                      color: '#d96e30',
-                      cursor: 'pointer',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+              )
+            })}
           </div>
-          <div className="card mb-3">
-              <div className="row member-favorite-product">
-                <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                    alt="" />
-                </div>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <div className="member-card-title">
-                      <h5 className="card-title">
-                        生活倉廚 
-                    </h5>
+          <div className="member-favorite-card-mobile">
+            {restaurant.map((value, index) => {
+              return (
+                <div className="card mb-3" key={value.res_id}>
+                  <div className="row member-favorite-restaurant">
+                    <div className="col-md-4">
+                      <img className="img-fluid rounded-start"
+                        src={'http://localhost:3002/img/restaurant/' + value.res_img}
+                        alt="" />
                     </div>
-                    <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
-                        class="member-clock-icon"
-                        style={{
-                          fontSize: '28px',
-                          color: '#8FC065',
-                        }}
-                      />
-                      11:00-20:00</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="member-icon col-md-1">
-                  <div className="member-like">
-                    <IoIosHeart
-                      style={{
-                        fontSize: '30px',
-                        color: '#d96e30',
-                        cursor: 'pointer',
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          <div className="card mb-3">
-              <div className="row member-favorite-product">
-                <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                    alt="" />
-                </div>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <div className="member-card-title">
-                      <h5 className="card-title">
-                        生活倉儲 
-                    </h5>
-                    </div>
-                    <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
-                        class="member-clock-icon"
+                    <div className="col-md-7">
+                      <div className="card-body">
+                        <div className="member-card-title">
+                          <div className="member-card-text">
+                            <h5 className="card-title">
+                              {value.res_name}
+                            </h5>
+                            <div className="member-icon ">
+                              <div className="member-like" onClick={() =>
+                                handlingClick(value.res_id, index, value.remove_flag)
+                              }>
+                                <IoIosHeartEmpty
+                                  style={{
+                                    color: '#FB6107',
+                                    fontSize: '30px',
+                                    marginTop: '3px',
+                                    display: value.remove_flag ? 'block' : 'none'
+                                  }}
+                                />
+                                <IoIosHeart
+                                  style={{
+                                    color: '#d96e30',
+                                    fontSize: '30px',
+                                    marginTop: '3px',
+                                    display: value.remove_flag ? 'none' : 'block'
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="member-favorite-text">
+                            <p className="card-text"> <MdOutlineAttachMoney
+                              style={{
+                                fontSize: '28px',
+                                color: '#FFB606',
+                                marginRight: '6px',
+                                paddingRight: '3px',
+                              }}
+                            />
+                      平均消費：{value.res_aveprice}</p>
+                            {/* <p className="member-clock"> <BsClock
+                          className="member-clock-icon"
                         style={{
                           fontSize: '28px',
                           color: '#8FC065',
                         }}
                       />
-                      11:00-20:00</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="member-icon col-md-1">
-                  <div className="member-like">
-                    <IoIosHeart
-                      style={{
-                        fontSize: '30px',
-                        color: '#d96e30',
-                        cursor: 'pointer',
-                      }}
-                    />
-                  </div>
-                
-                </div>
-              </div>
-            </div>           
-        </div>
-        <div className="member-favorite-card-mobile">
-            <div className="card mb-3 ">
-              <div className="row member-favorite-product">
-                <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                    alt="" />
-                </div>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <div className="member-card-title">
-                      <div className="member-card-text">
-                        <h5 className="card-title">
-                        生活倉儲 
-                        </h5>
-                        <div className="member-icon ">
-                          <div className="member-like">
-                              <IoIosHeart
-                                style={{
-                                  fontSize: '30px',
-                                  color: '#d96e30',
-                                  cursor: 'pointer',
-                                }}
-                              />
+                      11:00-20:00</p> */}
                           </div>
                         </div>
                       </div>
-                      
-                    <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
-                        class="member-clock-icon"
-                        style={{
-                          fontSize: '28px',
-                          color: '#8FC065',
-                        }}
-                      />
-                      11:00-20:00</p>
                     </div>
                   </div>
                 </div>
-                
-                  
-                </div>
-              </div>
-            </div>
-            <div className="card mb-3">
-              <div className="row member-favorite-product">
-                <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                    alt="" />
-                </div>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <div className="member-card-title">
-                      <h5 className="card-title">
-                        生活倉廚房 
-                      </h5>
-                    </div>
-                    <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
-                        class="member-clock-icon"
-                        style={{
-                          fontSize: '28px',
-                          color: '#8FC065',
-                        }}
-                      />
-                      11:00-20:00</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="member-icon col-md-1">
-                  <div className="member-like">
-                    <IoIosHeart
-                      style={{
-                        fontSize: '30px',
-                        color: '#d96e30',
-                        cursor: 'pointer',
-                      }}
-                    />
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-            <div className="card mb-3">
-              <div className="row member-favorite-product">
-                <div className="col-md-4">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/res.jpeg`}
-                    alt="" />
-                </div>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <div className="member-card-title">
-                      <h5 className="card-title">
-                        生活倉廚 
-                      </h5>
-                    </div>
-                    <div className="member-favorite-text">
-                      <p className="card-text"> <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '28px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      平均消費：150</p>
-                      <p className="member-clock"> <BsClock
-                        class="member-clock-icon"
-                        style={{
-                          fontSize: '28px',
-                          color: '#8FC065',
-                        }}
-                      />
-                      11:00-20:00</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="member-icon col-md-1">
-                  <div className="member-like">
-                    <IoIosHeart
-                      style={{
-                        fontSize: '30px',
-                        color: '#d96e30',
-                        cursor: 'pointer',
-                      }}
-                    />
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
+              )
+            })}
           </div>
         </div>
       </div>

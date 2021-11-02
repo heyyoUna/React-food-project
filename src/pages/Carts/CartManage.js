@@ -60,7 +60,7 @@ function CartManage(props) {
   }
 
   async function DataAxios() {
-    let r = await axios.get('http://localhost:3001/cart/')
+    let r = await axios.get('http://localhost:3002/cart/')
     if (r.status === 200) {
       setData(r.data)
       console.log(r.data)
@@ -125,7 +125,7 @@ function CartManage(props) {
 
     // console.log('寫出的訂購資料', NewOrderInfo)
     let r = await axios.post(
-      'http://localhost:3001/cart/addList',
+      'http://localhost:3002/cart/addList',
       {
         Sid: '',
         Payment_Type: NewOrderInfo[0],
