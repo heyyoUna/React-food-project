@@ -61,7 +61,7 @@ function Cart_Store(props) {
     // console.log('更改的Data', SearchInfo)
     // console.log('SearchINfo狀態', SearchInfo)
 
-    let r = await axios.post('http://localhost:3001/cart/store', {
+    let r = await axios.post('http://localhost:3002/cart/store', {
       commandid: SearchInfo,
       city: StoreInfo[0],
       town: StoreInfo[1],

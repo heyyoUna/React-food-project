@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 function CartComplete(props) {
   useEffect(() => {
-    let r = axios.delete('http://localhost:3001/cart/')
+    let r = axios.delete('http://localhost:3002/cart/')
     if (r.status === 200) {
       console.log('刪除完成')
     }
