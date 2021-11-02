@@ -1,8 +1,39 @@
-import { withRouter } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
 
 function MemberPoint(props) {
-  console.log(props)
+  const token = localStorage.getItem('token')
+  const [point, setPoint] = useState([])
+  let history = useHistory()
+
+  useEffect(() => {
+    if (!token) {
+      alert('尚未登入，請連到登入頁面')
+      history.push('/login')
+    }
+
+    fetch(`http://localhost:3002/member/memberpoint`, {
+      method: 'GET',
+      headers: {
+        //token 從 header 中 Authorization 屬性傳入
+        //格式為 Bearer + 空格 + token
+        'Authorization': 'Bearer ' + token
+      }
+    }).then(obj => obj.json())
+      .then(obj => {
+        if (obj.success) {
+          if (obj.data.length) {
+            setPoint(obj.data)
+          } else {
+            alert(obj.error || '查無點數資料')
+          }
+        } else {
+          alert(obj.error)
+        }
+      })
+  }, [])
+
   return (
     <>
       <div className=" member-point-container">
@@ -13,7 +44,7 @@ function MemberPoint(props) {
           <MemberNavbar />
           <div className="member-point col-10">
             <div className="table-responsive-xl">
-              <table className="table table-hover">
+              <table className="table table-hover" >
                 <thead>
                   <tr>
                     <th scope="col" className="member-point-primary">日期</th>
@@ -24,41 +55,23 @@ function MemberPoint(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">2021-05-20</th>
-                    <td>專欄Q&A正確回答</td>
-                    <td>1點</td>
-                    <td>2021-12-31</td>
-                    <td>1點</td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row">2021-04-19</th>
-                    <td>已使用點數在此筆訂單 <br /> <a href="">2019101015452170</a></td>
-                    <td>-51點</td>
-                    <td>2021-12-31</td>
-                    <td>0點</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2021-03-18</th>
-                    <td>專欄Q&A正確回答</td>
-                    <td>1點</td>
-                    <td>2021-12-31</td>
-                    <td>51點</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2021-02-17</th>
-                    <td>新加入會員點數</td>
-                    <td>50點</td>
-                    <td>2021-12-31</td>
-                    <td>50點</td>
-                  </tr>
+                  {point.map((value) => {
+                    return (
+                      <tr key={value.sid}>
+                        <th scope="row">{value.create_at}</th>
+                        <td>{value.change_reason}</td>
+                        <td>{value.change_type == 'GET' ? '+' : '-'}{value.change_point}點</td>
+                        <td>2021-12-31</td>
+                        <td>{value.left_point}點</td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
           <div className="member-point-mobile">
-            <div className="table-responsive-xl">
+            <div className="table-responsive-xl" >
               <table className="table table-hover">
                 <thead>
                   <tr>
@@ -70,38 +83,21 @@ function MemberPoint(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">2021-05-20</th>
-                    <td>專欄Q&A正確回答</td>
-                    <td>1點</td>
-                    <td>2021-12-31</td>
-                    <td>1點</td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row">2021-04-19</th>
-                    <td>已使用點數在此筆訂單 <br /> <a href="">2019101015452170</a></td>
-                    <td>-51點</td>
-                    <td>2021-12-31</td>
-                    <td>0點</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2021-03-18</th>
-                    <td>專欄Q&A正確回答</td>
-                    <td>1點</td>
-                    <td>2021-12-31</td>
-                    <td>51點</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2021-02-17</th>
-                    <td>新加入會員點數</td>
-                    <td>50點</td>
-                    <td>2021-12-31</td>
-                    <td>50點</td>
-                  </tr>
+                  {point.map((value) => {
+                    return (
+                      <tr key={value.sid}>
+                        <th scope="row">{value.create_at}</th>
+                        <td>{value.change_reason}</td>
+                        <td>{value.change_type == 'GET' ? '+' : '-'}{value.change_point}點</td>
+                        <td>2021-12-31</td>
+                        <td>{value.left_point}點</td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
+
           </div>
         </div>
       </div>
