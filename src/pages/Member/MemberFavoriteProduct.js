@@ -126,7 +126,7 @@ function MemberFavoriteProduct(props) {
                         <IoIosHeartEmpty
                           style={{
                             color: '#FB6107',
-                            fontSize: '30px',
+                            fontSize: '26px',
                             marginTop: '3px',
                             display: value.remove_flag ? 'block' : 'none'
                           }}
@@ -134,7 +134,7 @@ function MemberFavoriteProduct(props) {
                         <IoIosHeart
                           style={{
                             color: '#d96e30',
-                            fontSize: '30px',
+                            fontSize: '26px',
                             marginTop: '3px',
                             display: value.remove_flag ? 'none' : 'block'
                           }}
