@@ -39,7 +39,6 @@ function ExerciseContent(props) {
   const handleSubmit = (e) => {
     // 阻擋form的預設送出行為
     e.preventDefault()
-
     // 利用FormData Api 得到各欄位的值 or 利用狀態值
     // FormData 利用的是表單元素的 name
     const formData = new FormData(e.target)
