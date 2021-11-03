@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import StoreCard from './StoreCard'
-import StoreCardMobile from './StoreCardMobile'
 import axios from 'axios'
 // import CartItem from './CartItem'
 // import CartMobile from './CartMobile'
@@ -19,6 +17,7 @@ function OrderDetail(props) {
 
   // 收回愛心收藏 icon
   const [Liketwo, setLiketwo] = useState('full')
+
   let {
     data,
     Count,
@@ -26,11 +25,9 @@ function OrderDetail(props) {
     setPos,
     setODPos,
     setDeleteODPos,
-    addProductPos,
-    setaddProductPos,
   } = props
   let NewCount = [...Count]
-
+  console.log('第二層資料', data)
   return (
     <>
       <div className="orderlist col-lg-8 col-12">
@@ -52,7 +49,7 @@ function OrderDetail(props) {
                     <tr>
                       <td>
                         <img
-                          src={`http://localhost:3002/img/Product/${v.Product_id}.jpg`}
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
                           alt=""
                         />
                       </td>
@@ -126,7 +123,7 @@ function OrderDetail(props) {
                     <tr>
                       <td>
                         <img
-                          src={`http://localhost:3002/img/Product/${v.Product_id}.jpg`}
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
                           alt=""
                         />
                       </td>
@@ -176,24 +173,6 @@ function OrderDetail(props) {
               : ''}
           </tbody>
         </table>
-
-        <div className="bottomline col-lg-9"></div>
-
-        {/* 你可能會喜歡，的 component */}
-        <h4 className="col-lg-10 text-lg-start">
-          你可能也會喜歡
-        </h4>
-        {/* 喜歡的卡片 */}
-        <StoreCard
-          Likeone={Likeone}
-          setLikeone={setLikeone}
-          Liketwo={Liketwo}
-          setLiketwo={setLiketwo}
-          addProductPos={addProductPos}
-          setaddProductPos={setaddProductPos}
-        />
-
-        <StoreCardMobile />
       </div>
     </>
   )

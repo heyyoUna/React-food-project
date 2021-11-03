@@ -120,15 +120,24 @@
 }
 
 /* 你可能也會喜歡 */
+.likemore {
+  h4 {
+    font-size: var(--Button-font-size);
+    font-family: var(--Font-Family);
+    color: var(--Third-color);
+    font-weight: var(--Second-Font-Weight);
+    margin: 40px 0px;
+  }
+  .bottomline {
+    // height: 1px;
+    border: 1px solid #000000;
+    margin: 20px 10px;
+  }
+}
 .storelike {
   .storecard {
     .storeproduct {
       .storeicon {
-        .heart {
-          color: var(--Second-color);
-          font-size: 40px;
-          margin-top: 3px;
-        }
         .cartlike {
           font-size: 40px;
           color: #ffffff;

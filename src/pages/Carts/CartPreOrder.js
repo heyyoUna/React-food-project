@@ -7,6 +7,8 @@ import {
 } from 'react-icons/fa'
 import OrderInfo from '../../components/Carts/PreOrder/OrderInfo'
 import OrderDetail from '../../components/Carts/PreOrder/OrderDetail'
+import StoreCard from '../../components/Carts/PreOrder/StoreCard'
+import StoreCardMobile from '../../components/Carts/PreOrder/StoreCardMobile'
 import '../../styles/Carts/CartPreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
@@ -49,11 +51,6 @@ function CartPreOrder() {
     DeleteProduct(DeletePos)
     console.log('刪除', DeletePos)
   }, [DeletePos])
-
-  // useEffect(() => {
-  //   console.log('目前新增位置', addProductPos)
-  //   AddProduct(addProductPos)
-  // }, [addProductPos])
 
   // 讀取商品資料的 function
   async function DataAxios() {
@@ -175,7 +172,7 @@ function CartPreOrder() {
       </div>
 
       <div className="container ordercheck col-lg-10 d-lg-flex">
-         {/* 訂單商品詳細 */}
+        {/* 訂單商品詳細 */}
         <OrderDetail
           data={data}
           Count={Count}
@@ -184,8 +181,6 @@ function CartPreOrder() {
           setODPos={setODPos}
           setPos={setPos}
           setDeleteODPos={setDeleteODPos}
-          addProductPos={addProductPos}
-          setaddProductPos={setaddProductPos}
         />
 
         {/* 訂單小計詳情 */}
@@ -195,7 +190,23 @@ function CartPreOrder() {
           // totalPromotion={totalPromotion}
           Promotion={Promotion}
           setPromotion={setPromotion}
-        /> 
+        />
+      </div>
+
+      <div className="container likemore col-lg-8 col-12">
+        <div className="bottomline col-lg-6"></div>
+
+        {/* 你可能會喜歡，的 component */}
+        <h4 className="col-lg-10 text-lg-start">
+          你可能也會喜歡
+        </h4>
+        {/* 喜歡的卡片 */}
+        <StoreCard
+          setData={setData}
+          setCount={setCount}
+        />
+
+        <StoreCardMobile />
       </div>
     </>
   )
