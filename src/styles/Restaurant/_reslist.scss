@@ -15,7 +15,7 @@
   }
 
   .res-foodImg {
-    width: 46%;
+    width: 51%;
     object-fit: cover;
     transition: 0.7s;
     border-radius: 15px 0 0 15px;
@@ -23,7 +23,7 @@
 
   .reslist-txt {
     width: 185px;
-    padding: 15px 0 0 30px;
+    padding: 9px 0 0 10px;
     h3 {
       color: $dark-green;
       font-size: 22px;
@@ -38,7 +38,7 @@
     height: 170px;
 
     .reslist-txt {
-      padding: 10px 8px 0 7px;
+      padding: 15px 8px 0 7px;
       h3 {
         font-size: 18px;
       }

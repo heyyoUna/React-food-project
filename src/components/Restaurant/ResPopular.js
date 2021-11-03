@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FiHeart } from 'react-icons/fi'
 import { imgUrl } from '../../config'
-
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 function ResPopular(props) {
   const [popular, setPopular] = useState([])
 
@@ -51,13 +51,28 @@ function ResPopular(props) {
                       <div className="res-popular-title d-flex justify-content-between mt-3">
                         <h3>{v.res_name}</h3>
                         <span>
-                          <FiHeart
-                            style={{
-                              color: '#FB6107',
-
-                              fontSize: '24px',
-                            }}
-                          />
+                          <span>
+                            <IoIosHeartEmpty
+                              style={{
+                                color: '#FB6107',
+                                fontSize: '26px',
+                                marginTop: '3px',
+                                // display: value.remove_flag
+                                //   ? 'block'
+                                //   : 'none',
+                              }}
+                            />
+                            {/* <IoIosHeart
+                        style={{
+                          color: '#d96e30',
+                          fontSize: '26px',
+                          marginTop: '3px',
+                          display: value.remove_flag
+                            ? 'none'
+                            : 'block',
+                        }}
+                      /> */}
+                          </span>
                         </span>
                       </div>
 

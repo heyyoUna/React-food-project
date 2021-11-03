@@ -4,7 +4,7 @@ import '../../App.scss'
 import { BsCursor } from 'react-icons/bs'
 import { imgUrl } from '../../config'
 // import { RESTAURANT } from '../../config'
-import ResList from '../../components/Restaurant/ResList'
+import ResListData from '../../components/Restaurant/ResListData'
 import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
 import ResPopular from '../../components/Restaurant/ResPopular'
 import TitleBorder from '../../components/TitleBorder'
@@ -57,7 +57,7 @@ function Restaurants(props) {
         ? filterData
         : apiData
     let newData = [...data]
-    console.log(parseInt(index) + 1)
+
     newData = newData.slice(
       parseInt(index) * pages.perPage,
       pages.perPage * (parseInt(index) + 1) //0*6,6*1
@@ -308,8 +308,22 @@ function Restaurants(props) {
       </div>
       {/* <ResMap name="列表模式"/> */}
       <div className="container mt-35 mb-5">
-        {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
-        <ResList listData={displayData} />
+        <div class="row  justify-content-center">
+          {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
+          {displayData.map((v, i) => {
+            return (
+              <ResListData
+                res_id={v.res_id}
+                res_img={v.res_img}
+                res_name={v.res_name}
+                res_rate={v.res_rate}
+                res_aveprice={v.res_aveprice}
+                res_starttime={v.res_starttime}
+                res_endtime={v.res_endtime}
+              />
+            )
+          })}
+        </div>
       </div>
 
       {/* 分頁 */}
