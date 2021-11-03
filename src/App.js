@@ -65,7 +65,6 @@ import MyNavbar from './components/MyNavbar'
 import MyNavbarOriginal from './components/MyNavbarOriginal'
 import MyFooter from './components/MyFooter'
 import MainContent from './components/MainContent'
-import ScrollToTop from './components/ScrollToTop'
 //import BreadCrumb from './components/BreadCrumb'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
@@ -95,7 +94,7 @@ function App() {
           {/* 匹配路由表(路徑單一匹配) */}
           {/* 切換顯示的元件畫面放在這下面 */}
           {/* ScrollToTop是為了讓連到另一頁內容時，頁面回到最上方 */}
-          <ScrollToTop>
+          
             <Switch>
               <Route path="/student">
                 <Student />
@@ -245,7 +244,6 @@ function App() {
               </Route>
             </Switch>
             {/* end 匹配路由表 */}
-          </ScrollToTop>
         </MainContent>
         {/* 頁尾+版權訊息 */}
         <MyFooter />
