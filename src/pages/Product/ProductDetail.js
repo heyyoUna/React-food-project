@@ -19,7 +19,7 @@ function ProductDetail(props) {
   const p = { ...ProductDetail }
   useEffect(() => {
     ;(async () => {
-      const r = await fetch(ProductDetail_API + productId)
+      const r = await fetch(ProductDetail_API + productId) 
       const obj = await r.json()
       setProductDetail(obj.data)
       console.log(obj.data)

@@ -28,7 +28,14 @@ function PopularRecipe(props) {
             return (
               <>
                 <div className="d-flex my-3 mostPopularItems justify-content-between">
-                  <li>{el.ar_title}</li>
+                  <Link
+                    onClick={() => {
+                      window.location.href =
+                        '/RecipeContent/' + el.sid
+                    }}
+                  >
+                    <li>{el.ar_title}</li>
+                  </Link>
                   <div className="heartWrap my-2 mx-3">
                     <i className="far fa-heart"></i>
                   </div>

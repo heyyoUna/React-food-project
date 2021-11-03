@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import spinWheel from './spinWheel.png'
 import fork from './fork.png'
 
@@ -17,7 +18,9 @@ function GameRecipe(props) {
           </div>
         </div>
         <div className="karin-game-btn-wrap d-flex">
-          <div className="karin-game-leave">離開轉盤</div>
+          <button className="karin-game-leave-btn">
+            <Link to="/" className="karin-game-leave">離開轉盤</Link>
+          </button>
           <div className="karin-game-again">再轉一次</div>
         </div>
       </div>

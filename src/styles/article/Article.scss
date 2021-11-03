@@ -1,6 +1,5 @@
 /*------------------------------ 顏色、文字大小 ------------------------------*/
 @import '../../App.scss';
-
 .grey {
   color: grey;
 }
@@ -169,8 +168,14 @@ hr {
 /*------------------------------ 專欄文章內文 (第三層1/2) ------------------------------*/
 
 #col-article {
+  .imgWrap {
+    max-width: 1000px;
+    max-height: 500px;
+    overflow: hidden;
+  }
   img {
     width: 100%;
+    object-fit: contain;
   }
   .article_rec img {
     width: 100%;
@@ -219,7 +224,7 @@ hr {
       border: none;
     }
   }
-  #mostPopular {
+  .mostPopular {
     .mostPopularTitle {
       background: linear-gradient(
         180deg,
@@ -242,6 +247,18 @@ hr {
       list-style: none;
     }
   }
+  .popularMobile {
+    display: none;
+  }
+}
+@media (max-width: 992px){
+  .popularMobile {
+    display: relative;
+  }
+  .popularWeb{
+    display: none;
+  }
+
 }
 
 /*------------------------------ 手機版 ------------------------------*/
@@ -298,43 +315,4 @@ hr {
       margin: auto;
     }
   }
-
-  /*---------- 專欄種類文章  ----------*/
-
-  // .col-cat-article {
-  //   .cards {
-  //     display: flex;
-  //     margin: 10px auto;
-  //     border-bottom: 1px solid #f2f2f2;
-  //     // padding: 10px auto;
-
-  //     .imgWrap {
-  //       // max-width: 250px;
-  //       // max-width: 250px;
-  //       // width: 150px;
-  //       // height: 150px;
-  //       width: 50%;
-
-  //       // margin: auto;
-  //       padding: 10px;
-  //       // object-fit: cover;
-  //       overflow: hidden;
-  //       // padding: 20px;
-
-  //       img {
-  //         height: 100%;
-  //         object-fit: cover;
-  //         margin: auto;
-  //         border-radius: 15px;
-  //       }
-  //     }
-
-  //     .arCardTxt {
-  //       margin: auto 0;
-  //       // padding: 20px;
-  //     }
-  //   }
-  // }
-
-  /*---------- 專欄文章內文  ----------*/
 }
