@@ -6,13 +6,13 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import ArCardTxt from '../../components/article/ArCardTxt'
 
 function RelatingRecipe(props) {
-  const [data, setData] = useState([])
-  // const [totalRows, setTotalRows] = useState(0)
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  const fcSid = fcURL.pathname //目前網址的路徑
+  const fcSplit = fcSid.split('/')[2]
+  const [product, setProduct] = useState([])
 
   useEffect(() => {
-    const fcURL = new URL(document.location.href) //目前網頁網址
-    const fcSid = fcURL.pathname //目前網址的路徑
-    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+    //將路徑的字串切割，第三個位置就是sid
 
     ;(async () => {
       let r = await fetch(
@@ -20,30 +20,54 @@ function RelatingRecipe(props) {
           fcSplit
       )
       let j = await r.json()
-      // console.log('j:', j)
-      if (j.length) {
-        setData(j)
+
+      if (j.success) {
+        setProduct(j.pop)
+        console.log('j.pop:', j.pop)
       }
     })()
   }, [])
 
   return (
     <>
-      {data && data.length
-        ? data.map((el) => {
+      {product && product.length
+        ? product.map((el) => {
+            console.log('p:', el.product_img)
             return (
               <>
-                <div
-                  className="col-3"
-                  classname="relatingRecipe"
-                >
-                  <div>
-                    <img
-                      src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                      alt=""
-                    />
-                  </div>
-                  <ArCardTxt />
+                <div className="col-3">
+                  <Link
+                    onClick={() => {
+                      window.location.href =
+                        '/product/' + el.sid
+                    }}
+                  >
+                    <div className="imgWrap">
+                      <img
+                        src={`http://localhost:3002/img/Product/${el.product_img}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="pd-card-intro d-flex">
+                      <div className="pd-name">
+                        {el.name}
+                      </div>
+                      <p className="pd-cal">
+                        {el.cal} Calories
+                      </p>
+                      <p className="pd-price">
+                        NT$ {el.price}
+                      </p>
+                      <div className="pd-btn-wrap d-flex">
+                        <button className="pd-order-btn">
+                          ORDER NOW
+                        </button>
+                        <div className="pd-love-icon">
+                          <i className="far fa-heart"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </>
             )
