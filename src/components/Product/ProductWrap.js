@@ -4,6 +4,8 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
+  const ID = localStorage.getItem('id')
+  
   const {
     sid,
     name,
@@ -25,12 +27,13 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         productid: sid
+
       }),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
       },
-    }).then(r => r.json())
+    })
   }
   // 刪除收藏
   const handlingDelete = (sid) => {
@@ -57,13 +60,16 @@ const ProductWrap = (props) => {
           <div className="dt-love-icon">
           <IoIosHeartEmpty
             onClick={(e)=>{
-                console.log(e.target)
+              if(!token){
+                alert('請先登入')
+              }else{
                 handlingInsert(sid)
                 if(display){
                   setDisplay(false)
                 }else{
                   setDisplay(true)
                 }
+              }
               }}
               style={{
                 display: display ? 'block' : 'none'
