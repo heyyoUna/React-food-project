@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 function Cart_OrderDetail(props) {
   let { data } = props
+  let [trans, settrans] = useState(false)
   let a = []
   console.log('這是裡面的', data)
   a = JSON.parse(localStorage.getItem('訂單價格資訊'))
@@ -11,9 +12,29 @@ function Cart_OrderDetail(props) {
       <div className="container col-lg-6 col-10">
         <div class="square d-flex justify-content-center position-relative">
           <h3>訂單詳細</h3>
-          <FaChevronDown className="ChevronDown position-absolute" />
+          <FaChevronDown
+            className="ChevronDown position-absolute"
+            style={{
+              transition: '0.5s',
+              transform: trans
+                ? 'rotate(0deg)'
+                : 'rotate(90deg)',
+            }}
+            onClick={() => {
+              if (trans === false) {
+                settrans(true)
+              } else {
+                settrans(false)
+              }
+            }}
+          />
         </div>
-        <div className="orderdetail">
+        <div
+          className="orderdetail"
+          style={{
+            display: trans ? 'block' : 'none',
+          }}
+        >
           <div className="detail col-lg-11 col-12 mx-auto mt-3">
             <table className="table detailinfo table-borderless">
               <thead>
@@ -40,23 +61,6 @@ function Cart_OrderDetail(props) {
                     </tr>
                   )
                 })}
-
-                {/* <tr>
-                  <td>
-                    <img src="../../../image/product1.png" alt="" />
-                  </td>
-                  <td>名富米酒(保)</td>
-                  <td>1</td>
-                  <td>354</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="../../../image/product1.png" alt="" />
-                  </td>
-                  <td>奧利塔冷壓純橄欖油 1L</td>
-                  <td>2</td>
-                  <td>354</td>
-                </tr> */}
               </tbody>
             </table>
 

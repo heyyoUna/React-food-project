@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 
 function Cart_OrderInfoInput(props) {
@@ -10,12 +11,37 @@ function Cart_OrderInfoInput(props) {
   let [District, setDistrict] = useState()
   let [Address, setAddress] = useState()
   let [Notice, setNotice] = useState()
+  let token = localStorage.getItem('token')
+  let [data, setdata] = useState()
 
   function UpdateInfo(value, index) {
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo[index] = value
     console.log('123', NewOrderInfo)
     setOrderInfo(NewOrderInfo)
+    return
+  }
+
+  async function getMembersInfo() {
+    let M = await axios.get(
+      'http://localhost:3002/member/memberprofile',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    if (M.status === 200) {
+      let NewData
+      console.log('讀取成功')
+      console.log(M.data.data)
+      setdata(M.data.data)
+      NewData = M.data.data
+      setName(NewData[0].name)
+      setEmail(NewData[0].email)
+      setPhone(NewData[0].mobile)
+      console.log('New', NewData)
+    }
   }
 
   return (
@@ -34,7 +60,9 @@ function Cart_OrderInfoInput(props) {
         <h2>收件人資訊</h2>
         <button
           className="import col-lg-3 col-10"
-          onclick="importMember(event)"
+          onClick={() => {
+            getMembersInfo()
+          }}
         >
           匯入會員資料
         </button>
