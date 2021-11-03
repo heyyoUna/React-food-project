@@ -243,8 +243,11 @@ input[name='pd-filter'] + label {
   margin-right: 8px;
 }
 .pd-love-icon {
-  font-size: 24px;
+  font-size: 30px;
   color: #fb6107;
+}
+.pdcard-icon{
+  display: none;
 }
 .pd-card-wrap {
   justify-content: space-around;

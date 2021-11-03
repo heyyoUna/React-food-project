@@ -23,7 +23,7 @@ function Products(props) {
   // 設定商品sid for 細節頁
   const { productId, setProductId } = props
   // 所有商品
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
   // 篩選後商品
   const [displayProducts, setDisplayProducts] = useState([])
   // 關鍵字搜尋狀態
@@ -64,7 +64,7 @@ function Products(props) {
         `${Product_API}` + `${props.location.search}`
       )
       const obj = await r.json()
-      setProducts(obj.rows)
+      // setProducts(obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
     })()
@@ -126,6 +126,7 @@ function Products(props) {
               return (
                 <ProductCard
                   setProductId={setProductId}
+                  index={i}
                   key={v.sid}
                   sid={v.sid}
                   img={v.product_img}

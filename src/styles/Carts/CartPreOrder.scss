@@ -49,6 +49,7 @@
         font-family: var(--Font-Family);
         img {
           width: 100px;
+          border-radius: 50%;
         }
       }
 
@@ -123,13 +124,20 @@
   .storecard {
     .storeproduct {
       .storeicon {
-        .heart,
+        .heart {
+          color: var(--Second-color);
+          font-size: 40px;
+          margin-top: 3px;
+        }
         .cartlike {
-          font-size: 30px;
+          font-size: 40px;
           color: #ffffff;
           margin: 0 10px;
         }
         .full {
+          color: #d96e30;
+          font-size: 30px;
+          margin-top: 3px;
           display: none;
         }
       }
@@ -152,6 +160,7 @@
       width: 120px;
       top: 10%;
       left: -20%;
+      border-radius: 50%;
     }
   }
 }

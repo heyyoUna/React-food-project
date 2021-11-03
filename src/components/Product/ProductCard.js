@@ -1,8 +1,15 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
+import React,{ useEffect, useState } from 'react'
+import { withRouter , useHistory} from 'react-router-dom'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 function ProductCard(props) {
-  const { sid, img, name, cal, price, setProductId } = props
+  const { sid, index,img, name, cal, price, setProductId } = props
+  const id = localStorage.getItem('id')
+  const [products, setProducts] = useState([])
+  let history = useHistory()
+  const [display, setDisplay] = useState(true)
+
+
   return (
     <>
       <div
@@ -28,7 +35,33 @@ function ProductCard(props) {
               ORDER NOW
             </button>
             <div className="pd-love-icon">
-              <i className="far fa-heart"></i>
+              
+            <IoIosHeartEmpty 
+              onClick={(e)=>{
+                console.log(e.target)
+                if(display){
+                  setDisplay(false)
+                }else{
+                  setDisplay(true)
+                }
+              }}
+              style={{
+                display: display ? 'block' : 'none'
+              }}
+            />
+            <IoIosHeart
+              onClick={(e)=>{
+                console.log(e.target)
+                if(display){
+                  setDisplay(false)
+                }else{
+                  setDisplay(true)
+                }
+              }}
+              style={{
+                display: display ? 'none' : 'block'
+              }}
+            />
             </div>
           </div>
         </div>
