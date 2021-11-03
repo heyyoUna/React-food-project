@@ -44,7 +44,10 @@
       font-size: 20px;
       padding: 10px 80px;
       letter-spacing: 1px;
-    }
+      }
+      .game-leave-delivery-btn{
+        margin-top: 30px;
+      }
     }
     body {
       height: 100vh;
@@ -77,6 +80,10 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
+    }
+    .game-leave-delivery-btn{
+      border:0px;
+      background-color: transparent;
     }
     .game-leave-delivery {
       color: #8fc065;
