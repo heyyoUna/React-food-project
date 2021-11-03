@@ -1,9 +1,11 @@
 .dkgreen {
   color: #2a593e;
 }
-
+.mb50{
+  margin-bottom: 50px;
+}
 .pd-client-banner {
-  margin-bottom: 80px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
   padding-bottom: 50px;
   min-height: 100vh;
@@ -188,7 +190,7 @@
   align-items: center;
 }
 .pd-sug-wrap h1 {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   font-size: 32px;
   color: #2a593e;
   font-weight: bold;

@@ -50,7 +50,6 @@ function MemberPoint(props) {
                     <th scope="col" className="member-point-primary">日期</th>
                     <th scope="col" className="member-point-primary">點數更動原因</th>
                     <th scope="col" className="member-point-primary">點數</th>
-                    <th scope="col" className="member-point-primary">到期日</th>
                     <th scope="col" className="member-point-primary">現有總點數</th>
                   </tr>
                 </thead>
@@ -61,7 +60,6 @@ function MemberPoint(props) {
                         <th scope="row">{value.create_at}</th>
                         <td>{value.change_reason}</td>
                         <td>{value.change_type == 'GET' ? '+' : '-'}{value.change_point}點</td>
-                        <td>2021-12-31</td>
                         <td>{value.left_point}點</td>
                       </tr>
                     )
@@ -78,7 +76,6 @@ function MemberPoint(props) {
                     <th scope="col" className="member-point-primary">日期</th>
                     <th scope="col" className="member-point-primary">點數更動原因</th>
                     <th scope="col" className="member-point-primary">點數</th>
-                    <th scope="col" className="member-point-primary">到期日</th>
                     <th scope="col" className="member-point-primary">現有總點數</th>
                   </tr>
                 </thead>
@@ -89,7 +86,6 @@ function MemberPoint(props) {
                         <th scope="row">{value.create_at}</th>
                         <td>{value.change_reason}</td>
                         <td>{value.change_type == 'GET' ? '+' : '-'}{value.change_point}點</td>
-                        <td>2021-12-31</td>
                         <td>{value.left_point}點</td>
                       </tr>
                     )

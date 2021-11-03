@@ -45,6 +45,9 @@
       padding: 10px 80px;
       letter-spacing: 1px;
     }
+      .karin-game-leave-btn{
+        margin-top: 30px;
+      }
     }
     body {
       height: 100vh;
@@ -77,6 +80,10 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
+    }
+    .karin-game-leave-btn{
+      border:0px;
+      background-color: transparent;
     }
     .karin-game-leave {
       color: #8fc065;

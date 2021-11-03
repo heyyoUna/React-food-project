@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import conf, { Product_API, Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
-  withRouter,
+  withRouter,Link,
 } from 'react-router-dom'
 
 // 引用元件
@@ -29,7 +29,6 @@ function Customize(props) {
   const [oriTDEE, setOriTDEE] = useState(0)
   // 每日消耗熱量（展示用）
   const [TDEE, setTDEE] = useState(0)
-
   // 建議熱量初始值(記錄用)
   const [oriCal, setOriCal] = useState(0)
   // 選擇目標後的熱量（紀錄用）
@@ -41,10 +40,10 @@ function Customize(props) {
   const [sugProtein, setSugProtein] = useState(0)
   // 推薦商品
   const [sugProducts, setSugProducts] = useState([])
+  // 推薦餐盒
+  const [ sugFoodBox, setSugFoodBox] = useState([])
 
-  //Customize_API ='http://localhost:3002/product/customize/'
-
-  
+  //預設商品（未設定）
   useEffect(() => {
     ; (async () => {
       const r = await fetch(`${Customize_API}` + `${props.location.search}`)
@@ -62,14 +61,31 @@ function Customize(props) {
     })()
   }, [target])
 
+  //餐盒要資料
+  useEffect(() => {
+    ; (async () => {
+      if(target==='變瘦'){
+        const r = await fetch(`http://localhost:3002/reslist/introduce/calories`)
+        const obj = await r.json()
+        setSugFoodBox(obj)
+      }
+      if(target==='增肌減脂'){
+        const r = await fetch(`http://localhost:3002/reslist/introduce/protein`)
+        const obj = await r.json()
+        setSugFoodBox(obj)
+      }
+    })()
+  }, [target])
 
-  // TDEE設定完在設定建議攝取量(熱量初始值/建議熱量/建議蛋白質)
+
+
+  // TDEE設定完在設定建議攝取量(建議熱量/建議蛋白質)
   // 預設值是變瘦＋不運動
   useEffect(() => {
     setSugCal(oriTDEE)
     setSugProtein(Math.ceil(weight * 1.2))
   }, [TDEE])
-
+  //  計算公式
   const calculate = () => {
     if (target === '變瘦' && exercises === '不運動') {
       //建議熱量
@@ -119,45 +135,6 @@ function Customize(props) {
       setSugProtein(targetProtein)
     }
   }
-  useEffect(() => {
-    calculate()
-  }, [target, exercises,TDEE])
-
-  // 選擇飲食目標後改變建議攝取量熱量跟蛋白質
-  // useEffect(() => {
-
-  //   if (target==='增肌減脂'){
-  //     let targetCal = Math.ceil(TDEE*1.2)
-  //     let targetProtein = (Math.ceil(weight*1.6))
-  //     setSecondCal(targetCal) 
-  //     setSugCal(targetCal)
-  //     setSugProtein(targetProtein)
-  //   }if(target==='變瘦'){
-  //     let targetCal = Math.ceil(TDEE*0.8)
-  //     setSecondCal(targetCal) 
-  //     setSugCal(targetCal) 
-  //     setSugProtein(Math.ceil(weight*1.2)) 
-  //   }
-  // }, [target])
-
-
-  // useEffect(() => {
-  //   console.log({exercises});
-  //   if (exercises==='五次以上'){
-  //     let newTDEE = Math.ceil(((oriTDEE/1.2)*1.55))
-  //     setTDEE(newTDEE)
-  //   }if(exercises==='三次左右'){
-  //     let newTDEE = Math.ceil((oriTDEE/1.2)*1.375)
-  //     setTDEE(newTDEE)
-  //     setSugCal(1200)
-  //     console.log({exercises});
-  //   }if(exercises==='不運動'){
-  //     setTDEE(oriTDEE)
-  //     setSugCal(secondCal)
-  //   }
-  // }, [exercises])
-
-
 
   return (
     <>
@@ -216,9 +193,58 @@ function Customize(props) {
               />
             )
           })}
-
         </div>
         <h1>餐盒推薦</h1>
+        <div className="container mx-auto mb50">
+        <div className="row  justify-content-center ">
+        {sugFoodBox.map((v,i)=>{
+        return (
+          <div className="col-md-4 col-12 ">
+            <div class="res-menu m-4">
+              <div className="res-pic-wrapper">
+                <div className="res-product-card-overlay d-flex justify-content-center  ">
+                  <Link to={'/restaurants'}>
+                    <div className="res-orderBtn  ">
+                      前往訂餐
+                    </div>
+                  </Link>
+                </div>
+                <img
+                  className="res-product-Img"
+                  // src={`${imgUrl}/images/food.jpg`}
+                  src={
+                    'http://localhost:3002/img/restaurant/' +
+                    v.res_product_img
+                  }
+                  alt=""
+                  style={{
+                    width: '100%',
+                    height: '165px',
+                    borderRadius: '15px 15px 0 0',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+              <div className="res-product-body fw-700  ">
+                <div className="res-product-title d-flex justify-content-between">
+                  <h3>{v.res_product_name}</h3>
+                  <h3>NT$ {v.res_product_price}</h3>
+                </div>
+                <div className="res-product-kcal d-flex justify-content-between">
+                  <p>蛋白質:{v.protein}g</p>
+                  <p>碳水:{v.adipose}g</p>
+                  <p>脂防:{v.carbohydrate}g</p>
+                </div>
+                <p className="text-right">
+                  熱量:{v.calories}kcal
+                </p>
+              </div>
+            </div>
+          </div>
+              )
+        })}
+        </div>
+      </div>
         <h1>文章推薦</h1>
       </div>
     </>

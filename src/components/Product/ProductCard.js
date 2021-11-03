@@ -38,6 +38,7 @@ function ProductCard(props) {
               
             <IoIosHeartEmpty 
               onClick={(e)=>{
+                
                 console.log(e.target)
                 if(display){
                   setDisplay(false)
