@@ -20,14 +20,6 @@ function ProductDetail(props) {
   useEffect(() => {
     ;(async () => {
       const r = await fetch(ProductDetail_API + productId) 
-      //此api多查member_fav_product檢查目前登入的會員是否有收藏這項商品 (依傳入productId和token中取得的memberid查詢)
-      //回傳的obj.data內多一個屬性fav_indicator = true or false
-
-      //畫面用fav_indicator判斷愛心為紅色或白色
-
-      //點擊時用fav_indicator判斷需要在member_fav_product資料表新增或刪除資料
-
-      //member_fav_product資料維護後更改ProductDetail.fav_indicator供下次點擊時判斷
       const obj = await r.json()
       setProductDetail(obj.data)
       console.log(obj.data)
