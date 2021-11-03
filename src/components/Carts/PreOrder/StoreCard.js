@@ -14,31 +14,46 @@ import { Card } from 'react-bootstrap'
 // 購物車頁面 - 商品卡片
 function StoreCard(props) {
   let [StoreCard1, setStoreCard1] = useState([])
-  let [Pos, setPos] = useState(0)
-  let { setCount, setData } = props
-
-  // let { PosCard, setPosCard } = props
+  let [Pos, setPos] = useState()
+  let { setCount, setData, Filter, setFilter } = props
+  let NewFilter = [...Filter]
 
   useEffect(() => {
     console.log('重新整理')
     StoreCard1 = []
-    GetProduct()
+    GetProduct(Pos)
   }, [Pos])
 
-  async function GetProduct() {
+  async function GetProduct(Pos) {
     let P = await axios.get(
       'http://localhost:3002/cart/getProduct'
     )
     if (P.status === 200) {
+      console.log('記錄商品位置', Pos)
+      NewFilter.push(Pos)
       let max = 24
       let randomresult = ['', '']
       // console.log(P.data)
       randomresult[0] = Math.floor(Math.random() * max)
       randomresult[1] = Math.floor(Math.random() * max)
+      while (
+        randomresult[0] === NewFilter ||
+        randomresult[1] === NewFilter ||
+        randomresult[0] === randomresult[1]
+      ) {
+        randomresult[0] = Math.floor(Math.random() * max)
+        randomresult[1] = Math.floor(Math.random() * max)
+        console.log('重新算過')
+      }
+      console.log('要pass的陣列', NewFilter)
+      console.log('數字1', randomresult[0])
+      console.log('數字2', randomresult[1])
+
       StoreCard1.push(P.data[randomresult[0]])
       StoreCard1.push(P.data[randomresult[1]])
       setStoreCard1(StoreCard1)
-      console.log('新陣列', StoreCard1)
+      setFilter(NewFilter)
+      // console.log('新陣列', StoreCard1)
     }
   }
 
@@ -77,7 +92,7 @@ function StoreCard(props) {
           <FaAngleDoubleRight
             className="DoubleRight"
             onClick={() => {
-              props.history.push('')
+              props.history.push('/products')
             }}
           />
           <h1>MORE</h1>

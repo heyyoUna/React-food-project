@@ -36,6 +36,8 @@ function CartPreOrder() {
   // 使用會員優惠
   let [Promotion, setPromotion] = useState(0)
 
+  let [Filter, setFilter] = useState([])
+
   useEffect(() => {
     // 讀取加入購物車的商品資料
     DataAxios()
@@ -204,6 +206,8 @@ function CartPreOrder() {
         <StoreCard
           setData={setData}
           setCount={setCount}
+          Filter={Filter}
+          setFilter={setFilter}
         />
 
         <StoreCardMobile />

@@ -27,6 +27,7 @@ function Heart(props) {
       setShow(true)
       return
     }
+    let NewPos = v.sid
     let p = await axios.post('http://localhost:3002/cart', {
       Sid: '',
       Order_Sid: 'order2021103141501',
@@ -36,12 +37,12 @@ function Heart(props) {
     })
     if (p.status === 200) {
       console.log('加入成功')
-      DataAxios()
+      DataAxios(NewPos)
     }
   }
 
   // 讀取商品資料的 function
-  async function DataAxios() {
+  async function DataAxios(NewPos) {
     let Count = []
     let r = await axios.get('http://localhost:3002/cart/')
     if (r.status === 200) {
@@ -55,7 +56,7 @@ function Heart(props) {
 
       // // 設定商品初始數量
       setCount(Count)
-      setPos(Pos + 1)
+      setPos(NewPos)
       // // // 計算訂單小計
       // productPrice()
 
@@ -64,8 +65,29 @@ function Heart(props) {
     }
   }
 
-  function addtoFav() {
+  // 加入收藏清單的 function
+  async function addtoFav() {
     console.log('加入')
+    let r = await axios.post(
+      'http://localhost:3002/cart/FavProduct',
+      {
+        sid: '',
+        member_id: member,
+        product_id: v.sid,
+      }
+    )
+    if (r.status === 200) {
+      console.log('加入成功')
+    }
+  }
+
+  async function deletetoFav(sid) {
+    let r = await axios.delete(
+      `http://localhost:3002/cart/FavProduct/${sid}`
+    )
+    if (r.status === 200) {
+      console.log('刪除成功')
+    }
   }
 
   return (
@@ -81,9 +103,7 @@ function Heart(props) {
             NT${v.price}
           </p>
           <div className="storeicon ps-3 text-center">
-            {/* 卡關:兩個都會亮起關閉 */}
             <IoIosHeartEmpty
-              // cardstate={cardstate[0]}
               style={{
                 color: '#FB6107',
                 fontSize: '40px',
@@ -91,7 +111,6 @@ function Heart(props) {
                 display: display ? 'inline' : 'none',
               }}
               onClick={(e) => {
-                console.log(e.target)
                 if (display) {
                   if (!token) {
                     // 跳 Modal 顯示需先登入
@@ -114,10 +133,10 @@ function Heart(props) {
                 display: display ? 'none' : 'inline',
               }}
               onClick={(e) => {
-                console.log(e.target)
                 if (display) {
                   setDisplay(false)
                 } else {
+                  deletetoFav(v.sid)
                   setDisplay(true)
                 }
               }}
