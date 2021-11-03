@@ -1,15 +1,36 @@
 import { useState, useEffect } from 'react'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { FaCartPlus } from 'react-icons/fa'
+import { Modal } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
+import Button from '@restart/ui/esm/Button'
 import axios from 'axios'
 function Heart(props) {
   let { v, i, setData, setCount, Pos, setPos } = props
+  const [display, setDisplay] = useState(true)
+  const member = localStorage.getItem('id')
+  const token = localStorage.getItem('token')
+  const [data, setdata] = useState()
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  let [textWarn, settextWarn] = useState(
+    '您尚未登入會員哦!請先進行登入!'
+  )
+  let [textConfirm, settextConfirm] = useState('這邊做登入')
+  let [textClose, settextClose] = useState('關閉')
+  console.log('會員', member)
 
   async function AddtoCart() {
+    if (!token) {
+      // 跳 Modal 顯示需先登入
+      setShow(true)
+      return
+    }
     let p = await axios.post('http://localhost:3002/cart', {
       Sid: '',
       Order_Sid: 'order2021103141501',
-      Member_id: 'st880517',
+      Member_id: member,
       Product_id: v.product_id,
       Order_Amount: 1,
     })
@@ -43,6 +64,10 @@ function Heart(props) {
     }
   }
 
+  function addtoFav() {
+    console.log('加入')
+  }
+
   return (
     <div className="storecard col-lg-4 col-10 position-relative">
       <img
@@ -63,9 +88,22 @@ function Heart(props) {
                 color: '#FB6107',
                 fontSize: '40px',
                 marginTop: '3px',
-                display: 'inline',
+                display: display ? 'inline' : 'none',
               }}
-              onClick={() => {}}
+              onClick={(e) => {
+                console.log(e.target)
+                if (display) {
+                  if (!token) {
+                    // 跳 Modal 顯示需先登入
+                    setShow(true)
+                    return
+                  }
+                  setDisplay(false)
+                  addtoFav()
+                } else {
+                  setDisplay(true)
+                }
+              }}
             />
             <IoIosHeart
               // cardstate={cardstate[1]}
@@ -73,9 +111,16 @@ function Heart(props) {
                 color: '#d96e30',
                 fontSize: '40px',
                 marginTop: '3px',
-                display: 'none',
+                display: display ? 'none' : 'inline',
               }}
-              onClick={() => {}}
+              onClick={(e) => {
+                console.log(e.target)
+                if (display) {
+                  setDisplay(false)
+                } else {
+                  setDisplay(true)
+                }
+              }}
             />
             <FaCartPlus
               className="cartlike"
@@ -88,8 +133,44 @@ function Heart(props) {
           </div>
         </div>
       </div>
+      {/* 彈出視窗 */}
+      <Modal
+        className="Modal"
+        show={show}
+        onHide={handleClose}
+      >
+        <Modal.Header>
+          <Modal.Title className="ModalTitle">
+            溫馨提醒
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="ModalBody">
+          {textWarn}
+        </Modal.Body>
+        <Modal.Footer className="ModalFooter">
+          <Button
+            className="ButtonClose"
+            variant="secondary"
+            onClick={handleClose}
+          >
+            {textClose}
+          </Button>
+          <Button
+            className="ButtonLogin"
+            variant="primary"
+            onClick={() => {
+              if (!token) {
+                props.history.push('/login')
+              }
+              handleClose()
+            }}
+          >
+            {textConfirm}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }
 
-export default Heart
+export default withRouter(Heart)

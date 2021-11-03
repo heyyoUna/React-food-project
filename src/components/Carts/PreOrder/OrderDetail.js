@@ -12,12 +12,6 @@ import {
 //示意圖
 
 function OrderDetail(props) {
-  // 愛心收藏 icon
-  const [Likeone, setLikeone] = useState(['heart', 'heart'])
-
-  // 收回愛心收藏 icon
-  const [Liketwo, setLiketwo] = useState('full')
-
   let {
     data,
     Count,
