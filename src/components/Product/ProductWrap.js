@@ -3,7 +3,9 @@ import { withRouter , useHistory} from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 const ProductWrap = (props) => {
+  const token = localStorage.getItem('token')
   const {
+    sid,
     name,
     img,
     intro,
@@ -17,6 +19,25 @@ const ProductWrap = (props) => {
 
   const [display, setDisplay] = useState(true)
 
+  // 收藏新增
+  const handlingInsert = (sid) => {
+    fetch(`http://localhost:3002/member/favorite-product-insert`, {
+      method: 'POST',
+      body: JSON.stringify({
+        productid: sid
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+    }).then(r => r.json())
+  }
+  // 刪除收藏
+  const handlingDelete = (sid) => {
+    fetch(`http://localhost:3002/member/favorite-product-delete/${sid}`, {
+      method: 'DELETE',
+    })
+  }
   return (
     <>
       <div className="dt-product-imgwrap col-lg-6">
@@ -37,6 +58,7 @@ const ProductWrap = (props) => {
           <IoIosHeartEmpty
             onClick={(e)=>{
                 console.log(e.target)
+                handlingInsert(sid)
                 if(display){
                   setDisplay(false)
                 }else{
@@ -49,7 +71,7 @@ const ProductWrap = (props) => {
           />
           <IoIosHeart
               onClick={(e)=>{
-                console.log(e.target)
+                handlingDelete(sid)
                 if(display){
                   setDisplay(false)
                 }else{
