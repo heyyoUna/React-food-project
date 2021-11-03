@@ -15,6 +15,7 @@ import ResMap from './ResMap'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
 import PageBtn from './../../components/Product/PageBtn'
+import { FiFilter } from 'react-icons/fi'
 
 // import { data } from '../../data'
 
@@ -22,8 +23,9 @@ function Restaurants(props) {
   const [lat, setLat] = useState(25.033198)
   const [lng, setLng] = useState(121.543575)
   const [address, setAddress] = useState('')
-  const [apiData, setApiData] = useState([]) //舊資料
-  const [filterData, setFilterData] = useState([]) //過濾後的資料
+  const [apiData, setApiData] = useState([]) //原始資料
+  const [filterData, setFilterData] = useState([]) //篩選資料
+  const [displayData, setDisplayData] = useState([]) // 實際呈現的資料
   const [pages, setPages] = useState({
     currentPage: 0, //當前頁碼
     perPage: 6, //每頁6筆
@@ -49,14 +51,19 @@ function Restaurants(props) {
   const onperPageChange = (e) => {
     const index =
       e.target.attributes.getNamedItem('data-index').value
-    let newData = [...apiData]
+
+    const data =
+      filter.data || filter.price || filter.distance
+        ? filterData
+        : apiData
+    let newData = [...data]
     console.log(parseInt(index) + 1)
     newData = newData.slice(
       parseInt(index) * pages.perPage,
       pages.perPage * (parseInt(index) + 1) //0*6,6*1
     )
-
-    setFilterData(newData)
+    //計算用舊資料算  呈現塞進filterdata
+    setDisplayData(newData)
     setPages({ ...pages, currentPage: parseInt(index) }) //當前頁碼為點擊頁碼
   }
 
@@ -72,8 +79,8 @@ function Restaurants(props) {
     /* 有任意一個篩選有輸入，即進行判斷 */
     if (filter.price || filter.rate || filter.distance) {
       // 避免指到同一個記憶體位置，引響原始資料，故淺拷貝一份apiData
-      let processFilterData = apiData
-      // let processFilterData = [...apiData];
+      // let processFilterData = apiData
+      let processFilterData = [...apiData]
       // 當選取價錢區間
       if (filter.price) {
         // 切割~，取得價錢範圍
@@ -82,8 +89,8 @@ function Restaurants(props) {
         processFilterData = processFilterData.filter(
           (item) => {
             return (
-              item.res_aveprice >= rangeArr[0] &&
-              item.res_aveprice <= rangeArr[1]
+              item.res_aveprice >= +rangeArr[0] &&
+              item.res_aveprice <= +rangeArr[1]
             )
           }
         )
@@ -113,9 +120,27 @@ function Restaurants(props) {
         )
       }
 
-      setFilterData(processFilterData)
-    } else {
-      setFilterData(apiData)
+      setFilterData(processFilterData) //放篩選後的資料
+
+      //filter的資料切成6筆(0-6) 因為篩選後的資料都會在第一頁
+      const dataPerpage = processFilterData.slice(
+        0,
+        pages.perPage
+      )
+      console.log(dataPerpage)
+
+      setDisplayData(dataPerpage)
+      const totalPages = Math.ceil(
+        processFilterData.length / pages.perPage
+      )
+
+      setPages({ ...pages, currentPage: 0, totalPages })
+      const arr = []
+      for (let i = 1; i <= totalPages; i++) {
+        arr.push(i)
+      }
+      console.log(arr)
+      setPagination(arr)
     }
   }, [filter])
 
@@ -154,7 +179,7 @@ function Restaurants(props) {
       console.log('data', data)
       if (data.success) {
         setApiData(data.data)
-        setFilterData(data.data)
+        setDisplayData(data.data)
 
         const dataSize = data.data.length
         const totalPages = Math.ceil(
@@ -175,7 +200,7 @@ function Restaurants(props) {
         pages.perPage
       )
       console.log(dataPerpage)
-      setFilterData(dataPerpage)
+      setDisplayData(dataPerpage)
     })()
   }, [lat, lng])
 
@@ -247,7 +272,7 @@ function Restaurants(props) {
             <MapSortButton
               name="price"
               options={[
-                { name: '平均價格', value: '' },
+                { name: '價格範圍', value: '' },
                 { name: '100~200', value: '100~200' },
                 { name: '200~300', value: '200~300' },
                 { name: '300~400', value: '300~400' },
@@ -284,7 +309,7 @@ function Restaurants(props) {
       {/* <ResMap name="列表模式"/> */}
       <div className="container mt-35 mb-5">
         {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
-        <ResList listData={filterData} />
+        <ResList listData={displayData} />
       </div>
 
       {/* 分頁 */}
@@ -296,20 +321,21 @@ function Restaurants(props) {
           onClick={() => {
             console.log('currentPage', pages.currentPage)
             console.log('totalPages', pages.totalPages)
+            if (pages.currentPage === 0) {
+              return
+            }
 
-            // setFilterData(
-            //   apiData.slice(
-            //     (pages.currentPage + 1) * pages.perPage,
-            //     apiData.length - 1
-            //   )
-            // )
+            const data =
+              filter.distance || filter.price || filter.rate
+                ? filterData
+                : apiData
 
-            const arr = apiData.slice(
+            const arr = data.slice(
               (pages.currentPage - 1) * pages.perPage,
               pages.currentPage * pages.perPage
             )
 
-            setFilterData(arr)
+            setDisplayData(arr)
 
             setPages({
               ...pages,
@@ -324,7 +350,11 @@ function Restaurants(props) {
           {pagination.map((item, i) => {
             return (
               <div
-                className="res-pages"
+                className={
+                  pages.currentPage === i
+                    ? 'res-pages-active res-pages'
+                    : 'res-pages'
+                }
                 key={i}
                 onClick={onperPageChange}
                 data-index={i}
@@ -333,45 +363,35 @@ function Restaurants(props) {
               </div>
             )
           })}
-
-          {/* <div >
-                  onClick={(e) => {
-                    pages.setcurrentPage()
-                    
-                  }}
-                >
-                 
-              </div> */}
         </div>
         {/* 下一頁 */}
         <div
           className="page-next"
           onClick={() => {
+            if (
+              pages.currentPage + 1 ===
+              pages.totalPages
+            ) {
+              return
+            }
             console.log(
               'currentPage',
               pages.currentPage + 1
             )
             console.log('totalPages', pages.totalPages)
-            // if (
-            //   pages.currentPage + 1 ===
-            //   pages.totalPages
-            // ) {
-            console.log('1111111111111111')
-            //
-            setFilterData(
-              apiData.slice(
-                (pages.currentPage + 1) * pages.perPage,
-                apiData.length - 1
-              )
-            )
-            // } else {
-            setFilterData(
-              apiData.slice(
+
+            const data =
+              filter.distance || filter.price || filter.rate
+                ? filterData
+                : apiData
+
+            setDisplayData(
+              data.slice(
                 (pages.currentPage + 1) * pages.perPage,
                 (pages.currentPage + 2) * pages.perPage
               )
             )
-            // }
+
             setPages({
               ...pages,
               currentPage: pages.currentPage + 1,

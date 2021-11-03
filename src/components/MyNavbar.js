@@ -19,7 +19,6 @@ function MyNavbar(props) {
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
-    localStorage.removeItem('id')
     setAuth(false)
 
     history.push('/')
@@ -132,6 +131,9 @@ function MyNavbar(props) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
+                <NavDropdown.Item href="/member/ChangePassword">
+                  更改密碼
+                </NavDropdown.Item>
                 <NavDropdown.Item onClick={handlingLogout}>
                   登出
                 </NavDropdown.Item>

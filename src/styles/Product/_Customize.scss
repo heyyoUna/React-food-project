@@ -6,7 +6,7 @@
   margin-bottom: 80px;
   flex-wrap: wrap;
   padding-bottom: 50px;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 /* 左區 */
@@ -226,10 +226,6 @@
   background-color: #8fc065;
   color: white;
   margin-right: 8px;
-}
-.pd-love-icon {
-  font-size: 24px;
-  color: #fb6107;
 }
 .pd-card-wrap {
   justify-content: space-around;

@@ -175,7 +175,7 @@ function CartPreOrder() {
       </div>
 
       <div className="container ordercheck col-lg-10 d-lg-flex">
-        {/* 訂單商品詳細 */}
+         {/* 訂單商品詳細 */}
         <OrderDetail
           data={data}
           Count={Count}
@@ -195,7 +195,7 @@ function CartPreOrder() {
           // totalPromotion={totalPromotion}
           Promotion={Promotion}
           setPromotion={setPromotion}
-        />
+        /> 
       </div>
     </>
   )

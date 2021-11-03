@@ -1,4 +1,6 @@
-import React from 'react'
+import React,{ useState }  from 'react'
+import { withRouter , useHistory} from 'react-router-dom'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 const ProductWrap = (props) => {
   const {
@@ -12,6 +14,9 @@ const ProductWrap = (props) => {
     carbon,
     price,
   } = props
+
+  const [display, setDisplay] = useState(true)
+
   return (
     <>
       <div className="dt-product-imgwrap col-lg-6">
@@ -22,17 +27,39 @@ const ProductWrap = (props) => {
             alt=""
           />
         </div>
-        <div className="dtmb-love-icon">
-          <i className="far fa-heart"></i>
-        </div>
       </div>
-
       <div className="dt-intro-wrap col-sm-12 col-lg-6">
         {/* 商品名稱 */}
         <div className="dt-name fs44 mb20 d-flex">
           {name}
+          {/* 收藏區 */}
           <div className="dt-love-icon">
-            <i className="far fa-heart"></i>
+          <IoIosHeartEmpty
+            onClick={(e)=>{
+                console.log(e.target)
+                if(display){
+                  setDisplay(false)
+                }else{
+                  setDisplay(true)
+                }
+              }}
+              style={{
+                display: display ? 'block' : 'none'
+              }}
+          />
+          <IoIosHeart
+              onClick={(e)=>{
+                console.log(e.target)
+                if(display){
+                  setDisplay(false)
+                }else{
+                  setDisplay(true)
+                }
+              }}
+              style={{
+                display: display ? 'none' : 'block'
+              }}
+            />
           </div>
         </div>
         {/* 商品介紹 */}
@@ -69,4 +96,4 @@ const ProductWrap = (props) => {
   )
 }
 
-export default ProductWrap
+export default withRouter(ProductWrap)

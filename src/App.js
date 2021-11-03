@@ -42,6 +42,7 @@ import MemberPoint from './pages/Member/MemberPoint'
 import MemberFavoriteProduct from './pages/Member/MemberFavoriteProduct'
 import MemberFavoriteArticle from './pages/Member/MemberFavoriteArticle'
 import MemberFavoriteRestaurant from './pages/Member/MemberFavoriteRestaurant'
+import MemberChangePassword from './pages/Member/MemberChangePassword'
 
 //輪盤
 import GameChoose from './pages/Game/GameChoose'
@@ -73,8 +74,10 @@ function App() {
   const [auth, setAuth] = useState(false)
 
   useEffect(() => {
-    const id = localStorage.getItem('id')
-    if (id > 0) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      setAuth(false)
+    } else {
       setAuth(true)
     }
   }, [])
@@ -133,7 +136,7 @@ function App() {
 
               <Route path="/customize">
                 <Customize
-                setProductId={setProductId} />
+                  setProductId={setProductId} />
               </Route>
 
               {/* 文章 */}
@@ -210,6 +213,9 @@ function App() {
               </Route>
               <Route path="/member/FavoriteRestaurant">
                 <MemberFavoriteRestaurant />
+              </Route>
+              <Route path="/member/ChangePassword">
+                <MemberChangePassword />
               </Route>
               <Route path="/game/GameChoose">
                 <GameChoose />

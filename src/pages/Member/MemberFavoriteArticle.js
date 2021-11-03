@@ -5,7 +5,7 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import MemberNavbar from '../../components/member/MemberNavbar'
 
 function MemberFavoriteArticle(props) {
-  const id = localStorage.getItem('id')
+  const token = localStorage.getItem('token')
   const [article, setArticle] = useState([])
   let history = useHistory()
 
@@ -14,21 +14,30 @@ function MemberFavoriteArticle(props) {
   }, [])
 
   const favoriteArticleGet = () => {
-    if (id > 0) {
-      fetch(`http://localhost:3002/member/favorite-article-get/${id}}`, {
-        method: 'GET',
-      }).then(r => r.json())
-        .then(obj => {
-          if (obj.length) {
-            setArticle(obj)
-          } else {
-            alert(obj.error || '快去收藏文章吧')
-          }
-        })
-    } else {
+    if (!token) {
       alert('尚未登入，請連到登入頁面')
       history.push('/login')
     }
+
+    fetch(`http://localhost:3002/member/favorite-article-get`, {
+      method: 'GET',
+      headers: {
+        //token 從 header 中 Authorization 屬性傳入
+        //格式為 Bearer + 空格 + token
+        'Authorization': 'Bearer ' + token
+      }
+    }).then(obj => obj.json())
+      .then(obj => {
+        if (obj.success) {
+          if (obj.data.length) {
+            setArticle(obj.data)
+          } else {
+            alert(obj.error || '快去收藏文章吧')
+          }
+        } else {
+          alert(obj.error)
+        }
+      })
   }
 
   const handlingClick = (articleid, index, remove_flag) => {
@@ -64,11 +73,11 @@ function MemberFavoriteArticle(props) {
     fetch(`http://localhost:3002/member/favorite-article-insert`, {
       method: 'POST',
       body: JSON.stringify({
-        memberid: +id,
         articleid: articleid
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
       },
     }).then(r => r.json())
       .then(obj => {

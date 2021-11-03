@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 // import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import L from 'leaflet'
 import {
@@ -41,7 +41,7 @@ function ResMap() {
   })
 
   const history = useHistory()
-
+  const myRef = useRef(null)
   console.log(history.location.state.mapData)
   console.log(history.location.state)
 
@@ -149,7 +149,7 @@ function ResMap() {
                 <MapSortButton
                   name="price"
                   options={[
-                    { name: '平均價格', value: '' },
+                    { name: '價格範圍', value: '' },
                     { name: '100~200', value: '100~200' },
                     { name: '200~300', value: '200~300' },
                     { name: '300~400', value: '300~400' },
@@ -331,6 +331,12 @@ function ResMap() {
                   <Marker
                     key={index}
                     position={[item.res_lat, item.res_lng]}
+                    onClick={() => {
+                      myRef.current.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                      })
+                    }}
                   >
                     <Popup>
                       <div className="map-card  d-flex align-items-center justify-content-between">
@@ -344,8 +350,8 @@ function ResMap() {
                             alt=""
                           />
                         </div>
-                        <div class="col-md-7 ">
-                          <div className="map-txt">
+                        <div class="col-md-7 ref={myRef}">
+                          <div className="map-txt  ">
                             <Link
                               to={
                                 '/resprdoucts/' +

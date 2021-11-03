@@ -44,6 +44,14 @@ function Customize(props) {
 
   //Customize_API ='http://localhost:3002/product/customize/'
 
+  
+  useEffect(() => {
+    ; (async () => {
+      const r = await fetch(`${Customize_API}` + `${props.location.search}`)
+      const obj = await r.json()
+      // setSugProducts(obj.rows)
+    })()
+  }, [])
 
   // 商品區要資料
   useEffect(() => {
@@ -65,41 +73,52 @@ function Customize(props) {
   const calculate = () => {
     if (target === '變瘦' && exercises === '不運動') {
       //建議熱量
+      let newTDEE = Math.ceil(oriTDEE)
       let sugCal = Math.ceil(oriTDEE * 0.8)
-      setTDEE(TDEE)
+      setTDEE(newTDEE)
       setSugCal(sugCal)
+      setSugProtein(Math.ceil(weight * 1.2))
     }
     if (target === '變瘦' && exercises === '三次左右') {
       let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.375)
       let sugCal = Math.ceil((oriTDEE / 1.2) * 1.375 * 0.8)
       setSugCal(sugCal)
       setTDEE(newTDEE)
+      setSugProtein(Math.ceil(weight * 1.2))
     }
     if (target === '變瘦' && exercises === '五次以上') {
       let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.55)
       let sugCal = Math.ceil((oriTDEE / 1.2) * 1.55 * 0.8)
       setSugCal(sugCal)
       setTDEE(newTDEE)
+      setSugProtein(Math.ceil(weight * 1.2))
     }
     if (target === '增肌減脂' && exercises === '不運動') {
+      let newTDEE = Math.ceil(oriTDEE)
       let sugCal = Math.ceil(oriTDEE * 1.2)
+      let targetProtein = (Math.ceil(weight*1.6))
       setSugCal(sugCal)
-      setTDEE(TDEE)
+      setTDEE(newTDEE)
+      setSugProtein(targetProtein)
     }
     if (target === '增肌減脂' && exercises === '三次左右') {
       let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.375)
       let sugCal = Math.ceil((oriTDEE / 1.2) * 1.375 * 1.2)
+      let targetProtein = (Math.ceil(weight*1.6))
       setSugCal(sugCal)
       setTDEE(newTDEE)
+      console.log(oriTDEE)
+      setSugProtein(targetProtein)
     }
     if (target === '增肌減脂' && exercises === '五次以上') {
       let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.55)
       let sugCal = Math.ceil((oriTDEE / 1.2) * 1.55 * 1.2)
+      let targetProtein = (Math.ceil(weight*1.6))
       setSugCal(sugCal)
       setTDEE(newTDEE)
+      setSugProtein(targetProtein)
     }
   }
-
   useEffect(() => {
     calculate()
   }, [target, exercises,TDEE])
