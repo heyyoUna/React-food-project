@@ -280,11 +280,13 @@ input[name='pd-filter'] + label {
   margin: 0 20px;
   justify-content: center;
   align-items: center;
+  color: #2a593e !important; 
+
 }
 .page-btn-wrap i {
   cursor: pointer;
 }
-.page div a {
+.page div{
   margin-right: 15px;
   color: #2a593e;
   text-decoration: none;
