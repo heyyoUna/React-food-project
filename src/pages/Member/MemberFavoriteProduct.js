@@ -32,7 +32,7 @@ function MemberFavoriteProduct(props) {
           if (obj.data.length) {
             setProducts(obj.data)
           } else {
-            alert(obj.error || '快去收藏商品吧')
+            alert(obj.error || '尚未收藏商品')
           }
         } else {
           alert(obj.error)
