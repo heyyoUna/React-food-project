@@ -323,7 +323,7 @@ function Restaurants(props) {
           </div>
         </MapButtonGroup>
       </div>
-      {/* <ResMap name="列表模式"/> */}
+      {/* 餐廳列表 */}
       <div className="container mt-35 mb-5">
         <div class="row  justify-content-center">
           {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
@@ -439,6 +439,7 @@ function Restaurants(props) {
       <div className="ma-80">
         <TitleBorder name="人氣精選" />
       </div>
+      {/* 人氣精選 */}
       <div className="container mx-auto">
         <div className="row  justify-content-center ">
           {popular.map((v, i) => {
