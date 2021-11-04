@@ -32,12 +32,14 @@ function ProductDetail(props) {
       <div className="container dt-pd-container">
         <div className="row d-flex dt-product">
           <ProductWrap
+            sid={p.sid}
             name={p.name}
             img={p.product_img}
             intro={p.introduction}
             unit={p.unit}
             cal={p.content_cal}
             protein={p.content_protein}
+            product_id={p.product_id}
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}

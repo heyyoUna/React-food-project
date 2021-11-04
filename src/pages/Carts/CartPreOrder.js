@@ -7,10 +7,13 @@ import {
 } from 'react-icons/fa'
 import OrderInfo from '../../components/Carts/PreOrder/OrderInfo'
 import OrderDetail from '../../components/Carts/PreOrder/OrderDetail'
+import StoreCard from '../../components/Carts/PreOrder/StoreCard'
+import StoreCardMobile from '../../components/Carts/PreOrder/StoreCardMobile'
 import '../../styles/Carts/CartPreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
+import moment from 'moment'
 
 function CartPreOrder() {
   // 加入商品的 Data
@@ -34,6 +37,12 @@ function CartPreOrder() {
   // 使用會員優惠
   let [Promotion, setPromotion] = useState(0)
 
+  let [Filter, setFilter] = useState([])
+
+  // 設定訂單編號的格式
+  const StartDate = moment(StartDate).format('YYYYMMDDHH')
+  localStorage.setItem('訂單編號', StartDate)
+
   useEffect(() => {
     // 讀取加入購物車的商品資料
     DataAxios()
@@ -49,11 +58,6 @@ function CartPreOrder() {
     DeleteProduct(DeletePos)
     console.log('刪除', DeletePos)
   }, [DeletePos])
-
-  // useEffect(() => {
-  //   console.log('目前新增位置', addProductPos)
-  //   AddProduct(addProductPos)
-  // }, [addProductPos])
 
   // 讀取商品資料的 function
   async function DataAxios() {
@@ -175,7 +179,7 @@ function CartPreOrder() {
       </div>
 
       <div className="container ordercheck col-lg-10 d-lg-flex">
-         {/* 訂單商品詳細 */}
+        {/* 訂單商品詳細 */}
         <OrderDetail
           data={data}
           Count={Count}
@@ -184,8 +188,6 @@ function CartPreOrder() {
           setODPos={setODPos}
           setPos={setPos}
           setDeleteODPos={setDeleteODPos}
-          addProductPos={addProductPos}
-          setaddProductPos={setaddProductPos}
         />
 
         {/* 訂單小計詳情 */}
@@ -195,7 +197,25 @@ function CartPreOrder() {
           // totalPromotion={totalPromotion}
           Promotion={Promotion}
           setPromotion={setPromotion}
-        /> 
+        />
+      </div>
+
+      <div className="container likemore col-lg-8 col-12">
+        <div className="bottomline col-lg-6"></div>
+
+        {/* 你可能會喜歡，的 component */}
+        <h4 className="col-lg-10 text-lg-start">
+          你可能也會喜歡
+        </h4>
+        {/* 喜歡的卡片 */}
+        <StoreCard
+          setData={setData}
+          setCount={setCount}
+          Filter={Filter}
+          setFilter={setFilter}
+        />
+
+        <StoreCardMobile />
       </div>
     </>
   )
