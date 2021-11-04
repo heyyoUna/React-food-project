@@ -74,6 +74,11 @@ function MemberFavoriteProduct(props) {
       method: 'POST',
       body: JSON.stringify({
         productid: productid
+        // req.body.Sid,
+        // req.body.Order_Sid, ''
+        // req.body.Member_id,
+        // req.body.Product_id,
+        // req.body.Order_Amount
       }),
       headers: {
         'Content-Type': 'application/json',
