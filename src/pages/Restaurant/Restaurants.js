@@ -246,6 +246,12 @@ function Restaurants(props) {
       }
     })()
   }, [])
+
+  const setFavIndicator = (indicator) => {
+    let tempProduct = [...displayData]
+    tempProduct.favIndicator = indicator
+    setDisplayData(tempProduct)
+  }
   return (
     <>
       <div
@@ -313,7 +319,7 @@ function Restaurants(props) {
             <MapSortButton
               name="distance"
               options={[
-                { name: '最佳距離', value: '' },
+                { name: '距離範圍', value: '' },
                 { name: '3公里', value: '3' },
                 { name: '1公里', value: '1' },
                 { name: '500公尺', value: '0.5' },
@@ -327,19 +333,22 @@ function Restaurants(props) {
       <div className="container mt-35 mb-5">
         <div class="row  justify-content-center">
           {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
-          {displayData.map((v, i) => {
-            return (
-              <ResListData
-                res_id={v.res_id}
-                res_img={v.res_img}
-                res_name={v.res_name}
-                res_rate={v.res_rate}
-                res_aveprice={v.res_aveprice}
-                res_starttime={v.res_starttime}
-                res_endtime={v.res_endtime}
-              />
-            )
-          })}
+          {displayData &&
+            displayData.map((v, i) => {
+              return (
+                <ResListData
+                  res_id={v.res_id}
+                  res_img={v.res_img}
+                  res_name={v.res_name}
+                  res_rate={v.res_rate}
+                  res_aveprice={v.res_aveprice}
+                  res_starttime={v.res_starttime}
+                  res_endtime={v.res_endtime}
+                  favIndicator={v.favIndicator}
+                  setFavIndicator={setFavIndicator}
+                />
+              )
+            })}
         </div>
       </div>
 
