@@ -51,7 +51,7 @@ function Cart_OrderDetail(props) {
                     <tr>
                       <td>
                         <img
-                          src={`http://localhost:3002/img/Product/${v.Product_id}.jpg`}
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
                           alt=""
                         />
                       </td>
@@ -72,7 +72,7 @@ function Cart_OrderDetail(props) {
                 <tr>
                   <td>
                     <img
-                      src="../../../image/product1.png"
+                      src=""
                       alt=""
                     />
                   </td>
@@ -86,7 +86,7 @@ function Cart_OrderDetail(props) {
                 <tr>
                   <td>
                     <img
-                      src="../../../image/product1.png"
+                      src=""
                       alt=""
                     />
                   </td>
@@ -100,7 +100,7 @@ function Cart_OrderDetail(props) {
                 <tr>
                   <td>
                     <img
-                      src="../../../image/product1.png"
+                      src=""
                       alt=""
                     />
                   </td>

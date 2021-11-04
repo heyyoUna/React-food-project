@@ -17,8 +17,10 @@ import axios from 'axios'
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
-  let member = 'st880517'
+  let member = localStorage.getItem('id')
+  let OrderSid = localStorage.getItem('訂單編號')
 
+  // 設定訂單編號的格式
   useEffect(() => {
     console.log('這邊是初始化')
     DataAxios()
@@ -27,7 +29,7 @@ function Cart_ConfimOrder(props) {
   async function DataAxios() {
     let r = await axios.get('http://localhost:3002/cart/')
     let rD = await axios.get(
-      `http://localhost:3002/cart/addList/${member}`
+      `http://localhost:3002/cart/addList/${OrderSid}`
     )
     if (r.status === 200 && rD.status === 200) {
       setData(r.data)
@@ -42,16 +44,17 @@ function Cart_ConfimOrder(props) {
     let s
     let NewData = [...data]
     a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-    console.log('這是暫存資料', a)
-    console.log('確認訂單資訊', NewData[0].Order_Sid)
+    // console.log('這是暫存資料', a)
+    // console.log('確認訂單資訊', NewData[0].Order_Sid)
 
     let r = await axios.post(
       'http://localhost:3002/cart/ConfirmList',
       {
-        Order_Sid: NewData[0].Order_Sid,
-        Member_id: 'st880517',
+        Order_Sid: OrderSid,
+        Member_id: member,
         Total_Price: a[0],
         Order_Status: '訂單成立',
+        Created_At: DataDetail.Created_At,
       }
     )
 
@@ -60,7 +63,7 @@ function Cart_ConfimOrder(props) {
       s = await axios.post(
         'http://localhost:3002/cart/addDetail',
         {
-          Order_Sid: NewData[0].Order_Sid,
+          Order_Sid: OrderSid,
           Product_id: NewData[i].Product_id,
           Order_Total: a[2],
           Promotion_Amount: a[1],
@@ -71,7 +74,6 @@ function Cart_ConfimOrder(props) {
 
     if (r.status === 200) {
       console.log('已完成訂單，請到 DB 查看')
-      localStorage.setItem('訂單編號', NewData[0].Order_Sid)
       props.history.push('/carts/Complete')
     }
   }
@@ -145,7 +147,7 @@ function Cart_ConfimOrder(props) {
                 訂單編號
               </td>
               <td className="text-start col-lg-6">
-                {DataDetail.Sid}
+                {OrderSid}
               </td>
             </tr>
             <tr>
@@ -153,7 +155,7 @@ function Cart_ConfimOrder(props) {
                 訂單時間
               </td>
               <td className="text-start col-6">
-                UTC+8 {DataDetail.Created_At}
+                {DataDetail.Created_At}
               </td>
             </tr>
             <tr>

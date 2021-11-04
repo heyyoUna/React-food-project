@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberOrder(props) {
   const token = localStorage.getItem('token')

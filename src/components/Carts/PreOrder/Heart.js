@@ -23,15 +23,15 @@ function Heart(props) {
   console.log('會員', member)
 
   async function AddtoCart() {
-    if (!token) {
-      // 跳 Modal 顯示需先登入
-      setShow(true)
-      return
-    }
+    // if (!token) {
+    //   // 跳 Modal 顯示需先登入
+    //   setShow(true)
+    //   return
+    // }
     let NewPos = v.sid
     let p = await axios.post('http://localhost:3002/cart', {
       Sid: '',
-      Order_Sid: 'order' + localStorage.getItem('訂單編號'),
+      // Order_Sid: 'order' + localStorage.getItem('訂單編號'),
       Member_id: member,
       Product_id: v.product_id,
       Order_Amount: 1,
@@ -118,6 +118,10 @@ function Heart(props) {
                     setShow(true)
                     return
                   }
+
+                  settextWarn('成功加入收藏清單!')
+                  settextConfirm('我知道了')
+                  setShow(true)
                   setDisplay(false)
                   addtoFav()
                 } else {
@@ -137,6 +141,9 @@ function Heart(props) {
                 if (display) {
                   setDisplay(false)
                 } else {
+                  settextWarn('已從收藏清單移除!')
+                  settextConfirm('我知道了')
+                  setShow(true)
                   deletetoFav(v.sid)
                   setDisplay(true)
                 }

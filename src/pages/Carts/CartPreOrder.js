@@ -13,7 +13,6 @@ import '../../styles/Carts/CartPreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
-import moment from 'moment'
 
 function CartPreOrder() {
   // 加入商品的 Data
@@ -31,22 +30,15 @@ function CartPreOrder() {
   // 購物車刪除的商品位置
   let [DeletePos, setDeleteODPos] = useState()
 
-  // 購物車內增加商品的位置
-  let [addProductPos, setaddProductPos] = useState()
-
   // 使用會員優惠
   let [Promotion, setPromotion] = useState(0)
 
   let [Filter, setFilter] = useState([])
 
-  // 設定訂單編號的格式
-  const StartDate = moment(StartDate).format('YYYYMMDDHH')
-  localStorage.setItem('訂單編號', StartDate)
-
   useEffect(() => {
     // 讀取加入購物車的商品資料
     DataAxios()
-  }, [addProductPos])
+  }, [])
 
   useEffect(() => {
     // 修改購物車內的商品資料
@@ -55,8 +47,8 @@ function CartPreOrder() {
 
   useEffect(() => {
     // 刪除購物車內的商品資料
-    DeleteProduct(DeletePos)
     console.log('刪除', DeletePos)
+    DeleteProduct(DeletePos)
   }, [DeletePos])
 
   // 讀取商品資料的 function
@@ -65,15 +57,16 @@ function CartPreOrder() {
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-      console.log('資料', r.data)
+      // console.log('資料', r.data)
 
+      Count = []
       // 讀取裡面的商品數量
       for (let i = 0; i < r.data.length; i++) {
         Count[i] = r.data[i].Order_Amount
       }
-
       // 設定商品初始數量
       setCount(Count)
+
 
       // 計算訂單小計
       productPrice()
@@ -86,7 +79,7 @@ function CartPreOrder() {
   // 修改商品數量函式
   async function ModifyProduct(Count, Pos, ODPos) {
     // console.log('修改函數', Count, Pos, ODPos, Count[Pos])
-    console.log('修改數量', ODPos, Count[Pos])
+    // console.log('修改數量', ODPos, Count[Pos])
     let Mod = await axios.put(
       `http://localhost:3002/cart/${ODPos}`,
       {
@@ -94,7 +87,7 @@ function CartPreOrder() {
       }
     )
     if (Mod.status === 200) {
-      console.log('已經 Modify', Count)
+      // console.log('已經 Modify', Count)
       DataAxios()
       return Count
     }
@@ -106,9 +99,8 @@ function CartPreOrder() {
       `http://localhost:3002/cart/${DeletePos}`
     )
     if (del.status === 200) {
-      console.log('已經刪除')
+      // console.log('已經刪除', Count)
       DataAxios()
-      return DeletePos
     }
   }
 

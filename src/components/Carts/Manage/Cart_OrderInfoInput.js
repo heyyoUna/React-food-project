@@ -19,7 +19,6 @@ function Cart_OrderInfoInput(props) {
     NewOrderInfo[index] = value
     console.log('123', NewOrderInfo)
     setOrderInfo(NewOrderInfo)
-    return
   }
 
   async function getMembersInfo() {
@@ -41,6 +40,12 @@ function Cart_OrderInfoInput(props) {
       setEmail(NewData[0].email)
       setPhone(NewData[0].mobile)
       console.log('New', NewData)
+      let NewOrderInfo = [...OrderInfo]
+      NewOrderInfo.push(NewData[0].name)
+      NewOrderInfo.push(NewData[0].email)
+      NewOrderInfo.push(NewData[0].mobile)
+      console.log('123', NewOrderInfo)
+      setOrderInfo(NewOrderInfo)
     }
   }
 

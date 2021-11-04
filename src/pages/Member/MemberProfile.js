@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberProfile(props) {
   const [profile, setProfile] = useState({
@@ -20,7 +22,7 @@ function MemberProfile(props) {
     const token = localStorage.getItem('token')
 
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -35,10 +37,10 @@ function MemberProfile(props) {
           if (obj.data.length) {
             setProfile(obj.data[0])
           } else {
-            alert(obj.error || '資料讀取失敗')
+            Swal.fire(obj.error || '資料讀取失敗')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }, [])
@@ -65,9 +67,17 @@ function MemberProfile(props) {
     }).then(r => r.json())
       .then(obj => {
         if (obj.success) {
-          alert('資料修改成功')
+          Swal.fire({
+            icon: 'success',
+            title:'資料修改成功',
+            showConfirmButton: false,
+            timer: 1500,
+          })
         } else {
-          alert(obj.error || '資料修改失敗')
+          Swal.fire({
+            icon: 'error',
+            title: obj.error || '資料修改失敗'
+          })
         }
       });
   }

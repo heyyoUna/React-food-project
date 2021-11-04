@@ -20,13 +20,16 @@ import '../../../../node_modules/leaflet/dist/leaflet.css'
 import { FaChevronDown } from 'react-icons/fa'
 
 function Cart_Store(props) {
-  let { StoreInfo, setStoreInfo, CityArr, setCityArr } = props
+  let { StoreInfo, setStoreInfo, CityArr, setCityArr } =
+    props
   // let [StoreInfo, setStoreInfo] = useState([])
   let [GetAddress, setGetAddress] = useState([])
   let [GetStoreInfo, setGetStoreInfo] = useState([])
   let [test, settest] = useState(0)
   let SearchInfo = 'SearchRoad'
-  let [GetPosition, setGetPosition] = useState([25.0475613, 121.5173399])
+  let [GetPosition, setGetPosition] = useState([
+    25.0475613, 121.5173399,
+  ])
   let [Name, setName] = useState()
   let [Phone, setPhone] = useState()
   let [Email, setEmail] = useState()
@@ -61,36 +64,45 @@ function Cart_Store(props) {
     // console.log('更改的Data', SearchInfo)
     // console.log('SearchINfo狀態', SearchInfo)
 
-    let r = await axios.post('http://localhost:3002/cart/store', {
-      commandid: SearchInfo,
-      city: StoreInfo[0],
-      town: StoreInfo[1],
-      roadname: StoreInfo[2],
-    })
+    let r = await axios.post(
+      'http://localhost:3002/cart/store',
+      {
+        commandid: SearchInfo,
+        city: StoreInfo[0],
+        town: StoreInfo[1],
+        roadname: StoreInfo[2],
+      }
+    )
     if (r.status === 200) {
       // console.log('DataX', r.data)
       const jqRoadName = $(r.data)
       let NewGetStore = [...GetStoreInfo]
-      jqRoadName.find('RoadName rd_name_1').each((i, el) => {
-        // console.log('路名', el.innerText)
-        GetAddress[i] = { RoadName: el.innerText }
-      })
-      jqRoadName.find('RoadName section_1').each((i, el) => {
-        // console.log('地址', el)
-        GetAddress[i].RoadName += el.innerText
-      })
+      jqRoadName
+        .find('RoadName rd_name_1')
+        .each((i, el) => {
+          // console.log('路名', el.innerText)
+          GetAddress[i] = { RoadName: el.innerText }
+        })
+      jqRoadName
+        .find('RoadName section_1')
+        .each((i, el) => {
+          // console.log('地址', el)
+          GetAddress[i].RoadName += el.innerText
+        })
 
       const jqStoreInfo = $(r.data)
-      jqStoreInfo.find('GeoPosition POIName').each((i, el) => {
-        // console.log('路名', el.innerText)
-        NewGetStore[i] = {
-          POIName: el.innerText + '門市',
-          X: '',
-          Y: '',
-          Address: '',
-          POIID: '',
-        }
-      })
+      jqStoreInfo
+        .find('GeoPosition POIName')
+        .each((i, el) => {
+          // console.log('路名', el.innerText)
+          NewGetStore[i] = {
+            POIName: el.innerText + '門市',
+            X: '',
+            Y: '',
+            Address: '',
+            POIID: '',
+          }
+        })
       jqStoreInfo.find('GeoPosition X').each((i, el) => {
         // console.log('路名', el.innerText)
         NewGetStore[i].X = parseInt(el.innerText) * 0.000001
@@ -99,14 +111,18 @@ function Cart_Store(props) {
         // console.log('路名', el.innerText)
         NewGetStore[i].Y = parseInt(el.innerText) * 0.000001
       })
-      jqStoreInfo.find('GeoPosition Address').each((i, el) => {
-        // console.log('路名', el.innerText)
-        NewGetStore[i].Address = el.innerText
-      })
-      jqStoreInfo.find('GeoPosition POIID').each((i, el) => {
-        // console.log('POIID', el.innerText)
-        NewGetStore[i].POIID = el.innerText
-      })
+      jqStoreInfo
+        .find('GeoPosition Address')
+        .each((i, el) => {
+          // console.log('路名', el.innerText)
+          NewGetStore[i].Address = el.innerText
+        })
+      jqStoreInfo
+        .find('GeoPosition POIID')
+        .each((i, el) => {
+          // console.log('POIID', el.innerText)
+          NewGetStore[i].POIID = el.innerText
+        })
       SearchInfo = 'SearchRoad'
       // console.log('店鋪資訊', NewGetStore)
       // console.log('路段', GetAddress)
@@ -133,13 +149,15 @@ function Cart_Store(props) {
       NewGetPosition[1] = NewGetStoreInfo[0].X
       console.log('新的位置座標', NewGetPosition)
     } else {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // console.log('緯度是', position.coords.latitude)
-        // console.log('經度是', position.coords.longitude)
-        NewGetPosition[0] = position.coords.latitude
-        NewGetPosition[1] = position.coords.longitude
-        setGetPosition(NewGetPosition)
-      })
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // console.log('緯度是', position.coords.latitude)
+          // console.log('經度是', position.coords.longitude)
+          NewGetPosition[0] = position.coords.latitude
+          NewGetPosition[1] = position.coords.longitude
+          setGetPosition(NewGetPosition)
+        }
+      )
       console.log('map center:', map.getCenter())
       console.log('通過')
     }
@@ -153,11 +171,19 @@ function Cart_Store(props) {
       <div className="container store_711 col-lg-6 col-10">
         <div className="storeinfo d-lg-flex justify-content-around ">
           <div className="store_711_image col-lg-2 col-10 text-center mx-auto">
-            <img src="http://localhost:3000/images/Cart/711icon.png" alt="" />
+            <img
+              src="http://localhost:3000/images/Cart/711icon.png"
+              alt=""
+            />
           </div>
           <div className="store_711_info col-lg-5 col-10 my-auto">
-            <h4>已選擇門市店號:{localStorage.getItem('店號')}</h4>
-            <h4>已選擇門市名稱:{!StoreInfo[3] ? '無資料' : StoreInfo[3]}</h4>
+            <h4>
+              已選擇門市店號:{localStorage.getItem('店號')}
+            </h4>
+            <h4>
+              已選擇門市名稱:
+              {!StoreInfo[3] ? '無資料' : StoreInfo[3]}
+            </h4>
           </div>
           <div className="store_711_address col-lg-5 col-10">
             <h4>門市地址:{localStorage.getItem('門市')}</h4>
@@ -177,7 +203,9 @@ function Cart_Store(props) {
               }}
             >
               {CityArr.map((v, i) => {
-                return <option value={v.City}>{v.City}</option>
+                return (
+                  <option value={v.City}>{v.City}</option>
+                )
               })}
             </select>
             <FaChevronDown className="ChevronDown position-absolute" />
@@ -207,7 +235,11 @@ function Cart_Store(props) {
               {CityArr.map((v, i) => {
                 if (v.City === StoreInfo[0]) {
                   return v.districts.map((a) => {
-                    return <option value={a.name}>{a.name}</option>
+                    return (
+                      <option value={a.name}>
+                        {a.name}
+                      </option>
+                    )
                   })
                 }
               })}
@@ -233,7 +265,11 @@ function Cart_Store(props) {
               }}
             >
               {GetAddress.map((v, i) => {
-                return <option value={v.RoadName}>{v.RoadName}</option>
+                return (
+                  <option value={v.RoadName}>
+                    {v.RoadName}
+                  </option>
+                )
               })}
             </select>
             <FaChevronDown className="ChevronDown position-absolute" />
@@ -263,14 +299,29 @@ function Cart_Store(props) {
                   >
                     <Popup>
                       <div className="PopCard">
-                        <p>門市店號:{v.POIID}</p>
-                        <p>門市名稱:{v.POIName}</p>
-                        <p>門市地址:{v.Address}</p>
+                        <h6>
+                          門市店號: <span>{v.POIID}</span>
+                        </h6>
+                        <h6>
+                          門市名稱: <span>{v.POIName}</span>
+                        </h6>
+                        <h6>
+                          門市地址: <span>{v.Address}</span>
+                        </h6>
                         <button
                           onClick={(e) => {
-                            console.log('已選擇', e.target.value)
-                            localStorage.setItem('店號', v.POIID)
-                            localStorage.setItem('門市', v.Address)
+                            console.log(
+                              '已選擇',
+                              e.target.value
+                            )
+                            localStorage.setItem(
+                              '店號',
+                              v.POIID
+                            )
+                            localStorage.setItem(
+                              '門市',
+                              v.Address
+                            )
                             UpdateInfo(v.POIName, 3)
                           }}
                         >
