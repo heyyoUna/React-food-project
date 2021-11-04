@@ -1,8 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 // 註：修改為可以對應多重表單元件輸入
 function ArQARadioButton(props) {
   const { value, checkedReply, setCheckReply } = props
+  const [data, setData] = useState([])
+
+  const token = localStorage.getItem('token')
+
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  const fcSid = fcURL.pathname //目前網址的路徑
+  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+
+  // 新增問答點數
+  const handlingInsert = (sid) => {
+    fetch(`http://localhost:3002/ArtFood/${fcSplit}/QA`, {
+      method: 'POST',
+      body: JSON.stringify({
+        productid: sid,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      let r = await fetch(
+        'http://localhost:3002/ArtFood/' + fcSplit
+      )
+      let j = await r.json()
+      if (j.success) {
+        setData(j.data)
+        // console.log('j.data:', j.data)
+      }
+      // console.log(
+      //   'j.data.ar_correct_answer',
+      //   j.data.ar_correct_answer
+      // )
+    })()
+  }, [])
 
   return (
     <div>
@@ -11,7 +51,38 @@ function ArQARadioButton(props) {
         value={value}
         checked={checkedReply === value}
         onChange={(e) => {
-          setCheckReply(e.target.value)
+          console.log(
+            'data.ar_correct_answer',
+            data.ar_correct_answer
+          )
+          console.log(
+            'typeof data.ar_correct_answer',
+            typeof data.ar_correct_answer
+          )
+
+          console.log('e.target.value:', e.target.value)
+          console.log(
+            'typeof e.target.value:',
+            typeof e.target.value
+          )
+
+          if (e.target.value !== data.ar_correct_answer) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '答錯囉！再次一次吧',
+            })
+          } else {
+            handlingInsert(data.ar_side)
+            setCheckReply(e.target.value)
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: '恭喜獲得1點會員點數',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+          }
         }}
       />
       <label>{value}</label>

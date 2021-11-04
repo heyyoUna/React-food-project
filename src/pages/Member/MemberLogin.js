@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberLogin(props) {
   const { setAuth } = props
@@ -20,12 +22,19 @@ function MemberLogin(props) {
     }).then(r => r.json())
       .then(obj => {
         if (obj.success) {
-          alert('登入成功')
+          Swal.fire({
+            icon: 'success',
+            title: '登入成功',
+            showConfirmButton: false,
+            timer: 1500,
+          })
           localStorage.setItem('token', obj.token)
           setAuth(true)
           history.push('/member/profile')
         } else {
-          alert('登入失敗\n' + (obj.error || ''))
+          Swal.fire({
+            icon: 'error',
+            text: '登入失敗\n' + (obj.error || '')});
         }
       })
   }

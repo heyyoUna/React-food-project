@@ -69,7 +69,6 @@ import MainContent from './components/MainContent'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
-  const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
 
   useEffect(() => {
@@ -120,22 +119,16 @@ function App() {
               </Route>
               {/* 商城 */}
               <Route path="/products">
-                <Products
-                  productId={productId}
-                  setProductId={setProductId}
-                />
+                <Products/>
               </Route>
 
               <Route path="/product/:id">
                 <ProductDetail
-                  productId={productId}
-                  setProductId={setProductId}
                 />
               </Route>
 
               <Route path="/customize">
-                <Customize
-                  setProductId={setProductId} />
+                <Customize/>
               </Route>
 
               {/* 文章 */}

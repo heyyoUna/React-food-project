@@ -20,8 +20,6 @@ function Products(props) {
   const searchParams = new URLSearchParams(
     props.location.search
   )
-  // 設定商品sid for 細節頁
-  const { productId, setProductId } = props
   // 所有商品
   // const [products, setProducts] = useState([])
   // 篩選後商品
@@ -125,7 +123,6 @@ function Products(props) {
             {displayProducts.map((v, i) => {
               return (
                 <ProductCard
-                  setProductId={setProductId}
                   index={i}
                   key={v.sid}
                   sid={v.sid}

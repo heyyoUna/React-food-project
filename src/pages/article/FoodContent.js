@@ -4,23 +4,30 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom'
-import { imgUrl, API_img } from '../../config/index'
+import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
-import ArCardTxt from '../../components/article/ArCardTxt'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
+import PopularFood from '../../components/article/PopularFood'
+import RelatingFood from '../../components/article/RelatingFood'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function FoodContent(props) {
+  const token = localStorage.getItem('token')
+  const ID = localStorage.getItem('id')
+
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  const fcSid = fcURL.pathname //目前網址的路徑
+  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+
   const [data, setData] = useState([])
   const [options, setOptions] = useState([])
   const [reply, setReply] = useState('')
 
   useEffect(() => {
-    const fcURL = new URL(document.location.href) //目前網頁網址
-    const fcSid = fcURL.pathname //目前網址的路徑
-    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
     ;(async () => {
       let r = await fetch(
         'http://localhost:3002/ArtFood/' + fcSplit
@@ -29,7 +36,6 @@ function FoodContent(props) {
 
       if (j.success) {
         setData(j.data)
-        // console.log('j.data:', j.data)
         setOptions(JSON.parse(j.data.ar_answers))
       }
     })()
@@ -45,13 +51,14 @@ function FoodContent(props) {
     const formData = new FormData(e.target)
   }
 
+
   return (
     <>
       <div
         className="container-fluid pt-5"
         id="col-article"
       >
-        <BreadCrumb />
+        {/* <BreadCrumb /> */}
 
         {/* <!------------ 互動nav ------------>   */}
         <div className="row interNav">
@@ -96,6 +103,7 @@ function FoodContent(props) {
                 <h3> {data.ar_question}</h3>
                 <ul>
                   {/* {console.log('options', options)} */}
+                  <></>
                   {options ? (
                     options.map((v, i) => {
                       return (
@@ -105,25 +113,6 @@ function FoodContent(props) {
                           value={v}
                           checkedReply={reply}
                           setCheckReply={setReply}
-                          onChange={(e) => {
-                            if (
-                              e.target.value !==
-                              data.ar_correct_answer
-                            ) {
-                              alert('答錯囉')
-                            }
-                          }}
-
-                          // onChange={(e) => {
-                          //   if (
-                          //     e.target.value ===
-                          //     data.ar_correct_answer
-                          //   ) {
-                          //     setReply(e.target.value)
-                          //   } else {
-                          //     // alert('答錯囉')
-                          //   }
-                          // }}
                         />
                       )
                     })
@@ -134,59 +123,20 @@ function FoodContent(props) {
                     />
                   )}
                 </ul>
-                <div>
+                {/* <div>
                   <button className="QAbtn" type="submit">
                     作答
                   </button>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
-          <div className="col-3 col-lg-3" id="mostPopular">
+          <div className="col-3 col-lg-3 mostPopular">
             <ul>
               <div className="mostPopularTitle">
                 Most Popular
               </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
+              <PopularFood />
             </ul>
           </div>
           <div className="col-1"></div>
@@ -194,34 +144,15 @@ function FoodContent(props) {
 
         <div className="row article_rec">
           <div className="col-1"></div>
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>{' '}
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>
-          <HpArMoreBtn />
+          <RelatingFood />
+          <Link
+            className="col-1 mx-auto my-auto"
+            onClick={() => {
+              window.location.href = '/article/food'
+            }}
+          >
+            <HpArMoreBtn />
+          </Link>
         </div>
       </div>
     </>
