@@ -63,38 +63,43 @@ function ResPopular(props) {
               </Link>
               <span>
                 <span>
-                  <IoIosHeartEmpty
-                    onClick={(e) => {
-                      handlingInsert(res_id)
-                      if (display) {
-                        setDisplay(false)
-                      } else {
-                        setDisplay(true)
-                      }
-                    }}
-                    style={{
-                      display: display ? 'block' : 'none',
-                      color: '#FB6107',
-                      fontSize: '26px',
-                      marginTop: '3px',
-                    }}
-                  />
-                  <IoIosHeart
-                    onClick={(e) => {
-                      handlingDelete(res_id)
-                      if (display) {
-                        setDisplay(false)
-                      } else {
-                        setDisplay(true)
-                      }
-                    }}
-                    style={{
-                      color: '#d96e30',
-                      fontSize: '26px',
-                      marginTop: '3px',
-                      display: display ? 'none' : 'block',
-                    }}
-                  />
+                  {display ? (
+                    <IoIosHeartEmpty
+                      onClick={(e) => {
+                        handlingInsert(res_id)
+                        setDisplay(!display)
+                        // if (display) {
+                        //   setDisplay(false)
+                        // } else {
+                        //   setDisplay(true)
+                        // }
+                      }}
+                      style={{
+                        // display: display ? 'block' : 'none',
+                        color: '#FB6107',
+                        fontSize: '26px',
+                        marginTop: '3px',
+                      }}
+                    />
+                  ) : (
+                    <IoIosHeart
+                      onClick={(e) => {
+                        handlingDelete(res_id)
+                        setDisplay(!display)
+                        // if (display) {
+                        //   setDisplay(false)
+                        // } else {
+                        //   setDisplay(true)
+                        // }
+                      }}
+                      style={{
+                        color: '#d96e30',
+                        fontSize: '26px',
+                        marginTop: '3px',
+                        // display: display ? 'none' : 'block',
+                      }}
+                    />
+                  )}
                 </span>
               </span>
             </div>

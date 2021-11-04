@@ -5,6 +5,8 @@ import { BsClock } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
 import { MdOutlineAttachMoney } from 'react-icons/md'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 function ResListData(props) {
   const {
     res_id,
@@ -14,9 +16,13 @@ function ResListData(props) {
     res_aveprice,
     res_starttime,
     res_endtime,
+    isNotLiked,
   } = props
 
-  const [display, setDisplay] = useState(true)
+  //true 實心 false 空心
+  const [display, setDisplay] = useState(
+    isNotLiked ? false : true
+  )
   const token = localStorage.getItem('token')
   // 收藏新增
   const handlingInsert = (id) => {
@@ -38,10 +44,6 @@ function ResListData(props) {
       .then((obj) => {
         if (obj.success) {
           setDisplay(!display)
-          alert('新增收藏餐廳成功')
-          //實心愛心
-        } else {
-          alert(obj.error || ' 新增收藏餐廳失敗')
         }
       })
   }
@@ -110,7 +112,18 @@ function ResListData(props) {
                 {display ? (
                   <IoIosHeartEmpty
                     onClick={(e) => {
-                      handlingInsert(res_id)
+                      if (!token) {
+                        alert('請先登入')
+                      } else {
+                        handlingInsert(res_id)
+                        Swal.fire({
+                          icon: 'success',
+                          title: '已加入收藏清單',
+                          showConfirmButton: false,
+                          timer: 1000,
+                        })
+                      }
+                      // handlingInsert(res_id)
                       setDisplay(!display)
                       // if (display) {
                       //   setDisplay(false)
@@ -128,6 +141,12 @@ function ResListData(props) {
                 ) : (
                   <IoIosHeart
                     onClick={(e) => {
+                      Swal.fire({
+                        icon: 'error',
+                        title: '已移除收藏清單',
+                        showConfirmButton: false,
+                        timer: 1000,
+                      })
                       handlingDelete(res_id)
                       setDisplay(!display)
                       // if (display) {
