@@ -98,6 +98,7 @@ function StoreCard(props) {
           <h1>MORE</h1>
         </div>
       </div>
+      
     </>
   )
 }

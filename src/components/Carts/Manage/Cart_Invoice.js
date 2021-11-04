@@ -7,13 +7,20 @@ function Cart_Invoice(props) {
 
   function UpdateInfo(value, index) {
     let NewInvoice = [...Invoice]
+    if (index === 0) {
+      NewInvoice.splice(1, 1)
+    }
     NewInvoice[index] = value
+    // console.log('NewVoice', NewInvoice)
     setInvoice(NewInvoice)
   }
 
   return (
     <>
-      <form class="container col-lg-6 col-10 invoice" action="">
+      <form
+        class="container col-lg-6 col-10 invoice"
+        action=""
+      >
         <div class="invoice d-lg-flex justify-content-between">
           <input
             type="button"
@@ -21,6 +28,7 @@ function Cart_Invoice(props) {
             value="電子發票 - 個人"
             onClick={(e) => {
               UpdateInfo(e.target.value, 0)
+
               setStatus('hidden')
               setstatus1('hidden')
             }}

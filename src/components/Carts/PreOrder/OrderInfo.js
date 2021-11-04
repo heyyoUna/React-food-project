@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { Modal } from 'react-bootstrap'
 import Button from '@restart/ui/esm/Button'
 import axios from 'axios'
+import { point } from 'leaflet'
 
 function OrderInfo(props) {
   const [data, setdata] = useState()
@@ -17,7 +18,9 @@ function OrderInfo(props) {
   )
   let [textConfirm, settextConfirm] = useState('這邊做登入')
   let [textClose, settextClose] = useState('關閉')
-  let pointChange = false
+  // let pointChange = false
+  let [pointChange, setpointChange] = useState()
+
   let promo = false
   let nextStep = false
   const {
@@ -27,8 +30,12 @@ function OrderInfo(props) {
     setPromotion,
   } = props
 
-  // 清空 localstorage 裡的優惠資訊
+  // 清空 localstorage 裡的資訊
   localStorage.removeItem('訂單價格資訊')
+  localStorage.removeItem('店號')
+  localStorage.removeItem('訂單編號')
+  localStorage.removeItem('運費')
+
   console.log('優惠點數', Promotion)
   // 記錄會員優惠點數
   let textvalue = ''
@@ -46,7 +53,7 @@ function OrderInfo(props) {
   useEffect(() => {
     // 取得會員點數資料
     getMemberPoint()
-  }, [pointChange])
+  }, [])
 
   // 取得會員點數資料的函式
   async function getMemberPoint() {
@@ -55,6 +62,12 @@ function OrderInfo(props) {
     )
     if (M.status === 200) {
       setdata(M.data)
+      console.log('會員點數', pointChange)
+      if (!token) {
+        pointChange = '未登入'
+      } else {
+        setpointChange(M.data[0].left_point)
+      }
       console.log('會員資料', M.data)
     }
   }
@@ -107,7 +120,7 @@ function OrderInfo(props) {
           )
           if (R.status === 200) {
             alert('扣點完成!')
-            pointChange = true
+            setpointChange(data[0].left_point - textvalue)
             setPromotion(textvalue)
           }
         }
@@ -150,6 +163,10 @@ function OrderInfo(props) {
             <tr scope="row">
               <th>商品總計</th>
               <td>NT${totalPrice()}</td>
+            </tr>
+            <tr scope="row">
+              <th>剩餘點數</th>
+              <td>{pointChange}</td>
             </tr>
             <tr scope="row">
               <th>使用點數</th>

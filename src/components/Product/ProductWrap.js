@@ -21,15 +21,15 @@ const ProductWrap = (props) => {
     price,
     product_id,
     favIndicator,
-    setFavIndicator
+    setFavIndicator,
   } = props
 
   const [display, setDisplay] = useState(true)
-  const [ orderQty, setOrderQty] = useState(1)
+  const [orderQty, setOrderQty] = useState(1)
 
   //寫入資料庫（訂單編號, 數量未修正）
-  const addtocart=(sid,ID,product_id)=>{
-    fetch(`http://localhost:3002/cart`,{
+  const addtocart = (sid, ID, product_id) => {
+    fetch(`http://localhost:3002/cart`, {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
@@ -40,26 +40,29 @@ const ProductWrap = (props) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
     })
-    console.log(sid,ID,product_id)
+    console.log(sid, ID, product_id)
   }
   // 收藏新增商品
   // 收藏新增
   const handlingInsert = (sid) => {
-    fetch(`http://localhost:3002/member/favorite-product-insert`, {
-      method: 'POST',
-      body: JSON.stringify({
-        productid: sid
-
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-    }).then(obj => obj.json())
-      .then(obj => {
+    fetch(
+      `http://localhost:3002/member/favorite-product-insert`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          productid: sid,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      }
+    )
+      .then((obj) => obj.json())
+      .then((obj) => {
         if (obj.success) {
           setFavIndicator(true)
         }
@@ -67,10 +70,14 @@ const ProductWrap = (props) => {
   }
   // 刪除收藏
   const handlingDelete = (sid) => {
-    fetch(`http://localhost:3002/member/favorite-product-delete/${sid}`, {
-      method: 'DELETE',
-    }).then(obj => obj.json())
-      .then(obj => {
+    fetch(
+      `http://localhost:3002/member/favorite-product-delete/${sid}`,
+      {
+        method: 'DELETE',
+      }
+    )
+      .then((obj) => obj.json())
+      .then((obj) => {
         if (obj.success) {
           // 有成功刪除, 設定false
           setFavIndicator(false)
@@ -110,7 +117,7 @@ const ProductWrap = (props) => {
                 }
               }}
               style={{
-                display: favIndicator ? 'none' : 'block'
+                display: favIndicator ? 'none' : 'block',
               }}
             />
             {/* 實心 */}
@@ -125,7 +132,7 @@ const ProductWrap = (props) => {
                 })
               }}
               style={{
-                display: favIndicator ? 'block' : 'none'
+                display: favIndicator ? 'block' : 'none',
               }}
             />
           </div>

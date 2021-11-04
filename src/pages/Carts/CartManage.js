@@ -18,6 +18,7 @@ import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import moment from 'moment'
 
 function CartManage(props) {
   let [data, setData] = useState([{}])
@@ -27,8 +28,13 @@ function CartManage(props) {
   let [Credit, setCredit] = useState([])
   let [StoreInfo, setStoreInfo] = useState([])
   let [CityArr, setCityArr] = useState([{}])
+  let OrderSid =
+    'order' +
+    moment(OrderSid).format('YYYYMMDDHH') +
+    Math.floor(Math.random() * 99)
+  let member
 
-  console.log('Checkout', Checkout)
+  console.log('OrderInfo', OrderInfo)
 
   useEffect(() => {
     console.log('這邊是初始化')
@@ -44,7 +50,7 @@ function CartManage(props) {
 
   async function CityAxios() {
     let r = await axios.get(
-      'https://gist.githubusercontent.com/abc873693/2804e64324eaaf26515281710e1792df/raw/a1e1fc17d04b47c564bbd9dba0d59a6a325ec7c1/taiwan_districts.json'
+      'http://localhost:3000/taiwan_districts.json'
     )
     if (r.status === 200) {
       // setData(r.data)
@@ -73,8 +79,22 @@ function CartManage(props) {
     Invoice,
     StoreInfo
   ) {
-    // console.log('寫出訂單')
+    await axios
+      .get(`http://localhost:3002/member/memberprofile`, {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        member = res.data.data[0].sid
+        console.log('會員 id ', member)
+      })
+    console.log('寫出訂單')
     let NewOrderInfo
+    localStorage.setItem('訂單編號', OrderSid)
     console.log('CHECKOUT', Checkout)
 
     if (Checkout === '7-11取貨付款') {
@@ -90,7 +110,7 @@ function CartManage(props) {
         StoreInfo[1],
         StoreInfo[2],
         !StoreInfo[7] ? '無' : StoreInfo[7],
-        ...Invoice,
+        // ...Invoice,
       ]
       // NewOrderInfo[1] = StoreInfo[4]
       // NewOrderInfo[2] = StoreInfo[5]
@@ -109,25 +129,24 @@ function CartManage(props) {
         OrderInfo[4],
         OrderInfo[5],
         OrderInfo[6],
-        ...Invoice,
+        // ...Invoice,
       ]
     }
+    console.log('寫出的訂購資料', NewOrderInfo)
 
     // let NewOrderInfo = [Checkout, ...OrderInfo]
-    console.log('寫出的訂購資料', NewOrderInfo)
-    // if (!NewOrderInfo[7]) {
-    //   console.log('這邊是 undefine')
-    //   NewOrderInfo[7] = '無'
-    //   console.log('寫出的訂購資料_加入備註', NewOrderInfo)
-    // }
-    // NewOrderInfo = [...NewOrderInfo, ...Invoice]
-    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+    if (!NewOrderInfo[7]) {
+      console.log('這邊是 undefine')
+      NewOrderInfo[7] = '無'
+      console.log('寫出的訂購資料_加入備註', NewOrderInfo)
+    }
+    NewOrderInfo = [...NewOrderInfo, ...Invoice]
+    console.log('寫出的訂購資料_加入發票', NewOrderInfo)
 
-    // console.log('寫出的訂購資料', NewOrderInfo)
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
       {
-        Sid: '',
+        Order_Sid: localStorage.getItem('訂單編號'),
         Payment_Type: NewOrderInfo[0],
         Order_Name: NewOrderInfo[1],
         Order_Phone: NewOrderInfo[2],
@@ -136,7 +155,7 @@ function CartManage(props) {
           NewOrderInfo[4] +
           NewOrderInfo[5] +
           NewOrderInfo[6],
-        Member_id: 'st880517',
+        Member_id: member,
         Invoice_Type: NewOrderInfo[8],
         Order_Remark: NewOrderInfo[7],
         Invoice_Number: NewOrderInfo[9],
