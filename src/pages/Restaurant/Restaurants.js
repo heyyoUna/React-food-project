@@ -247,11 +247,6 @@ function Restaurants(props) {
     })()
   }, [])
 
-  const setFavIndicator = (indicator) => {
-    let tempProduct = [...displayData]
-    tempProduct.favIndicator = indicator
-    setDisplayData(tempProduct)
-  }
   return (
     <>
       <div
@@ -345,7 +340,7 @@ function Restaurants(props) {
                   res_starttime={v.res_starttime}
                   res_endtime={v.res_endtime}
                   favIndicator={v.favIndicator}
-                  setFavIndicator={setFavIndicator}
+                  isNotLiked={v.isLiked}
                 />
               )
             })}
