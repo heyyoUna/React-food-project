@@ -37,10 +37,10 @@ function ResMap() {
     price: '',
     rate: '',
     distance: '',
+    sort: '',
   })
 
   const history = useHistory()
-  const myRef = useRef(null)
   console.log(history.location.state.mapData)
   console.log(history.location.state)
 
@@ -115,11 +115,6 @@ function ResMap() {
     }
   }, [filter])
 
-  const boderChange = (e) => {
-    const index =
-      e.target.attributes.getNamedItem('data-index').value
-    console.log(index)
-  }
   return (
     <div>
       <div className="map-searchbar">
@@ -159,7 +154,7 @@ function ResMap() {
                 <MapSortButton
                   name="distance"
                   options={[
-                    { name: '最佳距離', value: '' },
+                    { name: '距離範圍', value: '' },
 
                     { name: '3公里', value: '3' },
                     { name: '1公里', value: '1' },
@@ -308,10 +303,16 @@ function ResMap() {
                     position={[item.res_lat, item.res_lng]}
                     eventHandlers={{
                       click: (e) => {
-                        console.log('marker clicked', e)
+                        console.log(
+                          'marker clicked',
+                          e.latlng.lat,
+                          e.latlng.lng,
+                          item.res_lat - e.latlng.lat,
+                          item.res_lng - e.latlng.lng
+                        )
                       },
                     }}
-                    data-index={index}
+                    // data-index={index}
                   >
                     <Popup>
                       <div className="map-card  d-flex align-items-center justify-content-between">
