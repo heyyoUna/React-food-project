@@ -151,6 +151,7 @@ input[name='pd-cate']:checked + label {
   border-bottom: 1.5px solid #8fc065;
   padding-left: 8px;
   margin-bottom: 10px;
+  transition: .3s;
 }
 ::placeholder {
   color: hsla(146, 36%, 26%, 0.8);
@@ -169,12 +170,14 @@ input[type='text']:focus {
 input[name='pd-filter']:checked + label {
   color: #2a593e;
   font-weight: bold;
+  letter-spacing: 3px;
 }
 input[name='pd-filter'] + label {
   font-size: 16px;
   color: #2a593e;
   cursor: pointer;
   margin-bottom: 10px;
+  transition: .1s;
 }
 .pd-radio-wrap label {
   margin-left: 15px;

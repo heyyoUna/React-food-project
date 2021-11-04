@@ -13,11 +13,13 @@ function ProductCard(props) {
 
   // 判斷商品有在收藏清單時，設定icon為實心
   useEffect(() => {
-    favArr.forEach((value)=>{
-      if(value.product_id=== sid){
-        setDisplay(false)
-      }
-    })
+    if(token){
+      favArr.forEach((value)=>{
+        if(value.product_id=== sid){
+          setDisplay(false)
+        }
+      })
+    }
   }, []);
 
   // 新增收藏
@@ -78,11 +80,11 @@ function ProductCard(props) {
                     showConfirmButton: false,
                     timer: 1000
                   })
-                }
-                if(display){
+                  if(display){
                   setDisplay(false)
-                }else{
-                  setDisplay(true)
+                  }else{
+                    setDisplay(true)
+                  }
                 }
               }}
               style={{
