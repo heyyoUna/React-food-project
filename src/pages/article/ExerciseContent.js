@@ -9,6 +9,8 @@ import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
+import PopularExercise from '../../components/article/PopularExercise'
+import RelatingExercise from '../../components/article/RelatingExercise'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
 
@@ -35,14 +37,7 @@ function ExerciseContent(props) {
     })()
   }, [])
 
-  // 在 表單完成驗証 之後，才會觸發
-  const handleSubmit = (e) => {
-    // 阻擋form的預設送出行為
-    e.preventDefault()
-    // 利用FormData Api 得到各欄位的值 or 利用狀態值
-    // FormData 利用的是表單元素的 name
-    const formData = new FormData(e.target)
-  }
+  function imgDisplay(aaa) {}
 
   return (
     <>
@@ -56,14 +51,6 @@ function ExerciseContent(props) {
         <div className="row interNav">
           <div className="col-1"></div>
           <div className="col-7">
-            <div>
-              <i class="fas fa-glasses"></i>
-            </div>
-            <p>200</p>
-            <div>
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <p>200</p>
             <div>
               <i class="far fa-heart"></i>
             </div>
@@ -81,61 +68,51 @@ function ExerciseContent(props) {
                 alt=""
               />
             </div>
-            <div className="art-hotlight">
-              <p>{data.ar_highlight}</p>
-            </div>
+            <div>{data.ar_preface}</div>
             <h3>{data.ar_index_title1}</h3>
             <div>{data.ar_index1}</div>
+            <div>
+              <img
+                src={`${API_img}` + data.ar_index_pic1}
+                alt=""
+              />
+            </div>
             <h3>{data.ar_index_title2}</h3>
             <div>{data.ar_index2}</div>
+            <div>
+              <img
+                src={`${API_img}` + data.ar_index_pic2}
+                alt=""
+              />
+            </div>
             <h3>{data.ar_index_title3}</h3>
             <div>{data.ar_index3}</div>
+            <div>
+              <img
+                src={`${API_img}` + data.ar_index_pic3}
+                alt=""
+              />
+            </div>
+
+            <div>
+              <iframe
+                style={{ display: 'none' }}
+                width="560"
+                height="315"
+                src=""
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
           </div>
-          <div className="col-3 col-lg-3" id="mostPopular">
+          <div className="col-3 col-lg-3 mostPopular">
             <ul>
               <div className="mostPopularTitle">
                 Most Popular
               </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
-              <div className="d-flex my-3 mostPopularItems">
-                <li>
-                  芒果營養成分新發現！有治療阿茲海默症潛力
-                </li>
-                <div className="heartWrap my-2 mx-3">
-                  <i className="far fa-heart"></i>
-                </div>
-              </div>
+              <PopularExercise />
             </ul>
           </div>
           <div className="col-1"></div>
@@ -143,34 +120,15 @@ function ExerciseContent(props) {
 
         <div className="row article_rec">
           <div className="col-1"></div>
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>{' '}
-          <div className="col-3">
-            <div>
-              <img
-                src={`${imgUrl}/images/article/col_article_more1-3.png`}
-                alt=""
-              />
-            </div>
-            <ArCardTxt />
-          </div>
-          <HpArMoreBtn />
+          <RelatingExercise />
+          <Link
+            className="col-1 mx-auto my-auto"
+            onClick={() => {
+              window.location.href = '/article/exercise'
+            }}
+          >
+            <HpArMoreBtn />
+          </Link>
         </div>
       </div>
     </>
