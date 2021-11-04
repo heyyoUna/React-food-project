@@ -7,7 +7,7 @@ import withReactContent from 'sweetalert2-react-content'
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   const ID = localStorage.getItem('id')
-  
+
   const swal = withReactContent(Swal)
   const {
     sid,
@@ -22,45 +22,54 @@ const ProductWrap = (props) => {
     price,
     product_id,
     favIndicator,
-    setFavIndicator
+    setFavIndicator,
   } = props
 
   const [display, setDisplay] = useState(true)
-  const [ orderQty, setOrderQty] = useState(1)
+  const [orderQty, setOrderQty] = useState(1)
 
   //寫入資料庫（訂單編號, 數量未修正）
-  const addtocart=(sid,ID,product_id)=>{
-    fetch(`http://localhost:3002/cart`,{
+  const addtocart = (sid, ID, product_id) => {
+    fetch(`http://localhost:3002/cart`, {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
+<<<<<<< HEAD
+        Member_id: ID,
+        Product_id: product_id,
+        Order_Amount: orderQty,
+=======
         Order_Sid:'123', //之後要再修改
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,
+>>>>>>> 98ac3f25cd8eff5b3175fd54ebfc2ab93c2b847f
       }),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
     })
-    console.log(sid,ID,product_id)
+    console.log(sid, ID, product_id)
   }
   // 收藏新增商品
   // 收藏新增
   const handlingInsert = (sid) => {
-    fetch(`http://localhost:3002/member/favorite-product-insert`, {
-      method: 'POST',
-      body: JSON.stringify({
-        productid: sid
-
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-    }).then(obj => obj.json())
-      .then(obj => {
+    fetch(
+      `http://localhost:3002/member/favorite-product-insert`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          productid: sid,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      }
+    )
+      .then((obj) => obj.json())
+      .then((obj) => {
         if (obj.success) {
           setFavIndicator(true)
         }
@@ -68,10 +77,14 @@ const ProductWrap = (props) => {
   }
   // 刪除收藏
   const handlingDelete = (sid) => {
-    fetch(`http://localhost:3002/member/favorite-product-delete/${sid}`, {
-      method: 'DELETE',
-    }).then(obj => obj.json())
-      .then(obj => {
+    fetch(
+      `http://localhost:3002/member/favorite-product-delete/${sid}`,
+      {
+        method: 'DELETE',
+      }
+    )
+      .then((obj) => obj.json())
+      .then((obj) => {
         if (obj.success) {
           setFavIndicator(false)
         }
@@ -103,7 +116,7 @@ const ProductWrap = (props) => {
                 }
               }}
               style={{
-                display: favIndicator ? 'none' : 'block'
+                display: favIndicator ? 'none' : 'block',
               }}
             />
             <IoIosHeart
@@ -111,7 +124,7 @@ const ProductWrap = (props) => {
                 handlingDelete(sid)
               }}
               style={{
-                display: favIndicator ? 'block' : 'none'
+                display: favIndicator ? 'block' : 'none',
               }}
             />
           </div>

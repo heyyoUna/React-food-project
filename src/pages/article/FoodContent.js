@@ -51,7 +51,6 @@ function FoodContent(props) {
     const formData = new FormData(e.target)
   }
 
-
   return (
     <>
       <div
@@ -67,11 +66,11 @@ function FoodContent(props) {
             <div>
               <i class="fas fa-glasses"></i>
             </div>
-            <p>200</p>
+            <p>{data.ar_read}</p>
             <div>
               <i class="fas fa-graduation-cap"></i>
             </div>
-            <p>200</p>
+            <p>{data.ar_inter}</p>
             <div>
               <i class="far fa-heart"></i>
             </div>
