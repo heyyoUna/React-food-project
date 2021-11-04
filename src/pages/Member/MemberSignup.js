@@ -1,6 +1,8 @@
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberSignup(props) {
   let history = useHistory();
@@ -22,10 +24,17 @@ function MemberSignup(props) {
      }).then(r => r.json()).then(obj => {
        console.log(JSON.stringify(obj, null, 4));
        if (obj.success) {
-         alert('註冊成功');
+         Swal.fire({
+           icon: 'success',
+           title: '註冊成功',
+           showConfirmButton: false,
+           timer: 1500,
+         });
          history.push('/login')
        } else {
-         alert('註冊失敗\n' + (obj.error || ''));
+         Swal.fire({
+          icon: 'error',
+          text: '註冊失敗\n' + (obj.error || '')});
        }
      });
   }
