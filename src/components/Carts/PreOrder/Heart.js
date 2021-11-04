@@ -5,39 +5,36 @@ import { Modal } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import Button from '@restart/ui/esm/Button'
 import axios from 'axios'
-import moment from 'moment'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
 function Heart(props) {
   let { v, i, setData, setCount, Pos, setPos } = props
   const [display, setDisplay] = useState(true)
-  const member = localStorage.getItem('id')
+  let member
   const token = localStorage.getItem('token')
   const [data, setdata] = useState()
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  let [textWarn, settextWarn] = useState(
-    '您尚未登入會員哦!請先進行登入!'
-  )
-  let [textConfirm, settextConfirm] = useState('這邊做登入')
-  let [textClose, settextClose] = useState('關閉')
-  console.log('會員', member)
+
 
   async function AddtoCart() {
-    // if (!token) {
-    //   // 跳 Modal 顯示需先登入
-    //   setShow(true)
-    //   return
-    // }
     let NewPos = v.sid
     let p = await axios.post('http://localhost:3002/cart', {
       Sid: '',
       // Order_Sid: 'order' + localStorage.getItem('訂單編號'),
-      Member_id: member,
+      Member_id: '5',
       Product_id: v.product_id,
       Order_Amount: 1,
     })
     if (p.status === 200) {
-      console.log('加入成功')
+      Swal.fire({
+        icon: 'success',
+        title: '已成功加入購物車',
+        showConfirmButton: false,
+        timer: 1000,
+      })
       DataAxios(NewPos)
     }
   }
@@ -67,19 +64,50 @@ function Heart(props) {
   }
 
   // 加入收藏清單的 function
-  async function addtoFav() {
+  async function addtoFav(i) {
+    await axios
+      .get(`http://localhost:3002/member/memberprofile`, {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          member = res.data.data[0].sid
+          console.log('會員 id ', member)
+          let r = axios
+            .post('http://localhost:3002/cart/FavProduct', {
+              member_id: member,
+              product_id: v.sid,
+            })
+            .then((res) => {
+              if (res.data.success) {
+                Swal.fire({
+                  icon: 'success',
+                  title: '已成功加入收藏清單',
+                  showConfirmButton: false,
+                  timer: 1000,
+                })
+                return setDisplay(i)
+              }
+            })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '請先登入會員哦',
+            showConfirmButton: true,
+            confirmButtonText: '我知道了',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              props.history.push('/login')
+            }
+          })
+        }
+      })
     console.log('加入')
-    let r = await axios.post(
-      'http://localhost:3002/cart/FavProduct',
-      {
-        sid: '',
-        member_id: member,
-        product_id: v.sid,
-      }
-    )
-    if (r.status === 200) {
-      console.log('加入成功')
-    }
   }
 
   async function deletetoFav(sid) {
@@ -113,17 +141,7 @@ function Heart(props) {
               }}
               onClick={(e) => {
                 if (display) {
-                  if (!token) {
-                    // 跳 Modal 顯示需先登入
-                    setShow(true)
-                    return
-                  }
-
-                  settextWarn('成功加入收藏清單!')
-                  settextConfirm('我知道了')
-                  setShow(true)
-                  setDisplay(false)
-                  addtoFav()
+                  addtoFav(false)
                 } else {
                   setDisplay(true)
                 }
@@ -141,10 +159,13 @@ function Heart(props) {
                 if (display) {
                   setDisplay(false)
                 } else {
-                  settextWarn('已從收藏清單移除!')
-                  settextConfirm('我知道了')
-                  setShow(true)
                   deletetoFav(v.sid)
+                  Swal.fire({
+                    icon: 'success',
+                    title: '已成功移除收藏商品',
+                    showConfirmButton: false,
+                    timer: 1000,
+                  })
                   setDisplay(true)
                 }
               }}
@@ -160,42 +181,6 @@ function Heart(props) {
           </div>
         </div>
       </div>
-      {/* 彈出視窗 */}
-      <Modal
-        className="Modal"
-        show={show}
-        onHide={handleClose}
-      >
-        <Modal.Header>
-          <Modal.Title className="ModalTitle">
-            溫馨提醒
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="ModalBody">
-          {textWarn}
-        </Modal.Body>
-        <Modal.Footer className="ModalFooter">
-          <Button
-            className="ButtonClose"
-            variant="secondary"
-            onClick={handleClose}
-          >
-            {textClose}
-          </Button>
-          <Button
-            className="ButtonLogin"
-            variant="primary"
-            onClick={() => {
-              if (!token) {
-                props.history.push('/login')
-              }
-              handleClose()
-            }}
-          >
-            {textConfirm}
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   )
 }

@@ -139,15 +139,15 @@ function Cart_Store(props) {
 
   function MyComponent() {
     const map = useMap()
-    console.log('MyCom的店舖', GetStoreInfo)
+    // console.log('MyCom的店舖', GetStoreInfo)
     let NewGetPosition = [...GetPosition]
     if (GetStoreInfo.length !== 0) {
       let NewGetStoreInfo = [...GetStoreInfo]
-      console.log('GEOPOS', NewGetStoreInfo)
-      console.log('GEOPOSITION_X', NewGetPosition)
+      // console.log('GEOPOS', NewGetStoreInfo)
+      // console.log('GEOPOSITION_X', NewGetPosition)
       NewGetPosition[0] = NewGetStoreInfo[0].Y
       NewGetPosition[1] = NewGetStoreInfo[0].X
-      console.log('新的位置座標', NewGetPosition)
+      // console.log('新的位置座標', NewGetPosition)
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -158,8 +158,8 @@ function Cart_Store(props) {
           setGetPosition(NewGetPosition)
         }
       )
-      console.log('map center:', map.getCenter())
-      console.log('通過')
+      // console.log('map center:', map.getCenter())
+      // console.log('通過')
     }
     map.setView(NewGetPosition, 17)
 

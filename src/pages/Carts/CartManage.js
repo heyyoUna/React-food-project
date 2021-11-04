@@ -33,8 +33,7 @@ function CartManage(props) {
     moment(OrderSid).format('YYYYMMDDHH') +
     Math.floor(Math.random() * 99)
   let member
-
-  console.log('OrderInfo', OrderInfo)
+  let token = localStorage.getItem('token')
 
   useEffect(() => {
     console.log('這邊是初始化')
@@ -84,22 +83,21 @@ function CartManage(props) {
         headers: {
           //token 從 header 中 Authorization 屬性傳入
           //格式為 Bearer + 空格 + token
-          Authorization:
-            'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + token,
         },
       })
       .then((res) => {
         member = res.data.data[0].sid
         console.log('會員 id ', member)
       })
-    console.log('寫出訂單')
+    // console.log('寫出訂單')
     let NewOrderInfo
     localStorage.setItem('訂單編號', OrderSid)
-    console.log('CHECKOUT', Checkout)
+    // console.log('CHECKOUT', Checkout)
 
     if (Checkout === '7-11取貨付款') {
       if (!StoreInfo[7]) {
-        console.log('第8個位置沒有值', StoreInfo)
+        // console.log('第8個位置沒有值', StoreInfo)
       }
       NewOrderInfo = [
         Checkout,

@@ -3,6 +3,11 @@ import '../../styles/Carts/Banner.scss'
 import { withRouter } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import axios from 'axios'
+
+// 清空 LocalStorage 資訊
+localStorage.removeItem('訂單價格資訊')
+localStorage.removeItem('店號')
+
 function CartComplete(props) {
   useEffect(() => {
     let r = axios.delete('http://localhost:3002/cart/')
