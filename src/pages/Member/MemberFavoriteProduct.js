@@ -32,7 +32,7 @@ function MemberFavoriteProduct(props) {
           if (obj.data.length) {
             setProducts(obj.data)
           } else {
-            alert(obj.error || '快去收藏商品吧')
+            alert(obj.error || '尚未收藏商品')
           }
         } else {
           alert(obj.error)
@@ -74,6 +74,11 @@ function MemberFavoriteProduct(props) {
       method: 'POST',
       body: JSON.stringify({
         productid: productid
+        // req.body.Sid,
+        // req.body.Order_Sid, ''
+        // req.body.Member_id,
+        // req.body.Product_id,
+        // req.body.Order_Amount
       }),
       headers: {
         'Content-Type': 'application/json',

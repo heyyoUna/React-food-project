@@ -32,7 +32,7 @@ function MemberFavoriteArticle(props) {
           if (obj.data.length) {
             setArticle(obj.data)
           } else {
-            alert(obj.error || '快去收藏文章吧')
+            alert(obj.error || '尚未收藏文章')
           }
         } else {
           alert(obj.error)

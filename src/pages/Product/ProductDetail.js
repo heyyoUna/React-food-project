@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import conf, {
-  ProductDetail_API,IMG_PATH,
+  ProductDetail_API, IMG_PATH,
 } from './../../config/config.js'
 import {withRouter} from 'react-router-dom'
 
@@ -19,6 +19,7 @@ function ProductDetail(props) {
     props.location.pathname
   )
   const [ProductDetail, setProductDetail] = useState([])
+  const token = localStorage.getItem('token')
 
   // 解析字串(帶數字路由去fetch)
   const sp = searchParams.split('/')[2]
@@ -27,16 +28,30 @@ function ProductDetail(props) {
   // 展開拿到的資料
   const p = { ...ProductDetail }
   useEffect(() => {
-    ;(async () => {
-      const r = await fetch(`${ProductDetail_API}` + `${sp}`) 
+    // ;(async () => {
+    //   const r = await fetch(`${ProductDetail_API}` + `${sp}`) 
+
+      
+    ; (async () => {
+      const r = await fetch(`${ProductDetail_API}` + `${sp}`, {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
       const obj = await r.json()
       setProductDetail(obj.data)
       console.log(obj.data)
     })()
   }, [])
+
+  const setFavIndicator = (indicator) => {
+    let tempProduct = { ...ProductDetail }
+    tempProduct.favIndicator = indicator
+    setProductDetail(tempProduct)
+  }
   return (
     <>
-      
+
       {/* 商品大圖 */}
       <div className="container dt-pd-container">
         <div className="row d-flex dt-product">
@@ -48,10 +63,11 @@ function ProductDetail(props) {
             unit={p.unit}
             cal={p.content_cal}
             protein={p.content_protein}
-            product_id={p.product_id}
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}
+            favIndicator={p.favIndicator}
+            setFavIndicator={setFavIndicator}
           />
         </div>
       </div>

@@ -31,13 +31,16 @@ function Restaurants(props) {
     perPage: 6, //每頁6筆
     totalPages: 0, //總頁數
   })
+  //頁數
   const [pagination, setPagination] = useState([])
-
+  //篩選
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
     distance: '',
   })
+  //精選商品
+  const [popular, setPopular] = useState([])
 
   const onFilterChange = (e) => {
     setFilter({
@@ -228,7 +231,21 @@ function Restaurants(props) {
       }
     )
   }
+  useEffect(() => {
+    ;(async () => {
+      let r = await fetch(
+        'http://localhost:3002/reslist/popular/list'
+      )
 
+      let data = await r.json()
+      console.log('data', data)
+      if (data.length) {
+        setPopular(data)
+      } else {
+        alert('出事了')
+      }
+    })()
+  }, [])
   return (
     <>
       <div
@@ -306,7 +323,7 @@ function Restaurants(props) {
           </div>
         </MapButtonGroup>
       </div>
-      {/* <ResMap name="列表模式"/> */}
+      {/* 餐廳列表 */}
       <div className="container mt-35 mb-5">
         <div class="row  justify-content-center">
           {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
@@ -422,7 +439,21 @@ function Restaurants(props) {
       <div className="ma-80">
         <TitleBorder name="人氣精選" />
       </div>
-      <ResPopular />
+      {/* 人氣精選 */}
+      <div className="container mx-auto">
+        <div className="row  justify-content-center ">
+          {popular.map((v, i) => {
+            return (
+              <ResPopular
+                res_id={v.res_id}
+                res_img={v.res_img}
+                res_name={v.res_name}
+                res_introduce={v.res_introduce}
+              />
+            )
+          })}
+        </div>
+      </div>
     </>
   )
 }

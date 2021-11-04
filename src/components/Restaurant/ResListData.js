@@ -34,7 +34,18 @@ function ResListData(props) {
         },
       }
     )
+      .then((r) => r.json())
+      .then((obj) => {
+        if (obj.success) {
+          setDisplay(!display)
+          alert('新增收藏餐廳成功')
+          //實心愛心
+        } else {
+          alert(obj.error || ' 新增收藏餐廳失敗')
+        }
+      })
   }
+
   // 刪除收藏
   const handlingDelete = (res_id) => {
     fetch(
@@ -62,14 +73,16 @@ function ResListData(props) {
                 <h3>{res_name}</h3>
               </Link>
               <span>
-                <IoIosHeartEmpty
+                {/* <IoIosHeartEmpty
                   onClick={(e) => {
                     handlingInsert(res_id)
+
                     if (display) {
                       setDisplay(false)
                     } else {
                       setDisplay(true)
                     }
+                    // !setDisplay
                   }}
                   style={{
                     display: display ? 'block' : 'none',
@@ -93,7 +106,44 @@ function ResListData(props) {
                     marginTop: '3px',
                     display: display ? 'none' : 'block',
                   }}
-                />
+                /> */}
+                {display ? (
+                  <IoIosHeartEmpty
+                    onClick={(e) => {
+                      handlingInsert(res_id)
+                      setDisplay(!display)
+                      // if (display) {
+                      //   setDisplay(false)
+                      // } else {
+                      //   setDisplay(true)
+                      // }
+                    }}
+                    style={{
+                      color: '#FB6107',
+                      fontSize: '26px',
+                      marginTop: '3px',
+                      // display: display ? 'none' : 'block',
+                    }}
+                  />
+                ) : (
+                  <IoIosHeart
+                    onClick={(e) => {
+                      handlingDelete(res_id)
+                      setDisplay(!display)
+                      // if (display) {
+                      //   setDisplay(false)
+                      // } else {
+                      //   setDisplay(true)
+                      // }
+                    }}
+                    style={{
+                      color: '#d96e30',
+                      fontSize: '26px',
+                      marginTop: '3px',
+                      // display: display ? 'none' : 'block',
+                    }}
+                  />
+                )}
               </span>
             </div>
             <p>

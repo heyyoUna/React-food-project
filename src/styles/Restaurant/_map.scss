@@ -1,12 +1,3 @@
-// .leaflet-container{
-//     @include mobile {
-//   width: 100%;
-//       }
-// }
-
-// #root{
-//     overflow-x: hidden;
-// }
 //POPUP
 .map-card {
   width: 255px;
@@ -39,6 +30,7 @@
   width: 100%;
   height: 90%;
   object-fit: cover;
+  border-radius: 15px;
 
   @include mobile {
     height: 110px;

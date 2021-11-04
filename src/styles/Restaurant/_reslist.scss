@@ -23,7 +23,7 @@
 
   .reslist-txt {
     width: 185px;
-    padding: 9px 0 0 10px;
+    padding: 15px 0 0 30px;
     h3 {
       color: $dark-green;
       font-size: 22px;
@@ -31,6 +31,9 @@
     }
     p {
       font-size: 18px;
+    }
+    span {
+      cursor: pointer;
     }
   }
   @include mobile {
@@ -45,6 +48,9 @@
       p {
         font-size: 14px;
         padding-bottom: 0;
+      }
+      span {
+        cursor: pointer;
       }
     }
     .foodImg {
@@ -65,7 +71,9 @@
     font-size: 16px;
     margin-top: 2px;
   }
-
+  span {
+    cursor: pointer;
+  }
   .res-popular-body {
     background-color: rgba(255, 182, 6, 0.2);
     padding: 10px 20px 10px;

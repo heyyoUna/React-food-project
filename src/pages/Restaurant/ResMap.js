@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react'
-// import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import L from 'leaflet'
 import {
   MapContainer,
@@ -64,6 +63,7 @@ function ResMap() {
     setFilterData(history.location.state.mapData)
   }, [])
 
+  //篩選
   useEffect(() => {
     if (filter.price || filter.rate || filter.distance) {
       // 避免指到同一個記憶體位置，引響原始資料，故淺拷貝一份apiData
@@ -109,31 +109,17 @@ function ResMap() {
         )
       }
 
-      // if (filter.distance < 0.5) {
-      //   processFilterData = processFilterData.filter(
-      //     (d) => {
-      //       return d.distance < 0.5
-      //     }
-      //   )
-      //   console.log(processFilterData)
-      // } else if (filter.distance < 1) {
-      //   processFilterData = processFilterData.filter(
-      //     (d) => {
-      //       return d.distance < 1
-      //     }
-      //   )
-      // } else {
-      //   processFilterData = processFilterData.filter(
-      //     (d) => {
-      //       return d.distance < 3
-      //     }
-      //   )
-      // }
       setFilterData(processFilterData)
     } else {
       setFilterData(history.location.state.mapData)
     }
   }, [filter])
+
+  const boderChange = (e) => {
+    const index =
+      e.target.attributes.getNamedItem('data-index').value
+    console.log(index)
+  }
   return (
     <div>
       <div className="map-searchbar">
@@ -183,17 +169,6 @@ function ResMap() {
                 />
               </div>
             </MapButtonGroup>
-
-            {/* {
-              history.location && history.location.state && history.location.state.options &&
-              history.location.state.options.map((el, index) => {
-                return (
-                  <>
-
-                  </>
-                )
-              })
-            } */}
           </div>
         </div>
       </div>
@@ -219,7 +194,7 @@ function ResMap() {
           {filterData.map((item, index) => {
             return (
               <>
-                <div className="map-res-introduce d-flex">
+                <div className="map-res-introduce d-flex key={index}">
                   <div class="col-md-4 col-4  p-0 ">
                     <img
                       className="mapImg"
@@ -304,6 +279,7 @@ function ResMap() {
             )
           })}
         </div>
+
         <div className="map-container p-0 col-md-8 col-12">
           <MapContainer
             // 中心點: 會是你輸入的經緯
@@ -329,14 +305,13 @@ function ResMap() {
               return (
                 <>
                   <Marker
-                    key={index}
                     position={[item.res_lat, item.res_lng]}
-                    onClick={() => {
-                      myRef.current.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                      })
+                    eventHandlers={{
+                      click: (e) => {
+                        console.log('marker clicked', e)
+                      },
                     }}
+                    data-index={index}
                   >
                     <Popup>
                       <div className="map-card  d-flex align-items-center justify-content-between">
@@ -350,7 +325,7 @@ function ResMap() {
                             alt=""
                           />
                         </div>
-                        <div class="col-md-7 ref={myRef}">
+                        <div class="col-md-7 ">
                           <div className="map-txt  ">
                             <Link
                               to={
@@ -371,7 +346,6 @@ function ResMap() {
                             />
                             <p>{item.res_address}</p>
                           </div>
-                          {/* <p>{item.res_starttime}-{item.res_endtime	}</p> */}
                         </div>
                       </div>
                     </Popup>
