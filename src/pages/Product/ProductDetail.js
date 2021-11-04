@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import conf, {
-  ProductDetail_API,IMG_PATH,
+  ProductDetail_API, IMG_PATH,
 } from './../../config/config.js'
 
 // 組合用元件
@@ -15,19 +15,30 @@ import Comments from './../../components/Product/Comments'
 function ProductDetail(props) {
   const { productId } = props
   const [ProductDetail, setProductDetail] = useState([])
+  const token = localStorage.getItem('token')
 
   const p = { ...ProductDetail }
   useEffect(() => {
-    ;(async () => {
-      const r = await fetch(ProductDetail_API + productId) 
+    ; (async () => {
+      const r = await fetch(ProductDetail_API + productId, {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
       const obj = await r.json()
       setProductDetail(obj.data)
       console.log(obj.data)
     })()
   }, [])
+
+  const setFavIndicator = (indicator) => {
+    let tempProduct = { ...ProductDetail }
+    tempProduct.favIndicator = indicator
+    setProductDetail(tempProduct)
+  }
   return (
     <>
-      
+
       {/* 商品大圖 */}
       <div className="container dt-pd-container">
         <div className="row d-flex dt-product">
@@ -39,10 +50,11 @@ function ProductDetail(props) {
             unit={p.unit}
             cal={p.content_cal}
             protein={p.content_protein}
-            product_id={p.product_id}
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}
+            favIndicator={p.favIndicator}
+            setFavIndicator={setFavIndicator}
           />
         </div>
       </div>
