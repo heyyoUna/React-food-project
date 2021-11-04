@@ -2,11 +2,13 @@ import React,{ useState }  from 'react'
 import { withRouter , useHistory} from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   const ID = localStorage.getItem('id')
   
+  const swal = withReactContent(Swal)
   const {
     sid,
     name,
@@ -30,7 +32,6 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
-        Order_Sid:'test01',
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,
