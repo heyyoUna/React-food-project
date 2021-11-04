@@ -10,6 +10,8 @@ function OrderInfo(props) {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+  const token = localStorage.getItem('token')
+
   let [textWarn, settextWarn] = useState(
     '您尚未登入會員哦!請先進行登入!'
   )
@@ -60,7 +62,6 @@ function OrderInfo(props) {
   // 確認是否登入的函式
   async function getLoginData() {
     // 取得 token
-    const token = localStorage.getItem('token')
     console.log(token)
     console.log('promo1', promo)
 
@@ -116,7 +117,7 @@ function OrderInfo(props) {
     // 如果點擊是到下一步填寫資料
     if (nextStep) {
       nextStep = false
-      
+
       // 記錄到 LocalStorage 裡，使用 JSON 包進去
       localStorage.setItem(
         '訂單價格資訊',
@@ -232,7 +233,12 @@ function OrderInfo(props) {
           <Button
             className="ButtonLogin"
             variant="primary"
-            onClick={handleClose}
+            onClick={() => {
+              if (!token) {
+                props.history.push('/login')
+              }
+              handleClose()
+            }}
           >
             {textConfirm}
           </Button>

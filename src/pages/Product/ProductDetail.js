@@ -39,6 +39,7 @@ function ProductDetail(props) {
             unit={p.unit}
             cal={p.content_cal}
             protein={p.content_protein}
+            product_id={p.product_id}
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}

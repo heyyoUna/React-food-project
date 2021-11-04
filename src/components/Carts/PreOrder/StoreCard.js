@@ -5,37 +5,55 @@ import {
   FaAngleDoubleRight,
   FaHeart,
 } from 'react-icons/fa'
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import axios from 'axios'
+import Heart from './Heart'
+import { withRouter } from 'react-router-dom'
+
+import { Card } from 'react-bootstrap'
 
 // 購物車頁面 - 商品卡片
 function StoreCard(props) {
-  const { Likeone, setLikeone } = props
-  const { Liketwo, setLiketwo } = props
-  let { addProductPos, setaddProductPos } = props
-  let cardmap = ['1', '2']
-  let [StoreCard, setStoreCard] = useState([])
-  let NewLikeone = [...Likeone]
+  let [StoreCard1, setStoreCard1] = useState([])
+  let [Pos, setPos] = useState()
+  let { setCount, setData, Filter, setFilter } = props
+  let NewFilter = [...Filter]
+
   useEffect(() => {
-    GetProduct()
-  }, [])
+    console.log('重新整理')
+    StoreCard1 = []
+    GetProduct(Pos)
+  }, [Pos])
 
-  useEffect(() => {}, [StoreCard])
-
-  async function GetProduct() {
+  async function GetProduct(Pos) {
     let P = await axios.get(
       'http://localhost:3002/cart/getProduct'
     )
     if (P.status === 200) {
+      console.log('記錄商品位置', Pos)
+      NewFilter.push(Pos)
       let max = 24
       let randomresult = ['', '']
       // console.log(P.data)
       randomresult[0] = Math.floor(Math.random() * max)
       randomresult[1] = Math.floor(Math.random() * max)
-      StoreCard.push(P.data[randomresult[0]])
-      StoreCard.push(P.data[randomresult[1]])
-      setStoreCard(StoreCard)
-      console.log('新陣列', StoreCard)
+      while (
+        randomresult[0] === NewFilter ||
+        randomresult[1] === NewFilter ||
+        randomresult[0] === randomresult[1]
+      ) {
+        randomresult[0] = Math.floor(Math.random() * max)
+        randomresult[1] = Math.floor(Math.random() * max)
+        console.log('重新算過')
+      }
+      console.log('要pass的陣列', NewFilter)
+      console.log('數字1', randomresult[0])
+      console.log('數字2', randomresult[1])
+
+      StoreCard1.push(P.data[randomresult[0]])
+      StoreCard1.push(P.data[randomresult[1]])
+      setStoreCard1(StoreCard1)
+      setFilter(NewFilter)
+      // console.log('新陣列', StoreCard1)
     }
   }
 
@@ -57,64 +75,30 @@ function StoreCard(props) {
 
   return (
     <>
-      <div className="storelike col-10 d-lg-flex justify-content-around align-content-center my-5">
-        {StoreCard.map((v, i) => {
+      <div className="storelike col-lg-8 col-10 d-lg-flex justify-content-around align-content-center my-5">
+        {StoreCard1.map((v, i) => {
           return (
-            <div className="storecard col-lg-4 col-10 position-relative">
-              <img
-                src={`http://localhost:3002/img/Product/${v.product_id}.jpg`}
-                className="position-absolute"
-              />
-              <div className="storeproduct">
-                <div className="body py-2">
-                  <p className="text ps-5 text-center">
-                    {v.name}
-                  </p>
-                  <p className="text ps-5 text-center">
-                    NT${v.price}
-                  </p>
-                  <div
-                    className="storeicon ps-3 text-center"
-                    onclick="heartclick(event)"
-                  >
-                    {/* 卡關:兩個都會亮起關閉 */}
-                    <IoIosHeartEmpty
-                      className={NewLikeone[0]}
-                      onClick={(e) => {
-                        console.log('位置', e.state)
-                        // // if (e.target.id === i) {
-                        // //   e.target.className = 'full'
-                        // // }
-                        // NewLikeone[0] = 'full'
-                        // setLikeone(['full', 'heart'])
-                        // console.log(Likeone)
-                        // // setLikeicon(
-                        // //   i === true ? Likeicon : 'heart'
-                        // // )
-                        // // setunLikeicon('full')
-                      }}
-                    />
-                    <IoIosHeart className={Liketwo} />
-                    <FaCartPlus
-                      className="cartlike"
-                      onClick={() => {
-                        setaddProductPos(1)
-                        // AddProduct(addProductPos)
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Heart
+              i={i}
+              v={v}
+              setData={setData}
+              setCount={setCount}
+              Pos={Pos}
+              setPos={setPos}
+            />
           )
         })}
-
         <div className="morecard my-auto">
-          <FaAngleDoubleRight className="DoubleRight" />
+          <FaAngleDoubleRight
+            className="DoubleRight"
+            onClick={() => {
+              props.history.push('/products')
+            }}
+          />
           <h1>MORE</h1>
         </div>
       </div>
     </>
   )
 }
-export default StoreCard
+export default withRouter(StoreCard)

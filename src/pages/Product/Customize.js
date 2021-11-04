@@ -43,21 +43,18 @@ function Customize(props) {
   // 推薦餐盒
   const [ sugFoodBox, setSugFoodBox] = useState([])
 
-  //預設商品（未設定）
-  useEffect(() => {
-    ; (async () => {
-      const r = await fetch(`${Customize_API}` + `${props.location.search}`)
-      const obj = await r.json()
-      // setSugProducts(obj.rows)
-    })()
-  }, [])
-
   // 商品區要資料
   useEffect(() => {
     ; (async () => {
-      const r = await fetch(`${Customize_API}` + `${props.location.search}`)
+      if(target==='變瘦'){
+        const r = await fetch(`${Customize_API}` + `?target=變瘦`)
       const obj = await r.json()
       setSugProducts(obj.rows)
+      }else{
+        const r = await fetch(`${Customize_API}` + `${props.location.search}`)
+        const obj = await r.json()
+        setSugProducts(obj.rows)
+      }
     })()
   }, [target])
 
@@ -77,14 +74,13 @@ function Customize(props) {
     })()
   }, [target])
 
-
-
   // TDEE設定完在設定建議攝取量(建議熱量/建議蛋白質)
   // 預設值是變瘦＋不運動
   useEffect(() => {
-    setSugCal(oriTDEE)
+    setSugCal(Math.ceil(oriTDEE * 0.8))
     setSugProtein(Math.ceil(weight * 1.2))
   }, [TDEE])
+
   //  計算公式
   const calculate = () => {
     if (target === '變瘦' && exercises === '不運動') {
@@ -135,6 +131,11 @@ function Customize(props) {
       setSugProtein(targetProtein)
     }
   }
+  // 有變動的時候重新計算
+  useEffect(() => {
+    calculate()
+  }, [target, exercises,TDEE])
+
 
   return (
     <>

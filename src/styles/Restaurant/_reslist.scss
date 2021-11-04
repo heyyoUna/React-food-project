@@ -15,7 +15,7 @@
   }
 
   .res-foodImg {
-    width: 46%;
+    width: 51%;
     object-fit: cover;
     transition: 0.7s;
     border-radius: 15px 0 0 15px;
@@ -32,19 +32,25 @@
     p {
       font-size: 18px;
     }
+    span {
+      cursor: pointer;
+    }
   }
   @include mobile {
     margin: 20px;
     height: 170px;
 
     .reslist-txt {
-      padding: 10px 8px 0 7px;
+      padding: 15px 8px 0 7px;
       h3 {
         font-size: 18px;
       }
       p {
         font-size: 14px;
         padding-bottom: 0;
+      }
+      span {
+        cursor: pointer;
       }
     }
     .foodImg {
@@ -65,7 +71,9 @@
     font-size: 16px;
     margin-top: 2px;
   }
-
+  span {
+    cursor: pointer;
+  }
   .res-popular-body {
     background-color: rgba(255, 182, 6, 0.2);
     padding: 10px 20px 10px;

@@ -82,6 +82,7 @@
     color: #ffffff;
     top: 30%;
     left: 90%;
+    transform: rotate(90deg);
   }
 
   @include mobile() {

@@ -10,8 +10,6 @@ function Home(props) {
   // const { auth } = props
   return (
     <>
-      {/* <h1>Home</h1>
-      <h2>{auth ? '會員已登入' : '未登入'}</h2> */}
       <div className="container-fluid px-0" id="hpTotal">
         <div className="row" id="hpKv">
           {/* <!-- ---------- KV Navbar ---------- --> */}
@@ -19,56 +17,62 @@ function Home(props) {
             id="HP_KV_navbar_wrap"
             className="col-lg-1 px-0"
           >
-            {/* <div id="HP_KV_logo">
-              <img
-                src={`${imgUrl}/images/logo.png`}
-                alt=""
-              />
-            </div> */}
-
             <div id="icons">
-              <div>
-                <i className="far fa-handshake"></i>
-              </div>
-              <span className="HP_KV_logo_words">量身訂做</span>
-              <p>x</p>
-
-              <div>
-                <i className="fas fa-shopping-basket"></i>
-              </div>
-              <span className="HP_KV_logo_words">
-                好食商城
-              </span>
-              <p>x</p>
-
-              <div>
-                <i className="fas fa-book"></i>
-              </div>
-              <span className="HP_KV_logo_words">
-                好食專欄
-              </span>
+              <a href="#/">
+                <div>
+                  <i className="far fa-handshake"></i>
+                </div>
+                <span className="HP_KV_logo_words">
+                  量身訂做
+                </span>
+              </a>
 
               <p>x</p>
 
-              <div>
-                <i className="fas fa-utensils"></i>
-              </div>
-              <span className="HP_KV_logo_words">
-                健康餐盒
-              </span>
+              <a href="#hp_shop_Cat_1">
+                <div>
+                  <i className="fas fa-shopping-basket"></i>
+                </div>
+                <span className="HP_KV_logo_words">
+                  好食商城
+                </span>
+              </a>
+
+              <p>x</p>
+
+              <a href="#hpArticle">
+                <div>
+                  <i className="fas fa-book"></i>
+                </div>
+                <span className="HP_KV_logo_words">
+                  好食專欄
+                </span>
+              </a>
+
+              <p>x</p>
+
+              <a href="#hpRes">
+                <div>
+                  <i className="fas fa-utensils"></i>
+                </div>
+                <span className="HP_KV_logo_words">
+                  健康餐盒
+                </span>
+              </a>
             </div>
           </div>
 
           {/* <!-- ---------- KV 標題  ---------- --> */}
           <div id="HP_KV_title_wrap" className="col-lg-4">
             <div className="HP_KV_title HP_KV_title_main">
-              <div>
+              <div className="pb-3">
                 <h1 className="bannerTitle">良辰即食</h1>
               </div>
+
               <div>
                 <p className="bannerSubTitle ">
-                  良辰即食良辰即食 <br />
-                  良辰即食良辰即食良辰即食
+                  在每個需要食光 <br />
+                  讓美味快速上桌
                 </p>
               </div>
             </div>
@@ -89,21 +93,13 @@ function Home(props) {
             <figure className="spin">
               <Link to="/game/GameChoose">
                 <img
-                className="first"
-                src={`${imgUrl}/images/spin.png`}
-                alt=""
-              />
+                  className="first"
+                  src={`${imgUrl}/images/spin.png`}
+                  alt=""
+                />
               </Link>
-              
             </figure>
           </div>
-
-          {/* <!-- ---------- KV 右邊slogn ---------- -->            */}
-          {/* <div id="HP_KV_slogn" className="col-lg-1 px-0">
-            <div>
-              <p>People who love to eat.</p>
-            </div>
-          </div> */}
         </div>
         {/* 背景圖 */}
         <HpFixedBgc />
@@ -132,7 +128,14 @@ function Home(props) {
               <p className="productTitle ">
                 健康快速上桌，美味不用等
               </p>
-              <HpSBtn />
+              <Link
+                onClick={() => {
+                  window.location.href =
+                    '/products/?cate=1&page=1'
+                }}
+              >
+                <HpSBtn />
+              </Link>
             </div>
           </div>
 
@@ -144,12 +147,19 @@ function Home(props) {
             {/* <!------- 2nd 商品種類：文字  -------> */}
             <div className="hpShopCatDes col-lg">
               <h6 className="bannerSubTitle dark-green">
-                快速上桌
+                健身專區
               </h6>
               <p className="productTitle ">
-                健康快速上桌，美味不用等
+                為你每一次的進步，提供助力
               </p>
-              <HpSBtn />
+              <Link
+                onClick={() => {
+                  window.location.href =
+                    '/products/?cate=2&page=1'
+                }}
+              >
+                <HpSBtn />
+              </Link>
             </div>
 
             {/* <!------- 2nd商品種類：圖片  -------> */}
@@ -181,30 +191,43 @@ function Home(props) {
             {/* <!------- 3rd 商品種類：文字  -------> */}
             <div className="hpShopCatDes col-lg">
               <h6 className="bannerSubTitle dark-green">
-                快速上桌
+                嚴選食材
               </h6>
               <p className="productTitle ">
-                健康快速上桌，美味不用等
+                健康美味的產品，陪伴你每一個「吃」的時光。
               </p>
-              <HpSBtn />
+              <Link
+                onClick={() => {
+                  window.location.href =
+                    '/products/?cate=3&page=1'
+                }}
+              >
+                <HpSBtn />
+              </Link>
             </div>
           </div>
         </div>
         {/* -------------------- 專欄 -------------------- */}
         {/* <!-------- 1st 文章 --------> */}
-        <div className="article1Warp row">
+        <div className="article1Warp row" id="hpArticle">
           {/* <!-------- 文章1__文字 --------> */}
           <div className="hp_col_dec1Wrap col-lg-8 px-5">
             <p>首頁 / 聰明飲食</p>
             <h6 className="dark-green bannerSubTitle">
-              防疫在家最怕久坐不動！
+              冷凍蔬菜比較沒營養？
               <br />
-              注意飲食 三多三少 肥胖不上身
+              事實可能超乎你想像！
             </h6>
 
             <p>by食力編輯部</p>
             <div className="hpSBtn_Art">
-              <HpSBtn text="完整文章" />
+              <Link
+                onClick={() => {
+                  window.location.href = '/FoodContent/3'
+                }}
+              >
+                <HpSBtn text="完整文章" />
+              </Link>
             </div>
           </div>
           {/* <!-------- 文章1__圖片 --------> */}
@@ -242,11 +265,19 @@ function Home(props) {
               <br /> &emsp;Popular
             </h6>
           </div>
-          <HpArMoreBtn />
+          <Link
+            className="col my-auto"
+            onClick={() => {
+              window.location.href = '/article'
+            }}
+          >
+            <HpArMoreBtn />
+          </Link>
+
           <div className="col-1"></div>
         </div>
         {/* <!---------------------- 首頁餐廳 ----------------------> */}
-        <div class="container hpRes">
+        <div class="container" id="hpRes">
           <div class="row">
             <div class="col-lg-4 txtWrap">
               <div className="MobileFlex ">
@@ -268,7 +299,14 @@ function Home(props) {
                   <h6 className="bannerSubTitle light-yellow">
                     查看附近的美味
                   </h6>
-                  <HpSBtn text="Find the lunchbox" />
+                  <Link
+                    className="col my-auto"
+                    onClick={() => {
+                      window.location.href = '/restaurants'
+                    }}
+                  >
+                    <HpSBtn text="Find the lunchbox" />
+                  </Link>
                 </div>
               </div>
             </div>
