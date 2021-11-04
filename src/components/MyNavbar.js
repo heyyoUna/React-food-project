@@ -119,7 +119,7 @@ function MyNavbar(props) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item href="/member/FavoriteProduct">
-                  商品追蹤清單
+                  商品收藏清單
                 </NavDropdown.Item>
 
                 <NavDropdown.Item href="/member/FavoriteArticle">

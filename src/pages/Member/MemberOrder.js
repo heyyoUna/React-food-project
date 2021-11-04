@@ -12,7 +12,7 @@ function MemberOrder(props) {
 
   useEffect(() => {
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -29,10 +29,10 @@ function MemberOrder(props) {
           if (obj.data.length) {
             setOrder(obj.data)
           } else {
-            alert(obj.error || '查無歷史訂單')
+            Swal.fire(obj.error || '查無歷史訂單')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }, [])

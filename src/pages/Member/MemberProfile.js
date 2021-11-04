@@ -71,7 +71,7 @@ function MemberProfile(props) {
             icon: 'success',
             title:'資料修改成功',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           })
         } else {
           Swal.fire({

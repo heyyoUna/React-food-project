@@ -3,6 +3,8 @@ import { withRouter, useHistory } from 'react-router-dom'
 import { CgShoppingCart } from 'react-icons/cg'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import MemberNavbar from './../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberFavoriteProduct(props) {
   const token = localStorage.getItem('token')
@@ -15,7 +17,7 @@ function MemberFavoriteProduct(props) {
 
   const favoriteProductGet = () => {
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -32,10 +34,10 @@ function MemberFavoriteProduct(props) {
           if (obj.data.length) {
             setProducts(obj.data)
           } else {
-            alert(obj.error || '尚未收藏商品')
+            Swal.fire(obj.error || '尚未收藏商品')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }
@@ -64,7 +66,7 @@ function MemberFavoriteProduct(props) {
           //空心愛心
 
         } else {
-          alert(obj.error || '移除收藏商品失敗')
+          Swal.fire(obj.error || '移除收藏商品失敗')
         }
       })
   }
@@ -93,11 +95,15 @@ function MemberFavoriteProduct(props) {
           newProducts[index].remove_flag = false
           //新的products覆蓋掉原本的products
           setProducts(newProducts)
-
           //實心愛心
-
+          Swal.fire({
+            icon: 'success',
+            title: '已加入收藏清單',
+            showConfirmButton: false,
+            timer: 1000
+          })
         } else {
-          alert(obj.error || ' 新增收藏商品失敗')
+          Swal.fire(obj.error || ' 新增收藏商品失敗')
         }
       })
   }
@@ -106,7 +112,7 @@ function MemberFavoriteProduct(props) {
     <>
       <div className="member-favorite-container">
         <div className="row member-favorite-title">
-          <h1 id="member-favorite-h1">商品追蹤清單</h1>
+          <h1 id="member-favorite-h1">商品收藏清單</h1>
         </div>
         <div className="row member-favorite">
           <MemberNavbar/>

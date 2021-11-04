@@ -3,6 +3,8 @@ import { API_img } from '../../config/index'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import MemberNavbar from '../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberFavoriteArticle(props) {
   const token = localStorage.getItem('token')
@@ -15,7 +17,7 @@ function MemberFavoriteArticle(props) {
 
   const favoriteArticleGet = () => {
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -32,10 +34,10 @@ function MemberFavoriteArticle(props) {
           if (obj.data.length) {
             setArticle(obj.data)
           } else {
-            alert(obj.error || '尚未收藏文章')
+            Swal.fire(obj.error || '尚未收藏文章')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }
@@ -64,7 +66,7 @@ function MemberFavoriteArticle(props) {
           //空心愛心
 
         } else {
-          alert(obj.error || '移除收藏文章失敗')
+          Swal.fire(obj.error || '移除收藏文章失敗')
         }
       })
   }
@@ -88,11 +90,15 @@ function MemberFavoriteArticle(props) {
           newArticle[index].remove_flag = false
           //新的article覆蓋掉原本的article
           setArticle(newArticle)
-
           //實心愛心
-
+          Swal.fire({
+            icon: 'success',
+            title: '已加入收藏清單',
+            showConfirmButton: false,
+            timer: 1000
+          })
         } else {
-          alert(obj.error || ' 新增收藏文章失敗')
+          Swal.fire(obj.error || ' 新增收藏文章失敗')
         }
       })
   }
@@ -101,7 +107,7 @@ function MemberFavoriteArticle(props) {
     <>
       <div className="member-favorite-container">
         <div className="row member-favorite-title">
-          <h1 id="member-favorite-h1">文章追蹤清單</h1>
+          <h1 id="member-favorite-h1">文章收藏清單</h1>
         </div>
         <div className="row member-favorite">
           <MemberNavbar/>

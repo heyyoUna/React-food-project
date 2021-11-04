@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberPoint(props) {
   const token = localStorage.getItem('token')
@@ -9,7 +11,7 @@ function MemberPoint(props) {
 
   useEffect(() => {
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -26,10 +28,10 @@ function MemberPoint(props) {
           if (obj.data.length) {
             setPoint(obj.data)
           } else {
-            alert(obj.error || '查無點數資料')
+            Swal.fire(obj.error || '查無點數資料')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }, [])

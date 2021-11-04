@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from '../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberChangePassword(props) {
   const token = localStorage.getItem('token')
@@ -15,7 +17,7 @@ function MemberChangePassword(props) {
   useEffect(() => {
 
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
   }, [])
@@ -42,9 +44,9 @@ function MemberChangePassword(props) {
     }).then(r => r.json())
       .then(obj => {
         if (obj.success) {
-          alert('密碼修改成功')
+          Swal.fire('密碼修改成功')
         } else {
-          alert(obj.error || '密碼修改失敗')
+          Swal.fire(obj.error || '密碼修改失敗')
         }
         setChangePassword({
           'oldpassword': '',
