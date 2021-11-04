@@ -4,10 +4,31 @@ import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 function ProductCard(props) {
   const { sid, index,img, name, cal, price } = props
+  const token = localStorage.getItem('token')
   const ID = localStorage.getItem('id')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
 
+  // 新增收藏
+  const handlingInsert = (sid) => {
+    fetch(`http://localhost:3002/member/favorite-product-insert`, {
+      method: 'POST',
+      body: JSON.stringify({
+        productid: sid
+
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+    })
+  }
+  //  刪除收藏
+  const handlingDelete = (sid) => {
+    fetch(`http://localhost:3002/member/favorite-product-delete/${sid}`, {
+      method: 'DELETE',
+    })
+  }
 
   return (
     <>
@@ -35,8 +56,12 @@ function ProductCard(props) {
               
             <IoIosHeartEmpty 
               onClick={(e)=>{
-                
-                console.log(e.target)
+                e.stopPropagation()
+                if(!token){
+                  alert('請先登入')
+                }else{
+                  handlingInsert(sid)
+                }
                 if(display){
                   setDisplay(false)
                 }else{
@@ -49,7 +74,12 @@ function ProductCard(props) {
             />
             <IoIosHeart
               onClick={(e)=>{
-                console.log(e.target)
+                e.stopPropagation()
+                if(!token){
+                  alert('請先登入')
+                }else{
+                  handlingDelete(sid)
+                }
                 if(display){
                   setDisplay(false)
                 }else{

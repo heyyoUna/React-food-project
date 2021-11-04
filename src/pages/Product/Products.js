@@ -17,6 +17,8 @@ import ProductCard from './../../components/Product/ProductCard'
 import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
+  const ID = localStorage.getItem('id')
+  console.log(ID)
   const searchParams = new URLSearchParams(
     props.location.search
   )
@@ -55,6 +57,17 @@ function Products(props) {
     setNowPage(page)
   }
 
+  // 拿到會員收藏商品資料
+  useEffect(() => {
+    ;(async () => {
+      const r = await fetch(
+        'http://localhost:3002/product/fav/' + ID
+      )
+      const obj = await r.json()
+      console.log(obj)
+    })()
+  }, [])
+
   //要所有資料
   useEffect(() => {
     ;(async () => {
@@ -62,7 +75,6 @@ function Products(props) {
         `${Product_API}` + `${props.location.search}`
       )
       const obj = await r.json()
-      // setProducts(obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
     })()
@@ -89,6 +101,7 @@ function Products(props) {
         return All
     }
   }
+  
 
   return (
     <>

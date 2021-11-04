@@ -40,11 +40,13 @@ function ProductDetail(props) {
     })()
   }, [])
 
+  //  判斷收藏
   const setFavIndicator = (indicator) => {
     let tempProduct = { ...ProductDetail }
     tempProduct.favIndicator = indicator
     setProductDetail(tempProduct)
   }
+
   return (
     <>
 

@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   const ID = localStorage.getItem('id')
   
-  const swal = withReactContent(Swal)
   const {
     sid,
     name,
@@ -73,6 +72,7 @@ const ProductWrap = (props) => {
     }).then(obj => obj.json())
       .then(obj => {
         if (obj.success) {
+          // 有成功刪除, 設定false
           setFavIndicator(false)
         }
       })
@@ -94,21 +94,35 @@ const ProductWrap = (props) => {
           {name}
           {/* 收藏區 */}
           <div className="dt-love-icon">
+          {/* 空心 */}
             <IoIosHeartEmpty
               onClick={(e) => {
                 if (!token) {
                   alert('請先登入')
                 } else {
                   handlingInsert(sid)
+                  Swal.fire({
+                    icon: 'success',
+                    title: '已加入收藏清單',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
                 }
               }}
               style={{
                 display: favIndicator ? 'none' : 'block'
               }}
             />
+            {/* 實心 */}
             <IoIosHeart
               onClick={(e) => {
                 handlingDelete(sid)
+                Swal.fire({
+                  icon: 'error',
+                  title: '已移除收藏清單',
+                  showConfirmButton: false,
+                  timer: 1000
+                })
               }}
               style={{
                 display: favIndicator ? 'block' : 'none'
