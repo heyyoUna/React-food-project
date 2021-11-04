@@ -13,13 +13,11 @@ function ArQARadioButton(props) {
   const fcSid = fcURL.pathname //目前網址的路徑
   const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
 
-  // 新增問答點數
-  const handlingInsert = (sid) => {
-    fetch(`http://localhost:3002/ArtFood/${fcSplit}/QA`, {
+  // 新增問答互動次數+會員點數
+  const EngagementAdd = (sid) => {
+    fetch(`http://localhost:3002/ArtFood/QA/${fcSplit}`, {
       method: 'POST',
-      body: JSON.stringify({
-        productid: sid,
-      }),
+      body: JSON.stringify({ sid }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
@@ -51,37 +49,52 @@ function ArQARadioButton(props) {
         value={value}
         checked={checkedReply === value}
         onChange={(e) => {
-          console.log(
-            'data.ar_correct_answer',
-            data.ar_correct_answer
-          )
-          console.log(
-            'typeof data.ar_correct_answer',
-            typeof data.ar_correct_answer
-          )
+          // console.log(
+          //   'data.ar_correct_answer',
+          //   data.ar_correct_answer
+          // )
+          // console.log(
+          //   'typeof data.ar_correct_answer',
+          //   typeof data.ar_correct_answer
+          // )
 
-          console.log('e.target.value:', e.target.value)
-          console.log(
-            'typeof e.target.value:',
-            typeof e.target.value
-          )
-
-          if (e.target.value !== data.ar_correct_answer) {
+          // console.log('e.target.value:', e.target.value)
+          // console.log(
+          //   'typeof e.target.value:',
+          //   typeof e.target.value
+          // )
+          if (!token) {
             Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: '答錯囉！再次一次吧',
+              title: '請登入',
+              text: '登入答題，賺取會員點數',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: '立即登入',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = '/login'
+              }
             })
           } else {
-            handlingInsert(data.ar_side)
-            setCheckReply(e.target.value)
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: '恭喜獲得1點會員點數',
-              showConfirmButton: false,
-              timer: 1500,
-            })
+            if (e.target.value !== data.ar_correct_answer) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '答錯囉！再次一次吧',
+              })
+            } else {
+              EngagementAdd(data.sid)
+              setCheckReply(e.target.value)
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '恭喜獲得1點會員點數',
+                showConfirmButton: false,
+                timer: 1500,
+              })
+            }
           }
         }}
       />

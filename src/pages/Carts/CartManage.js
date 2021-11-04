@@ -31,8 +31,8 @@ function CartManage(props) {
   let OrderSid =
     'order' +
     moment(OrderSid).format('YYYYMMDDHH') +
-    Math.floor(Math.random() * 2021)
-  const member = localStorage.getItem('id')
+    Math.floor(Math.random() * 99)
+  let member
 
   console.log('OrderInfo', OrderInfo)
 
@@ -79,7 +79,20 @@ function CartManage(props) {
     Invoice,
     StoreInfo
   ) {
-    // console.log('寫出訂單')
+    await axios
+      .get(`http://localhost:3002/member/memberprofile`, {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        member = res.data.data[0].sid
+        console.log('會員 id ', member)
+      })
+    console.log('寫出訂單')
     let NewOrderInfo
     localStorage.setItem('訂單編號', OrderSid)
     console.log('CHECKOUT', Checkout)

@@ -46,7 +46,7 @@ function CartComplete(props) {
         <button
           class="info col-lg-4 col-10 my-3"
           onClick={() => {
-            props.history.push('/')
+            props.history.push('/products')
           }}
         >
           返回商城
@@ -54,7 +54,7 @@ function CartComplete(props) {
         <button
           class="info col-lg-4 col-10 my-3"
           onClick={() => {
-            props.history.push('/')
+            props.history.push('/member/order')
           }}
         >
           查看其他訂單

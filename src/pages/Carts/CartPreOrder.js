@@ -207,7 +207,7 @@ function CartPreOrder() {
           setFilter={setFilter}
         />
 
-        <StoreCardMobile />
+        {/* <StoreCardMobile /> */}
       </div>
     </>
   )

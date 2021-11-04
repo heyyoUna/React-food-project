@@ -52,7 +52,8 @@ function Cart_ConfimOrder(props) {
       {
         Order_Sid: OrderSid,
         Member_id: member,
-        Total_Price: a[0],
+        Total_Price:
+          a[0] + parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
         Created_At: DataDetail.Created_At,
       }

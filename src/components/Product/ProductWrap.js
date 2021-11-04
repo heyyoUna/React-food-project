@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   const ID = localStorage.getItem('id')
   
-  const swal = withReactContent(Swal)
   const {
     sid,
     name,
@@ -22,15 +21,15 @@ const ProductWrap = (props) => {
     price,
     product_id,
     favIndicator,
-    setFavIndicator
+    setFavIndicator,
   } = props
 
   const [display, setDisplay] = useState(true)
-  const [ orderQty, setOrderQty] = useState(1)
+  const [orderQty, setOrderQty] = useState(1)
 
-  //寫入資料庫（訂單編號, 數量未修正）
-  const addtocart=(sid,ID,product_id)=>{
-    fetch(`http://localhost:3002/cart`,{
+  //寫入資料庫（訂單編號未修正）
+  const addtocart = (sid, ID, product_id) => {
+    fetch(`http://localhost:3002/cart`, {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
@@ -41,26 +40,29 @@ const ProductWrap = (props) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
     })
-    console.log(sid,ID,product_id)
+    console.log(sid, ID, product_id)
   }
-  // 收藏新增商品
+  
   // 收藏新增
   const handlingInsert = (sid) => {
-    fetch(`http://localhost:3002/member/favorite-product-insert`, {
-      method: 'POST',
-      body: JSON.stringify({
-        productid: sid
-
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-    }).then(obj => obj.json())
-      .then(obj => {
+    fetch(
+      `http://localhost:3002/member/favorite-product-insert`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          productid: sid,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      }
+    )
+      .then((obj) => obj.json())
+      .then((obj) => {
         if (obj.success) {
           setFavIndicator(true)
         }
@@ -68,11 +70,16 @@ const ProductWrap = (props) => {
   }
   // 刪除收藏
   const handlingDelete = (sid) => {
-    fetch(`http://localhost:3002/member/favorite-product-delete/${sid}`, {
-      method: 'DELETE',
-    }).then(obj => obj.json())
-      .then(obj => {
+    fetch(
+      `http://localhost:3002/member/favorite-product-delete/${sid}`,
+      {
+        method: 'DELETE',
+      }
+    )
+      .then((obj) => obj.json())
+      .then((obj) => {
         if (obj.success) {
+          // 有成功刪除, 設定false
           setFavIndicator(false)
         }
       })
@@ -94,24 +101,38 @@ const ProductWrap = (props) => {
           {name}
           {/* 收藏區 */}
           <div className="dt-love-icon">
+          {/* 空心 */}
             <IoIosHeartEmpty
               onClick={(e) => {
                 if (!token) {
                   alert('請先登入')
                 } else {
                   handlingInsert(sid)
+                  Swal.fire({
+                    icon: 'success',
+                    title: '已加入收藏清單',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
                 }
               }}
               style={{
-                display: favIndicator ? 'none' : 'block'
+                display: favIndicator ? 'none' : 'block',
               }}
             />
+            {/* 實心 */}
             <IoIosHeart
               onClick={(e) => {
                 handlingDelete(sid)
+                Swal.fire({
+                  icon: 'error',
+                  title: '已移除收藏清單',
+                  showConfirmButton: false,
+                  timer: 1000
+                })
               }}
               style={{
-                display: favIndicator ? 'block' : 'none'
+                display: favIndicator ? 'block' : 'none',
               }}
             />
           </div>
