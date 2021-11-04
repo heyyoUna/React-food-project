@@ -9,7 +9,7 @@ function ResProductCard(props) {
       ;(async () => {
         console.log(props)
         let r = await fetch(
-          'http://localhost:3002/reslist' +
+          'http://localhost:3002/reslist/' +
             props.match.params.id
         )
         let j = await r.json()
