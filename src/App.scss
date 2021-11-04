@@ -51,7 +51,7 @@ $light-orange: #fb6107;
   padding-top: 100px;
 }
 
-main{
+main {
   padding-top: 60px;
 }
 /*------------------------------ 元件 ------------------------------*/
@@ -131,36 +131,30 @@ footer {
 
 /*----------- Navbar -----------*/
 .MyNavbar {
-  // background-color: white !important;
-  // background-color: $light-green;
-  // color: black !important;
-  // height: 60px;
-  // margin-bottom: 10px;
+
   background-color: green;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 20%);
 
-  .navLogoWrap{
+  .navLogoWrap {
     width: 120px;
-      padding: 0 20px;
-      img{
-        width: 100%;
-      }
+    padding: 0 20px;
+    img {
+      width: 100%;
     }
+  }
 
-    .active{
-      text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
-    
+  .active {
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  }
+  .navText {
+    color: black;
+    &:hover {
+      color: $light-green;
     }
-    .navText{
-      color: black;
-      &:hover{
-        color: $light-green;
-      }
-    }
-  
+  }
 }
 
-.myNavbarNew{
+.myNavbarNew {
   text-align: center;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 20%);
   .navLogoWrap {
@@ -172,7 +166,7 @@ footer {
   }
 }
 
-.breadcrumb{
+.breadcrumb {
   margin: auto;
   padding: 10px;
 }
@@ -459,7 +453,7 @@ footer {
   }
 
   /*---------- 餐廳  ----------*/
-  .hpRes {
+  #hpRes {
     @include spaceBetweenCat;
     .txtWrap {
       margin: auto;

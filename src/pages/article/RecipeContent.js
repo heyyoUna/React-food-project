@@ -4,15 +4,14 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom'
-import { imgUrl, API_img } from '../../config/index'
+import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
-import ArCardTxt from '../../components/article/ArCardTxt'
+
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
-import ArQARadioButton from '../../components/article/ArQARadioButton'
-import { Spinner } from 'react-bootstrap'
 import PopularRecipe from '../../components/article/PopularRecipe'
 import RelatingRecipe from '../../components/article/RelatingRecipe'
+// import ReceipeIngredient from '../../components/article/ReceipeIngredient'
 
 function FoodContent(props) {
   const [data, setData] = useState([])
@@ -71,6 +70,20 @@ function FoodContent(props) {
                 alt=""
               />
             </div>
+            <div className="text-center">
+              <h3>材料</h3>
+              <p>（ 約{data.ar_rec_quan}人份 ）</p>
+            </div>
+            <ul>{/* {data.ar_rec_ingredient} */}</ul>
+
+            <div className="text-center">
+              <h3>步驟</h3>
+              <p>
+                （ 料理時間{data.ar_rec_cookTime}分鐘 ）
+              </p>
+            </div>
+            <ul>{/* {data.ar_rec_process} */}</ul>
+
             <div>{data.ar_index1}</div>
           </div>
 
@@ -93,13 +106,13 @@ function FoodContent(props) {
         </div>
 
         <div className="col-3 col-lg-3 mostPopular popularMobile">
-            <ul>
-              <div className="mostPopularTitle">
-                Most Popular
-              </div>
-              <PopularRecipe />
-            </ul>
-          </div>
+          <ul>
+            <div className="mostPopularTitle">
+              Most Popular
+            </div>
+            <PopularRecipe />
+          </ul>
+        </div>
       </div>
     </>
   )

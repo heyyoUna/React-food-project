@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import Button from '@restart/ui/esm/Button'
 import axios from 'axios'
+import moment from 'moment'
 function Heart(props) {
   let { v, i, setData, setCount, Pos, setPos } = props
   const [display, setDisplay] = useState(true)
@@ -30,7 +31,7 @@ function Heart(props) {
     let NewPos = v.sid
     let p = await axios.post('http://localhost:3002/cart', {
       Sid: '',
-      Order_Sid: 'order2021103141501',
+      Order_Sid: 'order' + localStorage.getItem('訂單編號'),
       Member_id: member,
       Product_id: v.product_id,
       Order_Amount: 1,

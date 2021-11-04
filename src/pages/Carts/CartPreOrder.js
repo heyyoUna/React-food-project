@@ -13,6 +13,7 @@ import '../../styles/Carts/CartPreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
+import moment from 'moment'
 
 function CartPreOrder() {
   // 加入商品的 Data
@@ -37,6 +38,10 @@ function CartPreOrder() {
   let [Promotion, setPromotion] = useState(0)
 
   let [Filter, setFilter] = useState([])
+
+  // 設定訂單編號的格式
+  const StartDate = moment(StartDate).format('YYYYMMDDHH')
+  localStorage.setItem('訂單編號', StartDate)
 
   useEffect(() => {
     // 讀取加入購物車的商品資料

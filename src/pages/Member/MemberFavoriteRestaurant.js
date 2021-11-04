@@ -33,7 +33,7 @@ function MemberFavoriteRestaurant(props) {
           if (obj.data.length) {
             setRestaurant(obj.data)
           } else {
-            alert(obj.error || '快去收藏文章吧')
+            alert(obj.error || '尚未收藏餐廳')
           }
         } else {
           alert(obj.error)

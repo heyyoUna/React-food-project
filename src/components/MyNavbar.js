@@ -40,7 +40,7 @@ function MyNavbar(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
               <Nav.Link href="/customize">
-                良身訂做
+                量身訂做
               </Nav.Link>
 
               <NavDropdown
