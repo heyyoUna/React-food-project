@@ -4,25 +4,30 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom'
-import { imgUrl, API_img } from '../../config/index'
+import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
-import ArCardTxt from '../../components/article/ArCardTxt'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 import PopularFood from '../../components/article/PopularFood'
 import RelatingFood from '../../components/article/RelatingFood'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function FoodContent(props) {
+  const token = localStorage.getItem('token')
+  const ID = localStorage.getItem('id')
+
+  const fcURL = new URL(document.location.href) //目前網頁網址
+  const fcSid = fcURL.pathname //目前網址的路徑
+  const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
+
   const [data, setData] = useState([])
   const [options, setOptions] = useState([])
   const [reply, setReply] = useState('')
 
   useEffect(() => {
-    const fcURL = new URL(document.location.href) //目前網頁網址
-    const fcSid = fcURL.pathname //目前網址的路徑
-    const fcSplit = fcSid.split('/')[2] //將路徑的字串切割，第三個位置就是sid
     ;(async () => {
       let r = await fetch(
         'http://localhost:3002/ArtFood/' + fcSplit
@@ -46,13 +51,14 @@ function FoodContent(props) {
     const formData = new FormData(e.target)
   }
 
+
   return (
     <>
       <div
         className="container-fluid pt-5"
         id="col-article"
       >
-        <BreadCrumb />
+        {/* <BreadCrumb /> */}
 
         {/* <!------------ 互動nav ------------>   */}
         <div className="row interNav">
@@ -107,31 +113,6 @@ function FoodContent(props) {
                           value={v}
                           checkedReply={reply}
                           setCheckReply={setReply}
-                          onChange={(e) => {
-                            console.log(
-                              'e.target.value:',
-                              e.target.value
-                            )
-                            if (
-                              e.target.value !==
-                              data.ar_correct_answer
-                            ) {
-                              alert('答錯囉')
-                            } else {
-                              alert('正確')
-                              setOptions(e.target.value)
-                            }
-                          }}
-                          // onChange={(e) => {
-                          //   if (
-                          //     e.target.value ===
-                          //     data.ar_correct_answer
-                          //   ) {
-                          //     setReply(e.target.value)
-                          //   } else {
-                          //     // alert('答錯囉')
-                          //   }
-                          // }}
                         />
                       )
                     })
@@ -142,11 +123,11 @@ function FoodContent(props) {
                     />
                   )}
                 </ul>
-                <div>
+                {/* <div>
                   <button className="QAbtn" type="submit">
                     作答
                   </button>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
