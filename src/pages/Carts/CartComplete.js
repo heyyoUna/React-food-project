@@ -28,7 +28,7 @@ function CartComplete(props) {
       </div>
       <div class="container confirmnumber my-5 text-center">
         <h3>
-          訂單編號: {localStorage.getItem('訂單編號')}
+          訂單編號:{localStorage.getItem('訂單編號')}
         </h3>
       </div>
 

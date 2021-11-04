@@ -1,7 +1,7 @@
 import React,{ useState }  from 'react'
 import { withRouter , useHistory} from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
