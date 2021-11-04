@@ -14,8 +14,6 @@ function ResListData(props) {
     res_aveprice,
     res_starttime,
     res_endtime,
-    favIndicator,
-    setFavIndicator,
   } = props
 
   const [display, setDisplay] = useState(true)
@@ -36,10 +34,14 @@ function ResListData(props) {
         },
       }
     )
-      .then((obj) => obj.json())
+      .then((r) => r.json())
       .then((obj) => {
         if (obj.success) {
-          setFavIndicator(true)
+          setDisplay(!display)
+          alert('新增收藏餐廳成功')
+          //實心愛心
+        } else {
+          alert(obj.error || ' 新增收藏餐廳失敗')
         }
       })
   }
@@ -52,15 +54,7 @@ function ResListData(props) {
         method: 'DELETE',
       }
     )
-      .then((obj) => obj.json())
-      .then((obj) => {
-        if (obj.success) {
-          setFavIndicator(false)
-        }
-        console.log(obj)
-      })
   }
-
   return (
     <>
       <div class="col-md-5  col-12  key={i}">
@@ -79,18 +73,19 @@ function ResListData(props) {
                 <h3>{res_name}</h3>
               </Link>
               <span>
-                <IoIosHeartEmpty
+                {/* <IoIosHeartEmpty
                   onClick={(e) => {
-                    if (!token) {
-                      alert('請先登入')
+                    handlingInsert(res_id)
+
+                    if (display) {
+                      setDisplay(false)
                     } else {
-                      handlingInsert(res_id)
+                      setDisplay(true)
                     }
+                    // !setDisplay
                   }}
                   style={{
-                    display: favIndicator
-                      ? 'none'
-                      : 'block',
+                    display: display ? 'block' : 'none',
                     color: '#FB6107',
                     fontSize: '26px',
                     marginTop: '3px',
@@ -99,17 +94,20 @@ function ResListData(props) {
                 <IoIosHeart
                   onClick={(e) => {
                     handlingDelete(res_id)
+                    if (display) {
+                      setDisplay(false)
+                    } else {
+                      setDisplay(true)
+                    }
                   }}
                   style={{
                     color: '#d96e30',
                     fontSize: '26px',
                     marginTop: '3px',
-                    display: favIndicator
-                      ? 'block'
-                      : 'none',
+                    display: display ? 'none' : 'block',
                   }}
-                />
-                {/* {display ? (
+                /> */}
+                {display ? (
                   <IoIosHeartEmpty
                     onClick={(e) => {
                       handlingInsert(res_id)
@@ -145,7 +143,7 @@ function ResListData(props) {
                       // display: display ? 'none' : 'block',
                     }}
                   />
-                )} */}
+                )}
               </span>
             </div>
             <p>
