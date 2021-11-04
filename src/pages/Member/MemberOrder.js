@@ -58,7 +58,7 @@ function MemberOrder(props) {
                     return (
                       <tr key={value.Member_id}>
                         <th scope="row">{value.Order_Sid}</th>
-                        <td>2021-05-20</td>
+                        <td>{value.Created_At}</td>
                         <td>${value.Total_Price}</td>
                         <td>{value.Order_Status}</td>
                         <td>
@@ -90,7 +90,7 @@ function MemberOrder(props) {
                     return (
                       <tr key={value.Member_id}>
                         <th scope="row">{value.Order_Sid}</th>
-                        <td>2021-05-20</td>
+                        <td>{value.Created_At}</td>
                         <td>${value.Total_Price}</td>
                         <td>{value.Order_Status}</td>
                         <td>

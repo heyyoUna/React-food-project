@@ -16,7 +16,8 @@ function PageBtn(props) {
   const searchCate = searchParams.get('cate')
   const searchKeyword = searchParams.get('keyword')
   const searchFilter = searchParams.get('filter')
-  console.log(searchFilter)
+  const clickpage = searchParams.get('page')
+  console.log(clickpage)
 
   return (
     <>
@@ -60,12 +61,15 @@ function PageBtn(props) {
                 usp.set('filter',searchFilter)
               }
             return (
+              //頁數
               <div key={i}>
                 <Link
+                  className={ 
+                    parseInt(clickpage)==v ? 'pd-pages-active' : ''
+                  }
                   to={`?${usp.toString()}`}
                   onClick={(e) => {
                     setNowPage(v)
-                    console.log('nopage', v)
                   }}
                 >
                   {v}

@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.23.0",
     "bootstrap": "^5.1.3",
+    "emailjs": "^3.6.0",
     "jquery": "^3.6.0",
     "leaflet": "^1.7.1",
     "moment": "^2.29.1",
@@ -21,6 +22,10 @@
     "react-scripts": "4.0.3",
     "sass": "^1.43.3",
     "sweetalert2": "^11.1.9",
+<<<<<<< HEAD
+=======
+    "sweetalert2-react-content": "^4.2.0",
+>>>>>>> 1534d698d2e084673bfcb593671c73ab605e1571
     "web-vitals": "^1.0.1"
   },
   "scripts": {

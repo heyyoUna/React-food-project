@@ -8,7 +8,6 @@ import {
 import React, { useEffect, useState } from 'react'
 import { imgUrl } from '../../config'
 import TitleBorder from '../../components/TitleBorder'
-import ResPopular from '../../components/Restaurant/ResPopular'
 import { FiPhone } from 'react-icons/fi'
 import { RiMapPinLine } from 'react-icons/ri'
 import { BsClock } from 'react-icons/bs'

@@ -1,11 +1,10 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useState } from 'react'
 import { withRouter , useHistory} from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 function ProductCard(props) {
-  const { sid, index,img, name, cal, price, setProductId } = props
-  const id = localStorage.getItem('id')
-  const [products, setProducts] = useState([])
+  const { sid, index,img, name, cal, price } = props
+  const ID = localStorage.getItem('id')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
 
@@ -15,8 +14,6 @@ function ProductCard(props) {
       <div
         className="pd-card d-flex "
         onClick={(e) => {
-          console.log('key', sid)
-          setProductId(sid)
           props.history.push('/product/' + sid)
         }}
       >

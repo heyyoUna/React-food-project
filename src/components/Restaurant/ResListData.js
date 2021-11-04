@@ -117,7 +117,6 @@ function ResListData(props) {
                       // } else {
                       //   setDisplay(true)
                       // }
-                      // !setDisplay
                     }}
                     style={{
                       color: '#FB6107',

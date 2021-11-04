@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   const ID = localStorage.getItem('id')
-
+  
+  const swal = withReactContent(Swal)
   const {
     sid,
     name,
@@ -15,57 +17,63 @@ const ProductWrap = (props) => {
     unit,
     cal,
     protein,
-    product_id,
     fat,
     carbon,
     price,
+    favIndicator,
+    setFavIndicator
   } = props
 
   const [display, setDisplay] = useState(true)
-  const [orderQty, setOrderQty] = useState(1)
+  const [ orderQty, setOrderQty] = useState(1)
 
   //寫入資料庫（訂單編號, 數量未修正）
-  const addtocart = (sid, ID, product_id) => {
-    fetch(`http://localhost:3002/cart`, {
+  const addtocart=(sid,ID,product_id)=>{
+    fetch(`http://localhost:3002/cart`,{
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
-        Order_Sid: 'test01',
-        Member_id: ID,
-        Product_id: product_id,
-        Order_Amount: orderQty,
+        Member_id:ID,
+        Product_id:product_id,
+        Order_Amount:orderQty,
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
+        'Authorization': 'Bearer ' + token
       },
     })
-    console.log(sid, ID, product_id)
+    console.log(sid,ID,product_id)
   }
   // 收藏新增商品
+  // 收藏新增
   const handlingInsert = (sid) => {
-    fetch(
-      `http://localhost:3002/member/favorite-product-insert`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          productid: sid,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
-        },
-      }
-    )
+    fetch(`http://localhost:3002/member/favorite-product-insert`, {
+      method: 'POST',
+      body: JSON.stringify({
+        productid: sid
+
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+    }).then(obj => obj.json())
+      .then(obj => {
+        if (obj.success) {
+          setFavIndicator(true)
+        }
+      })
   }
-  // 刪除收藏商品
+  // 刪除收藏
   const handlingDelete = (sid) => {
-    fetch(
-      `http://localhost:3002/member/favorite-product-delete/${sid}`,
-      {
-        method: 'DELETE',
-      }
-    )
+    fetch(`http://localhost:3002/member/favorite-product-delete/${sid}`, {
+      method: 'DELETE',
+    }).then(obj => obj.json())
+      .then(obj => {
+        if (obj.success) {
+          setFavIndicator(false)
+        }
+      })
   }
   return (
     <>
@@ -89,30 +97,19 @@ const ProductWrap = (props) => {
                 if (!token) {
                   alert('請先登入')
                 } else {
-                  // swal("Good job!", "You clicked the button!", "success");
                   handlingInsert(sid)
-                  if (display) {
-                    setDisplay(false)
-                  } else {
-                    setDisplay(true)
-                  }
                 }
               }}
               style={{
-                display: display ? 'block' : 'none',
+                display: favIndicator ? 'none' : 'block'
               }}
             />
             <IoIosHeart
               onClick={(e) => {
                 handlingDelete(sid)
-                if (display) {
-                  setDisplay(false)
-                } else {
-                  setDisplay(true)
-                }
               }}
               style={{
-                display: display ? 'none' : 'block',
+                display: favIndicator ? 'block' : 'none'
               }}
             />
           </div>
@@ -134,39 +131,15 @@ const ProductWrap = (props) => {
         </div>
         <div className="dt-btn-wrap d-flex">
           <div className="dt-qty-wrap d-flex ">
-            {/* 減少數量 */}
             <button className="dt-minus">
-              <i
-                className="fas fa-minus"
-                onClick={() => {
-                  if (orderQty > 1) {
-                    setOrderQty(orderQty - 1)
-                  }
-                  if (orderQty <= 1) {
-                    alert('商品最少一樣')
-                  }
-                }}
-              ></i>
+              <i className="fas fa-minus"></i>
             </button>
-            <div className="dt-qty">{orderQty}</div>
-
-            {/* 增加數量 */}
+            <div className="dt-qty">1</div>
             <button className="dt-add">
-              <i
-                className="fas fa-plus"
-                onClick={() => {
-                  setOrderQty(orderQty + 1)
-                  console.log(typeof orderQty)
-                }}
-              ></i>
+              <i className="fas fa-plus"></i>
             </button>
           </div>
-          <button
-            className="dt-addtocart "
-            onClick={(e) => {
-              addtocart(sid, ID, product_id)
-            }}
-          >
+          <button className="dt-addtocart ">
             Add To Cart
           </button>
         </div>
