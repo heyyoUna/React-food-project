@@ -33,7 +33,6 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
-        Order_Sid:'123', //之後要再修改
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,
@@ -128,7 +127,7 @@ const ProductWrap = (props) => {
                   icon: 'error',
                   title: '已移除收藏清單',
                   showConfirmButton: false,
-                  timer: 1000
+                  timer: 800
                 })
               }}
               style={{
