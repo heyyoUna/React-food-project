@@ -20,6 +20,7 @@ const ProductWrap = (props) => {
     fat,
     carbon,
     price,
+    product_id,
     favIndicator,
     setFavIndicator
   } = props
@@ -33,6 +34,7 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
+        Order_Sid:'123', //之後要再修改
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,
@@ -132,14 +134,29 @@ const ProductWrap = (props) => {
         <div className="dt-btn-wrap d-flex">
           <div className="dt-qty-wrap d-flex ">
             <button className="dt-minus">
-              <i className="fas fa-minus"></i>
+              <i className="fas fa-minus"
+              onClick={()=>{
+                if(orderQty>1){
+                  setOrderQty(orderQty-1)
+                }
+                if(orderQty<=1){
+                  alert('商品最少一樣')
+                }
+              }}></i>
             </button>
-            <div className="dt-qty">1</div>
+            <div className="dt-qty">{orderQty}</div>
             <button className="dt-add">
-              <i className="fas fa-plus"></i>
+              <i className="fas fa-plus"
+              onClick={()=>{
+                setOrderQty(orderQty+1)
+                console.log(typeof orderQty)
+              }}></i>
             </button>
           </div>
-          <button className="dt-addtocart ">
+          <button className="dt-addtocart"
+          onClick={(e)=>{
+            addtocart(sid,ID,product_id)
+          }}>
             Add To Cart
           </button>
         </div>

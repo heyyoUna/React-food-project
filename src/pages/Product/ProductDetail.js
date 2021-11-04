@@ -28,10 +28,6 @@ function ProductDetail(props) {
   // 展開拿到的資料
   const p = { ...ProductDetail }
   useEffect(() => {
-    // ;(async () => {
-    //   const r = await fetch(`${ProductDetail_API}` + `${sp}`) 
-
-      
     ; (async () => {
       const r = await fetch(`${ProductDetail_API}` + `${sp}`, {
         headers: {
@@ -58,6 +54,7 @@ function ProductDetail(props) {
           <ProductWrap
             sid={p.sid}
             name={p.name}
+            product_id={p.product_id}
             img={p.product_img}
             intro={p.introduction}
             unit={p.unit}
