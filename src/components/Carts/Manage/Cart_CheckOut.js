@@ -1,8 +1,8 @@
-import React from 'react'
+import { useState } from 'react'
 
 function Cart_CheckOut(props) {
   let { setCheckout } = props
-
+  // let [Delivery, setDelivery] = useState(0)
   return (
     <>
       <div
@@ -18,6 +18,7 @@ function Cart_CheckOut(props) {
               value="7-11取貨付款"
               onChange={(e) => {
                 setCheckout(e.target.value)
+                localStorage.setItem('運費', 60)
               }}
             />
             <label>7-11取貨付款</label>
@@ -44,6 +45,7 @@ function Cart_CheckOut(props) {
               value="宅配貨到付款"
               onChange={(e) => {
                 setCheckout(e.target.value)
+                localStorage.setItem('運費', 80)
                 // setStoreA(e.target.value)
                 // UpdateInfo(e.target.value, 1)
               }}
@@ -62,6 +64,7 @@ function Cart_CheckOut(props) {
               value="信用卡支付 - 宅配到府"
               onChange={(e) => {
                 setCheckout(e.target.value)
+                localStorage.setItem('運費', 100)
                 // setStoreA(e.target.value)
                 // UpdateInfo(e.target.value, 1)
               }}
@@ -102,36 +105,48 @@ function Cart_CheckOut(props) {
           </div>
         </div>
       </div>
-      <form
+
+      <div
         className="container checkoutmobileform col-10"
         action=""
       >
         <div className="checkmobile d-flex justify-content-between align-content-center">
           <input
             type="radio"
-            name="delivery"
-            id="delivery"
-            value="A"
-            onclick="radiochange(event)"
+            name="checkout"
+            id="checkout"
+            value="7-11取貨付款"
+            onChange={(e) => {
+              setCheckout(e.target.value)
+            }}
           />
           <label for="">7-11取貨付款</label>
         </div>
         <div className="checkmobile d-flex justify-content-between align-content-center">
           <input
             type="radio"
-            name="delivery"
-            id="delivery"
-            value="B"
+            name="checkout"
+            id="checkout"
+            value="全家取貨付款"
+            onChange={(e) => {
+              setCheckout(e.target.value)
+              // setStoreA(e.target.value)
+              // UpdateInfo(e.target.value, 1)
+            }}
           />
           <label for="">全家取貨付款</label>
         </div>
         <div className="checkmobile d-flex justify-content-between align-content-center">
           <input
             type="radio"
-            name="delivery"
-            id="delivery"
-            value="C"
-            checked
+            name="checkout"
+            id="checkout"
+            value="宅配貨到付款"
+            onChange={(e) => {
+              setCheckout(e.target.value)
+              // setStoreA(e.target.value)
+              // UpdateInfo(e.target.value, 1)
+            }}
           />
           <label for="">
             宅配 貨到付款<span>(僅限台灣本島)</span>
@@ -140,26 +155,30 @@ function Cart_CheckOut(props) {
         <div className="checkmobile d-flex justify-content-between align-content-center">
           <input
             type="radio"
-            name="delivery"
-            id="delivery"
-            value="D"
-            onclick="radiochange(event)"
+            name="checkout"
+            id="checkout"
+            value="信用卡支付 - 宅配到府"
+            onChange={(e) => {
+              setCheckout(e.target.value)
+              // setStoreA(e.target.value)
+              // UpdateInfo(e.target.value, 1)
+            }}
           />
           <div className="payicon d-flex align-content-center">
             <img
-              src="../../../image/cc-apple-pay-brands.svg"
+              src="http://localhost:3000/image/cc-apple-pay-brands.svg"
               alt=""
             />
             <img
-              src="../../../image/cc-mastercard-brands.svg"
+              src="http://localhost:3000/image/cc-mastercard-brands.svg"
               alt=""
             />
             <img
-              src="../../../image/cc-visa-brands.svg"
+              src="http://localhost:3000/image/cc-visa-brands.svg"
               alt=""
             />
             <img
-              src="../../../image/google-pay-brands.svg"
+              src="http://localhost:3000/image/google-pay-brands.svg"
               alt=""
             />
           </div>
@@ -168,13 +187,18 @@ function Cart_CheckOut(props) {
         <div className="checkmobile d-flex justify-content-between align-content-center">
           <input
             type="radio"
-            name="delivery"
-            id="delivery"
-            value="E"
+            name="checkout"
+            id="checkout"
+            value="LINE PAY 支付 - 宅配到府"
+            onChange={(e) => {
+              setCheckout(e.target.value)
+              // setStoreA(e.target.value)
+              // UpdateInfo(e.target.value, 1)
+            }}
           />
           <label for="">LINE PAY 支付</label>
         </div>
-      </form>
+      </div>
     </>
   )
 }

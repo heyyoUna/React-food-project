@@ -34,6 +34,7 @@ function OrderInfo(props) {
   localStorage.removeItem('訂單價格資訊')
   localStorage.removeItem('店號')
   localStorage.removeItem('訂單編號')
+  localStorage.removeItem('運費')
 
   console.log('優惠點數', Promotion)
   // 記錄會員優惠點數
@@ -52,7 +53,7 @@ function OrderInfo(props) {
   useEffect(() => {
     // 取得會員點數資料
     getMemberPoint()
-  }, [pointChange])
+  }, [])
 
   // 取得會員點數資料的函式
   async function getMemberPoint() {
@@ -63,7 +64,7 @@ function OrderInfo(props) {
       setdata(M.data)
       console.log('會員點數', pointChange)
       if (!token) {
-        setpointChange('未登入')
+        pointChange = '未登入'
       } else {
         setpointChange(M.data[0].left_point)
       }

@@ -4,9 +4,10 @@ function Cart_OrderDetail(props) {
   let { data } = props
   let [trans, settrans] = useState(false)
   let a = []
+  let b
   console.log('這是裡面的', data)
   a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-
+  b = a[0] + parseInt(localStorage.getItem('運費'))
   return (
     <>
       <div className="container col-lg-6 col-10">
@@ -69,48 +70,24 @@ function Cart_OrderDetail(props) {
                 <tr></tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img
-                      src=""
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Optimum Nutrition 100% 乳清蛋白
-                    <br />
-                    NT$2000
-                  </td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img
-                      src=""
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    名富米酒(保)
-                    <br />
-                    NT$354
-                  </td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img
-                      src=""
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    奧利塔冷壓純橄欖油 1L
-                    <br />
-                    NT$354
-                  </td>
-                  <td>2</td>
-                </tr>
+                {data.map((v) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          alt=""
+                        />
+                      </td>
+                      <td>
+                        {v.name}
+                        <br />
+                        NT${v.price}
+                      </td>
+                      <td>{v.Order_Amount}</td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
 
@@ -127,11 +104,18 @@ function Cart_OrderDetail(props) {
                 </tr>
                 <tr>
                   <th>運費</th>
-                  <td className="detailtd">0</td>
+                  <td className="detailtd">
+                    {localStorage.getItem('運費')}
+                  </td>
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">{a[0]}</td>
+                  <td className="detailtd">
+                    {a[0] +
+                      parseInt(
+                        localStorage.getItem('運費')
+                      )}
+                  </td>
                 </tr>
               </tbody>
             </table>
