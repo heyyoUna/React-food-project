@@ -42,6 +42,7 @@ function Products(props) {
   )
   // 篩選radio
   const [filter, setFilter] = useState('')
+  const [ favArr, setFavArr] = useState([])
 
   // 解析URL參數
   const sp = searchParams.toString()
@@ -57,6 +58,7 @@ function Products(props) {
     setNowPage(page)
   }
 
+  
   // 拿到會員收藏商品資料
   useEffect(() => {
     ;(async () => {
@@ -65,6 +67,7 @@ function Products(props) {
       )
       const obj = await r.json()
       console.log(obj)
+      setFavArr(obj.data)
     })()
   }, [])
 
@@ -136,6 +139,7 @@ function Products(props) {
             {displayProducts.map((v, i) => {
               return (
                 <ProductCard
+                  favArr={favArr}
                   index={i}
                   key={v.sid}
                   sid={v.sid}

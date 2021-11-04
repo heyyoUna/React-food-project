@@ -1,13 +1,24 @@
-import React,{ useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 import { withRouter , useHistory} from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function ProductCard(props) {
-  const { sid, index,img, name, cal, price } = props
+  const { sid, index,img, name, cal, price,favArr } = props
   const token = localStorage.getItem('token')
-  const ID = localStorage.getItem('id')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
+
+
+  // 判斷商品有在收藏清單時，設定icon為實心
+  useEffect(() => {
+    favArr.forEach((value)=>{
+      if(value.product_id=== sid){
+        setDisplay(false)
+      }
+    })
+  }, []);
 
   // 新增收藏
   const handlingInsert = (sid) => {
@@ -50,10 +61,10 @@ function ProductCard(props) {
           <p className="pd-price">NT$ {price}</p>
           <div className="pd-btn-wrap d-flex">
             <button className="pd-order-btn">
-              ORDER NOW
+              View Detail
             </button>
             <div className="pd-love-icon">
-              
+              {console.log(favArr)}
             <IoIosHeartEmpty 
               onClick={(e)=>{
                 e.stopPropagation()
@@ -61,6 +72,12 @@ function ProductCard(props) {
                   alert('請先登入')
                 }else{
                   handlingInsert(sid)
+                  Swal.fire({
+                    icon: 'success',
+                    title: '已加入收藏清單',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
                 }
                 if(display){
                   setDisplay(false)
@@ -75,11 +92,13 @@ function ProductCard(props) {
             <IoIosHeart
               onClick={(e)=>{
                 e.stopPropagation()
-                if(!token){
-                  alert('請先登入')
-                }else{
-                  handlingDelete(sid)
-                }
+                handlingDelete(sid)
+                Swal.fire({
+                  icon: 'error',
+                  title: '已移除收藏清單',
+                  showConfirmButton: false,
+                  timer: 1000
+                })
                 if(display){
                   setDisplay(false)
                 }else{

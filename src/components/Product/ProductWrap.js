@@ -27,7 +27,7 @@ const ProductWrap = (props) => {
   const [display, setDisplay] = useState(true)
   const [orderQty, setOrderQty] = useState(1)
 
-  //寫入資料庫（訂單編號, 數量未修正）
+  //寫入資料庫（訂單編號未修正）
   const addtocart = (sid, ID, product_id) => {
     fetch(`http://localhost:3002/cart`, {
       method: 'POST',
@@ -45,7 +45,7 @@ const ProductWrap = (props) => {
     })
     console.log(sid, ID, product_id)
   }
-  // 收藏新增商品
+  
   // 收藏新增
   const handlingInsert = (sid) => {
     fetch(
