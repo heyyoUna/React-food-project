@@ -22,10 +22,7 @@
     "react-scripts": "4.0.3",
     "sass": "^1.43.3",
     "sweetalert2": "^11.1.9",
-<<<<<<< HEAD
-=======
     "sweetalert2-react-content": "^4.2.0",
->>>>>>> 1534d698d2e084673bfcb593671c73ab605e1571
     "web-vitals": "^1.0.1"
   },
   "scripts": {
