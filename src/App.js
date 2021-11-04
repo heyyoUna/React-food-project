@@ -37,6 +37,7 @@ import Signup from './pages/Member/MemberSignup'
 import Login from './pages/Member/MemberLogin'
 import MemberProfile from './pages/Member/MemberProfile'
 import MemberOrder from './pages/Member/MemberOrder'
+import MemberOrderDetail from './pages/Member/MemberOrderDetail'
 import MemberReview from './pages/Member/MemberReview'
 import MemberPoint from './pages/Member/MemberPoint'
 import MemberFavoriteProduct from './pages/Member/MemberFavoriteProduct'
@@ -109,14 +110,6 @@ function App() {
                 <ProductBaby />
               </Route>
 
-              <Route path="/signup">
-                {/* 利用props傳入頁面元件狀態 */}
-                <Signup auth={auth} setAuth={setAuth} />
-              </Route>
-              <Route path="/login">
-                {/* 利用props傳入頁面元件狀態 */}
-                <Login auth={auth} setAuth={setAuth} />
-              </Route>
               {/* 商城 */}
               <Route path="/products">
                 <Products/>
@@ -185,36 +178,63 @@ function App() {
               <Route path="/productcategory">
                 <ProductCategory />
               </Route>
+
+              {/* 會員 */}
+              <Route path="/signup">
+                {/* 利用props傳入頁面元件狀態 */}
+                <Signup auth={auth} setAuth={setAuth} />
+              </Route>
+
+              <Route path="/login">
+                {/* 利用props傳入頁面元件狀態 */}
+                <Login auth={auth} setAuth={setAuth} />
+              </Route>
+
               <Route path="/member/profile">
                 <MemberProfile auth={auth} />
               </Route>
+
               <Route path="/member/order">
                 <MemberOrder />
               </Route>
+
+            <Route path="/member/orderdetail">
+                <MemberOrderDetail />
+              </Route>
+
               <Route path="/member/review">
                 <MemberReview />
               </Route>
+
               <Route path="/member/point">
                 <MemberPoint />
               </Route>
+
               <Route path="/member/FavoriteProduct">
                 <MemberFavoriteProduct />
               </Route>
+
               <Route path="/member/FavoriteArticle">
                 <MemberFavoriteArticle />
               </Route>
+
               <Route path="/member/FavoriteRestaurant">
                 <MemberFavoriteRestaurant />
               </Route>
+
               <Route path="/member/ChangePassword">
                 <MemberChangePassword />
               </Route>
+
+              {/* 輪盤 */}
               <Route path="/game/GameChoose">
                 <GameChoose />
               </Route>
+
               <Route path="/game/GameRecipe">
                 <GameRecipe />
               </Route>
+
               <Route path="/game/GameDelivery">
                 <GameDelivery />
               </Route>

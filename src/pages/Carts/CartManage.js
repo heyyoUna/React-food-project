@@ -133,7 +133,7 @@ function CartManage(props) {
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
       {
-        Sid: '',
+
         Order_Sid: localStorage.getItem('訂單編號'),
         Payment_Type: NewOrderInfo[0],
         Order_Name: NewOrderInfo[1],
@@ -143,7 +143,7 @@ function CartManage(props) {
           NewOrderInfo[4] +
           NewOrderInfo[5] +
           NewOrderInfo[6],
-        Member_id: member,
+        Member_id: '123',
         Invoice_Type: NewOrderInfo[8],
         Order_Remark: NewOrderInfo[7],
         Invoice_Number: NewOrderInfo[9],

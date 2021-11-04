@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-<<<<<<< HEAD
-// import Swal from 'sweetalert2'
-=======
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
->>>>>>> b8286788f089e43569e0a107b48a1080e4e9bbe3
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
