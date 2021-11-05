@@ -503,3 +503,28 @@ footer {
     }
   }
 }
+
+/*----------- 轉盤 -----------*/
+
+//Bootstrap Modal 客制化
+.modal-xs{
+  max-width: 220px;
+}
+
+.game-card-wrap{
+  border-radius: 1rem;
+}
+
+@keyframes rotation{
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(360deg);}
+}
+ 
+.img-rotate{
+  border-radius: 50%;
+  transform: rotate(360deg);
+  animation: rotation 1.4s linear infinite;
+  -moz-animation: rotation 1.4s linear infinite;
+  -webkit-animation: rotation 1.4s linear infinite;
+  -o-animation: rotation 1.4s linear infinite;
+}

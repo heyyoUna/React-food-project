@@ -71,6 +71,8 @@ import MainContent from './components/MainContent'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
+  const [restaurantId, setRestaurantId] = useState('')
+  const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
 
   useEffect(() => {
@@ -237,12 +239,12 @@ function App() {
               </Route>
 
               <Route path="/game/GameRecipe">
-                <GameRecipe />
+              <GameRecipe setProductId={setProductId}/>
               </Route>
 
-              <Route path="/game/GameDelivery">
-                <GameDelivery />
-              </Route>
+            <Route path="/game/GameDelivery">
+              <GameDelivery setRestaurantId={setRestaurantId} />
+            </Route>
 
               {/* 購物車 */}
               <Route exact path="/carts/PreOrder">
