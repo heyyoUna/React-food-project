@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { Modal } from 'react-bootstrap'
 import Button from '@restart/ui/esm/Button'
 import axios from 'axios'
-import { point } from 'leaflet'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function OrderInfo(props) {
   const [data, setdata] = useState()
@@ -12,17 +13,11 @@ function OrderInfo(props) {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const token = localStorage.getItem('token')
-
-  let [textWarn, settextWarn] = useState(
-    '您尚未登入會員哦!請先進行登入!'
-  )
-  let [textConfirm, settextConfirm] = useState('這邊做登入')
-  let [textClose, settextClose] = useState('關閉')
   // let pointChange = false
-  let [pointChange, setpointChange] = useState()
-
+  let [pointChange, setpointChange] = useState('未登入')
   let promo = false
   let nextStep = false
+  let member
   const {
     productPrice,
     totalPrice,
@@ -31,10 +26,8 @@ function OrderInfo(props) {
   } = props
 
   // 清空 localstorage 裡的資訊
-  localStorage.removeItem('訂單價格資訊')
-  localStorage.removeItem('店號')
   localStorage.removeItem('訂單編號')
-  localStorage.removeItem('運費')
+  localStorage.setItem('運費', 0)
 
   console.log('優惠點數', Promotion)
   // 記錄會員優惠點數
@@ -64,7 +57,6 @@ function OrderInfo(props) {
       setdata(M.data)
       console.log('會員點數', pointChange)
       if (!token) {
-        pointChange = '未登入'
       } else {
         setpointChange(M.data[0].left_point)
       }
@@ -74,19 +66,37 @@ function OrderInfo(props) {
 
   // 確認是否登入的函式
   async function getLoginData() {
-    // 取得 token
-    console.log(token)
-    console.log('promo1', promo)
+    await axios
+      .get(`http://localhost:3002/member/memberprofile`, {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          member = res.data.data[0].sid
+          PromoOrNext()
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '請先登入會員哦',
+            showConfirmButton: true,
+            confirmButtonText: '我知道了',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              props.history.push('/login')
+            }
+          })
+        }
+      })
+  }
 
-    // 沒有取得會員的所屬 token
-    if (!token) {
-      // 跳 Modal 顯示需先登入
-      setShow(true)
-      return
-    }
-
+  async function PromoOrNext() {
     // 如果要使用優惠
-    if (promo) {
+    if (promo && member) {
       promo = false
       // console.log('會員點數')
       // console.log('點數', data[0].left_point)
@@ -94,22 +104,35 @@ function OrderInfo(props) {
       // 如果購物車內沒商品
       if (productPrice() === 0) {
         // 跳出 Modal 顯示購物車內沒商品
-        settextWarn('購物車內沒有商品喔')
-        settextConfirm('知道了')
-        setShow(true)
+        Swal.fire({
+          icon: 'info',
+          title: '購物車內沒有商品喔',
+          showConfirmButton: true,
+          confirmButtonText: '我知道了',
+        })
+      }
+      if (textvalue === '') {
+        Swal.fire({
+          icon: 'error',
+          title: '您沒有輸入點數喔，請重新輸入',
+          showConfirmButton: true,
+          confirmButtonText: '我知道了',
+        })
       } else {
         // 如果輸入的點數 > 會員目前所有點數
         if (textvalue > data[0].left_point) {
           // 跳出 Modeal 顯示目前點數不足
-          settextWarn('點數不足!!')
-          settextConfirm('知道了')
-          setShow(true)
+          Swal.fire({
+            icon: 'error',
+            title: '點數不足!',
+            showConfirmButton: true,
+            confirmButtonText: '我知道了',
+          })
         } else {
           // 記錄扣點與扣款，到會員資料表
           let R = await axios.post(
             `http://localhost:3002/cart/modifyPoint`,
             {
-              sid: '',
               member_sid: data[0].member_sid,
               change_point: textvalue,
               change_type: 'USE',
@@ -119,7 +142,13 @@ function OrderInfo(props) {
             }
           )
           if (R.status === 200) {
-            alert('扣點完成!')
+            Swal.fire({
+              icon: 'success',
+              title: '扣點成功!',
+              showConfirmButton: true,
+              confirmButtonText: '我知道了',
+            })
+
             setpointChange(data[0].left_point - textvalue)
             setPromotion(textvalue)
           }
@@ -224,43 +253,6 @@ function OrderInfo(props) {
           </button>
         </div>
       </div>
-
-      {/* 彈出視窗 */}
-      <Modal
-        className="Modal"
-        show={show}
-        onHide={handleClose}
-      >
-        <Modal.Header>
-          <Modal.Title className="ModalTitle">
-            溫馨提醒
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="ModalBody">
-          {textWarn}
-        </Modal.Body>
-        <Modal.Footer className="ModalFooter">
-          <Button
-            className="ButtonClose"
-            variant="secondary"
-            onClick={handleClose}
-          >
-            {textClose}
-          </Button>
-          <Button
-            className="ButtonLogin"
-            variant="primary"
-            onClick={() => {
-              if (!token) {
-                props.history.push('/login')
-              }
-              handleClose()
-            }}
-          >
-            {textConfirm}
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   )
 }

@@ -44,6 +44,7 @@ import MemberFavoriteProduct from './pages/Member/MemberFavoriteProduct'
 import MemberFavoriteArticle from './pages/Member/MemberFavoriteArticle'
 import MemberFavoriteRestaurant from './pages/Member/MemberFavoriteRestaurant'
 import MemberChangePassword from './pages/Member/MemberChangePassword'
+import MemberForgotPassword from './pages/Member/MemberForgotPassword'
 
 //輪盤
 import GameChoose from './pages/Game/GameChoose'
@@ -71,6 +72,8 @@ import MainContent from './components/MainContent'
 
 function App() {
   const [auth, setAuth] = useState(false)
+  //給客製化跟商品區收藏商品資料用
+  const [ favArr, setFavArr] = useState([])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -112,7 +115,10 @@ function App() {
 
               {/* 商城 */}
               <Route path="/products">
-                <Products/>
+                <Products
+                  favArr={favArr}
+                  setFavArr={setFavArr}
+                />
               </Route>
 
               <Route path="/product/:id">
@@ -121,7 +127,10 @@ function App() {
               </Route>
 
               <Route path="/customize">
-                <Customize/>
+                <Customize
+                  favArr={favArr}
+                  setFavArr={setFavArr}
+                />
               </Route>
 
               {/* 文章 */}
@@ -224,6 +233,10 @@ function App() {
 
               <Route path="/member/ChangePassword">
                 <MemberChangePassword />
+              </Route>
+
+              <Route path="/member/ForgotPassword/:email/:password">
+                <MemberForgotPassword />
               </Route>
 
               {/* 輪盤 */}

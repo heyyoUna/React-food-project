@@ -14,11 +14,13 @@ function ProductCard(props) {
   // 判斷商品有在收藏清單時，設定icon為實心
   useEffect(() => {
     if(token){
-      favArr.forEach((value)=>{
-        if(value.product_id=== sid){
-          setDisplay(false)
-        }
-      })
+      if(favArr){
+        favArr.forEach((value)=>{
+          if(value.product_id=== sid){
+            setDisplay(false)
+          }
+        })
+      }
     }
   }, []);
 
@@ -70,8 +72,19 @@ function ProductCard(props) {
             <IoIosHeartEmpty 
               onClick={(e)=>{
                 e.stopPropagation()
-                if(!token){
-                  alert('請先登入')
+                if (!token) {
+                  Swal.fire({
+                  title: '請先登入會員',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '前往登入頁面'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    props.history.push('/login' )
+                  }
+                })
                 }else{
                   handlingInsert(sid)
                   Swal.fire({
@@ -95,12 +108,6 @@ function ProductCard(props) {
               onClick={(e)=>{
                 e.stopPropagation()
                 handlingDelete(sid)
-                Swal.fire({
-                  icon: 'error',
-                  title: '已移除收藏清單',
-                  showConfirmButton: false,
-                  timer: 1000
-                })
                 if(display){
                   setDisplay(false)
                 }else{

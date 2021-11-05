@@ -3,7 +3,12 @@ import '../../styles/Carts/Banner.scss'
 import { withRouter } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import axios from 'axios'
+
+// 清空 LocalStorage 資訊
+
 function CartComplete(props) {
+  localStorage.removeItem('訂單價格資訊')
+  localStorage.removeItem('店號')
   useEffect(() => {
     let r = axios.delete('http://localhost:3002/cart/')
     if (r.status === 200) {
@@ -27,9 +32,7 @@ function CartComplete(props) {
         <h1>訂單已送出，感謝您的訂購</h1>
       </div>
       <div class="container confirmnumber my-5 text-center">
-        <h3>
-          訂單編號:{localStorage.getItem('訂單編號')}
-        </h3>
+        <h3>訂單編號:{localStorage.getItem('訂單編號')}</h3>
       </div>
 
       <div
