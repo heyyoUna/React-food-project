@@ -113,6 +113,14 @@ function Products(props) {
     <>
       <>{switchBanner(productCate)}</>
       {/* ---------- */}
+      {/* 手機版分類按鈕 */}
+      <div className="pd-filter-mb-wrap">
+        <div className="pd-cate-mb ">
+          商品分類
+        <i class="fas fa-chevron-down"></i></div>
+        <div className="pd-filter-mb ">篩選條件
+        <i class="fas fa-chevron-down"></i></div>
+      </div>
       <div className="container">
         <div className="row pd-row">
           {/* 分類按鈕 */}

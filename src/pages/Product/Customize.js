@@ -202,7 +202,8 @@ function Customize(props) {
         </div>
       </div>
       {/* 推薦區 */}
-      <div className="container d-flex pd-sug-wrap" ref={myRef}>
+      <div ref={myRef}></div>
+      <div className="container d-flex pd-sug-wrap">
         <h1>商品推薦</h1>
         <div className="pd-card-wrap d-flex col-12">
           {sugProducts.map((v, i) => {
