@@ -71,6 +71,8 @@ import MainContent from './components/MainContent'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
+  const [restaurantId, setRestaurantId] = useState('')
+  const [productId, setProductId] = useState('')
   const [auth, setAuth] = useState(false)
   //給客製化跟商品區收藏商品資料用
   const [ favArr, setFavArr] = useState([])
@@ -245,12 +247,12 @@ function App() {
               </Route>
 
               <Route path="/game/GameRecipe">
-                <GameRecipe />
+              <GameRecipe setProductId={setProductId}/>
               </Route>
 
-              <Route path="/game/GameDelivery">
-                <GameDelivery />
-              </Route>
+            <Route path="/game/GameDelivery">
+              <GameDelivery setRestaurantId={setRestaurantId} />
+            </Route>
 
               {/* 購物車 */}
               <Route exact path="/carts/PreOrder">

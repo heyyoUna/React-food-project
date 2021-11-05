@@ -1,10 +1,33 @@
-import { withRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, withRouter } from 'react-router-dom'
 import spinWheel from './spinWheel.png'
 import fork from './fork.png'
+import { Modal } from 'react-bootstrap';
+import ResListData from '../../components/Restaurant/ResListData'
 
 function GameDelivery(props) {
-  console.log(props)
+  const { setRestaurantId } = props
+
+  const [show, setShow] = useState(false)
+  const [restaurant, setRestaurant] = useState({})
+
+  const handleRandom = () => {
+    fetch(`http://localhost:3002/game/random-restaurant-get`, {
+      method: 'GET',
+    }).then(obj => obj.json())
+      .then(obj => {
+        if (obj.success) {
+          setRestaurant(obj.data)
+          handleShow()
+        } else {
+          alert(obj.error)
+        }
+      })
+  }
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
   return (
     <>
       <div className="game-container-main-delivery">
@@ -12,18 +35,29 @@ function GameDelivery(props) {
           <h1>良辰即食 精選外送餐</h1>
         </div>
         <div className="rotate-delivery">
-          <img className="rotate-delivery-img" src={spinWheel} alt={"spinWheel"} />
-          <div className="rotate-delivery-fork">
-            <img className="rotate-delivery-fork" src={fork} alt={"fork"} />
+          <img className={'rotate-delivery-img ' + (show ? '' : 'img-rotate')} src={spinWheel} alt={"spinWheel"} />
+          <div className="rotate-delivery-fork" onClick={handleRandom} >
+            <img className="rotate-delivery-fork" src={fork} alt={"fork"}/>
           </div>
         </div>
         <div className="game-btn-wrap d-flex">
           <button className="game-leave-delivery-btn">
             <Link to="/" className="game-leave-delivery">離開轉盤</Link>
-          </button> 
-          
+          </button>
           <div className="game-again-delivery">再轉一次</div>
         </div>
+        <Modal show={show} centered={true} dialogClassName={'modal-xs'} contentClassName={'pd-card game-card-wrap'} onHide={handleClose}>
+          <Modal.Body>
+            <ResListData
+              key={restaurant.res_id}
+              sid={restaurant.res_id}
+              img={restaurant.res_img}
+              name={restaurant.res_name}
+              price={restaurant.res_aveprice}
+              setRestaurantId={setRestaurantId}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     </>
   )

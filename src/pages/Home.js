@@ -18,7 +18,7 @@ function Home(props) {
             className="col-lg-1 px-0"
           >
             <div id="icons">
-              <a href="#/">
+              <a href="#hp_customized">
                 <div>
                   <i className="far fa-handshake"></i>
                 </div>
@@ -103,6 +103,60 @@ function Home(props) {
         </div>
         {/* 背景圖 */}
         <HpFixedBgc />
+        {/* <!---------------------- 客製化 ----------------------> */}
+        <div className="container" id="hp_customized">
+          <div className="row">
+            <div className="col-lg">
+              <div className="title">
+                <h6 className="bannerSubTitle light-green">
+                  怎麼
+                  <span className="light-orange">吃</span>
+                  才夠?
+                </h6>
+                <div className="my-3">
+                  <img
+                    src={`${imgUrl}/images/hp_custom_titleLine.png`}
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="inputWrap ">
+                <div>
+                  <select className="mx-2 my-3 dark-green">
+                    <option value="" disabled selected >
+                      生理性別
+                    </option>
+                    <option value="男性">男性</option>
+                    <option value="女性">女性</option>
+                  </select>
+                  <input
+                    className="mx-2 my-3 text-center"
+                    type="text"
+                    placeholder="年齡"
+                    color="light-green"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    className="mx-2 my-3"
+                    type="text"
+                    placeholder="身高"
+                  />
+                  <input
+                    className="mx-2 my-3"
+                    type="text"
+                    placeholder="體重"
+                  />
+                </div>
+              </div>
+              <div className="col_RM_btn">
+                <button>查看推薦</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* <!---------------------- shop ----------------------> */}
         <div className="hp_shop container">
           {/* <!------------ 1st 商品種類  ------------> */}
@@ -310,7 +364,7 @@ function Home(props) {
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 imgWrap">
+            <div class="col-lg-6 imgWrap border">
               <div class="imgbox">
                 <img
                   class="my-2"

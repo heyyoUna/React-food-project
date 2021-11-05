@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef,useState, useEffect } from 'react'
 import conf, { Product_API, Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
@@ -43,6 +43,8 @@ function Customize(props) {
   const [sugProducts, setSugProducts] = useState([])
   // 推薦餐盒
   const [ sugFoodBox, setSugFoodBox] = useState([])
+
+  const myRef = useRef(null)
 
   // 拿到會員收藏商品資料
   useEffect(() => {
@@ -149,6 +151,14 @@ function Customize(props) {
     calculate()
   }, [target, exercises,TDEE])
 
+  const mySubmit = () => {
+    // listData()
+    //滾動效果
+    myRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
     <>
@@ -185,12 +195,14 @@ function Customize(props) {
             <p className="dkgreen">熱量{sugCal}大卡</p>
             <p className="dkgreen">蛋白質{sugProtein}克</p>
           </div>
-          <button className="pd-client-btn">
+          <button className="pd-client-btn" 
+          onClick={mySubmit}>
             查看飲食推薦
           </button>
         </div>
       </div>
       {/* 推薦區 */}
+      <div ref={myRef}></div>
       <div className="container d-flex pd-sug-wrap">
         <h1>商品推薦</h1>
         <div className="pd-card-wrap d-flex col-12">

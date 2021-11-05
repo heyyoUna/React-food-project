@@ -15,8 +15,9 @@ import { NavLink } from 'react-router-dom'
 
 function MyNavbar(props) {
   const { auth, setAuth } = props
+  let a = localStorage.getItem('數量')
+  let [CountNav, setCountNav] = useState(a)
   let history = useHistory()
-
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
     setAuth(false)
@@ -94,14 +95,25 @@ function MyNavbar(props) {
                 <i className="fas fa-search"></i>
               </Nav.Link>
 
-              <Nav.Link href="/login" style={auth ? { display: 'none' } : { display: 'block' }}>
+              <Nav.Link
+                href="/login"
+                style={
+                  auth
+                    ? { display: 'none' }
+                    : { display: 'block' }
+                }
+              >
                 <i className="far fa-user"></i>
               </Nav.Link>
 
               <NavDropdown
                 title="會員專區"
                 id="basic-nav-dropdown"
-                style={auth ? { display: 'block' } : { display: 'none' }}
+                style={
+                  auth
+                    ? { display: 'block' }
+                    : { display: 'none' }
+                }
               >
                 <NavDropdown.Item href="/member/profile">
                   個人檔案
@@ -140,7 +152,35 @@ function MyNavbar(props) {
               </NavDropdown>
 
               <Nav.Link href="/carts/PreOrder">
-                <i className="fas fa-shopping-cart"></i>
+                <div
+                  className="carticon"
+                  style={{
+                    position: 'relative',
+                  }}
+                >
+                  <i className="fas fa-shopping-cart"></i>
+                  <div
+                    className="circle"
+                    style={{
+                      width: '25px',
+                      height: '25px',
+                      borderRadius: '50px',
+                      backgroundColor: '#8FC065',
+                      position: 'absolute',
+                      top: '-30%',
+                      left: '60%',
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: '#ffffff',
+                        paddingBottom: '10px',
+                      }}
+                    >
+                      {CountNav}
+                    </p>
+                  </div>
+                </div>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

@@ -163,10 +163,29 @@ input[type='text']:focus {
   outline: none;
   border-bottom: #8fc065 2px solid;
 }
-// 關鍵字按鈕隱藏
-.pd-keyBtn {
-  // display: none;
+// 手機版分類按鈕
+.pd-filter-mb-wrap{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #2a593e;
+  margin-bottom: 20px;
+
+  i{
+    // width: 50px;
+    margin-left: 20px;
+    color: #8fc065;
+  }
 }
+.pd-cate-mb, .pd-filter-mb{
+  border: 1px solid #8fc065;
+  border-radius: 100px;
+  padding: 5px 20px 5px 30px;
+  margin: 0px 10px;
+  display: none;
+}
+// 關鍵字按鈕隱藏
 input[name='pd-filter']:checked + label {
   color: #2a593e;
   font-weight: bold;
@@ -407,35 +426,40 @@ input[name='pd-filter'] + label {
   .pd-love-icon {
     font-size: 16px;
   }
-  /* 手機板篩選器 */
-  .mb-filter-wrap {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 30px;
+  .pd-cate-mb, .pd-filter-mb{
     display: block;
   }
+
+
+  /* 手機板篩選器 (舊)*/
+  // .mb-filter-wrap {
+  //   width: 100%;
+  //   display: flex;
+  //   justify-content: space-evenly;
+  //   margin-bottom: 30px;
+  //   display: block;
+  // }
 }
 
 /* 手機板篩選器 */
-.mb-filter-wrap {
-  width: 100%;
-  justify-content: space-evenly;
-  margin-bottom: 30px;
-  display: none;
-}
-.mb-cate-btn,
-.mb-filter-btn {
-  width: 45%;
-  border: 1px solid #8fc065;
-  border-radius: 100px;
-  text-align: center;
-  font-size: 14px;
-  padding: 5px 0px 5px 35px;
-  color: #8fc065;
-  text-align: center;
-  /* display: none; */
-}
-.mb-filter-wrap i {
-  margin-left: 30px;
-}
+// .mb-filter-wrap {
+//   width: 100%;
+//   justify-content: space-evenly;
+//   margin-bottom: 30px;
+//   display: none;
+// }
+// .mb-cate-btn,
+// .mb-filter-btn {
+//   width: 45%;
+//   border: 1px solid #8fc065;
+//   border-radius: 100px;
+//   text-align: center;
+//   font-size: 14px;
+//   padding: 5px 0px 5px 35px;
+//   color: #8fc065;
+//   text-align: center;
+//   /* display: none; */
+// }
+// .mb-filter-wrap i {
+//   margin-left: 30px;
+// }
