@@ -198,6 +198,7 @@ input[name='pd-filter'] + label {
 }
 .pd-card:hover {
   transform: translate(0px, -7px);
+  box-shadow: 4px 4px 20px lightgray;
 }
 .pd-img {
   width: 130px;
@@ -268,7 +269,8 @@ input[name='pd-filter'] + label {
   margin-bottom: 20px;
 }
 .pd-pages-active{
-  color: #8fc065;
+  color: #8fc065 !important;
+  font-weight: bold;
 }
 // .page-pre,
 // .page-next,
@@ -279,12 +281,15 @@ input[name='pd-filter'] + label {
 .page div{
   text-align: center;
 }
+.page div a{
+  color: #2a593e; 
+}
 .page {
   font-size: 20px;
   margin: 0 20px;
   justify-content: center;
   align-items: center;
-  color: #2a593e !important; 
+  color: #2a593e; 
 
 }
 .page-btn-wrap i {

@@ -17,6 +17,7 @@ import ProductCard from './../../components/Product/ProductCard'
 import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
+  const { setFavArr, favArr} = props
   const ID = localStorage.getItem('id')
   console.log(ID)
   const searchParams = new URLSearchParams(
@@ -42,7 +43,8 @@ function Products(props) {
   )
   // 篩選radio
   const [filter, setFilter] = useState('')
-  const [ favArr, setFavArr] = useState([])
+  // 收藏商品陣列
+  // const [ favArr, setFavArr] = useState([])
 
   // 解析URL參數
   const sp = searchParams.toString()

@@ -72,6 +72,8 @@ import MainContent from './components/MainContent'
 
 function App() {
   const [auth, setAuth] = useState(false)
+  //給客製化跟商品區收藏商品資料用
+  const [ favArr, setFavArr] = useState([])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -113,7 +115,10 @@ function App() {
 
               {/* 商城 */}
               <Route path="/products">
-                <Products/>
+                <Products
+                  favArr={favArr}
+                  setFavArr={setFavArr}
+                />
               </Route>
 
               <Route path="/product/:id">
@@ -122,7 +127,10 @@ function App() {
               </Route>
 
               <Route path="/customize">
-                <Customize/>
+                <Customize
+                  favArr={favArr}
+                  setFavArr={setFavArr}
+                />
               </Route>
 
               {/* 文章 */}
