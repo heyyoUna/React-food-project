@@ -7,7 +7,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   let history = useHistory()
-  const ID = localStorage.getItem('id')
+  const [ ID, setID] = useState(0);
   
   const {
     sid,
@@ -29,22 +29,53 @@ const ProductWrap = (props) => {
   const [orderQty, setOrderQty] = useState(1)
 
   //寫入資料庫（訂單編號未修正）
-  const addtocart = (sid, ID, product_id) => {
-    fetch(`http://localhost:3002/cart`, {
-      method: 'POST',
-      body: JSON.stringify({
-        Sid: sid,
-        Member_id:ID,
-        Product_id:product_id,
-        Order_Amount:orderQty,
-      }),
+  // const addtocart = (sid, ID, product_id) => {
+  //   fetch(`http://localhost:3002/cart`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       Sid: sid,
+  //       Member_id:ID,
+  //       Product_id:product_id,
+  //       Order_Amount:orderQty,
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Bearer ' + token,
+  //     },
+  //   })
+  //   console.log(sid, ID, product_id)
+  // }
+
+  //  token 解密拿到會員ID
+  const addtocart = (sid, product_id,orderQty) => {
+    fetch(`http://localhost:3002/member/memberprofile`, {
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
-      },
-    })
-    console.log(sid, ID, product_id)
+        'Authorization': 'Bearer ' + token
+      }
+    }).then(r => r.json())
+      .then(obj => {
+        const ID=obj.data[0].sid
+        setID(ID)
+        if(ID){
+          fetch(`http://localhost:3002/cart`, {
+            method: 'POST',
+            body: JSON.stringify({
+              Sid: sid,
+              Member_id:ID,
+              Product_id:product_id,
+              Order_Amount:orderQty,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token,
+            },
+          })
+          console.log(sid, ID, product_id,orderQty)
+        }
+      })
   }
+  
   
   // 收藏新增
   const handlingInsert = (sid) => {
@@ -179,6 +210,7 @@ const ProductWrap = (props) => {
               }}></i>
             </button>
           </div>
+          {/* 加入購物車 */}
           <button className="dt-addtocart"
           onClick={(e)=>{
             if(!token){
@@ -195,7 +227,7 @@ const ProductWrap = (props) => {
                   }
                 })
             }else{
-              addtocart(sid,ID,product_id)
+              addtocart(sid,product_id,orderQty)
               Swal.fire({
                     icon: 'success',
                     title: '已加入購物車',
