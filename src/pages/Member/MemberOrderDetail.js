@@ -1,23 +1,16 @@
 import { useState, useEffect } from 'react'
 import Cart_OrderDetail from '../../components/Carts/Manage/Cart_OrderDetail'
-import TitleBorder from '../../components/TitleBorder'
 import { FaCcVisa } from 'react-icons/fa'
-import {
-  FaShoppingCart,
-  FaLongArrowAltRight,
-  FaRegEdit,
-  FaCheck,
-} from 'react-icons/fa'
 import '../../styles/Carts/CartConfirmOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
-import moment from 'moment'
 
-function Cart_ConfimOrder(props) {
+function MemberOrderDetail(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
+  let member = localStorage.getItem('id')
   let OrderSid = localStorage.getItem('訂單編號')
 
   // 設定訂單編號的格式
@@ -44,18 +37,17 @@ function Cart_ConfimOrder(props) {
     let s
     let NewData = [...data]
     a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-    console.log('這是暫存資料', a)
-    console.log('確認訂單資訊', DataDetail.Member_id)
+    // console.log('這是暫存資料', a)
+    // console.log('確認訂單資訊', NewData[0].Order_Sid)
 
     let r = await axios.post(
       'http://localhost:3002/cart/ConfirmList',
       {
         Order_Sid: OrderSid,
-        Member_id: DataDetail.Member_id,
-        Total_Price:
-          a[0] + parseInt(localStorage.getItem('運費')),
+        Member_id: member,
+        Total_Price: a[0],
         Order_Status: '訂單成立',
-        Created_At: localStorage.getItem('訂單時間'),
+        Created_At: DataDetail.Created_At,
       }
     )
 
@@ -81,37 +73,9 @@ function Cart_ConfimOrder(props) {
 
   return (
     <>
-      <div className="container-fluid Banner col-xs-10">
-        <div className="bannerTitle col-lg-8 col-xs-8 ">
-          <h1 className="bannerTitle1 col-xs-6">
-            只差一步
-          </h1>
-          <h1 className="bannerTitle2 col-xs-6">
-            眼前所及全部歸你
-          </h1>
-        </div>
-      </div>
-
-      <div className="Process col-lg-8 col-xs-6 d-flex justify-content-around align-content-end">
-        <div className="CartImage col-lg-3 col-xs-1">
-          <FaShoppingCart className="icons first" />
-          <h3 className="first">確認購物車</h3>
-        </div>
-        <FaLongArrowAltRight className="arrow firstArrow" />
-        <div className="EditInfo col-lg-3 col-xs-1">
-          <FaRegEdit className="icons second" />
-          <h3 className="second">填寫資料</h3>
-        </div>
-        <FaLongArrowAltRight className="arrow secondArrow" />
-        <div className="FinishInfo col-lg-3 col-xs-1">
-          <FaCheck className="icons third" />
-          <h3 className="third">完成訂單</h3>
-        </div>
-      </div>
-
       <div class="titleBorder col-lg-6 col-10">
         <h4 class="res-title title-fz fw-700">
-          確認訂單資訊
+          訂單資訊
         </h4>
       </div>
 
@@ -156,7 +120,7 @@ function Cart_ConfimOrder(props) {
                 訂單時間
               </td>
               <td className="text-start col-6">
-                {localStorage.getItem('訂單時間')}
+                {DataDetail.Created_At}
               </td>
             </tr>
             <tr>
@@ -217,32 +181,8 @@ function Cart_ConfimOrder(props) {
           </tbody>
         </table>
       </div>
-
-      <div class="container confirmorderdetail mx-auto text-center">
-        <h1>準備完成你的訂單了嗎?</h1>
-      </div>
-
-      <div class="container col-lg-7 col-12 confirm my-5 d-lg-flex text-center justify-content-around">
-        <button
-          class="returninfo col-lg-4 col-10"
-          onClick={() => {
-            props.history.push('/carts/Manage')
-          }}
-        >
-          返回
-        </button>
-        <button
-          class="confirminfo col-lg-4 col-10"
-          onClick={() => {
-            console.log('確認')
-            ConfirmOrder()
-          }}
-        >
-          送出訂單
-        </button>
-      </div>
     </>
   )
 }
 
-export default withRouter(Cart_ConfimOrder)
+export default withRouter(MemberOrderDetail)

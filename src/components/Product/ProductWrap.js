@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
+<<<<<<< HEAD
 // import Swal from 'sweetalert2'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+=======
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+>>>>>>> 8ff5776beaaacf3ed6d1f4edf8551eadc7fe889d
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
+  let history = useHistory()
   const ID = localStorage.getItem('id')
-
-  const swal = withReactContent(Swal)
+  
   const {
     sid,
     name,
@@ -29,13 +34,16 @@ const ProductWrap = (props) => {
   const [display, setDisplay] = useState(true)
   const [orderQty, setOrderQty] = useState(1)
 
-  //寫入資料庫（訂單編號, 數量未修正）
+  //寫入資料庫（訂單編號未修正）
   const addtocart = (sid, ID, product_id) => {
     fetch(`http://localhost:3002/cart`, {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
+<<<<<<< HEAD
         Order_Sid:'123', //之後要再修改
+=======
+>>>>>>> 8ff5776beaaacf3ed6d1f4edf8551eadc7fe889d
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,
@@ -47,7 +55,7 @@ const ProductWrap = (props) => {
     })
     console.log(sid, ID, product_id)
   }
-  // 收藏新增商品
+  
   // 收藏新增
   const handlingInsert = (sid) => {
     fetch(
@@ -81,6 +89,7 @@ const ProductWrap = (props) => {
       .then((obj) => obj.json())
       .then((obj) => {
         if (obj.success) {
+          // 有成功刪除, 設定false
           setFavIndicator(false)
         }
       })
@@ -102,18 +111,37 @@ const ProductWrap = (props) => {
           {name}
           {/* 收藏區 */}
           <div className="dt-love-icon">
+          {/* 空心 */}
             <IoIosHeartEmpty
               onClick={(e) => {
                 if (!token) {
-                  alert('請先登入')
+                  Swal.fire({
+                  title: '請先登入會員',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '前往登入頁面'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    props.history.push('/login' )
+                  }
+                })
                 } else {
                   handlingInsert(sid)
+                  Swal.fire({
+                    icon: 'success',
+                    title: '已加入收藏清單',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
                 }
               }}
               style={{
                 display: favIndicator ? 'none' : 'block',
               }}
             />
+            {/* 實心 */}
             <IoIosHeart
               onClick={(e) => {
                 handlingDelete(sid)
@@ -163,7 +191,28 @@ const ProductWrap = (props) => {
           </div>
           <button className="dt-addtocart"
           onClick={(e)=>{
-            addtocart(sid,ID,product_id)
+            if(!token){
+              Swal.fire({
+                  title: '請先登入會員',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '前往登入頁面'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    props.history.push('/login' )
+                  }
+                })
+            }else{
+              addtocart(sid,ID,product_id)
+              Swal.fire({
+                    icon: 'success',
+                    title: '已加入購物車',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+            }
           }}>
             Add To Cart
           </button>

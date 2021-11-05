@@ -31,11 +31,10 @@ function CartManage(props) {
   let OrderSid =
     'order' +
     moment(OrderSid).format('YYYYMMDDHH') +
-    Math.floor(Math.random() * 2021)
-  const member = localStorage.getItem('id')
-
-  console.log('OrderInfo', OrderInfo)
-
+    Math.floor(Math.random() * 99)
+  let member
+  let token = localStorage.getItem('token')
+  var a = moment.utc().tz('Asia/Taipei').format()
   useEffect(() => {
     console.log('這邊是初始化')
     CityAxios()
@@ -79,14 +78,27 @@ function CartManage(props) {
     Invoice,
     StoreInfo
   ) {
+    localStorage.setItem('訂單時間', a)
+    await axios
+      .get(`http://localhost:3002/member/memberprofile`, {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((res) => {
+        member = res.data.data[0].sid
+        console.log('會員 id ', member)
+      })
     // console.log('寫出訂單')
     let NewOrderInfo
     localStorage.setItem('訂單編號', OrderSid)
-    console.log('CHECKOUT', Checkout)
+    // console.log('CHECKOUT', Checkout)
 
     if (Checkout === '7-11取貨付款') {
       if (!StoreInfo[7]) {
-        console.log('第8個位置沒有值', StoreInfo)
+        // console.log('第8個位置沒有值', StoreInfo)
       }
       NewOrderInfo = [
         Checkout,
@@ -133,7 +145,6 @@ function CartManage(props) {
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
       {
-        Sid: '',
         Order_Sid: localStorage.getItem('訂單編號'),
         Payment_Type: NewOrderInfo[0],
         Order_Name: NewOrderInfo[1],
@@ -147,6 +158,7 @@ function CartManage(props) {
         Invoice_Type: NewOrderInfo[8],
         Order_Remark: NewOrderInfo[7],
         Invoice_Number: NewOrderInfo[9],
+        Created_At: localStorage.getItem('訂單時間'),
       }
     )
     if (r.status === 200) {

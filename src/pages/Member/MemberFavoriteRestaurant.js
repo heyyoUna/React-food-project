@@ -4,6 +4,8 @@ import { BsClock } from 'react-icons/bs'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { MdOutlineAttachMoney } from 'react-icons/md'
 import MemberNavbar from './../../components/member/MemberNavbar'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberFavoriteRestaurant(props) {
   const token = localStorage.getItem('token')
@@ -16,7 +18,7 @@ function MemberFavoriteRestaurant(props) {
 
   const favoriteRestaurantGet = () => {
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -33,10 +35,10 @@ function MemberFavoriteRestaurant(props) {
           if (obj.data.length) {
             setRestaurant(obj.data)
           } else {
-            alert(obj.error || '尚未收藏餐廳')
+            Swal.fire(obj.error || '尚未收藏餐廳')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }
@@ -65,7 +67,7 @@ function MemberFavoriteRestaurant(props) {
             //空心愛心
 
           } else {
-            alert(obj.error || '移除收藏餐廳失敗')
+            Swal.fire(obj.error || '移除收藏餐廳失敗')
           }
         })
     }
@@ -89,11 +91,15 @@ function MemberFavoriteRestaurant(props) {
             newRestaurant[index].remove_flag = false
             //新的restaurant覆蓋掉原本的restaurant
             setRestaurant(newRestaurant)
-
             //實心愛心
-
+            Swal.fire({
+              icon: 'success',
+              title: '已加入收藏清單',
+              showConfirmButton: false,
+              timer: 1000
+            })
           } else {
-            alert(obj.error || ' 新增收藏餐廳失敗')
+            Swal.fire(obj.error || ' 新增收藏餐廳失敗')
           }
         })
     }

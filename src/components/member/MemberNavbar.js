@@ -38,7 +38,7 @@ function MemberNavbar(props) {
                     href="#v-pills-settings"
                     role="tab"
                     aria-controls="v-pills-settings"
-                    aria-selected="false">商品追蹤清單</NavDropdown.Item>
+                    aria-selected="false">商品收藏清單</NavDropdown.Item>
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/FavoriteArticle"

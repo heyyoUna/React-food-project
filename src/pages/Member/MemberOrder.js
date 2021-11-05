@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
@@ -11,7 +12,7 @@ function MemberOrder(props) {
 
   useEffect(() => {
     if (!token) {
-      alert('尚未登入，請連到登入頁面')
+      Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
 
@@ -28,10 +29,10 @@ function MemberOrder(props) {
           if (obj.data.length) {
             setOrder(obj.data)
           } else {
-            alert(obj.error || '查無歷史訂單')
+            Swal.fire(obj.error || '查無歷史訂單')
           }
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }, [])
@@ -65,7 +66,7 @@ function MemberOrder(props) {
                         <td>{value.Order_Status}</td>
                         <td>
                           <button type="button" className="btn member-btn-primary">
-                            檢視訂單
+                            <Link to="/member/orderdetail" >檢視訂單</Link>
                     </button>
                         </td>
                       </tr>
@@ -96,9 +97,9 @@ function MemberOrder(props) {
                         <td>${value.Total_Price}</td>
                         <td>{value.Order_Status}</td>
                         <td>
-                          <button type="button" className="btn member-btn-primary">
-                            檢視訂單
-                    </button>
+                          <button className="member-btn-primary">
+                            <Link to="/member/orderdetail" className="member-order-detail-btn">檢視訂單</Link>
+                          </button>
                         </td>
                       </tr>
                     )

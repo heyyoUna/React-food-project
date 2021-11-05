@@ -37,73 +37,73 @@ function OrderDetail(props) {
             </tr>
           </thead>
           <tbody>
-            {data.map
-              ? data.map((v, i) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={`http://localhost:3002/img/Product/${v.product_img}`}
-                          alt=""
-                        />
-                      </td>
-                      <td className="text-start">
-                        {v.name}
-                      </td>
-                      <td className="text-start">
-                        {/* 商品數量減少 */}
-                        <FaMinusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            // 如果小於1就直接刪除
-                            NewCount[i] < 2
-                              ? setDeleteODPos(v.Sid)
-                              : (NewCount[i] -= 1)
+            {data.length !== 0 ? (
+              data.map((v, i) => {
+                return (
+                  <tr>
+                    <td>
+                      <img
+                        src={`http://localhost:3002/img/Product/${v.product_img}`}
+                        alt=""
+                      />
+                    </td>
+                    <td className="text-start">{v.name}</td>
+                    <td className="text-start">
+                      {/* 商品數量減少 */}
+                      <FaMinusCircle
+                        className="countIcon"
+                        onClick={() => {
+                          // 如果小於1就直接刪除
+                          NewCount[i] < 2
+                            ? setDeleteODPos(v.Sid)
+                            : (NewCount[i] -= 1)
 
-                            // 設定新的訂單數量
-                            setCount(NewCount)
+                          // 設定新的訂單數量
+                          setCount(NewCount)
 
-                            // 指定要改變商品數量的位置
-                            setPos(i)
+                          // 指定要改變商品數量的位置
+                          setPos(i)
 
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                        {NewCount[i]}
-                        {/* 商品數量增加 */}
-                        <FaPlusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            NewCount[i] += 1
+                          // 更新 sql 路由的訂單 ID
+                          setODPos(v.Sid)
+                        }}
+                      />
+                      {NewCount[i]}
+                      {/* 商品數量增加 */}
+                      <FaPlusCircle
+                        className="countIcon"
+                        onClick={() => {
+                          NewCount[i] += 1
 
-                            // 設定新的訂單數量
-                            setCount(NewCount)
+                          // 設定新的訂單數量
+                          setCount(NewCount)
 
-                            // 指定要改變商品數量的位置
-                            setPos(i)
+                          // 指定要改變商品數量的位置
+                          setPos(i)
 
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                      </td>
-                      <td className="text-start">
-                        {v.price}
-                      </td>
-                      <td>
-                        <FaTrash
-                          className="trashIcon"
-                          onClick={() => {
-                            // 更新 sql 路由的訂單 ID
-                            setDeleteODPos(v.Sid)
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  )
-                })
-              : ' '}
+                          // 更新 sql 路由的訂單 ID
+                          setODPos(v.Sid)
+                        }}
+                      />
+                    </td>
+                    <td className="text-start">
+                      {v.price}
+                    </td>
+                    <td>
+                      <FaTrash
+                        className="trashIcon"
+                        onClick={() => {
+                          // 更新 sql 路由的訂單 ID
+                          setDeleteODPos(v.Sid)
+                        }}
+                      />
+                    </td>
+                  </tr>
+                )
+              })
+            ) : (
+              <h1>購物車內無商品</h1>
+            )}
           </tbody>
         </table>
 
@@ -111,60 +111,64 @@ function OrderDetail(props) {
         <table className="tablemobile table-borderless">
           <thead></thead>
           <tbody>
-            {data.map
-              ? data.map((v, i) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={`http://localhost:3002/img/Product/${v.product_img}`}
-                          alt=""
-                        />
-                      </td>
-                      <td className="text-start">
-                        {v.name} <br />
-                        NT${v.price}
-                      </td>
-                      <td className="text-start col-4 text-center">
-                        <FaMinusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            // 如果小於1就直接刪除
-                            NewCount[i] < 2
-                              ? setDeleteODPos(v.Sid)
-                              : (NewCount[i] -= 1)
+            {data.length !== 0 ? (
+              data.map((v, i) => {
+                return (
+                  <tr>
+                    <td>
+                      <img
+                        src={`http://localhost:3002/img/Product/${v.product_img}`}
+                        alt=""
+                      />
+                    </td>
+                    <td className="text-start">
+                      {v.name} <br />
+                      NT${v.price}
+                    </td>
+                    <td className="text-start col-4 text-center">
+                      <FaMinusCircle
+                        className="countIcon"
+                        onClick={() => {
+                          // 如果小於1就直接刪除
+                          NewCount[i] < 2
+                            ? setDeleteODPos(v.Sid)
+                            : (NewCount[i] -= 1)
 
-                            // 設定新的訂單數量
-                            setCount(NewCount)
+                          // 設定新的訂單數量
+                          setCount(NewCount)
 
-                            // 指定要改變商品數量的位置
-                            setPos(i)
+                          // 指定要改變商品數量的位置
+                          setPos(i)
 
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                        {NewCount[i]}
-                        <FaPlusCircle
-                          className="countIcon"
-                          onClick={() => {
-                            NewCount[i] += 1
+                          // 更新 sql 路由的訂單 ID
+                          setODPos(v.Sid)
+                        }}
+                      />
+                      {NewCount[i]}
+                      <FaPlusCircle
+                        className="countIcon"
+                        onClick={() => {
+                          NewCount[i] += 1
 
-                            // 設定新的訂單數量
-                            setCount(NewCount)
+                          // 設定新的訂單數量
+                          setCount(NewCount)
 
-                            // 指定要改變商品數量的位置
-                            setPos(i)
+                          // 指定要改變商品數量的位置
+                          setPos(i)
 
-                            // 更新 sql 路由的訂單 ID
-                            setODPos(v.Sid)
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  )
-                })
-              : ''}
+                          // 更新 sql 路由的訂單 ID
+                          setODPos(v.Sid)
+                        }}
+                      />
+                    </td>
+                  </tr>
+                )
+              })
+            ) : (
+              <tr>
+                <td>購物車內無商品</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
