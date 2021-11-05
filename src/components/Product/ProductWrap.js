@@ -3,12 +3,13 @@ import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { FaLessThan } from 'react-icons/fa'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
   let history = useHistory()
   const ID = localStorage.getItem('id')
-  
+
   const {
     sid,
     name,
@@ -34,9 +35,9 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
-        Member_id:ID,
-        Product_id:product_id,
-        Order_Amount:orderQty,
+        Member_id: '123',
+        Product_id: product_id,
+        Order_Amount: orderQty,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ const ProductWrap = (props) => {
     })
     console.log(sid, ID, product_id)
   }
-  
+
   // 收藏新增
   const handlingInsert = (sid) => {
     fetch(
@@ -101,29 +102,29 @@ const ProductWrap = (props) => {
           {name}
           {/* 收藏區 */}
           <div className="dt-love-icon">
-          {/* 空心 */}
+            {/* 空心 */}
             <IoIosHeartEmpty
               onClick={(e) => {
                 if (!token) {
                   Swal.fire({
-                  title: '請先登入會員',
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: '前往登入頁面'
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    props.history.push('/login' )
-                  }
-                })
+                    title: '請先登入會員',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '前往登入頁面',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      props.history.push('/login')
+                    }
+                  })
                 } else {
                   handlingInsert(sid)
                   Swal.fire({
                     icon: 'success',
                     title: '已加入收藏清單',
                     showConfirmButton: false,
-                    timer: 1000
+                    timer: 1000,
                   })
                 }
               }}
@@ -160,50 +161,56 @@ const ProductWrap = (props) => {
         <div className="dt-btn-wrap d-flex">
           <div className="dt-qty-wrap d-flex ">
             <button className="dt-minus">
-              <i className="fas fa-minus"
-              onClick={()=>{
-                if(orderQty>1){
-                  setOrderQty(orderQty-1)
-                }
-                if(orderQty<=1){
-                  alert('商品最少一樣')
-                }
-              }}></i>
+              <i
+                className="fas fa-minus"
+                onClick={() => {
+                  if (orderQty > 1) {
+                    setOrderQty(orderQty - 1)
+                  }
+                  if (orderQty <= 1) {
+                    alert('商品最少一樣')
+                  }
+                }}
+              ></i>
             </button>
             <div className="dt-qty">{orderQty}</div>
             <button className="dt-add">
-              <i className="fas fa-plus"
-              onClick={()=>{
-                setOrderQty(orderQty+1)
-                console.log(typeof orderQty)
-              }}></i>
+              <i
+                className="fas fa-plus"
+                onClick={() => {
+                  setOrderQty(orderQty + 1)
+                  console.log(typeof orderQty)
+                }}
+              ></i>
             </button>
           </div>
-          <button className="dt-addtocart"
-          onClick={(e)=>{
-            if(!token){
-              Swal.fire({
+          <button
+            className="dt-addtocart"
+            onClick={(e) => {
+              if (!token) {
+                Swal.fire({
                   title: '請先登入會員',
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',
                   cancelButtonColor: '#d33',
-                  confirmButtonText: '前往登入頁面'
+                  confirmButtonText: '前往登入頁面',
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    props.history.push('/login' )
+                    props.history.push('/login')
                   }
                 })
-            }else{
-              addtocart(sid,ID,product_id)
-              Swal.fire({
-                    icon: 'success',
-                    title: '已加入購物車',
-                    showConfirmButton: false,
-                    timer: 1000
-                  })
-            }
-          }}>
+              } else {
+                addtocart(sid, ID, product_id)
+                Swal.fire({
+                  icon: 'success',
+                  title: '已加入購物車',
+                  showConfirmButton: false,
+                  timer: 1000,
+                })
+              }
+            }}
+          >
             Add To Cart
           </button>
         </div>
