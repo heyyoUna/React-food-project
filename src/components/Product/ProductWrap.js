@@ -135,12 +135,6 @@ const ProductWrap = (props) => {
             <IoIosHeart
               onClick={(e) => {
                 handlingDelete(sid)
-                Swal.fire({
-                  icon: 'error',
-                  title: '已移除收藏清單',
-                  showConfirmButton: false,
-                  timer: 800
-                })
               }}
               style={{
                 display: favIndicator ? 'block' : 'none',
