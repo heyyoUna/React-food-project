@@ -110,12 +110,7 @@ function Cart_OrderDetail(props) {
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">
-                    {a[0] +
-                      parseInt(
-                        localStorage.getItem('運費')
-                      )}
-                  </td>
+                  <td className="detailtd">{b}</td>
                 </tr>
               </tbody>
             </table>

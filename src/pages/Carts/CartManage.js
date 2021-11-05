@@ -34,7 +34,7 @@ function CartManage(props) {
     Math.floor(Math.random() * 99)
   let member
   let token = localStorage.getItem('token')
-
+  var a = moment.utc().tz('Asia/Taipei').format()
   useEffect(() => {
     console.log('這邊是初始化')
     CityAxios()
@@ -78,6 +78,7 @@ function CartManage(props) {
     Invoice,
     StoreInfo
   ) {
+    localStorage.setItem('訂單時間', a)
     await axios
       .get(`http://localhost:3002/member/memberprofile`, {
         headers: {
@@ -153,10 +154,11 @@ function CartManage(props) {
           NewOrderInfo[4] +
           NewOrderInfo[5] +
           NewOrderInfo[6],
-        Member_id: '123',
+        Member_id: member,
         Invoice_Type: NewOrderInfo[8],
         Order_Remark: NewOrderInfo[7],
         Invoice_Number: NewOrderInfo[9],
+        Created_At: localStorage.getItem('訂單時間'),
       }
     )
     if (r.status === 200) {

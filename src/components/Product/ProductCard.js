@@ -108,12 +108,6 @@ function ProductCard(props) {
               onClick={(e)=>{
                 e.stopPropagation()
                 handlingDelete(sid)
-                Swal.fire({
-                  icon: 'error',
-                  title: '已移除收藏清單',
-                  showConfirmButton: false,
-                  timer: 1000
-                })
                 if(display){
                   setDisplay(false)
                 }else{

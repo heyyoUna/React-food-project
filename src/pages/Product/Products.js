@@ -17,6 +17,7 @@ import ProductCard from './../../components/Product/ProductCard'
 import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
+  const { setFavArr, favArr} = props
   const ID = localStorage.getItem('id')
   console.log(ID)
   const searchParams = new URLSearchParams(
@@ -36,13 +37,15 @@ function Products(props) {
   )
   // 總頁數
   const [totalpages, setTotalPages] = useState('')
+  
   // 設定目前頁數狀態
   const [nowpage, setNowPage] = useState(
     searchParams.get('page') || 1
   )
   // 篩選radio
   const [filter, setFilter] = useState('')
-  const [ favArr, setFavArr] = useState([])
+  // 收藏商品陣列
+  // const [ favArr, setFavArr] = useState([])
 
   // 解析URL參數
   const sp = searchParams.toString()
@@ -110,6 +113,14 @@ function Products(props) {
     <>
       <>{switchBanner(productCate)}</>
       {/* ---------- */}
+      {/* 手機版分類按鈕 */}
+      <div className="pd-filter-mb-wrap">
+        <div className="pd-cate-mb ">
+          商品分類
+        <i class="fas fa-chevron-down"></i></div>
+        <div className="pd-filter-mb ">篩選條件
+        <i class="fas fa-chevron-down"></i></div>
+      </div>
       <div className="container">
         <div className="row pd-row">
           {/* 分類按鈕 */}

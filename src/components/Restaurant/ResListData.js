@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import {
+  withRouter,
+  Link,
+  useHistory,
+} from 'react-router-dom'
 import '../../App.scss'
 import { BsClock } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
@@ -113,7 +117,18 @@ function ResListData(props) {
                   <IoIosHeartEmpty
                     onClick={(e) => {
                       if (!token) {
-                        alert('請先登入')
+                        Swal.fire({
+                          title: '請先登入會員',
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: '前往登入頁面',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            props.history.push('/login')
+                          }
+                        })
                       } else {
                         handlingInsert(res_id)
                         Swal.fire({
@@ -205,4 +220,4 @@ function ResListData(props) {
   )
 }
 
-export default ResListData
+export default withRouter(ResListData)

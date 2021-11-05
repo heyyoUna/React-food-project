@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef,useState, useEffect } from 'react'
 import conf, { Product_API, Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
@@ -12,7 +12,8 @@ import Clientinfo from '../../components/Product/Clientinfo'
 
 
 function Customize(props) {
-  const { setProductId } = props
+  const ID = localStorage.getItem('id')
+  const { setProductId,setFavArr, favArr} = props
   const searchParams = new URLSearchParams(
     props.location.search
   )
@@ -30,9 +31,9 @@ function Customize(props) {
   // 每日消耗熱量（展示用）
   const [TDEE, setTDEE] = useState(0)
   // 建議熱量初始值(記錄用)
-  const [oriCal, setOriCal] = useState(0)
+  // const [oriCal, setOriCal] = useState(0)
   // 選擇目標後的熱量（紀錄用）
-  const [secondCal, setSecondCal] = useState(0)
+  // const [secondCal, setSecondCal] = useState(0)
   // 建議攝取熱量(展示用)
   const [sugCal, setSugCal] = useState(0)
 
@@ -42,6 +43,20 @@ function Customize(props) {
   const [sugProducts, setSugProducts] = useState([])
   // 推薦餐盒
   const [ sugFoodBox, setSugFoodBox] = useState([])
+
+  const myRef = useRef(null)
+
+  // 拿到會員收藏商品資料
+  useEffect(() => {
+    ;(async () => {
+      const r = await fetch(
+        'http://localhost:3002/product/fav/' + ID
+      )
+      const obj = await r.json()
+      console.log(obj)
+      setFavArr(obj.data)
+    })()
+  }, [])
 
   // 商品區要資料
   useEffect(() => {
@@ -136,6 +151,14 @@ function Customize(props) {
     calculate()
   }, [target, exercises,TDEE])
 
+  const mySubmit = () => {
+    // listData()
+    //滾動效果
+    myRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
     <>
@@ -172,18 +195,21 @@ function Customize(props) {
             <p className="dkgreen">熱量{sugCal}大卡</p>
             <p className="dkgreen">蛋白質{sugProtein}克</p>
           </div>
-          <button className="pd-client-btn">
+          <button className="pd-client-btn" 
+          onClick={mySubmit}>
             查看飲食推薦
           </button>
         </div>
       </div>
       {/* 推薦區 */}
+      <div ref={myRef}></div>
       <div className="container d-flex pd-sug-wrap">
         <h1>商品推薦</h1>
         <div className="pd-card-wrap d-flex col-12">
           {sugProducts.map((v, i) => {
             return (
               <ProductCard
+                favArr={favArr}
                 key={v.sid}
                 sid={v.sid}
                 img={v.product_img}

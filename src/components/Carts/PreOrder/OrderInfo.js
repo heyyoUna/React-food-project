@@ -110,6 +110,14 @@ function OrderInfo(props) {
           showConfirmButton: true,
           confirmButtonText: '我知道了',
         })
+      }
+      if (textvalue === '') {
+        Swal.fire({
+          icon: 'error',
+          title: '您沒有輸入點數喔，請重新輸入',
+          showConfirmButton: true,
+          confirmButtonText: '我知道了',
+        })
       } else {
         // 如果輸入的點數 > 會員目前所有點數
         if (textvalue > data[0].left_point) {

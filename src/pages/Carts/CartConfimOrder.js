@@ -13,11 +13,11 @@ import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+import moment from 'moment'
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
-  let member = localStorage.getItem('id')
   let OrderSid = localStorage.getItem('訂單編號')
 
   // 設定訂單編號的格式
@@ -44,18 +44,18 @@ function Cart_ConfimOrder(props) {
     let s
     let NewData = [...data]
     a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-    // console.log('這是暫存資料', a)
-    // console.log('確認訂單資訊', NewData[0].Order_Sid)
+    console.log('這是暫存資料', a)
+    console.log('確認訂單資訊', DataDetail.Member_id)
 
     let r = await axios.post(
       'http://localhost:3002/cart/ConfirmList',
       {
         Order_Sid: OrderSid,
-        Member_id: member,
+        Member_id: DataDetail.Member_id,
         Total_Price:
           a[0] + parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
-        Created_At: DataDetail.Created_At,
+        Created_At: localStorage.getItem('訂單時間'),
       }
     )
 
@@ -156,7 +156,7 @@ function Cart_ConfimOrder(props) {
                 訂單時間
               </td>
               <td className="text-start col-6">
-                {DataDetail.Created_At}
+                {localStorage.getItem('訂單時間')}
               </td>
             </tr>
             <tr>
@@ -234,6 +234,7 @@ function Cart_ConfimOrder(props) {
         <button
           class="confirminfo col-lg-4 col-10"
           onClick={() => {
+            console.log('確認')
             ConfirmOrder()
           }}
         >
