@@ -44,6 +44,7 @@ import MemberFavoriteProduct from './pages/Member/MemberFavoriteProduct'
 import MemberFavoriteArticle from './pages/Member/MemberFavoriteArticle'
 import MemberFavoriteRestaurant from './pages/Member/MemberFavoriteRestaurant'
 import MemberChangePassword from './pages/Member/MemberChangePassword'
+import MemberForgotPassword from './pages/Member/MemberForgotPassword'
 
 //輪盤
 import GameChoose from './pages/Game/GameChoose'
@@ -232,6 +233,10 @@ function App() {
 
               <Route path="/member/ChangePassword">
                 <MemberChangePassword />
+              </Route>
+
+              <Route path="/member/ForgotPassword/:email/:password">
+                <MemberForgotPassword />
               </Route>
 
               {/* 輪盤 */}

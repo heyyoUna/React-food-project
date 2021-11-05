@@ -153,7 +153,7 @@ function CartManage(props) {
           NewOrderInfo[4] +
           NewOrderInfo[5] +
           NewOrderInfo[6],
-        Member_id: '123',
+        Member_id: member,
         Invoice_Type: NewOrderInfo[8],
         Order_Remark: NewOrderInfo[7],
         Invoice_Number: NewOrderInfo[9],
