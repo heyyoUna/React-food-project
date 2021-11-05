@@ -16,7 +16,7 @@ import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
 import PageBtn from './../../components/Product/PageBtn'
 import { FiFilter } from 'react-icons/fi'
-
+import Carousel from 'react-grid-carousel'
 // import { data } from '../../data'
 
 function Restaurants(props) {
@@ -445,19 +445,31 @@ function Restaurants(props) {
       </div>
       {/* 人氣精選 */}
       <div className="container mx-auto">
-        <div className="row  justify-content-center ">
+        {/* <div className="row  justify-content-center "> */}
+        <Carousel
+          cols={4}
+          rows={1}
+          showDots
+          loop
+          gap={12}
+          justify-content-center
+        >
           {popular.map((v, i) => {
             return (
-              <ResPopular
-                res_id={v.res_id}
-                res_img={v.res_img}
-                res_name={v.res_name}
-                res_introduce={v.res_introduce}
-              />
+              <Carousel.Item>
+                <ResPopular
+                  res_id={v.res_id}
+                  res_img={v.res_img}
+                  res_name={v.res_name}
+                  res_introduce={v.res_introduce}
+                  isNotLiked={v.isLiked}
+                />
+              </Carousel.Item>
             )
           })}
-        </div>
+        </Carousel>
       </div>
+      {/* </div> */}
     </>
   )
 }
