@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
+<<<<<<< HEAD
+// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+=======
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+>>>>>>> 8ff5776beaaacf3ed6d1f4edf8551eadc7fe889d
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
@@ -34,6 +40,10 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
+<<<<<<< HEAD
+        Order_Sid:'123', //之後要再修改
+=======
+>>>>>>> 8ff5776beaaacf3ed6d1f4edf8551eadc7fe889d
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,

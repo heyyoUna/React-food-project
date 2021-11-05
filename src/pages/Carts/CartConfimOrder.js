@@ -13,6 +13,7 @@ import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+import moment from 'moment'
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
@@ -54,7 +55,7 @@ function Cart_ConfimOrder(props) {
         Total_Price:
           a[0] + parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
-        Created_At: DataDetail.Created_At,
+        Created_At: localStorage.getItem('訂單時間'),
       }
     )
 
@@ -155,7 +156,7 @@ function Cart_ConfimOrder(props) {
                 訂單時間
               </td>
               <td className="text-start col-6">
-                {DataDetail.Created_At}
+                {localStorage.getItem('訂單時間')}
               </td>
             </tr>
             <tr>

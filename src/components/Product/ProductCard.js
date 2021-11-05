@@ -5,8 +5,13 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function ProductCard(props) {
+<<<<<<< HEAD
+  const { sid, index, img, name, cal, price } = props
+  const ID = localStorage.getItem('id')
+=======
   const { sid, index,img, name, cal, price,favArr } = props
   const token = localStorage.getItem('token')
+>>>>>>> 8ff5776beaaacf3ed6d1f4edf8551eadc7fe889d
   let history = useHistory()
   const [display, setDisplay] = useState(true)
 
