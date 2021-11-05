@@ -6,6 +6,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
+  let history = useHistory()
   const ID = localStorage.getItem('id')
   
   const {
@@ -104,7 +105,18 @@ const ProductWrap = (props) => {
             <IoIosHeartEmpty
               onClick={(e) => {
                 if (!token) {
-                  alert('請先登入')
+                  Swal.fire({
+                  title: '請先登入會員',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '前往登入頁面'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    props.history.push('/login' )
+                  }
+                })
                 } else {
                   handlingInsert(sid)
                   Swal.fire({
@@ -175,7 +187,28 @@ const ProductWrap = (props) => {
           </div>
           <button className="dt-addtocart"
           onClick={(e)=>{
-            addtocart(sid,ID,product_id)
+            if(!token){
+              Swal.fire({
+                  title: '請先登入會員',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '前往登入頁面'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    props.history.push('/login' )
+                  }
+                })
+            }else{
+              addtocart(sid,ID,product_id)
+              Swal.fire({
+                    icon: 'success',
+                    title: '已加入購物車',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+            }
           }}>
             Add To Cart
           </button>
