@@ -16,7 +16,6 @@ import axios from 'axios'
 
 function CartPreOrder(props) {
   let { CountNav, setCountNav } = props
-  console.log('por', CountNav)
   // 加入商品的 Data
   let [data, setData] = useState([{}])
 
@@ -66,10 +65,13 @@ function CartPreOrder(props) {
       for (let i = 0; i < r.data.length; i++) {
         Count[i] = r.data[i].Order_Amount
       }
+      CountNav = r.data.length
+      console.log('por', CountNav)
 
-      localStorage.setItem('數量', Count)
       // 設定商品初始數量
       setCount(Count)
+      setCountNav(CountNav)
+      localStorage.setItem('數量', CountNav)
 
       // 計算訂單小計
       productPrice()
@@ -208,6 +210,8 @@ function CartPreOrder(props) {
           setCount={setCount}
           Filter={Filter}
           setFilter={setFilter}
+          CountNav={CountNav}
+          setCountNav={setCountNav}
         />
 
         {/* <StoreCardMobile /> */}

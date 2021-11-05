@@ -7,8 +7,11 @@ import axios from 'axios'
 // 清空 LocalStorage 資訊
 
 function CartComplete(props) {
+  let { setCountNav } = props
+  setCountNav(0)
   localStorage.removeItem('訂單價格資訊')
   localStorage.removeItem('店號')
+  localStorage.setItem('數量', 0)
   useEffect(() => {
     let r = axios.delete('http://localhost:3002/cart/')
     if (r.status === 200) {
