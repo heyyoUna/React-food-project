@@ -49,27 +49,7 @@ hr {
 }
 
 /*---------- 按鈕：更多文章  ----------*/
-.col_RM_btn {
-  width: 100%;
-  text-align: center;
 
-  button {
-    background: $light-orange;
-    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
-    border-radius: 30px;
-    border: none;
-    color: white;
-    margin: 20px auto;
-    letter-spacing: 3px;
-    font-size: 24px;
-    padding: 20px 80px;
-    letter-spacing: 3px;
-
-    &:hover {
-      background: $light-orange;
-    }
-  }
-}
 
 //專欄卡片hover
 .cardsHover {

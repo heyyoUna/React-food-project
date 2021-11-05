@@ -88,7 +88,6 @@ function ArQARadioButton(props) {
               EngagementAdd(data.sid)
               setCheckReply(e.target.value)
               Swal.fire({
-                position: 'top-end',
                 icon: 'success',
                 title: '恭喜獲得1點會員點數',
                 showConfirmButton: false,

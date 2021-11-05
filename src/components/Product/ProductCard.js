@@ -3,7 +3,7 @@ import { withRouter , useHistory} from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 function ProductCard(props) {
-  const { sid, index,img, name, cal, price } = props
+  const { sid, index, img, name, cal, price } = props
   const ID = localStorage.getItem('id')
   let history = useHistory()
   const [display, setDisplay] = useState(true)

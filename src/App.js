@@ -93,150 +93,149 @@ function App() {
           {/* 匹配路由表(路徑單一匹配) */}
           {/* 切換顯示的元件畫面放在這下面 */}
           {/* ScrollToTop是為了讓連到另一頁內容時，頁面回到最上方 */}
-          
-            <Switch>
-              <Route path="/student">
-                <Student />
-              </Route>
-              <Route path="/product/women">
-                <ProductWomen />
-              </Route>
-              <Route path="/product/men">
-                <ProductMen />
-              </Route>
-              {/* 這裡要定義網址參數的屬性名稱 */}
-              <Route path="/product/baby/:id?">
-                <ProductBaby />
-              </Route>
 
-              <Route path="/signup">
-                {/* 利用props傳入頁面元件狀態 */}
-                <Signup auth={auth} setAuth={setAuth} />
-              </Route>
-              <Route path="/login">
-                {/* 利用props傳入頁面元件狀態 */}
-                <Login auth={auth} setAuth={setAuth} />
-              </Route>
-              {/* 商城 */}
-              <Route path="/products">
-                <Products/>
-              </Route>
+          <Switch>
+            <Route path="/student">
+              <Student />
+            </Route>
+            <Route path="/product/women">
+              <ProductWomen />
+            </Route>
+            <Route path="/product/men">
+              <ProductMen />
+            </Route>
+            {/* 這裡要定義網址參數的屬性名稱 */}
+            <Route path="/product/baby/:id?">
+              <ProductBaby />
+            </Route>
 
-              <Route path="/product/:id">
-                <ProductDetail
-                />
-              </Route>
+            <Route path="/signup">
+              {/* 利用props傳入頁面元件狀態 */}
+              <Signup auth={auth} setAuth={setAuth} />
+            </Route>
+            <Route path="/login">
+              {/* 利用props傳入頁面元件狀態 */}
+              <Login auth={auth} setAuth={setAuth} />
+            </Route>
+            {/* 商城 */}
+            <Route path="/products">
+              <Products />
+            </Route>
 
-              <Route path="/customize">
-                <Customize/>
-              </Route>
+            <Route path="/product/:id">
+              <ProductDetail />
+            </Route>
 
-              {/* 文章 */}
-              {/* <Route path="/article/ExerciseContent">
+            <Route path="/customize">
+              <Customize />
+            </Route>
+
+            {/* 文章 */}
+            {/* <Route path="/article/ExerciseContent">
                 <ExerciseContent auth={auth} />
               </Route> */}
-              <Route
-                path="/RecipeContent/:id"
-                component={RecipeContent}
-              ></Route>
+            <Route
+              path="/RecipeContent/:id"
+              component={RecipeContent}
+            ></Route>
 
-              <Route
-                path="/ExerciseContent/:id"
-                component={ExerciseContent}
-              ></Route>
+            <Route
+              path="/ExerciseContent/:id"
+              component={ExerciseContent}
+            ></Route>
 
-              <Route
-                path="/FoodContent/:id"
-                component={FoodContent}
-              ></Route>
+            <Route
+              path="/FoodContent/:id"
+              component={FoodContent}
+            ></Route>
 
-              <Route path="/article/recipe">
-                <ArtRecipe auth={auth} />
-              </Route>
+            <Route path="/article/recipe">
+              <ArtRecipe auth={auth} />
+            </Route>
 
-              <Route path="/article/exercise">
-                <ArtExercise auth={auth} />
-              </Route>
+            <Route path="/article/exercise">
+              <ArtExercise auth={auth} />
+            </Route>
 
-              <Route path="/article/food">
-                <ArtFood auth={auth} />
-              </Route>
+            <Route path="/article/food">
+              <ArtFood auth={auth} />
+            </Route>
 
-              <Route path="/article">
-                <Article auth={auth} />
-              </Route>
+            <Route path="/article">
+              <Article auth={auth} />
+            </Route>
 
-              {/* 餐廳 */}
-              <Route path="/restaurants">
-                <Restaurants />
-              </Route>
-              <Route path="/resmap">
-                <ResMap />
-              </Route>
-              <Route
-                path="/resprdoucts/:id"
-                component={ResProducts}
-              />
+            {/* 餐廳 */}
+            <Route path="/restaurants">
+              <Restaurants />
+            </Route>
+            <Route path="/resmap">
+              <ResMap />
+            </Route>
+            <Route
+              path="/resprdoucts/:id"
+              component={ResProducts}
+            />
 
-              <Route exact path="/">
-                <Home auth={auth} />
-              </Route>
+            <Route exact path="/">
+              <Home auth={auth} />
+            </Route>
 
-              <Route path="/productcategory">
-                <ProductCategory />
-              </Route>
-              <Route path="/member/profile">
-                <MemberProfile auth={auth} />
-              </Route>
-              <Route path="/member/order">
-                <MemberOrder />
-              </Route>
-              <Route path="/member/review">
-                <MemberReview />
-              </Route>
-              <Route path="/member/point">
-                <MemberPoint />
-              </Route>
-              <Route path="/member/FavoriteProduct">
-                <MemberFavoriteProduct />
-              </Route>
-              <Route path="/member/FavoriteArticle">
-                <MemberFavoriteArticle />
-              </Route>
-              <Route path="/member/FavoriteRestaurant">
-                <MemberFavoriteRestaurant />
-              </Route>
-              <Route path="/member/ChangePassword">
-                <MemberChangePassword />
-              </Route>
-              <Route path="/game/GameChoose">
-                <GameChoose />
-              </Route>
-              <Route path="/game/GameRecipe">
-                <GameRecipe />
-              </Route>
-              <Route path="/game/GameDelivery">
-                <GameDelivery />
-              </Route>
+            <Route path="/productcategory">
+              <ProductCategory />
+            </Route>
+            <Route path="/member/profile">
+              <MemberProfile auth={auth} />
+            </Route>
+            <Route path="/member/order">
+              <MemberOrder />
+            </Route>
+            <Route path="/member/review">
+              <MemberReview />
+            </Route>
+            <Route path="/member/point">
+              <MemberPoint />
+            </Route>
+            <Route path="/member/FavoriteProduct">
+              <MemberFavoriteProduct />
+            </Route>
+            <Route path="/member/FavoriteArticle">
+              <MemberFavoriteArticle />
+            </Route>
+            <Route path="/member/FavoriteRestaurant">
+              <MemberFavoriteRestaurant />
+            </Route>
+            <Route path="/member/ChangePassword">
+              <MemberChangePassword />
+            </Route>
+            <Route path="/game/GameChoose">
+              <GameChoose />
+            </Route>
+            <Route path="/game/GameRecipe">
+              <GameRecipe />
+            </Route>
+            <Route path="/game/GameDelivery">
+              <GameDelivery />
+            </Route>
 
-              {/* 購物車 */}
-              <Route exact path="/carts/PreOrder">
-                <CartPreOrder />
-              </Route>
-              <Route exact path="/carts/Manage">
-                <CartManage />
-              </Route>
-              <Route exact path="/carts/ConfirmOrder">
-                <CartConfimOrder />
-              </Route>
-              <Route exact path="/carts/Complete">
-                <CartComplete />
-              </Route>
-              <Route path="*">
-                <NotFoundPage />
-              </Route>
-            </Switch>
-            {/* end 匹配路由表 */}
+            {/* 購物車 */}
+            <Route exact path="/carts/PreOrder">
+              <CartPreOrder />
+            </Route>
+            <Route exact path="/carts/Manage">
+              <CartManage />
+            </Route>
+            <Route exact path="/carts/ConfirmOrder">
+              <CartConfimOrder />
+            </Route>
+            <Route exact path="/carts/Complete">
+              <CartComplete />
+            </Route>
+            <Route path="*">
+              <NotFoundPage />
+            </Route>
+          </Switch>
+          {/* end 匹配路由表 */}
         </MainContent>
         {/* 頁尾+版權訊息 */}
         <MyFooter />

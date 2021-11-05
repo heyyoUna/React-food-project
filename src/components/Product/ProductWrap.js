@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-<<<<<<< HEAD
 // import Swal from 'sweetalert2'
-=======
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
->>>>>>> b8286788f089e43569e0a107b48a1080e4e9bbe3
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
@@ -38,16 +35,10 @@ const ProductWrap = (props) => {
       method: 'POST',
       body: JSON.stringify({
         Sid: sid,
-<<<<<<< HEAD
-        Member_id: ID,
-        Product_id: product_id,
-        Order_Amount: orderQty,
-=======
         Order_Sid:'123', //之後要再修改
         Member_id:ID,
         Product_id:product_id,
         Order_Amount:orderQty,
->>>>>>> 98ac3f25cd8eff5b3175fd54ebfc2ab93c2b847f
       }),
       headers: {
         'Content-Type': 'application/json',
