@@ -278,7 +278,7 @@ function App() {
               <CartConfimOrder />
             </Route>
             <Route exact path="/carts/Complete">
-              <CartComplete />
+              <CartComplete setCountNav={setCountNav} />
             </Route>
             <Route path="*">
               <NotFoundPage />
