@@ -37,6 +37,7 @@ function Products(props) {
   )
   // 總頁數
   const [totalpages, setTotalPages] = useState('')
+  
   // 設定目前頁數狀態
   const [nowpage, setNowPage] = useState(
     searchParams.get('page') || 1
