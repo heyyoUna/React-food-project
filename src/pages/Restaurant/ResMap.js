@@ -33,6 +33,7 @@ function ResMap() {
 
   const [location, setLocation] = useState()
   const [filterData, setFilterData] = useState([])
+  const [listData, setListData] = useState([])
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
@@ -61,6 +62,7 @@ function ResMap() {
   //存push來的原始資料
   useEffect(() => {
     setFilterData(history.location.state.mapData)
+    setListData(history.location.state.mapData)
   }, [])
 
   //篩選
@@ -110,11 +112,26 @@ function ResMap() {
       }
 
       setFilterData(processFilterData)
+      setListData(processFilterData)
     } else {
       setFilterData(history.location.state.mapData)
+      setListData(history.location.state.mapData)
     }
   }, [filter])
 
+  const markerChange = (e) => {
+    let clickToFirstData = [...filterData]
+    //e.target.options 套件取值用法
+    const moveTarget = e.target.options.markerIndex
+    //先暫存
+    const tmpTargetData = clickToFirstData[moveTarget]
+    //刪掉
+    clickToFirstData.splice(moveTarget, 1)
+
+    clickToFirstData.splice(0, 0, tmpTargetData)
+
+    setListData(clickToFirstData)
+  }
   return (
     <div>
       <div className="map-searchbar">
@@ -186,7 +203,7 @@ function ResMap() {
       </div>
       <div className=" map-wrapper ">
         <div className=" col-md-4  col-12 map-list ">
-          {filterData.map((item, index) => {
+          {listData.map((item, index) => {
             return (
               <>
                 <div className="map-res-introduce d-flex key={index}">
@@ -300,16 +317,21 @@ function ResMap() {
               return (
                 <>
                   <Marker
+                    key={index}
+                    markerIndex={index}
                     position={[item.res_lat, item.res_lng]}
+                    // eventHandlers={{
+                    //   click: (e) => {
+                    //     console.log(
+                    //       'marker clicked',
+                    //       e.latlng.lat,
+                    //       e.latlng.lng
+                    //     )
+                    //   },
+                    // }}
                     eventHandlers={{
                       click: (e) => {
-                        console.log(
-                          'marker clicked',
-                          e.latlng.lat,
-                          e.latlng.lng,
-                          item.res_lat - e.latlng.lat,
-                          item.res_lng - e.latlng.lng
-                        )
+                        markerChange(e)
                       },
                     }}
                     // data-index={index}
