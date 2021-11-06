@@ -204,6 +204,7 @@ footer {
     font-size: 24px;
     padding: 15px 80px;
     letter-spacing: 3px;
+    transition: .3s;
 
     &:hover {
       background: $light-yellow;
@@ -338,23 +339,10 @@ footer {
         letter-spacing: 10px;
       }
     }
-    .inputWrap {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      width: 70%;
-      margin: 30px auto;
+  }
 
-      select, input {
-        border-radius: 15px;
-        letter-spacing: 10px;
-        text-align: center;
-        padding: 5px 10px;
-      }
-      select {
-        padding: 3px 30px;
-      }
-    }
+  .hp-client{
+    margin-top: 50px
   }
 
   /*---------- 商城  ----------*/

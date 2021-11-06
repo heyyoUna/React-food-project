@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
+  useHistory,
 } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 // import { imgUrl } from './config/index'
@@ -10,13 +11,6 @@ import './App.scss'
 
 // 頁面用元件
 import Home from './pages/Home'
-import About from './pages/About'
-import ProductBaby from './pages/ProductBaby'
-import ProductMen from './pages/ProductMen'
-import ProductWomen from './pages/ProductWomen'
-import NotFoundPage from './pages/NotFoundPage'
-import ProductCategory from './pages/ProductCategory'
-import Student from './pages/Student'
 
 //文章
 import Article from './pages/article/Article'
@@ -80,6 +74,13 @@ function App() {
   const [auth, setAuth] = useState(false)
   //給客製化跟商品區收藏商品資料用
   const [favArr, setFavArr] = useState([])
+  // 客製化用
+  const [gender, setGender] = useState('男')
+  const [years, setYears] = useState('')
+  const [height, setHeight] = useState('')
+  const [weight, setWeight] = useState('')
+  const [oriTDEE, setOriTDEE] = useState(0)
+  const [TDEE, setTDEE] = useState(0)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -110,20 +111,6 @@ function App() {
           {/* ScrollToTop是為了讓連到另一頁內容時，頁面回到最上方 */}
 
           <Switch>
-            <Route path="/student">
-              <Student />
-            </Route>
-            <Route path="/product/women">
-              <ProductWomen />
-            </Route>
-            <Route path="/product/men">
-              <ProductMen />
-            </Route>
-            {/* 這裡要定義網址參數的屬性名稱 */}
-            <Route path="/product/baby/:id?">
-              <ProductBaby />
-            </Route>
-
             {/* 商城 */}
             <Route path="/products">
               <Products
@@ -140,6 +127,18 @@ function App() {
               <Customize
                 favArr={favArr}
                 setFavArr={setFavArr}
+                gender={gender}
+                setGender={setGender}
+                years={years}
+                setYears={setYears}
+                height={height}
+                setHeight={setHeight}
+                weight={weight}
+                setWeight={setWeight}
+                TDEE={TDEE}
+                setTDEE={setTDEE}
+                oriTDEE={oriTDEE}
+                setOriTDEE={setOriTDEE}
               />
             </Route>
 
@@ -191,13 +190,21 @@ function App() {
             />
 
             <Route exact path="/">
-              <Home auth={auth} />
+              <Home 
+              auth={auth}
+              gender={gender}
+              setGender={setGender}
+              years={years}
+              setYears={setYears}
+              height={height}
+              setHeight={setHeight}
+              weight={weight}
+              setWeight={setWeight}
+              TDEE={TDEE}
+              setTDEE={setTDEE}
+              oriTDEE={oriTDEE}
+              setOriTDEE={setOriTDEE} />
             </Route>
-
-            <Route path="/productcategory">
-              <ProductCategory />
-            </Route>
-
             {/* 會員 */}
             <Route path="/signup">
               {/* 利用props傳入頁面元件狀態 */}
@@ -280,9 +287,7 @@ function App() {
             <Route exact path="/carts/Complete">
               <CartComplete setCountNav={setCountNav} />
             </Route>
-            <Route path="*">
-              <NotFoundPage />
-            </Route>
+            
           </Switch>
           {/* end 匹配路由表 */}
         </MainContent>

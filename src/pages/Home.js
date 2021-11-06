@@ -3,11 +3,28 @@ import { imgUrl } from '../config/index'
 import HpArMoreBtn from '../components/HpArMoreBtn'
 import HpSBtn from '../components/HpSBtn'
 import HpFixedBgc from '../components/HpFixedBgc'
-import { withRouter } from 'react-router-dom'
+import { withRouter , useHistory} from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+import Clientinfo from '../components/Product/Clientinfo'
 function Home(props) {
   // const { auth } = props
+  let history = useHistory()
+
+  const {
+    gender,
+    setGender,
+    years,
+    setYears,
+    height,
+    setHeight,
+    weight,
+    setWeight,
+    oriTDEE,
+    setOriTDEE,
+    TDEE,
+    setTDEE,} = props 
+  
   return (
     <>
       <div className="container-fluid px-0" id="hpTotal">
@@ -120,38 +137,29 @@ function Home(props) {
                   />
                 </div>
               </div>
-              <div className="inputWrap ">
-                <div>
-                  <select className="mx-2 my-3 dark-green">
-                    <option value="" disabled selected >
-                      生理性別
-                    </option>
-                    <option value="男性">男性</option>
-                    <option value="女性">女性</option>
-                  </select>
-                  <input
-                    className="mx-2 my-3 text-center"
-                    type="text"
-                    placeholder="年齡"
-                    color="light-green"
-                  />
-                </div>
 
-                <div>
-                  <input
-                    className="mx-2 my-3"
-                    type="text"
-                    placeholder="身高"
-                  />
-                  <input
-                    className="mx-2 my-3"
-                    type="text"
-                    placeholder="體重"
-                  />
-                </div>
+              <div className="pd-client-info d-flex hp-client">
+                <Clientinfo
+                  gender={gender}
+                  setGender={setGender}
+                  years={years}
+                  setYears={setYears}
+                  height={height}
+                  setHeight={setHeight}
+                  weight={weight}
+                  setWeight={setWeight}
+                  TDEE={TDEE}
+                  setTDEE={setTDEE}
+                  oriTDEE={oriTDEE}
+                  setOriTDEE={setOriTDEE}
+                />
               </div>
               <div className="col_RM_btn">
-                <button>查看推薦</button>
+                <button
+                onClick={(e) => {
+                  props.history.push('/customize')
+                }}>
+                查看推薦</button>
               </div>
             </div>
           </div>
@@ -402,4 +410,4 @@ function Home(props) {
   )
 }
 
-export default Home
+export default withRouter(Home)
