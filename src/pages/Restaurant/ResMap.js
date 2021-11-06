@@ -6,10 +6,10 @@ import {
   Marker,
   Popup,
 } from 'react-leaflet'
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
-import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import centerIcon from 'leaflet/dist/images/centericon.png'
+import markerIcon2x from 'leaflet/dist/images/mapicon.png'
+import markerIcon from 'leaflet/dist/images/mapicon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { BsStarFill } from 'react-icons/bs'
 import { BsClock } from 'react-icons/bs'
@@ -29,6 +29,13 @@ function ResMap() {
     iconUrl: markerIcon,
     iconRetinaUrl: markerIcon2x,
     shadowUrl: markerShadow,
+    iconSize: [43, 43],
+  })
+
+  const myIcon = new L.Icon({
+    iconUrl: centerIcon,
+    iconSize: [43, 43],
+    iconRetinaUrl: centerIcon,
   })
 
   const [location, setLocation] = useState()
@@ -101,7 +108,6 @@ function ResMap() {
       }
 
       if (filter.distance) {
-        console.log(132)
         processFilterData = processFilterData.filter(
           (d) => {
             console.log(d)
@@ -312,7 +318,13 @@ function ResMap() {
             />
             {/* history.location && history.location.state && history.location.state.mapData &&
               history.location.state.mapData */}
-
+            <Marker
+              position={[
+                history.location.state.lat,
+                history.location.state.lng,
+              ]}
+              icon={myIcon}
+            ></Marker>
             {filterData.map((item, index) => {
               return (
                 <>
