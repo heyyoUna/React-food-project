@@ -224,15 +224,9 @@ function App() {
               <MemberOrder />
             </Route>
 
-<<<<<<< HEAD
             <Route path="/member/orderdetail/:ordersid">
                 <MemberOrderDetail />
               </Route>
-=======
-            <Route path="/member/orderdetail">
-              <MemberOrderDetail />
-            </Route>
->>>>>>> 813f0121f60aa8c033b88c47fef07b73eb51cad7
 
             <Route path="/member/review">
               <MemberReview />
