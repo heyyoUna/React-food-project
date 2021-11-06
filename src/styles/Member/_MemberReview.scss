@@ -96,19 +96,19 @@
       }
       /* 評價按鈕 */
       .member-btn-evaluated {
-        background-color: #8fc065;
-        color: #fff;
-        border-radius: 50px;
-        padding: 5px 30px;
-        border: 0;
-        white-space: nowrap;
-      }
-      .member-btn-evaluating {
         background-color: #fff;
         color: #8fc065;
         border-radius: 50px;
         padding: 5px 30px;
         border: 2px solid;
+        white-space: nowrap;
+      }
+      .member-btn-evaluating {
+        background-color: #8fc065;
+        color: #fff;
+        border-radius: 50px;
+        padding: 5px 30px;
+        border: 0;
         white-space: nowrap;
       }
       .member-btn-evaluated:hover,
