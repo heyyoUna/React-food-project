@@ -16,7 +16,7 @@ function ProductCard(props) {
     if(token){
       if(favArr){
         favArr.forEach((value)=>{
-          if(value.product_id=== sid){
+          if(value.product_id === sid){
             setDisplay(false)
           }
         })
@@ -30,6 +30,7 @@ function ProductCard(props) {
       method: 'POST',
       body: JSON.stringify({
         productid: sid
+        
 
       }),
       headers: {
@@ -37,6 +38,7 @@ function ProductCard(props) {
         'Authorization': 'Bearer ' + token
       },
     })
+    console.log('sid in insert', sid)
   }
   //  刪除收藏
   const handlingDelete = (sid) => {

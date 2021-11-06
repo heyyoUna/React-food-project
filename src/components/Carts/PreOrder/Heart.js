@@ -9,16 +9,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function Heart(props) {
-  let { v, i, setData, setCount, Pos, setPos } = props
+  let { v, i, setData, setCount, setPos, setCountNav } =
+    props
   const [display, setDisplay] = useState(true)
   let member
-  const token = localStorage.getItem('token')
-  const [data, setdata] = useState()
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-
-
+  let CountNav
   async function AddtoCart() {
     let NewPos = v.sid
     let p = await axios.post('http://localhost:3002/cart', {
@@ -52,8 +47,12 @@ function Heart(props) {
         Count[i] = r.data[i].Order_Amount
       }
 
+      CountNav = r.data.length
+
       // // 設定商品初始數量
       setCount(Count)
+      setCountNav(CountNav)
+      localStorage.setItem('數量', CountNav)
       setPos(NewPos)
       // // // 計算訂單小計
       // productPrice()

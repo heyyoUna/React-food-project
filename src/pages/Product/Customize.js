@@ -1,5 +1,5 @@
 import React, { useRef,useState, useEffect } from 'react'
-import conf, { Product_API, Customize_API } from './../../config/config.js'
+import { Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
   withRouter,Link,
@@ -13,27 +13,29 @@ import Clientinfo from '../../components/Product/Clientinfo'
 
 function Customize(props) {
   const ID = localStorage.getItem('id')
-  const { setProductId,setFavArr, favArr} = props
+  const { 
+    setProductId,
+    setFavArr, 
+    favArr,
+    gender,
+    setGender,
+    years,
+    setYears,
+    height,
+    setHeight,
+    weight,
+    setWeight,
+    oriTDEE,
+    setOriTDEE,
+    TDEE,
+    setTDEE,
+  } = props
   const searchParams = new URLSearchParams(
     props.location.search
   )
   // 運動習慣狀態
   const [target, setTarget] = useState('變瘦')
   const [exercises, setExercises] = useState('不運動')
-  // 基本資料狀態
-  const [gender, setGender] = useState('男')
-  const [years, setYears] = useState('')
-  const [height, setHeight] = useState('')
-  const [weight, setWeight] = useState('')
-  // 建議區
-  // TDEE 初始值(記錄用)
-  const [oriTDEE, setOriTDEE] = useState(0)
-  // 每日消耗熱量（展示用）
-  const [TDEE, setTDEE] = useState(0)
-  // 建議熱量初始值(記錄用)
-  // const [oriCal, setOriCal] = useState(0)
-  // 選擇目標後的熱量（紀錄用）
-  // const [secondCal, setSecondCal] = useState(0)
   // 建議攝取熱量(展示用)
   const [sugCal, setSugCal] = useState(0)
 
@@ -185,15 +187,17 @@ function Customize(props) {
               setHeight={setHeight}
               weight={weight}
               setWeight={setWeight}
+              TDEE={TDEE}
               setTDEE={setTDEE}
+              oriTDEE={oriTDEE}
               setOriTDEE={setOriTDEE}
             />
           </div>
           <div className="pd-suggest d-flex">
             <p className="dkgreen">每日消耗熱量{TDEE}大卡</p>
             <p className="pd-day">建議每日攝取</p>
-            <p className="dkgreen">熱量{sugCal}大卡</p>
-            <p className="dkgreen">蛋白質{sugProtein}克</p>
+            <p className="dkgreen">熱量<span className="orange">{sugCal}</span>大卡</p>
+            <p className="dkgreen">蛋白質<span className="orange">{sugProtein}</span>克</p>
           </div>
           <button className="pd-client-btn" 
           onClick={mySubmit}>
@@ -201,8 +205,9 @@ function Customize(props) {
           </button>
         </div>
       </div>
-      {/* 推薦區 */}
+      
       <div ref={myRef}></div>
+      {/* 推薦區 */}
       <div className="container d-flex pd-sug-wrap">
         <h1>商品推薦</h1>
         <div className="pd-card-wrap d-flex col-12">
@@ -220,6 +225,15 @@ function Customize(props) {
               />
             )
           })}
+          <div className="pd-viewmore-wrap">
+            <i className="fas fa-angle-double-right front"></i>
+
+            <Link to={'products/?cate=0&page=1'}>
+            <div className="pd-viewmore">查看更多商品</div>
+            </Link>
+
+            <i className="fas fa-angle-double-right back"></i>
+          </div>
         </div>
         <h1>餐盒推薦</h1>
         <div className="container mx-auto mb50">
@@ -238,7 +252,6 @@ function Customize(props) {
                 </div>
                 <img
                   className="res-product-Img"
-                  // src={`${imgUrl}/images/food.jpg`}
                   src={
                     'http://localhost:3002/img/restaurant/' +
                     v.res_product_img
@@ -270,9 +283,19 @@ function Customize(props) {
           </div>
               )
         })}
+        <div className="pd-viewmore-wrap">
+            <i className="fas fa-angle-double-right front"></i>
+
+            <Link to={'/restaurants'}>
+            <div className="pd-viewmore">查看更多餐盒</div>
+            </Link>
+
+            <i className="fas fa-angle-double-right back"></i>
+          </div>
         </div>
       </div>
         <h1>文章推薦</h1>
+
       </div>
     </>
   )

@@ -62,7 +62,13 @@ function ResPrdoucts(props) {
             />
           </div>
           <div className="col-md-5 col-sm-6 p-0">
-            <div className="res-production">
+            <div
+              className="res-production"
+              style={{
+                backgroundImage: `url('http://localhost:3000/images/Restaurant/commas1.png')`,
+                backgroundRepeat: 'no-repeat',
+              }}
+            >
               <h3>{restaurant.res_introduce}</h3>
             </div>
           </div>

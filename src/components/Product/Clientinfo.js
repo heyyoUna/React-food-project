@@ -10,7 +10,9 @@ const Clientinfo = (props) => {
         setHeight,
         weight,
         setWeight,
+        TDEE,
         setTDEE,
+        oriTDEE,
         setOriTDEE
       } = props
 

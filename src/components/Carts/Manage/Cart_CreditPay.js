@@ -1,9 +1,15 @@
 import React from 'react'
+import { useState } from 'react'
+import Cart_OrderInfoInput from './Cart_OrderInfoInput'
 
 function Cart_CreditPay(props) {
+  let { Credit, setCredit, OrderInfo, setOrderInfo } = props
   return (
     <>
-      <form action="" class="container creditcard col-lg-6 col-10 px-0">
+      <div
+        action=""
+        class="container creditcard col-lg-6 col-10 px-0"
+      >
         <div class="creditcard_number">
           <label for="">
             <span class="star">*</span>信用卡號
@@ -75,7 +81,11 @@ function Cart_CreditPay(props) {
             提供VISA丶MasterCard丶JCB信用卡交易，全程使用安全加密，信用卡資料將不會儲存於網站，您可以安心使用信用卡付款。
           </h6>
         </div>
-      </form>
+      </div>
+      <Cart_OrderInfoInput
+        OrderInfo={OrderInfo}
+        setOrderInfo={setOrderInfo}
+      />
     </>
   )
 }

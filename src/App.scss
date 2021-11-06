@@ -28,6 +28,7 @@ $light-orange: #fb6107;
 .bannerSubTitle {
   font-size: 44px;
   letter-spacing: 3px;
+  margin-bottom: 40px;
   @media (max-width: 992px) {
     font-size: 28px;
   }
@@ -180,17 +181,38 @@ footer {
   border-radius: 50px;
   display: inline-block;
   letter-spacing: 3px;
+<<<<<<< HEAD
   padding: 5px 30px;
+=======
+  padding: 15px 35px 15px 50px;
+>>>>>>> 813f0121f60aa8c033b88c47fef07b73eb51cad7
   font-size: 16px;
   color: $light-green;
   cursor: pointer;
   background-color: white;
   margin-top: 3px;
+<<<<<<< HEAD
   &:hover {
     filter: drop-shadow(
       15px 15px 0px rgba(143, 192, 101, 0.5)
     );
   }
+=======
+  transition: .3s;
+  // font-family;
+  font-family: 'Poppins';
+  filter: none;
+  &:hover {
+    // filter: drop-shadow(
+    //   15px 15px 0px rgba(143, 192, 101, 0.5)
+    // );
+    
+    box-shadow: 10px 10px 0 0 #8fc06574;
+  }
+  i{
+    margin-left: 15px;
+  }
+>>>>>>> 813f0121f60aa8c033b88c47fef07b73eb51cad7
 }
 //文章區橫幅banner，more按鈕
 .moreBtn {
@@ -207,6 +229,33 @@ footer {
   }
 }
 
+<<<<<<< HEAD
+=======
+//查看推薦＋專欄區更多文章按鈕
+.col_RM_btn {
+  width: 100%;
+  text-align: center;
+
+  button {
+    background: $light-orange;
+    border-radius: 100px;
+    border: none;
+    color: white;
+    margin: 20px auto;
+    letter-spacing: 5px;
+    font-size: 24px;
+    padding: 15px 80px;
+    letter-spacing: 3px;
+    transition: .3s;
+
+    &:hover {
+      background: $light-yellow;
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
+    }
+  }
+}
+
+>>>>>>> 813f0121f60aa8c033b88c47fef07b73eb51cad7
 //首頁背景圖
 .hp_bgcWrap {
   position: fixed;
@@ -333,13 +382,9 @@ footer {
         letter-spacing: 10px;
       }
     }
-    .inputWrap {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      width: 70%;
-      margin: 30px auto;
+  }
 
+<<<<<<< HEAD
       select {
         border-radius: 15px;
         letter-spacing: 10px;
@@ -352,6 +397,10 @@ footer {
         letter-spacing: 10px;
       }
     }
+=======
+  .hp-client{
+    margin-top: 50px
+>>>>>>> 813f0121f60aa8c033b88c47fef07b73eb51cad7
   }
 
   /*---------- 商城  ----------*/

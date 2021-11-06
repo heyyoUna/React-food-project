@@ -454,7 +454,7 @@ function Restaurants(props) {
           rows={1}
           showDots
           loop
-          gap={12}
+          gap={35}
           justify-content-center
         >
           {popular.map((v, i) => {
