@@ -9,6 +9,7 @@
   border: 2px solid $light-green;
   overflow: hidden;
   height: 215px;
+  position: relative;
 
   &:hover .res-foodImg {
     transform: scale(1.03);
@@ -22,7 +23,7 @@
   }
 
   .reslist-txt {
-    width: 185px;
+    // width: 185px;
     padding: 15px 0 0 30px;
     h3 {
       color: $dark-green;
@@ -34,12 +35,14 @@
     }
     span {
       cursor: pointer;
+      position: absolute;
+      right: 10px;
     }
   }
   @include mobile {
     margin: 20px;
     height: 170px;
-    min-width: 350px;
+    min-width: 300px;
 
     .reslist-txt {
       padding: 15px 8px 0 7px;
@@ -63,6 +66,7 @@
 //人氣精選
 
 .res-popular {
+  position: relative;
   h3 {
     color: $dark-green;
     font-size: 24px;
@@ -74,6 +78,8 @@
   }
   span {
     cursor: pointer;
+    position: absolute;
+    right: 10px;
   }
   .res-popular-body {
     background-color: rgba(255, 182, 6, 0.2);
@@ -106,4 +112,5 @@
 
 .res-pages-active {
   color: $light-green;
+  font-weight: bold;
 }

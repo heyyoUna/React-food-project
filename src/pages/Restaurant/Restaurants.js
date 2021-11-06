@@ -17,6 +17,7 @@ import MapSortButton from '../../components/Restaurant/MapSortButton'
 import PageBtn from './../../components/Product/PageBtn'
 import { FiFilter } from 'react-icons/fi'
 import Carousel from 'react-grid-carousel'
+const token = localStorage.getItem('token')
 // import { data } from '../../data'
 
 function Restaurants(props) {
@@ -175,6 +176,7 @@ function Restaurants(props) {
           }),
           headers: {
             'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
           },
         }
       )

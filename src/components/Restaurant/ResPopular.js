@@ -74,7 +74,7 @@ function ResPopular(props) {
         </div>
 
         <div className="res-popular-body ">
-          <div className="res-popular-title d-flex justify-content-between mt-3">
+          <div className="res-popular-title d-flex  mt-3">
             <Link to={`/resprdoucts/${res_id}`}>
               <h3>{res_name}</h3>
             </Link>
