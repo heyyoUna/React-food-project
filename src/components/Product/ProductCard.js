@@ -38,7 +38,6 @@ function ProductCard(props) {
         'Authorization': 'Bearer ' + token
       },
     })
-    console.log('sid in insert', sid)
   }
   //  刪除收藏
   const handlingDelete = (sid) => {
@@ -70,7 +69,6 @@ function ProductCard(props) {
               View Detail
             </button>
             <div className="pd-love-icon">
-              {console.log(favArr)}
             <IoIosHeartEmpty 
               onClick={(e)=>{
                 e.stopPropagation()

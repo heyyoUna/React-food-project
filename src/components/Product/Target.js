@@ -23,7 +23,7 @@ function Target(props) {
     e.classList.add('pd-cusClick')
   }
 
-console.log(target)
+// console.log(target)
   return (
     <>
       {/* 運動目標------------------- */}

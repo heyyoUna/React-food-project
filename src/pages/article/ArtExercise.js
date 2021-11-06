@@ -73,7 +73,8 @@ function ArtExercise(props) {
       <div className="container col-cat-article">
         <BreadCrumb />
         <div className="row">
-          <div className="col-lg col-8 cardsWrap d-flex flex-wrap">
+          {/* <div className="col-lg col-8 cardsWrap d-flex flex-wrap"> */}
+          <div className="col-md-12 cardsWrap d-flex flex-wrap">
             {data && data.length
               ? data.map((el, i) => {
                   return (

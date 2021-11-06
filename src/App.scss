@@ -205,10 +205,12 @@ footer {
 //文章區橫幅banner，more按鈕
 .moreBtn {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 24px;
+  color: hsla(0, 0%, 0%, 0.6);
+  max-width: 200px;
 
   div {
     p {
@@ -360,9 +362,11 @@ footer {
   /*---------- 客製化  ----------*/
   #customized {
     @include spaceBetweenCat;
+    margin-bottom: 80px;
     .title {
       text-align: center;
       margin-top: 30px;
+
       h6 {
         letter-spacing: 10px;
       }
