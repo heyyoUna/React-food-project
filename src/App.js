@@ -58,6 +58,7 @@ import Customize from './pages/Product/Customize'
 
 // 組合用元件
 import MyNavbar from './components/MyNavbar'
+import ScrollToTop from './components/ScrollToTop'
 import MyNavbarOriginal from './components/MyNavbarOriginal'
 import MyFooter from './components/MyFooter'
 import MainContent from './components/MainContent'
@@ -122,8 +123,9 @@ function App() {
             <Route path="/product/:id">
               <ProductDetail />
             </Route>
-
+            
             <Route path="/customize">
+            <ScrollToTop>
               <Customize
                 favArr={favArr}
                 setFavArr={setFavArr}
@@ -140,6 +142,7 @@ function App() {
                 oriTDEE={oriTDEE}
                 setOriTDEE={setOriTDEE}
               />
+              </ScrollToTop>
             </Route>
 
             {/* 文章 */}
