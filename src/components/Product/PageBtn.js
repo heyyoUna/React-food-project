@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 
 function PageBtn(props) {
   const { totalpages, nowpage, setNowPage } = props
+  
   // 把頁數轉換成陣列
   const page = []
   for (let i = 1; i <= totalpages; i++) {

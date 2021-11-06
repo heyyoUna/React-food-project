@@ -4,7 +4,7 @@ function HpSBtn(props) {
   return (
     <>
       <div class="hp_sBtn">
-        {props.text} <span> > </span>
+        {props.text} <i class="fas fa-chevron-right"></i>
       </div>
     </>
   )

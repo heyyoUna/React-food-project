@@ -28,6 +28,7 @@ $light-orange: #fb6107;
 .bannerSubTitle {
   font-size: 44px;
   letter-spacing: 3px;
+  margin-bottom: 40px;
   @media (max-width: 992px) {
     font-size: 28px;
   }
@@ -152,28 +153,39 @@ footer {
 .hp_sBtn {
   border: 2px solid $light-green;
   box-sizing: border-box;
-  border-radius: 50px;
+  border-radius: 100px;
   display: inline-block;
   letter-spacing: 3px;
-  padding: 5px 30px;
+  padding: 15px 35px 15px 50px;
   font-size: 16px;
   color: $light-green;
   cursor: pointer;
   background-color: white;
   margin-top: 3px;
+  transition: .3s;
+  // font-family;
+  font-family: 'Poppins';
+  filter: none;
   &:hover {
-    filter: drop-shadow(
-      15px 15px 0px rgba(143, 192, 101, 0.5)
-    );
+    // filter: drop-shadow(
+    //   15px 15px 0px rgba(143, 192, 101, 0.5)
+    // );
+    
+    box-shadow: 10px 10px 0 0 #8fc06574;
+  }
+  i{
+    margin-left: 15px;
   }
 }
 //文章區橫幅banner，more按鈕
 .moreBtn {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 24px;
+  color: hsla(0, 0%, 0%, 0.6);
+  max-width: 200px;
 
   div {
     p {
@@ -197,6 +209,7 @@ footer {
     font-size: 24px;
     padding: 15px 80px;
     letter-spacing: 3px;
+    transition: .3s;
 
     &:hover {
       background: $light-yellow;
@@ -331,23 +344,10 @@ footer {
         letter-spacing: 10px;
       }
     }
-    .inputWrap {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      width: 70%;
-      margin: 30px auto;
+  }
 
-      select, input {
-        border-radius: 15px;
-        letter-spacing: 10px;
-        text-align: center;
-        padding: 5px 10px;
-      }
-      select {
-        padding: 3px 30px;
-      }
-    }
+  .hp-client{
+    margin-top: 50px
   }
 
   /*---------- 商城  ----------*/
@@ -502,4 +502,29 @@ footer {
       @include NOmobile;
     }
   }
+}
+
+/*----------- 轉盤 -----------*/
+
+//Bootstrap Modal 客制化
+.modal-xs{
+  max-width: 220px;
+}
+
+.game-card-wrap{
+  border-radius: 1rem;
+}
+
+@keyframes rotation{
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(360deg);}
+}
+ 
+.img-rotate{
+  border-radius: 50%;
+  transform: rotate(360deg);
+  animation: rotation 1.4s linear infinite;
+  -moz-animation: rotation 1.4s linear infinite;
+  -webkit-animation: rotation 1.4s linear infinite;
+  -o-animation: rotation 1.4s linear infinite;
 }
