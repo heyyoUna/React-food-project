@@ -28,6 +28,7 @@ $light-orange: #fb6107;
 .bannerSubTitle {
   font-size: 44px;
   letter-spacing: 3px;
+  margin-bottom: 40px;
   @media (max-width: 992px) {
     font-size: 28px;
   }
@@ -155,22 +156,26 @@ footer {
   border-radius: 100px;
   display: inline-block;
   letter-spacing: 3px;
-  padding: 15px 50px;
+  padding: 15px 35px 15px 50px;
   font-size: 16px;
   color: $light-green;
   cursor: pointer;
   background-color: white;
   margin-top: 3px;
   transition: .3s;
+  // font-family;
+  font-family: 'Poppins';
+  filter: none;
   &:hover {
     // filter: drop-shadow(
     //   15px 15px 0px rgba(143, 192, 101, 0.5)
     // );
+    
     box-shadow: 10px 10px 0 0 #8fc06574;
   }
-  // i{
-  //   width: 50px;
-  // }
+  i{
+    margin-left: 15px;
+  }
 }
 //文章區橫幅banner，more按鈕
 .moreBtn {

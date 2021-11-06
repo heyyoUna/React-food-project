@@ -1,5 +1,5 @@
 import React, { useRef,useState, useEffect } from 'react'
-import conf, { Product_API, Customize_API } from './../../config/config.js'
+import { Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
   withRouter,Link,
@@ -196,8 +196,8 @@ function Customize(props) {
           <div className="pd-suggest d-flex">
             <p className="dkgreen">每日消耗熱量{TDEE}大卡</p>
             <p className="pd-day">建議每日攝取</p>
-            <p className="dkgreen">熱量{sugCal}大卡</p>
-            <p className="dkgreen">蛋白質{sugProtein}克</p>
+            <p className="dkgreen">熱量<span className="orange">{sugCal}</span>大卡</p>
+            <p className="dkgreen">蛋白質<span className="orange">{sugProtein}</span>克</p>
           </div>
           <button className="pd-client-btn" 
           onClick={mySubmit}>
@@ -283,9 +283,19 @@ function Customize(props) {
           </div>
               )
         })}
+        <div className="pd-viewmore-wrap">
+            <i className="fas fa-angle-double-right front"></i>
+
+            <Link to={'/restaurants'}>
+            <div className="pd-viewmore">查看更多餐盒</div>
+            </Link>
+
+            <i className="fas fa-angle-double-right back"></i>
+          </div>
         </div>
       </div>
         <h1>文章推薦</h1>
+
       </div>
     </>
   )
