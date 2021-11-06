@@ -331,17 +331,20 @@ function Restaurants(props) {
           {displayData &&
             displayData.map((v, i) => {
               return (
-                <ResListData
-                  res_id={v.res_id}
-                  res_img={v.res_img}
-                  res_name={v.res_name}
-                  res_rate={v.res_rate}
-                  res_aveprice={v.res_aveprice}
-                  res_starttime={v.res_starttime}
-                  res_endtime={v.res_endtime}
-                  favIndicator={v.favIndicator}
-                  isNotLiked={v.isLiked}
-                />
+                <div class="col-md-5 col-12" style={{ margin: '25px' }}>
+                  <ResListData
+                    key={v.res_id}
+                    res_id={v.res_id}
+                    res_img={v.res_img}
+                    res_name={v.res_name}
+                    res_rate={v.res_rate}
+                    res_aveprice={v.res_aveprice}
+                    res_starttime={v.res_starttime}
+                    res_endtime={v.res_endtime}
+                    favIndicator={v.favIndicator}
+                    isNotLiked={v.isLiked}
+                  />
+                </div>
               )
             })}
         </div>

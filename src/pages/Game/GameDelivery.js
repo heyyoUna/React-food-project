@@ -6,9 +6,8 @@ import { Modal } from 'react-bootstrap';
 import ResListData from '../../components/Restaurant/ResListData'
 
 function GameDelivery(props) {
-  const { setRestaurantId } = props
-
   const [show, setShow] = useState(false)
+  const [rotate, setRotate] = useState(false)
   const [restaurant, setRestaurant] = useState({})
 
   const handleRandom = () => {
@@ -18,7 +17,11 @@ function GameDelivery(props) {
       .then(obj => {
         if (obj.success) {
           setRestaurant(obj.data)
-          handleShow()
+          setRotate(true)
+          setTimeout(() => {
+            handleShow()
+            setRotate(false)
+          }, 1500);
         } else {
           alert(obj.error)
         }
@@ -35,28 +38,28 @@ function GameDelivery(props) {
           <h1>良辰即食 精選外送餐</h1>
         </div>
         <div className="rotate-delivery">
-          <img className={'rotate-delivery-img ' + (show ? '' : 'img-rotate')} src={spinWheel} alt={"spinWheel"} />
-          <div className="rotate-delivery-fork" onClick={handleRandom} >
-            <img className="rotate-delivery-fork" src={fork} alt={"fork"}/>
+          <img className={'rotate-delivery-img ' + (rotate ? 'img-rotate' : '')} src={spinWheel} alt={"spinWheel"} onClick={handleRandom} />
+          <div className="rotate-delivery-fork">
+            <img className="rotate-delivery-fork" src={fork} alt={"fork"} />
           </div>
         </div>
         <div className="game-btn-wrap d-flex">
           <button className="game-leave-delivery-btn">
             <Link to="/" className="game-leave-delivery">離開轉盤</Link>
           </button>
-          <div className="game-again-delivery">再轉一次</div>
+          <div className="game-again-delivery" onClick={handleRandom}>再轉一次</div>
         </div>
-        <Modal show={show} centered={true} dialogClassName={'modal-xs'} contentClassName={'pd-card game-card-wrap'} onHide={handleClose}>
-          <Modal.Body>
+        <Modal show={show} centered={true} contentClassName={'game-card-wrap'} onHide={handleClose}>
             <ResListData
-              key={restaurant.res_id}
-              sid={restaurant.res_id}
-              img={restaurant.res_img}
-              name={restaurant.res_name}
-              price={restaurant.res_aveprice}
-              setRestaurantId={setRestaurantId}
+              res_id={restaurant.res_id}
+              res_img={restaurant.res_img}
+              res_name={restaurant.res_name}
+              res_rate={restaurant.res_rate}
+              res_aveprice={restaurant.res_aveprice}
+              res_starttime={restaurant.res_starttime}
+              res_endtime={restaurant.res_endtime}
+              isNotLiked={restaurant.isLiked}
             />
-          </Modal.Body>
         </Modal>
       </div>
     </>
