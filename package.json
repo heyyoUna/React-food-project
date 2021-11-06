@@ -10,10 +10,7 @@
     "bootstrap": "^5.1.3",
     "emailjs": "^3.6.0",
     "emailjs-com": "^3.2.0",
-<<<<<<< HEAD
-=======
     "is-resolvable": "^1.1.0",
->>>>>>> 8ff5776beaaacf3ed6d1f4edf8551eadc7fe889d
     "jquery": "^3.6.0",
     "leaflet": "^1.7.1",
     "moment": "^2.29.1",
