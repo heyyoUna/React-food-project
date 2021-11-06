@@ -209,7 +209,7 @@ function App() {
                 <MemberOrder />
               </Route>
 
-            <Route path="/member/orderdetail">
+            <Route path="/member/orderdetail/:ordersid">
                 <MemberOrderDetail />
               </Route>
 
