@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import {
@@ -14,10 +14,9 @@ import '../App.scss'
 import { NavLink } from 'react-router-dom'
 
 function MyNavbar(props) {
-  const { auth, setAuth } = props
-  let a = localStorage.getItem('數量')
-  let [CountNav, setCountNav] = useState(a)
+  const { auth, setAuth, CountNav } = props
   let history = useHistory()
+
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
     setAuth(false)
@@ -41,7 +40,7 @@ function MyNavbar(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
               <Nav.Link href="/customize">
-                量身訂做
+                良身訂做
               </Nav.Link>
 
               <NavDropdown

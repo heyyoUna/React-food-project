@@ -19,6 +19,7 @@ import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import moment from 'moment'
+import momentTZ from 'moment-timezone'
 
 function CartManage(props) {
   let [data, setData] = useState([{}])
@@ -34,7 +35,7 @@ function CartManage(props) {
     Math.floor(Math.random() * 99)
   let member
   let token = localStorage.getItem('token')
-  var a = moment.utc().tz('Asia/Taipei').format()
+  var a = momentTZ.utc().tz('Asia/Taipei').format()
   useEffect(() => {
     console.log('這邊是初始化')
     CityAxios()
@@ -193,6 +194,8 @@ function CartManage(props) {
         <Cart_CreditPay
           Credit={Credit}
           setCredit={setCredit}
+          OrderInfo={OrderInfo}
+          setOrderInfo={setOrderInfo}
         />
       )
     }

@@ -24,6 +24,9 @@ function ArtFood(props) {
     searchParams.get('page') || 1
   ) // 設定目前頁數狀態
 
+  const { favArr, setFavArr } = props
+  const ID = localStorage.getItem('id')
+
   useEffect(() => {
     ;(async () => {
       let r = await fetch(
@@ -32,7 +35,7 @@ function ArtFood(props) {
       )
       let j = await r.json()
       setData(j.rows)
-      console.log('data in ArFood:', data)
+      // console.log('data in ArFood:', data)
       // console.log('j.rows in ArtFood page', j.rows)
       setPages(j)
       setTotalPages(j.totalPages)
@@ -65,6 +68,18 @@ function ArtFood(props) {
     return `${year} / ${month + 1} / ${date} `
   }
 
+  // // 拿到收藏商品資料
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const r = await fetch(
+  //       'http://localhost:3002/article/fav/' + ID
+  //     )
+  //     const obj = await r.json()
+  //     console.log(obj)
+  //     setFavArr(obj.data)
+  //   })()
+  // }, [])
+
   return (
     <>
       <div className="container col-cat-article">
@@ -75,7 +90,8 @@ function ArtFood(props) {
               ? data.map((el, i) => {
                   return (
                     <ArCardTxtFood
-                      sid={el.ar_sid}
+                      favArr={favArr}
+                      sid={el.sid}
                       pic={el.ar_pic}
                       title={el.ar_title}
                       date={articleDate(el.ar_date)}

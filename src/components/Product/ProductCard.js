@@ -16,7 +16,7 @@ function ProductCard(props) {
     if(token){
       if(favArr){
         favArr.forEach((value)=>{
-          if(value.product_id=== sid){
+          if(value.product_id === sid){
             setDisplay(false)
           }
         })
@@ -30,6 +30,7 @@ function ProductCard(props) {
       method: 'POST',
       body: JSON.stringify({
         productid: sid
+        
 
       }),
       headers: {
@@ -68,7 +69,6 @@ function ProductCard(props) {
               View Detail
             </button>
             <div className="pd-love-icon">
-              {console.log(favArr)}
             <IoIosHeartEmpty 
               onClick={(e)=>{
                 e.stopPropagation()

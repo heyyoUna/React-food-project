@@ -11,22 +11,20 @@ function Article(props) {
     <>
       {/* <!------------ 專欄KV ------------>  */}
       <div className="container-fluid mt-5 p-0">
-        <div className="row p-0">
+        <div className="row p-0 mx-auto">
           <Carousel id="article-kv" className="p-0">
             <Carousel.Item className="imgWrap">
               <img
                 className="d-block "
-                src="https://picsum.photos/300/200"
+                src={`${imgUrl}/images/article/col_kv1-3.jpg`}
                 alt="First slide"
               />
-              <Carousel.Caption className="car-title">
-                <h3>First slide label</h3>
-              </Carousel.Caption>
+              <Carousel.Caption className="car-title"></Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item className="imgWrap">
               <img
                 className="d-block "
-                src="https://picsum.photos/300/200"
+                src={`${imgUrl}/images/article/col_cat3.png`}
                 alt="Second slide"
               />
 
@@ -37,7 +35,7 @@ function Article(props) {
             <Carousel.Item className="imgWrap">
               <img
                 className="d-block "
-                src="https://picsum.photos/300/200"
+                src={`${imgUrl}/images/article/col_cat1_2-3.png`}
                 alt="Third slide"
               />
 
@@ -48,81 +46,6 @@ function Article(props) {
           </Carousel>
         </div>
       </div>
-
-      {/* <div className="container-fluid mt-5" id="article-kv">
-        <div
-          id="carouselExampleCaptions"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img
-                src={`${imgUrl}/images/article/col_kv1-3.png`}
-                className="d-block w-100"
-                alt=""
-              />
-              <div className="carousel-caption d-none d-md-block car-title">
-                從歐美名人圈紅到台灣，
-                <br />
-                康普茶到底是什麼？
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                src={`${imgUrl}/images/article/col_kv1-3.png`}
-                className="d-block w-100"
-                alt=""
-              />
-              <div className="carousel-caption d-none d-md-block car-title">
-                我是第二張
-                <br />
-                投影片
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img
-                src="..."
-                className="d-block w-100"
-                alt="..."
-              />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>
-                  Some representative placeholder content
-                  for the third slide.
-                </p>
-              </div>
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">
-              Previous
-            </span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div> */}
 
       {/* <!------------ 專欄頁： 1st種類 聰明飲食  ------------>   */}
       <div className="container" id="col-cat">

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import {
-  FaRegHeart,
-  FaCartPlus,
-  FaAngleDoubleRight,
-  FaHeart,
-} from 'react-icons/fa'
+import { FaAngleDoubleRight } from 'react-icons/fa'
 import axios from 'axios'
 import Heart from './Heart'
 import { withRouter } from 'react-router-dom'
-
-import { Card } from 'react-bootstrap'
 
 // 購物車頁面 - 商品卡片
 function StoreCard(props) {
   let [StoreCard1, setStoreCard1] = useState([])
   let [Pos, setPos] = useState()
-  let { setCount, setData, Filter, setFilter } = props
+  let {
+    setCount,
+    setData,
+    Filter,
+    setFilter,
+    CountNav,
+    setCountNav,
+  } = props
   let NewFilter = [...Filter]
 
   useEffect(() => {
@@ -85,6 +85,8 @@ function StoreCard(props) {
               setCount={setCount}
               Pos={Pos}
               setPos={setPos}
+              CountNav={CountNav}
+              setCountNav={setCountNav}
             />
           )
         })}
@@ -98,7 +100,6 @@ function StoreCard(props) {
           <h1>MORE</h1>
         </div>
       </div>
-      
     </>
   )
 }
