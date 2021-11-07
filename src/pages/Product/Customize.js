@@ -30,15 +30,11 @@ function Customize(props) {
     TDEE,
     setTDEE,
   } = props
-  const searchParams = new URLSearchParams(
-    props.location.search
-  )
   // 運動習慣狀態
   const [target, setTarget] = useState('變瘦')
   const [exercises, setExercises] = useState('不運動')
   // 建議攝取熱量(展示用)
   const [sugCal, setSugCal] = useState(0)
-
   // 建議攝取蛋白質
   const [sugProtein, setSugProtein] = useState(0)
   // 推薦商品
@@ -57,7 +53,6 @@ function Customize(props) {
         'http://localhost:3002/product/fav/' + ID
       )
       const obj = await r.json()
-      console.log(obj)
       setFavArr(obj.data)
     })()
   }, [])
@@ -100,19 +95,16 @@ function Customize(props) {
         const r = await fetch(`http://localhost:3002/ArtExercise/article/lostweight`)
         const obj = await r.json()
         setSugArt(obj)
-        console.log(obj)
       }
       if(target==='增肌減脂'){
         const r = await fetch(`http://localhost:3002/ArtExercise/article/muscle`)
         const obj = await r.json()
         setSugArt(obj)
-        console.log(obj)
-
       }
     })()
   }, [target])
 
-  //轉換時間格式
+  //轉換時間格式for 文章區用
   function articleDate(aaa) {
     let time = new Date(aaa)
     let year = time.getFullYear()
@@ -193,6 +185,28 @@ function Customize(props) {
     })
   }
 
+  // 按鈕動畫特效
+  // const buttonCSS = ()=>{
+  //   const btn = document.querySelectorAll('.pd-client-btn')
+  //   for (let i = 0; i < btn.length; i++) {
+  //     btn[i].classList.add('animate__pulse')
+  //     console.log('1')
+  //     btn[i].classList.remove('animate__pulse')
+  //     console.log('2')
+  //   }
+  // }
+
+  const buttonCSS = ()=>{
+    const btn = document.querySelector('.pd-client-btn')
+    btn.classList.toggle('animate__pulse')
+    
+  }
+
+  useEffect(() => {
+    if(exercises&&target){
+      buttonCSS()
+    }
+  }, [exercises,target]);
   return (
     <>
       <div className="pd-client-banner d-flex">
@@ -231,7 +245,12 @@ function Customize(props) {
             <p className="dkgreen">蛋白質<span className="orange">{sugProtein}</span>克</p>
           </div>
           <button className="pd-client-btn animate__animated animate__pulse" 
-          onClick={mySubmit}>
+          onClick={mySubmit}
+          // onClick={()=>{
+          //   buttonCSS()
+          //   console.log('btn')
+          // }}
+          >
             查看飲食推薦
           </button>
         </div>

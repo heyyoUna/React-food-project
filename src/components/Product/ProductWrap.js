@@ -7,7 +7,6 @@ import { FaLessThan } from 'react-icons/fa'
 
 const ProductWrap = (props) => {
   const token = localStorage.getItem('token')
-  const qty = localStorage.getItem('數量')
   let history = useHistory()
   const [ ID, setID] = useState(0);
   
@@ -25,8 +24,6 @@ const ProductWrap = (props) => {
     product_id,
     favIndicator,
     setFavIndicator,
-    CountNav,
-    setCountNav,
   } = props
 
   const [display, setDisplay] = useState(true)
@@ -64,7 +61,6 @@ const ProductWrap = (props) => {
       })
   }
   // 按加入購物車時, 去讀取資料庫裡面的比數設定到localStorage
-
   const OrderQty = ()=>{
     fetch(`http://localhost:3002/cart`, {
       method: 'GET',
@@ -73,8 +69,7 @@ const ProductWrap = (props) => {
       }
     }).then(r => r.json())
       .then(obj => {
-        const qty = obj.length
-        localStorage.setItem('數量',qty)
+        localStorage.setItem('數量',obj.length)
       })
   }
   
