@@ -14,9 +14,6 @@ const Comments = () => {
         <p className="dt-cmts-date">2021/10/16</p>
       </div>
       <div className="dt-cmts-btm"></div>
-      <div className="dt-member-img">
-        <img src="./../img/專題/person1.jpg" alt="" />
-      </div>
       <p className="dt-member-name">Peter</p>
     </>
   )

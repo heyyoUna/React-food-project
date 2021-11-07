@@ -230,7 +230,7 @@ function Customize(props) {
             <p className="dkgreen">熱量<span className="orange">{sugCal}</span>大卡</p>
             <p className="dkgreen">蛋白質<span className="orange">{sugProtein}</span>克</p>
           </div>
-          <button className="pd-client-btn" 
+          <button className="pd-client-btn animate__animated animate__pulse" 
           onClick={mySubmit}>
             查看飲食推薦
           </button>
@@ -259,7 +259,7 @@ function Customize(props) {
           <div className="pd-viewmore-wrap">
             <i className="fas fa-angle-double-right front"></i>
 
-            <Link to={'products/?cate=0&page=1'}>
+            <Link to={'/products/?cate=0&page=1'}>
             <div className="pd-viewmore">查看更多商品</div>
             </Link>
 
@@ -344,7 +344,7 @@ function Customize(props) {
             </div>
             <div className="pd-viewmore-wrap">
                 <i className="fas fa-angle-double-right front"></i>
-                <Link to={'products/?cate=0&page=1'}>
+                <Link to={'/article/exercise'}>
                 <div className="pd-viewmore">查看更多文章</div>
                 </Link>
                 <i className="fas fa-angle-double-right back"></i>
