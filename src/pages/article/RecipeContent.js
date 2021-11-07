@@ -74,7 +74,8 @@ function FoodContent(props) {
               <h3>材料</h3>
               <p>（ 約{data.ar_rec_quan}人份 ）</p>
             </div>
-            <ul>{/* {data.ar_rec_ingredient} */}</ul>
+            <ul>{data.ar_rec_ingredient}
+            </ul>
 
             <div className="text-center">
               <h3>步驟</h3>

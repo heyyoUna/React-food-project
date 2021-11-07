@@ -6,12 +6,9 @@
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
 /*---------- 主視覺  ----------*/
 #article-kv {
-  .car-title {
-    text-align: left;
-    top: 30%;
-    font-size: 60px;
-    color: $dark-green;
-    padding: 0 20px;
+
+  img{
+    width: 100%;
   }
 }
 /*---------- 共用部分  ----------*/
@@ -49,7 +46,6 @@ hr {
 }
 
 /*---------- 按鈕：更多文章  ----------*/
-
 
 //專欄卡片hover
 .cardsHover {
@@ -231,14 +227,13 @@ hr {
     display: none;
   }
 }
-@media (max-width: 992px){
+@media (max-width: 992px) {
   .popularMobile {
     display: relative;
   }
-  .popularWeb{
+  .popularWeb {
     display: none;
   }
-
 }
 
 /*------------------------------ 手機版 ------------------------------*/

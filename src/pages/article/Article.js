@@ -1,47 +1,57 @@
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import React from 'react'
 import { imgUrl, API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
-import LineTitle from '../../components/article/LineTitle'
+import TitleBorder from '../../components/TitleBorder'
 import { Carousel } from 'react-bootstrap'
 
 function Article(props) {
   return (
     <>
       {/* <!------------ 專欄KV ------------>  */}
-      <div className="container-fluid mt-5 p-0">
+      <div className="container-fluid p-0" id="article-kv">
         <div className="row p-0 mx-auto">
-          <Carousel id="article-kv" className="p-0">
+          <Carousel className="p-0 col-lg">
             <Carousel.Item className="imgWrap">
-              <img
-                className="d-block "
-                src={`${imgUrl}/images/article/col_kv1-3.jpg`}
-                alt="First slide"
-              />
-              <Carousel.Caption className="car-title"></Carousel.Caption>
+              <Link
+                onClick={() => {
+                  window.location.href = '/FoodContent/9'
+                }}
+              >
+                <img
+                  className="d-block "
+                  src={`${imgUrl}/images/article/col_kv1-3.jpg`}
+                  alt="First slide"
+                />
+              </Link>
             </Carousel.Item>
             <Carousel.Item className="imgWrap">
-              <img
-                className="d-block "
-                src={`${imgUrl}/images/article/col_cat3.png`}
-                alt="Second slide"
-              />
-
-              <Carousel.Caption className="car-title">
-                <h3>Second slide label</h3>
-              </Carousel.Caption>
+              <Link
+                onClick={() => {
+                  window.location.href =
+                    '/ExerciseContent/4'
+                }}
+              >
+                <img
+                  className="d-block "
+                  src={`${imgUrl}/images/article/col_kv2-3.jpg`}
+                  alt="Second slide"
+                />
+              </Link>
             </Carousel.Item>
             <Carousel.Item className="imgWrap">
+              <Link
+                onClick={() => {
+                  window.location.href =
+                    '/ExerciseContent/4'
+                }}
+              ></Link>
               <img
                 className="d-block "
-                src={`${imgUrl}/images/article/col_cat1_2-3.png`}
+                src={`${imgUrl}/images/article/col_kv3-3.jpg`}
                 alt="Third slide"
               />
-
-              <Carousel.Caption className="car-title">
-                <h3>Third slide label</h3>
-              </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
         </div>
@@ -49,7 +59,7 @@ function Article(props) {
 
       {/* <!------------ 專欄頁： 1st種類 聰明飲食  ------------>   */}
       <div className="container" id="col-cat">
-        <LineTitle text="聰明飲食" />
+        <TitleBorder name="聰明飲食" />
 
         <div className="row" id="col-cat1">
           <div className="col-lg-7">
@@ -89,7 +99,7 @@ function Article(props) {
         </div>
 
         {/* <!------------ 專欄頁： 2nd 種類 運動  ------------>   */}
-        <LineTitle text="運動訓練" />
+        <TitleBorder name="運動訓練" />
 
         <div className="row" id="col-cat2">
           <div className="col-lg">
@@ -127,7 +137,8 @@ function Article(props) {
         </div>
 
         {/* <!------------ 專欄頁： 3rd 種類 美味食譜  ------------>   */}
-        <LineTitle text="美味食譜" />
+        <TitleBorder name="美味食譜" />
+
         <div className="row" id="col-cat3">
           <div className="col-lg">
             <div className="imgWrap">
