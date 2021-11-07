@@ -63,23 +63,21 @@ function ResListData(props) {
   }
   return (
     <>
-      <div class="col-md-5  col-12  key={i}">
-        <div class="reslist-card d-flex ">
-          {/* <img className="res-foodImg" src={`${imgUrl}/images/food.jpg`} alt="" /> */}
-          {/* <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" /> */}
-
-          <img
-            className="res-foodImg"
-            src={`http://localhost:3002/img/restaurant/${res_img}`}
-            alt=""
-          />
-          <div className="reslist-txt ">
-            <div className="reslist-title d-flex justify-content-between ">
-              <Link to={`/resprdoucts/${res_id}`}>
-                <h3>{res_name}</h3>
-              </Link>
-              <span>
-                {/* <IoIosHeartEmpty
+      <div className="reslist-card d-flex">
+        {/* <img className="res-foodImg" src={`${imgUrl}/images/food.jpg`} alt="" /> */}
+        {/* <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" /> */}
+        <img
+          className="res-foodImg"
+          src={`http://localhost:3002/img/restaurant/${res_img}`}
+          alt=""
+        />
+        <div className="reslist-txt ">
+          <div className="reslist-title d-flex justify-content-between ">
+            <Link to={`/resprdoucts/${res_id}`}>
+              <h3>{res_name}</h3>
+            </Link>
+            <span>
+              {/* <IoIosHeartEmpty
                   onClick={(e) => {
                     handlingInsert(res_id)
 
@@ -113,107 +111,106 @@ function ResListData(props) {
                     display: display ? 'none' : 'block',
                   }}
                 /> */}
-                {display ? (
-                  <IoIosHeartEmpty
-                    onClick={(e) => {
-                      if (!token) {
-                        Swal.fire({
-                          title: '請先登入會員',
-                          icon: 'warning',
-                          showCancelButton: true,
-                          confirmButtonColor: '#3085d6',
-                          cancelButtonColor: '#d33',
-                          confirmButtonText: '前往登入頁面',
-                        }).then((result) => {
-                          if (result.isConfirmed) {
-                            props.history.push('/login')
-                          }
-                        })
-                      } else {
-                        handlingInsert(res_id)
-                        Swal.fire({
-                          icon: 'success',
-                          title: '已加入收藏清單',
-                          showConfirmButton: false,
-                          timer: 1000,
-                        })
-                      }
-                      // handlingInsert(res_id)
-                      setDisplay(!display)
-                      // if (display) {
-                      //   setDisplay(false)
-                      // } else {
-                      //   setDisplay(true)
-                      // }
-                    }}
-                    style={{
-                      color: '#FB6107',
-                      fontSize: '26px',
-                      marginTop: '3px',
-                      // display: display ? 'none' : 'block',
-                    }}
-                  />
-                ) : (
-                  <IoIosHeart
-                    onClick={(e) => {
+              {display ? (
+                <IoIosHeartEmpty
+                  onClick={(e) => {
+                    if (!token) {
                       Swal.fire({
-                        icon: 'error',
-                        title: '已移除收藏清單',
+                        title: '請先登入會員',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '前往登入頁面',
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          props.history.push('/login')
+                        }
+                      })
+                    } else {
+                      handlingInsert(res_id)
+                      Swal.fire({
+                        icon: 'success',
+                        title: '已加入收藏清單',
                         showConfirmButton: false,
                         timer: 1000,
                       })
-                      handlingDelete(res_id)
-                      setDisplay(!display)
-                      // if (display) {
-                      //   setDisplay(false)
-                      // } else {
-                      //   setDisplay(true)
-                      // }
-                    }}
-                    style={{
-                      color: '#d96e30',
-                      fontSize: '26px',
-                      marginTop: '3px',
-                      // display: display ? 'none' : 'block',
-                    }}
-                  />
-                )}
-              </span>
-            </div>
-            <p>
-              {res_rate}
-              <BsStarFill
-                style={{
-                  fontSize: '24px',
-                  color: '#FB6107',
-                  marginRight: '6px',
-                  paddingBottom: '4px',
-                }}
-              />
-            </p>
-            <p>
-              <MdOutlineAttachMoney
-                style={{
-                  fontSize: '28px',
-                  color: '#FFB606',
-                  marginRight: '6px',
-                  paddingRight: '3px',
-                }}
-              />
-              平均消費:{res_aveprice}
-            </p>
-            <p>
-              <BsClock
-                style={{
-                  color: '#8FC065',
-                  marginRight: '14px',
-                  marginLeft: '2px',
-                  fontSize: '20px',
-                }}
-              />
-              {res_starttime}-{res_endtime}
-            </p>
+                    }
+                    // handlingInsert(res_id)
+                    setDisplay(!display)
+                    // if (display) {
+                    //   setDisplay(false)
+                    // } else {
+                    //   setDisplay(true)
+                    // }
+                  }}
+                  style={{
+                    color: '#FB6107',
+                    fontSize: '26px',
+                    marginTop: '3px',
+                    // display: display ? 'none' : 'block',
+                  }}
+                />
+              ) : (
+                <IoIosHeart
+                  onClick={(e) => {
+                    Swal.fire({
+                      icon: 'error',
+                      title: '已移除收藏清單',
+                      showConfirmButton: false,
+                      timer: 1000,
+                    })
+                    handlingDelete(res_id)
+                    setDisplay(!display)
+                    // if (display) {
+                    //   setDisplay(false)
+                    // } else {
+                    //   setDisplay(true)
+                    // }
+                  }}
+                  style={{
+                    color: '#d96e30',
+                    fontSize: '26px',
+                    marginTop: '3px',
+                    // display: display ? 'none' : 'block',
+                  }}
+                />
+              )}
+            </span>
           </div>
+          <p>
+            {res_rate}
+            <BsStarFill
+              style={{
+                fontSize: '24px',
+                color: '#FB6107',
+                marginRight: '6px',
+                paddingBottom: '4px',
+              }}
+            />
+          </p>
+          <p>
+            <MdOutlineAttachMoney
+              style={{
+                fontSize: '28px',
+                color: '#FFB606',
+                marginRight: '6px',
+                paddingRight: '3px',
+              }}
+            />
+            平均消費:{res_aveprice}
+          </p>
+          <p>
+            <BsClock
+              style={{
+                color: '#8FC065',
+                marginRight: '14px',
+                marginLeft: '2px',
+                fontSize: '20px',
+              }}
+            />
+            {res_starttime}-{res_endtime}
+          </p>
         </div>
       </div>
     </>

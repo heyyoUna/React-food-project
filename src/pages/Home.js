@@ -123,8 +123,8 @@ function Home(props) {
         {/* <!---------------------- 客製化 ----------------------> */}
         <div className="container" id="hp_customized">
           <div className="row">
-            <div className="col-lg">
-              <div className="title">
+            <div className="col-lg" id="customized">
+              <div className="title" >
                 <h6 className="bannerSubTitle light-green">
                   怎麼
                   <span className="light-orange">吃</span>

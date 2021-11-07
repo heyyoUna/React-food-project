@@ -9,7 +9,7 @@ import {
 import ProductCard from './../../components/Product/ProductCard'
 import Target from '../../components/Product/Target'
 import Clientinfo from '../../components/Product/Clientinfo'
-
+import ArCardTxtExercise from '../../components/article/ArCardTxtExercise'
 
 function Customize(props) {
   const ID = localStorage.getItem('id')
@@ -45,6 +45,8 @@ function Customize(props) {
   const [sugProducts, setSugProducts] = useState([])
   // 推薦餐盒
   const [ sugFoodBox, setSugFoodBox] = useState([])
+  // 推薦文章
+  const [ sugArt, setSugArt] = useState([])
 
   const myRef = useRef(null)
 
@@ -90,6 +92,35 @@ function Customize(props) {
       }
     })()
   }, [target])
+
+  // 文章要資料
+  useEffect(() => {
+    ; (async () => {
+      if(target==='變瘦'){
+        const r = await fetch(`http://localhost:3002/ArtExercise/article/lostweight`)
+        const obj = await r.json()
+        setSugArt(obj)
+        console.log(obj)
+      }
+      if(target==='增肌減脂'){
+        const r = await fetch(`http://localhost:3002/ArtExercise/article/muscle`)
+        const obj = await r.json()
+        setSugArt(obj)
+        console.log(obj)
+
+      }
+    })()
+  }, [target])
+
+  //轉換時間格式
+  function articleDate(aaa) {
+    let time = new Date(aaa)
+    let year = time.getFullYear()
+    let month = time.getMonth()
+    let date = time.getDate()
+
+    return `${year} / ${month + 1} / ${date} `
+  }
 
   // TDEE設定完在設定建議攝取量(建議熱量/建議蛋白質)
   // 預設值是變瘦＋不運動
@@ -283,7 +314,7 @@ function Customize(props) {
           </div>
               )
         })}
-        <div className="pd-viewmore-wrap">
+          <div className="pd-viewmore-wrap">
             <i className="fas fa-angle-double-right front"></i>
 
             <Link to={'/restaurants'}>
@@ -292,9 +323,35 @@ function Customize(props) {
 
             <i className="fas fa-angle-double-right back"></i>
           </div>
+          </div>
         </div>
-      </div>
         <h1>文章推薦</h1>
+        <div className="container col-cat-article">
+          <div className="row">
+            {/* <div className="col-lg col-8 cardsWrap d-flex flex-wrap"> */}
+            <div className="col-md-12 cardsWrap d-flex flex-wrap">
+              {sugArt.map((el, i) => {
+                  return (
+                    <ArCardTxtExercise
+                      key={i}
+                      sid={el.sid}
+                      pic={el.ar_pic}
+                      title={el.ar_title}
+                      date={articleDate(el.ar_date)}
+                    />)
+                  })}
+              
+            </div>
+            <div className="pd-viewmore-wrap">
+                <i className="fas fa-angle-double-right front"></i>
+                <Link to={'products/?cate=0&page=1'}>
+                <div className="pd-viewmore">查看更多文章</div>
+                </Link>
+                <i className="fas fa-angle-double-right back"></i>
+              </div>
+          </div>
+        </div>
+        
 
       </div>
     </>
