@@ -6,9 +6,10 @@ import {
   Marker,
   Popup,
 } from 'react-leaflet'
-import centerIcon from 'leaflet/dist/images/centericon.png'
-import markerIcon2x from 'leaflet/dist/images/mapicon.png'
-import markerIcon from 'leaflet/dist/images/mapicon.png'
+// import centericon from 'leaflet/dist/images/centericon.png'
+// import mapicon from 'leaflet/dist/images/mapicon.png'
+import centericon from '../../imgs/centericon.png'
+import mapicon from '../../imgs/mapicon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import 'leaflet/dist/leaflet.css'
 import { BsStarFill } from 'react-icons/bs'
@@ -26,16 +27,16 @@ import { BsFilterLeft } from 'react-icons/bs'
 function ResMap() {
   delete L.Icon.Default.prototype._getIconUrl
   L.Icon.Default.mergeOptions({
-    iconUrl: markerIcon,
-    iconRetinaUrl: markerIcon2x,
+    iconUrl: mapicon,
+    iconRetinaUrl: mapicon,
     shadowUrl: markerShadow,
-    iconSize: [43, 43],
+    iconSize: [45, 45],
   })
 
   const myIcon = new L.Icon({
-    iconUrl: centerIcon,
+    iconUrl: centericon,
     iconSize: [43, 43],
-    iconRetinaUrl: centerIcon,
+    iconRetinaUrl: centericon,
   })
 
   const [location, setLocation] = useState()
@@ -138,6 +139,7 @@ function ResMap() {
 
     setListData(clickToFirstData)
   }
+
   return (
     <div>
       <div className="map-searchbar">
@@ -243,18 +245,9 @@ function ResMap() {
                         />
                       </span>
                     </div>
-                    <h5>
-                      {' '}
-                      <MdOutlineAttachMoney
-                        style={{
-                          fontSize: '25px',
-                          color: '#FFB606',
-                          marginRight: '6px',
-                          paddingRight: '3px',
-                        }}
-                      />
-                      均消:{item.res_aveprice}
-                    </h5>
+                    <p className="font-weight-bolder">
+                      距離{item.distance.toFixed(1)}公里
+                    </p>
                     <h5>
                       <FiPhone
                         style={{
@@ -264,7 +257,7 @@ function ResMap() {
                           marginBottom: '4px',
                         }}
                       />
-                      電話:{item.res_tel}
+                      {item.res_tel}
                     </h5>{' '}
                     <h5>
                       <BsClock
@@ -276,7 +269,7 @@ function ResMap() {
                           fontSize: '16px',
                         }}
                       />
-                      營業時間:{item.res_starttime}-
+                      {item.res_starttime}-
                       {item.res_endtime}
                     </h5>
                     <h5>
@@ -289,7 +282,7 @@ function ResMap() {
                           marginBottom: '4px',
                         }}
                       />
-                      地址:{item.res_address}
+                      {item.res_address}
                     </h5>
                   </div>
                 </div>
@@ -379,7 +372,10 @@ function ResMap() {
                                 paddingBottom: '4px',
                               }}
                             />
-                            <p>{item.res_address}</p>
+                            <h6>
+                              {' '}
+                              平均消費:NT{item.res_aveprice}
+                            </h6>
                           </div>
                         </div>
                       </div>
