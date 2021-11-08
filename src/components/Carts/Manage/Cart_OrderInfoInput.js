@@ -1,11 +1,17 @@
 import axios from 'axios'
-import { useRef, useState } from 'react'
+import { useState, useRef } from 'react'
 import InputWarning from './InputWarning'
 import { FaChevronDown } from 'react-icons/fa'
 
 function Cart_OrderInfoInput(props) {
-  let { OrderInfo, setOrderInfo, CityArr, setCityArr } =
-    props
+  let {
+    OrderInfo,
+    setOrderInfo,
+    CityArr,
+    setCityArr,
+    EmailCheck,
+    PhoneCheck,
+  } = props
   let [Name, setName] = useState()
   let [Phone, setPhone] = useState()
   let [Email, setEmail] = useState()
@@ -15,20 +21,8 @@ function Cart_OrderInfoInput(props) {
   let [Notice, setNotice] = useState()
   let token = localStorage.getItem('token')
   let [data, setdata] = useState()
-  let [Noticejump, setNOticejump] = useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ])
-  console.log('檢查正規', Noticejump)
-  let EmailCheck = new RegExp(
-    /[a-zA-Z_0-9][a-zA-Z_.0-9-]*@([a-zA-Z_0-9][a-zA-Z_.0-9-]*)+/
-  )
-  let PhoneCheck = new RegExp(/^09[0-9]{8}$/)
   let district = [...OrderInfo]
+  let [WarningText, setWarningText] = useState([])
 
   function UpdateInfo(value, index) {
     let NewOrderInfo = [...OrderInfo]
@@ -60,8 +54,11 @@ function Cart_OrderInfoInput(props) {
       NewOrderInfo.push(NewData[0].name)
       NewOrderInfo.push(NewData[0].email)
       NewOrderInfo.push(NewData[0].mobile)
-      console.log('123', NewOrderInfo)
       setOrderInfo(NewOrderInfo)
+      WarningText[0] = ''
+      WarningText[1] = ''
+      WarningText[2] = ''
+      setWarningText(WarningText)
     }
   }
 
@@ -102,20 +99,23 @@ function Cart_OrderInfoInput(props) {
             className="ordername px-3"
             name="Name"
             value={Name}
+            onBlur={(e) => {
+              console.log(e.target.value)
+              if (e.target.value === '') {
+                WarningText[0] = '您尚未輸入收件人姓名喔'
+                setWarningText(WarningText)
+              } else {
+                WarningText[0] = ''
+                setWarningText(WarningText)
+              }
+              UpdateInfo(e.target.value, 0)
+            }}
             onChange={(e) => {
               setName(e.target.value)
-              if (e.target.value === '') {
-                Noticejump[0] = '請記得輸入收件人姓名哦'
-                setNOticejump(Noticejump)
-              } else {
-                UpdateInfo(e.target.value, 0)
-                Noticejump[0] = ''
-                setNOticejump(Noticejump)
-              }
             }}
           />
         </div>
-        <InputWarning name={Noticejump[0]} />
+        <InputWarning name={WarningText[0]} />
         <div className="order">
           <label for="Phone">
             <span>*</span>手機號碼
@@ -125,23 +125,27 @@ function Cart_OrderInfoInput(props) {
             className="phonenumber px-3"
             name="Phone"
             value={Phone}
-            onChange={(e) => {
-              setPhone(e.target.value)
+            onBlur={(e) => {
+              console.log(e.target.value)
               if (
                 !PhoneCheck.test(e.target.value) ||
                 e.target.value === ''
               ) {
-                Noticejump[1] = '請輸入正確的手機號碼格式'
-                setNOticejump(Noticejump)
+                WarningText[1] =
+                  '手機格式不正確，例如:0910xxxxxx。或尚未輸入'
+                setWarningText(WarningText)
               } else {
-                UpdateInfo(e.target.value, 1)
-                Noticejump[1] = ''
-                setNOticejump(Noticejump)
+                WarningText[1] = ''
+                setWarningText(WarningText)
               }
+              UpdateInfo(e.target.value, 1)
+            }}
+            onChange={(e) => {
+              setPhone(e.target.value)
             }}
           />
         </div>
-        <InputWarning name={Noticejump[1]} />
+        <InputWarning name={WarningText[1]} />
         <div className="order">
           <label for="Email">
             <span>*</span>電子郵件
@@ -151,23 +155,27 @@ function Cart_OrderInfoInput(props) {
             className="email px-3"
             name="Email"
             value={Email}
-            onChange={(e) => {
-              setEmail(e.target.value)
+            onBlur={(e) => {
+              console.log(e.target.value)
               if (
                 !EmailCheck.test(e.target.value) ||
                 e.target.value === ''
               ) {
-                Noticejump[2] = '請輸入正確的信箱格式'
-                setNOticejump(Noticejump)
+                WarningText[2] =
+                  '信箱格式不正確，例如:123@gmail.com。或尚未輸入'
+                setWarningText(WarningText)
               } else {
-                UpdateInfo(e.target.value, 2)
-                Noticejump = ''
-                setNOticejump(Noticejump)
+                WarningText[2] = ''
+                setWarningText(WarningText)
               }
+              UpdateInfo(e.target.value, 2)
+            }}
+            onChange={(e) => {
+              setEmail(e.target.value)
             }}
           />
         </div>
-        <InputWarning name={Noticejump[2]} />
+        <InputWarning name={WarningText[2]} />
         <div className="order position-relative">
           <label for="City">
             <span>*</span>請填寫縣市
@@ -185,17 +193,20 @@ function Cart_OrderInfoInput(props) {
           <select
             name="city"
             id="city"
+            onBlur={(e) => {
+              // console.log(e.target.value)
+              if (e.target.value === '') {
+                WarningText[3] = '尚未選擇縣市喔'
+                setWarningText(WarningText)
+              } else {
+                WarningText[3] = ''
+                setWarningText(WarningText)
+              }
+              UpdateInfo(e.target.value, 3)
+            }}
             onChange={(e) => {
               // console.log('選到的A', e.target.value)
               setCity(e.target.value)
-              if (e.target.value === '') {
-                Noticejump[3] = '請記得選擇縣市喔'
-                setNOticejump(Noticejump)
-              } else {
-                Noticejump = ''
-                setNOticejump(Noticejump)
-                UpdateInfo(e.target.value, 3)
-              }
             }}
           >
             {CityArr.map((v, i) => {
@@ -206,7 +217,7 @@ function Cart_OrderInfoInput(props) {
           </select>
           <FaChevronDown className="ChevronDown position-absolute" />
         </div>
-        <InputWarning name={Noticejump[3]} />
+        <InputWarning name={''} />
         <div className="order position-relative">
           <label for="District">
             <span>*</span>請填寫行政區
@@ -224,34 +235,40 @@ function Cart_OrderInfoInput(props) {
           <select
             name="districts"
             id="districts"
+            onBlur={(e) => {
+              console.log(e.target.value)
+              if (e.target.value === '') {
+                WarningText[4] = '尚未選擇行政區喔'
+                setWarningText(WarningText)
+              } else {
+                WarningText[4] = ''
+                setWarningText(WarningText)
+              }
+              UpdateInfo(e.target.value, 4)
+            }}
             onChange={(e) => {
               setDistrict(e.target.value)
-              if (e.target.value === '') {
-                Noticejump[4] = '請記得選擇行政區喔'
-                setNOticejump(Noticejump)
-              } else {
-                Noticejump = ''
-                setNOticejump(Noticejump)
-                UpdateInfo(e.target.value, 4)
-              }
             }}
           >
-            {CityArr.map((v, i) => {
-              if (!OrderInfo[3]) {
-                return <option disabled>請選擇地區</option>
-              }
-              if (v.City === OrderInfo[3]) {
-                return v.districts.map((a) => {
-                  return (
-                    <option value={a.name}>{a.name}</option>
-                  )
-                })
-              }
-            })}
+            {!OrderInfo[3] ? (
+              <option selected>請選擇地區</option>
+            ) : (
+              CityArr.map((v, i) => {
+                if (v.City === OrderInfo[3]) {
+                  return v.districts.map((a) => {
+                    return (
+                      <option value={a.name}>
+                        {a.name}
+                      </option>
+                    )
+                  })
+                }
+              })
+            )}
           </select>
           <FaChevronDown className="ChevronDown position-absolute" />
         </div>
-        <InputWarning name={Noticejump[4]} />
+        <InputWarning name={''} />
         <div className="order">
           <label for="Address">
             <span>*</span>請填寫地址
@@ -261,21 +278,23 @@ function Cart_OrderInfoInput(props) {
             className="address px-3"
             name="Address"
             value={Address}
-            onChange={(e) => {
+            onBlur={(e) => {
+              console.log(e.target.value)
               if (e.target.value === '') {
-                Noticejump[1] = '請記得輸入地址哦'
-                setNOticejump(Noticejump)
+                WarningText[5] = '尚未輸入地址喔'
+                setWarningText(WarningText)
               } else {
-                UpdateInfo(e.target.value, 5)
-                Noticejump = ''
-                setNOticejump(Noticejump)
+                WarningText[5] = ''
+                setWarningText(WarningText)
               }
+              UpdateInfo(e.target.value, 5)
+            }}
+            onChange={(e) => {
               setAddress(e.target.value)
-
             }}
           />
         </div>
-        <InputWarning name={Noticejump[5]} />
+        <InputWarning name={WarningText[5]} />
 
         <div className="order">
           <label for="Notice">是否需填寫備註</label>

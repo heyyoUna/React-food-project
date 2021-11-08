@@ -3,7 +3,14 @@ import { useState } from 'react'
 import Cart_OrderInfoInput from './Cart_OrderInfoInput'
 
 function Cart_CreditPay(props) {
-  let { Credit, setCredit, OrderInfo, setOrderInfo } = props
+  let {
+    OrderInfo,
+    setOrderInfo,
+    CityArr,
+    setCityArr,
+    EmailCheck,
+    PhoneCheck,
+  } = props
   return (
     <>
       <div
@@ -85,6 +92,10 @@ function Cart_CreditPay(props) {
       <Cart_OrderInfoInput
         OrderInfo={OrderInfo}
         setOrderInfo={setOrderInfo}
+        CityArr={CityArr}
+        setCityArr={setCityArr}
+        EmailCheck={EmailCheck}
+        PhoneCheck={PhoneCheck}
       />
     </>
   )
