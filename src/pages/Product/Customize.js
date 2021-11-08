@@ -192,6 +192,7 @@ function Customize(props) {
     })
   }
 
+  // 客製化按鈕滑動
   const scroll = ()=>{
     console.log('ok')
     window.scroll({
@@ -200,7 +201,7 @@ function Customize(props) {
     })
   }
  
-  
+  // 按鈕特效
   const buttonCSS = ()=>{
     const btn = document.querySelector('.pd-client-btn')
     btn.classList.remove('animate__pulse')

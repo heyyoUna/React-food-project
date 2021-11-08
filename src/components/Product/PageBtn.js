@@ -18,7 +18,6 @@ function PageBtn(props) {
   const searchKeyword = searchParams.get('keyword')
   const searchFilter = searchParams.get('filter')
   const clickpage = searchParams.get('page')
-  console.log(clickpage)
 
   return (
     <>
