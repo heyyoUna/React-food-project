@@ -11,7 +11,7 @@ import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 import PopularRecipe from '../../components/article/PopularRecipe'
 import RelatingRecipe from '../../components/article/RelatingRecipe'
-// import ReceipeIngredient from '../../components/article/ReceipeIngredient'
+import { GiKnifeFork } from 'react-icons/gi'
 
 function FoodContent(props) {
   const [data, setData] = useState([])
@@ -74,8 +74,28 @@ function FoodContent(props) {
               <h3>材料</h3>
               <p>（ 約{data.ar_rec_quan}人份 ）</p>
             </div>
-            <ul>{data.ar_rec_ingredient}
-            </ul>
+            <div className="d-flex me-auto justify-content-between border align-middle">
+              <table>
+                {console.log('ingredient:', ingredient)}
+                {ingredient.map((el) => {
+                  return (
+                    <tr>
+                      <td>{el.name}</td>
+                      <td>{el.quantity}</td>
+                      <td>{el.unit}</td>
+                    </tr>
+                  )
+                })}
+              </table>
+              <GiKnifeFork />
+              <table>
+                <tr>
+                  <td className="border px-1">name</td>
+                  <td className="border px-1">quantity</td>
+                  <td className="border px-1">unit</td>
+                </tr>
+              </table>
+            </div>
 
             <div className="text-center">
               <h3>步驟</h3>
@@ -83,7 +103,22 @@ function FoodContent(props) {
                 （ 料理時間{data.ar_rec_cookTime}分鐘 ）
               </p>
             </div>
-            <ul>{/* {data.ar_rec_process} */}</ul>
+            {steps.map((el)=>{
+              return(
+                <>
+                <table>
+                  <tr>
+                  <td>1</td>
+                  <td>{el}</td>
+
+                  </tr>
+                </table>
+                  {/* <li>{el}</li> */}
+                </>
+              )
+            })}
+
+            {console.log('steps:', steps)}
 
             <div>{data.ar_index1}</div>
           </div>

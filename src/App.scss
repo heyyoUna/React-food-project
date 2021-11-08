@@ -52,6 +52,9 @@ $light-orange: #fb6107;
   padding-top: 100px;
 }
 
+main {
+  padding-top: 60px;
+}
 /*------------------------------ 元件 ------------------------------*/
 /*----------- footer -----------*/
 footer {
@@ -128,29 +131,6 @@ footer {
 }
 
 /*----------- Navbar -----------*/
-.MyNavbar {
-
-  background-color: green;
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 20%);
-
-  .navLogoWrap {
-    width: 120px;
-    padding: 0 20px;
-    img {
-      width: 100%;
-    }
-  }
-
-  .active {
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
-  }
-  .navText {
-    color: black;
-    &:hover {
-      color: $light-green;
-    }
-  }
-}
 
 .myNavbarNew {
   text-align: center;
@@ -184,7 +164,7 @@ footer {
   cursor: pointer;
   background-color: white;
   margin-top: 3px;
-  transition: .3s;
+  transition: 0.3s;
   // font-family;
   font-family: 'Poppins';
   filter: none;
@@ -192,10 +172,10 @@ footer {
     // filter: drop-shadow(
     //   15px 15px 0px rgba(143, 192, 101, 0.5)
     // );
-    
+
     box-shadow: 10px 10px 0 0 #8fc06574;
   }
-  i{
+  i {
     margin-left: 15px;
   }
 }
@@ -231,7 +211,7 @@ footer {
     font-size: 24px;
     padding: 15px 80px;
     letter-spacing: 3px;
-    transition: .3s;
+    transition: 0.3s;
 
     &:hover {
       background: $light-yellow;
@@ -316,7 +296,7 @@ footer {
     #HP_KV_img_frame {
       margin-bottom: -16px;
       .HP_KV_img {
-        height: calc(100vh - 40px);
+        height: calc(100vh - 60px);
 
         img {
           width: 100%;
@@ -370,8 +350,8 @@ footer {
     }
   }
 
-  .hp-client{
-    margin-top: 50px
+  .hp-client {
+    margin-top: 50px;
   }
 
   /*---------- 商城  ----------*/
@@ -525,16 +505,20 @@ footer {
 }
 
 /*----------- 轉盤 -----------*/
-.game-card-wrap{
+.game-card-wrap {
   border-radius: 1rem;
 }
 
-@keyframes rotation{
-  from {-webkit-transform: rotate(0deg);}
-  to {-webkit-transform: rotate(360deg);}
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
- 
-.img-rotate{
+
+.img-rotate {
   border-radius: 50%;
   transform: rotate(360deg);
   animation: rotation 1.4s linear infinite;

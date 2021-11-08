@@ -23,7 +23,7 @@ function RelatingRecipe(props) {
 
       if (j.success) {
         setProduct(j.pop)
-        console.log('j.pop:', j.pop)
+        // console.log('j.pop:', j.pop)
       }
     })()
   }, [])
@@ -32,7 +32,7 @@ function RelatingRecipe(props) {
     <>
       {product && product.length
         ? product.map((el) => {
-            console.log('p:', el.product_img)
+            {/* console.log('p:', el.product_img) */}
             return (
               <>
                 <div className="col-3">

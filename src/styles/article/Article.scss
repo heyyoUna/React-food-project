@@ -5,9 +5,10 @@
 }
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
 /*---------- 主視覺  ----------*/
-#article-kv {
+#articlePage {
+  margin-top: -60px;
 
-  img{
+  img {
     width: 100%;
   }
 }
@@ -24,21 +25,11 @@
   }
 }
 
-.title-fz {
-  p {
-    color: $dark-green;
-    font-size: 32px;
-  }
-}
 
-hr {
-  border: 2px solid $dark-green;
-}
+
 
 #col-cat {
-  img {
-    width: 100%;
-  }
+
   h4,
   p {
     margin: 0;

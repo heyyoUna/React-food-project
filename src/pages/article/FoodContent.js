@@ -122,11 +122,7 @@ function FoodContent(props) {
                     />
                   )}
                 </ul>
-                {/* <div>
-                  <button className="QAbtn" type="submit">
-                    作答
-                  </button>
-                </div> */}
+
               </div>
             </form>
           </div>
