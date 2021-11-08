@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import '../../App.scss'
 import { BsCursor } from 'react-icons/bs'
 import { imgUrl } from '../../config'
-// import { RESTAURANT } from '../../config'
 import ResListData from '../../components/Restaurant/ResListData'
 import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
 import ResPopular from '../../components/Restaurant/ResPopular'
@@ -12,13 +11,22 @@ import Geocode from 'react-geocode'
 import { apiKey } from '../../api/googleApi'
 import { useHistory } from 'react-router-dom'
 import ResMap from './ResMap'
-import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
-import PageBtn from './../../components/Product/PageBtn'
 import { FiFilter } from 'react-icons/fi'
 import Carousel from 'react-grid-carousel'
+import ToTop from '../../components/Restaurant/ToTop'
+import { css } from '@emotion/react'
+import PacmanLoader from 'react-spinners/PacmanLoader'
+import Spinner from '../../components/Spinner'
 const token = localStorage.getItem('token')
-// import { data } from '../../data'
+
+// const customCss = css`
+//   position: abosolute;
+//   top: 50%;
+//   left: 10%;
+//   transform: translate(-50%, -50%);
+//   z-index: 100;
+// `
 
 function Restaurants(props) {
   const [lat, setLat] = useState(25.033198)
@@ -27,6 +35,9 @@ function Restaurants(props) {
   const [apiData, setApiData] = useState([]) //原始資料
   const [filterData, setFilterData] = useState([]) //篩選資料
   const [displayData, setDisplayData] = useState([]) // 實際呈現的資料
+  //spinner
+  let [loading, setLoading] = useState(false)
+  // let [color, setColor] = useState('#ffb606')
   const [pages, setPages] = useState({
     currentPage: 0, //當前頁碼
     perPage: 6, //每頁6筆
@@ -166,6 +177,7 @@ function Restaurants(props) {
 
   useEffect(() => {
     ;(async () => {
+      setLoading(true)
       let r = await fetch(
         'http://localhost:3002/reslist/address',
         {
@@ -206,6 +218,7 @@ function Restaurants(props) {
       )
       console.log(dataPerpage)
       setDisplayData(dataPerpage)
+      setLoading(false)
     })()
   }, [lat, lng])
 
@@ -249,6 +262,15 @@ function Restaurants(props) {
     })()
   }, [])
 
+  // const override = css`
+  //   ${'' /* margin: 0 auto; */}
+  //   position: abosolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   z-index: 100;
+  // `
+
   return (
     <>
       <div
@@ -258,11 +280,19 @@ function Restaurants(props) {
           backgroundImage: `url('http://localhost:3000/images/Restaurant/banner.jpg')`,
         }}
       >
+        {/* <PacmanLoader
+          loading={loading}
+          color={color}
+          css={override}
+          size={30}
+        /> */}
+        <Spinner
+          loading={loading} /*customCss={customCss} */
+        />
         <div className="res-slogan">
           <h1>尋找，</h1>
           <h2>附近的健康餐盒</h2>
         </div>
-
         <div className="search-group ">
           <input
             type="text"
@@ -328,12 +358,16 @@ function Restaurants(props) {
       </div>
       {/* 餐廳列表 */}
       <div className="container mt-35 mb-5">
+        <Spinner loading={loading} />
         <div class="row  justify-content-center">
           {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
           {displayData &&
             displayData.map((v, i) => {
               return (
-                <div class="col-md-5 col-12" style={{ margin: '25px' }}>
+                <div
+                  class="col-md-5 col-12"
+                  style={{ margin: '25px' }}
+                >
                   <ResListData
                     key={v.res_id}
                     res_id={v.res_id}
@@ -474,6 +508,7 @@ function Restaurants(props) {
           })}
         </Carousel>
       </div>
+      <ToTop />
       {/* </div> */}
     </>
   )

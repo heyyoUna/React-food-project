@@ -77,8 +77,8 @@ function ProductCard(props) {
                   title: '請先登入會員',
                   icon: 'warning',
                   showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
+                  confirmButtonColor: '#8fc065',
+                  cancelButtonColor: '#fb6107',
                   confirmButtonText: '前往登入頁面'
                 }).then((result) => {
                   if (result.isConfirmed) {

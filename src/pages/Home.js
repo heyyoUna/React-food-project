@@ -40,7 +40,7 @@ function Home(props) {
                   <i className="far fa-handshake"></i>
                 </div>
                 <span className="HP_KV_logo_words">
-                  量身訂做
+                  良身訂做
                 </span>
               </a>
 
@@ -159,7 +159,7 @@ function Home(props) {
                 onClick={(e) => {
                   props.history.push('/customize')
                 }}>
-                查看推薦</button>
+                查看飲食推薦</button>
               </div>
             </div>
           </div>

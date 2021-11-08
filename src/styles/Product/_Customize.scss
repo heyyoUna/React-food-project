@@ -151,7 +151,6 @@
   outline: none;
 }
 .pd-client-btn:hover {
-  // background-color: #ffb606;
   box-shadow: 4px 0 20px lightgray;
   transform: translateY(-5px);
 }
@@ -358,6 +357,10 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px;
+    color: #2a593e;
+    label{
+      color: #2a593e !important;
+    }
   }
   .pd-gender,
   .pd-years,

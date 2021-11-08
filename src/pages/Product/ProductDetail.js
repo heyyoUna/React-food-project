@@ -23,7 +23,6 @@ function ProductDetail(props) {
 
   // 解析字串(帶數字路由去fetch)
   const sp = searchParams.split('/')[2]
-  console.log(sp)
 
   // 展開拿到的資料
   const p = { ...ProductDetail }
@@ -36,7 +35,6 @@ function ProductDetail(props) {
       })
       const obj = await r.json()
       setProductDetail(obj.data)
-      console.log(obj.data)
     })()
   }, [])
 

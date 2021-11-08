@@ -121,27 +121,28 @@ function App() {
             </Route>
 
             <Route path="/product/:id">
-              <ProductDetail />
+              <ProductDetail
+              />
             </Route>
             
             <Route path="/customize">
-            <ScrollToTop>
-              <Customize
-                favArr={favArr}
-                setFavArr={setFavArr}
-                gender={gender}
-                setGender={setGender}
-                years={years}
-                setYears={setYears}
-                height={height}
-                setHeight={setHeight}
-                weight={weight}
-                setWeight={setWeight}
-                TDEE={TDEE}
-                setTDEE={setTDEE}
-                oriTDEE={oriTDEE}
-                setOriTDEE={setOriTDEE}
-              />
+              <ScrollToTop>
+                <Customize
+                  favArr={favArr}
+                  setFavArr={setFavArr}
+                  gender={gender}
+                  setGender={setGender}
+                  years={years}
+                  setYears={setYears}
+                  height={height}
+                  setHeight={setHeight}
+                  weight={weight}
+                  setWeight={setWeight}
+                  TDEE={TDEE}
+                  setTDEE={setTDEE}
+                  oriTDEE={oriTDEE}
+                  setOriTDEE={setOriTDEE}
+                />
               </ScrollToTop>
             </Route>
 

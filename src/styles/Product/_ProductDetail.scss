@@ -50,8 +50,8 @@
   font-size: 24px;
   color: #fb6107;
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: 40px;
+  top: 100px;
   display: none;
 }
 .dt-bgimg {
@@ -198,6 +198,7 @@
 .dt-reviews-wrap {
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 .dt-comments-wrap {
   width: 100%;
@@ -265,7 +266,7 @@
   }
   .dt-intro-wrap {
     width: 90%;
-    margin-top: 30px;
+    margin-top: 30px !important;
     color: #2a593e;
     text-align: center;
   }
@@ -306,5 +307,8 @@
   }
   .dt-qty-wrap {
     margin-bottom: 20px;
+  }
+  .dt-product-wrap ul{
+    padding-left: 0;
   }
 }
