@@ -15,11 +15,12 @@ import MapSortButton from '../../components/Restaurant/MapSortButton'
 import { FiFilter } from 'react-icons/fi'
 import Carousel from 'react-grid-carousel'
 import ToTop from '../../components/Restaurant/ToTop'
-import { css } from '@emotion/react'
-import PacmanLoader from 'react-spinners/PacmanLoader'
 import Spinner from '../../components/Spinner'
+import styled, { keyframes } from 'styled-components'
+import { bounce } from 'react-animations'
 const token = localStorage.getItem('token')
 
+//客製化spinner css
 // const customCss = css`
 //   position: abosolute;
 //   top: 50%;
@@ -27,7 +28,9 @@ const token = localStorage.getItem('token')
 //   transform: translate(-50%, -50%);
 //   z-index: 100;
 // `
-
+const Bounce = styled.div`
+  animation: 2s ${keyframes`${bounce}`};
+`
 function Restaurants(props) {
   const [lat, setLat] = useState(25.033198)
   const [lng, setLng] = useState(121.543575)
@@ -94,7 +97,6 @@ function Restaurants(props) {
     /* 有任意一個篩選有輸入，即進行判斷 */
     if (filter.price || filter.rate || filter.distance) {
       // 避免指到同一個記憶體位置，引響原始資料，故淺拷貝一份apiData
-      // let processFilterData = apiData
       let processFilterData = [...apiData]
       // 當選取價錢區間
       if (filter.price) {
@@ -177,6 +179,7 @@ function Restaurants(props) {
 
   useEffect(() => {
     ;(async () => {
+      //spinner
       setLoading(true)
       let r = await fetch(
         'http://localhost:3002/reslist/address',
@@ -218,7 +221,9 @@ function Restaurants(props) {
       )
       console.log(dataPerpage)
       setDisplayData(dataPerpage)
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     })()
   }, [lat, lng])
 
@@ -256,20 +261,9 @@ function Restaurants(props) {
       console.log('data', data)
       if (data.length) {
         setPopular(data)
-      } else {
-        alert('出事了')
       }
     })()
   }, [])
-
-  // const override = css`
-  //   ${'' /* margin: 0 auto; */}
-  //   position: abosolute;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  //   z-index: 100;
-  // `
 
   return (
     <>
@@ -291,7 +285,9 @@ function Restaurants(props) {
         />
         <div className="res-slogan">
           <h1>尋找，</h1>
-          <h2>附近的健康餐盒</h2>
+          <Bounce>
+            <h2>附近的健康餐盒</h2>
+          </Bounce>
         </div>
         <div className="search-group ">
           <input
@@ -365,7 +361,7 @@ function Restaurants(props) {
             displayData.map((v, i) => {
               return (
                 <div
-                  class="col-md-5 col-12"
+                  class="col-md-5  col-sm-5 col-12"
                   style={{ margin: '25px' }}
                 >
                   <ResListData

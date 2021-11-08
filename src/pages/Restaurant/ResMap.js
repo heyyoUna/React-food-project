@@ -44,9 +44,7 @@ function ResMap() {
   const [location, setLocation] = useState()
   const [filterData, setFilterData] = useState([])
   const [listData, setListData] = useState([])
-  //spinner
-  let [loading, setLoading] = useState(false)
-  let [color, setColor] = useState('#ffb606')
+
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
@@ -157,7 +155,7 @@ function ResMap() {
               name="列表模式"
               linkFunction={goList}
             >
-              <div className="col-md-3  col-6 ">
+              <div className="col-md-3  col-sm-6 ">
                 <MapSortButton
                   name="price"
                   options={[
@@ -170,7 +168,7 @@ function ResMap() {
                 />
               </div>
 
-              <div className="col-md-3  col-6 ">
+              <div className="col-md-3  col-sm-6 ">
                 <MapSortButton
                   name="rate"
                   options={[
@@ -181,7 +179,7 @@ function ResMap() {
                   onChange={onFilterChange}
                 />
               </div>
-              <div className="col-md-3  col-6 ">
+              <div className="col-md-3  col-sm-6 ">
                 <MapSortButton
                   name="distance"
                   options={[
@@ -298,7 +296,6 @@ function ResMap() {
         </div>
 
         <div className="map-container p-0 col-md-8 col-12">
-      
           <MapContainer
             // 中心點: 會是你輸入的經緯
             center={[
@@ -346,7 +343,6 @@ function ResMap() {
                         markerChange(e)
                       },
                     }}
-                    // data-index={index}
                   >
                     <Popup>
                       <div className="map-card  d-flex align-items-center justify-content-between">
@@ -391,17 +387,6 @@ function ResMap() {
                 </>
               )
             })}
-
-            {/* <Marker position={[25.0723232, 121.4627458]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <Marker position={[25.0723999, 121.4627451]}>
-          <Popup>
-            A pretty 2222222. <br /> Easily customizable.
-          </Popup>
-        </Marker> */}
           </MapContainer>
         </div>
       </div>
