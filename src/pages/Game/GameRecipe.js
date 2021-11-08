@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom'
 import spinWheel from './spinWheel.png'
 import fork from './fork.png'
 import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function GameRecipe(props) {
   const [show, setShow] = useState(false)
@@ -22,7 +24,7 @@ function GameRecipe(props) {
             setRotate(false)
           }, 1500);
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }
