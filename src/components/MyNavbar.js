@@ -14,12 +14,15 @@ import '../App.scss'
 import { NavLink } from 'react-router-dom'
 
 function MyNavbar(props) {
-  const { auth, setAuth, CountNav } = props
+  const { auth, setAuth, CountNav, setCountNav } = props
   let history = useHistory()
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
+    localStorage.setItem('數量', 0)
+    
     setAuth(false)
+    setCountNav(0)
 
     history.push('/')
   }
