@@ -84,6 +84,7 @@ function OrderInfo(props) {
             icon: 'error',
             title: '請先登入會員哦',
             showConfirmButton: true,
+            confirmButtonColor: '#8FC065',
             confirmButtonText: '我知道了',
           }).then((result) => {
             if (result.isConfirmed) {

@@ -115,7 +115,7 @@ function MemberFavoriteProduct(props) {
           <h1 id="member-favorite-h1">商品收藏清單</h1>
         </div>
         <div className="row member-favorite">
-          <MemberNavbar/>
+          <MemberNavbar />
           <div className="member-n col-1"></div>
           <div className="member-favorite-card col-9">
             {products.map((value, index) => {

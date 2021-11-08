@@ -110,7 +110,7 @@ function App() {
           {/* 匹配路由表(路徑單一匹配) */}
           {/* 切換顯示的元件畫面放在這下面 */}
           {/* ScrollToTop是為了讓連到另一頁內容時，頁面回到最上方 */}
-
+          <ScrollToTop>
           <Switch>
             {/* 商城 */}
             <Route path="/products">
@@ -126,7 +126,7 @@ function App() {
             </Route>
             
             <Route path="/customize">
-              <ScrollToTop>
+              
                 <Customize
                   favArr={favArr}
                   setFavArr={setFavArr}
@@ -143,7 +143,7 @@ function App() {
                   oriTDEE={oriTDEE}
                   setOriTDEE={setOriTDEE}
                 />
-              </ScrollToTop>
+              
             </Route>
 
             {/* 文章 */}
@@ -293,6 +293,7 @@ function App() {
             </Route>
             
           </Switch>
+          </ScrollToTop>
           {/* end 匹配路由表 */}
         </MainContent>
         {/* 頁尾+版權訊息 */}

@@ -47,6 +47,7 @@ function MemberLogin(props) {
         } else {
           Swal.fire({
             icon: 'error',
+            confirmButtonColoe:'#8fc065',
             text: '登入失敗\n' + (obj.error || '')
           });
         }
