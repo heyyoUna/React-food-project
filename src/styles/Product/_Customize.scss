@@ -240,7 +240,8 @@
   position: relative;
 }
 // 查看更多連結
-.pd-viewmore-wrap{
+.pd-viewmore-wrap,
+.ar-viewmore-wrap{
   position: absolute;
   transform: translate(600px, 250px);
   font-size: 16px;
@@ -283,7 +284,19 @@
   color: #8fc065;
 }
 
-
+// 文章區
+.client-art{
+  width: 30% !important;
+  margin: 30px !important;
+}
+.client-art-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ar-viewmore-wrap{
+  transform: translate(600px, 20px);
+}
 
 @media (max-width: 992px) {
   /* 商品區 */
