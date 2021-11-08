@@ -3,10 +3,20 @@ import { imgUrl } from '../config/index'
 import HpArMoreBtn from '../components/HpArMoreBtn'
 import HpSBtn from '../components/HpSBtn'
 import HpFixedBgc from '../components/HpFixedBgc'
-import { withRouter , useHistory} from 'react-router-dom'
+import { withRouter, useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 import Clientinfo from '../components/Product/Clientinfo'
+//輪盤小動畫
+import styled, { keyframes } from 'styled-components'
+import { tada } from 'react-animations'
+//輪盤動畫css
+const Tada = styled.div`
+  position: fixed;
+  right: 0px;
+  bottom: 0;
+  animation: 3s ${keyframes`${tada}`} infinite;
+`
 function Home(props) {
   // const { auth } = props
   let history = useHistory()
@@ -23,8 +33,9 @@ function Home(props) {
     oriTDEE,
     setOriTDEE,
     TDEE,
-    setTDEE,} = props 
-  
+    setTDEE,
+  } = props
+
   return (
     <>
       <div className="container-fluid px-0" id="hpTotal">
@@ -107,15 +118,18 @@ function Home(props) {
                 alt=""
               />
             </figure>
-            <figure className="spin">
-              <Link to="/game/GameChoose">
-                <img
-                  className="first"
-                  src={`${imgUrl}/images/spin.png`}
-                  alt=""
-                />
-              </Link>
-            </figure>
+            {/* 輪盤小動畫 */}
+            <Tada>
+              <figure className="spin">
+                <Link to="/game/GameChoose">
+                  <img
+                    className="first"
+                    src={`${imgUrl}/images/spin.png`}
+                    alt=""
+                  />
+                </Link>
+              </figure>
+            </Tada>
           </div>
         </div>
         {/* 背景圖 */}
@@ -124,7 +138,7 @@ function Home(props) {
         <div className="container" id="hp_customized">
           <div className="row">
             <div className="col-lg" id="customized">
-              <div className="title" >
+              <div className="title">
                 <h6 className="bannerSubTitle light-green">
                   怎麼
                   <span className="light-orange">吃</span>
@@ -156,10 +170,12 @@ function Home(props) {
               </div>
               <div className="col_RM_btn">
                 <button
-                onClick={(e) => {
-                  props.history.push('/customize')
-                }}>
-                查看飲食推薦</button>
+                  onClick={(e) => {
+                    props.history.push('/customize')
+                  }}
+                >
+                  查看飲食推薦
+                </button>
               </div>
             </div>
           </div>
