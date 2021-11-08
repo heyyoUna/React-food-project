@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { Modal } from 'react-bootstrap';
 import spinWheel from './spinWheel.png'
 import fork from './fork.png'
-import { Modal } from 'react-bootstrap';
-import { API_img } from '../../config/index'
 import ArCardTxtRecipe from '../../components/article/ArCardTxtRecipe'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
@@ -34,6 +33,16 @@ function GameRecipe(props) {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
+  //轉換時間格式
+  const articleDate = (origin) => {
+    let time = new Date(origin)
+    let year = time.getFullYear()
+    let month = time.getMonth()
+    let date = time.getDate()
+
+    return `${year} / ${month + 1} / ${date} `
+  }
+
   return (
     <>
       <div className="karin-game-container-main">
@@ -55,9 +64,9 @@ function GameRecipe(props) {
         <Modal show={show} centered={true} contentClassName={'game-card-wrap'} onHide={handleClose}>
           <ArCardTxtRecipe
             sid={recipe.sid}
-            ar_pic={recipe.ar_pic}
-            ar_title={recipe.ar_title}
-            isNotLiked={recipe.isLiked}
+            pic={recipe.ar_pic}
+            title={recipe.ar_title}
+            date={articleDate(recipe.ar_date)}
           />
         </Modal>
       </div>
