@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import spinWheel from './spinWheel.png'
 import fork from './fork.png'
 import ArCardTxtRecipe from '../../components/article/ArCardTxtRecipe'
+import moment from 'moment'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -33,16 +34,6 @@ function GameRecipe(props) {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  //轉換時間格式
-  const articleDate = (origin) => {
-    let time = new Date(origin)
-    let year = time.getFullYear()
-    let month = time.getMonth()
-    let date = time.getDate()
-
-    return `${year} / ${month + 1} / ${date} `
-  }
-
   return (
     <>
       <div className="karin-game-container-main">
@@ -66,7 +57,7 @@ function GameRecipe(props) {
             sid={recipe.sid}
             pic={recipe.ar_pic}
             title={recipe.ar_title}
-            date={articleDate(recipe.ar_date)}
+            date={moment(recipe.ar_date).format('YYYY/MM/DD')}
           />
         </Modal>
       </div>
