@@ -4,6 +4,8 @@ import spinWheel from './spinWheel.png'
 import fork from './fork.png'
 import { Modal } from 'react-bootstrap';
 import ResListData from '../../components/Restaurant/ResListData'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function GameDelivery(props) {
   const [show, setShow] = useState(false)
@@ -23,7 +25,7 @@ function GameDelivery(props) {
             setRotate(false)
           }, 1500);
         } else {
-          alert(obj.error)
+          Swal.fire(obj.error)
         }
       })
   }
