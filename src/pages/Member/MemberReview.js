@@ -148,61 +148,71 @@ function MemberReview(props) {
             <div className="member-review-main-right-mobile">
               {/* <!-- 評價按鈕  --> */}
               <div className="member-review-button">
-                <button type="button" className="btn member-btn-evaluated">
+                <button type="button" className={"btn " + (evaluating ? "btn member-btn-evaluating" : "member-btn-evaluated")} onClick={() => {
+                  setEvaluating(true)
+                }}>
                   待評價
                 </button>
-                <button type="button" className="btn member-btn-evaluating">
+                <button type="button" className={"btn " + (evaluating ? "btn member-btn-evaluated" : "member-btn-evaluating")} onClick={() => {
+                  setEvaluating(false)
+                }
+                }>
                   已評價
                 </button>
               </div>
               {/* <!-- 評價按鈕  --> */}
               {/* <!-- 評價內容 --> */}
-              <div className="member-order-number">
-                <a href="#">訂單編號: 20210517044231619</a>
-              </div>
-              <div className="member-review-main">
-                <div className="member-review-img">
-                  <img src="../public/imgages/member/noodles.png" className="img-fluid rounded-start" alt="" />
-                </div>
-                <div className="member-product-name">
-                  <h5>川椒麻辣蒟蒻拌麵(袋/3份入)</h5>
-                  <div className="member-cart">
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
+              {product.map((v, i) => {
+                return (
+                  <div key={i}>
+                    <div className="member-order-number">
+                      <a href="#">{v.order_id}</a>
+                    </div>
+                    <div className="member-review-main">
+                      <div className="member-review-img">
+                        <img className="img-fluid rounded-start"
+                          src={'http://localhost:3002/img/Product/' + v.product_img}
+                          alt="" />
+                      </div>
+                      <div className="member-product-name">
+                        <h5>{v.product_name}</h5>
+                        <div className="member-cart">
+                          {[1, 2, 3, 4, 5].map((level) => {
+                            return (
+                              <div key={level} type={evaluating ? 'button' : ''} style={{ display: 'inline' }} onClick={() => {
+                                if (!evaluating) {
+                                  return;
+                                }
+                                let tempProduct = [...product]
+                                tempProduct[i].level = level
+                                setProduct(tempProduct)
+                              }}>
+                                <AiOutlineStar style={{ color: '#FB6107', fontSize: '20px', marginTop: '3px', display: v.level >= level ? 'none' : 'inline' }} />
+                                <AiFillStar style={{ color: '#FB6107', fontSize: '20px', marginTop: '3px', display: v.level >= level ? 'inline' : 'none' }} />
+                              </div>
+                            )
+                          })
+                          }
+                        </div>
+                      </div>
+                      <div className="member-review-right">
+                        <div className="member-review-text">
+                          <input type="text"
+                            className="member-review-text-input"
+                            value={v.description}
+                            readOnly={evaluating ? false : true}
+                            onChange={(e) => {
+                              let tempProduct = [...product]
+                              tempProduct[i].level = tempProduct[i].level == 0 ? 5 : tempProduct[i].level
+                              tempProduct[i].description = e.target.value
+                              setProduct(tempProduct)
+                            }} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="member-review-right">
-                  <div className="member-review-text">
-                    <input type="text" className="member-review-text-input" />
-                  </div>
-                </div>
-              </div>
-              <div className="member-order-number">
-                <a href="#">訂單編號: 202105170442316</a>
-              </div>
-              <div className="member-review-main">
-                <div className="member-review-img">
-                  <img className="img-fluid rounded-start"
-                    src={`http://localhost:3000/images/member/noodles.png`}
-                    alt="" />
-                </div>
-                <div className="member-product-name">
-                  <h5>川椒麻辣蒟蒻拌麵(袋/3份入)</h5>
-                  <div className="member-cart">
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                    <i className="far fa-star"></i>
-                  </div>
-                </div>
-                <div className="member-review-text">
-                  <input type="text" className="member-review-text-input" />
-                </div>
-              </div>
+                )
+              })}
               {/* 送出按鈕  */}
               <div className="karin-form-group row">
                 <button type="submit" className="karin-profile-btn btn-primary">確認送出</button>
