@@ -186,6 +186,8 @@ function CartManage(props) {
         <Cart_OrderInfoInput
           OrderInfo={OrderInfo}
           setOrderInfo={setOrderInfo}
+          CityArr={CityArr}
+          setCityArr={setCityArr}
         />
       )
     }
@@ -196,6 +198,8 @@ function CartManage(props) {
           setCredit={setCredit}
           OrderInfo={OrderInfo}
           setOrderInfo={setOrderInfo}
+          CityArr={CityArr}
+          setCityArr={setCityArr}
         />
       )
     }
