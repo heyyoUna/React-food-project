@@ -125,12 +125,12 @@ function Article(props) {
           <div className="row" id="col-cat1">
             <div className="col-lg-7">
               {/* {console.log('foodOne:', foodOne)} */}
-              <div className="col-cat-firstImg">
+              <figure className="col-cat-firstImg">
                 <img
                   src={`${API_img}` + foodOne.ar_pic}
                   alt=""
                 />
-              </div>
+              </figure>
               <ArCardTxt
                 title={foodOne.ar_title}
                 date={foodOne.ar_date}

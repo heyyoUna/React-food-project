@@ -29,23 +29,6 @@ const ProductWrap = (props) => {
   const [display, setDisplay] = useState(true)
   const [orderQty, setOrderQty] = useState(1)
 
-  //寫入資料庫（訂單編號未修正）
-  // const addtocart = (sid, ID, product_id) => {
-  //   fetch(`http://localhost:3002/cart`, {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       Sid: sid,
-  //       Member_id:ID,
-  //       Product_id:product_id,
-  //       Order_Amount:orderQty,
-  //     }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: 'Bearer ' + token,
-  //     },
-  //   })
-  //   console.log(sid, ID, product_id)
-  // }
 
   //  token 解密拿到會員ID
   const addtocart = (sid, product_id,orderQty) => {
@@ -58,6 +41,7 @@ const ProductWrap = (props) => {
       .then(obj => {
         const ID=obj.data[0].sid
         setID(ID)
+        // 有會員ID才寫入暫存訂單
         if(ID){
           fetch(`http://localhost:3002/cart`, {
             method: 'POST',
@@ -71,9 +55,21 @@ const ProductWrap = (props) => {
               'Content-Type': 'application/json',
               Authorization: 'Bearer ' + token,
             },
-          })
+          }).then(OrderQty())
           console.log(sid, ID, product_id,orderQty)
         }
+      })
+  }
+  // 按加入購物車時, 去讀取資料庫裡面的比數設定到localStorage
+  const OrderQty = ()=>{
+    fetch(`http://localhost:3002/cart`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }).then(r => r.json())
+      .then(obj => {
+        localStorage.setItem('數量',obj.length)
       })
   }
   
@@ -126,6 +122,9 @@ const ProductWrap = (props) => {
             alt=""
           />
         </div>
+        <div className="dtmb-love-icon">
+          <i className="far fa-heart"></i>
+        </div>
       </div>
       <div className="dt-intro-wrap col-sm-12 col-lg-6">
         {/* 商品名稱 */}
@@ -141,8 +140,8 @@ const ProductWrap = (props) => {
                     title: '請先登入會員',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#8fc065',
+                    cancelButtonColor: '#fb6107',
                     confirmButtonText: '前往登入頁面',
                   }).then((result) => {
                     if (result.isConfirmed) {
@@ -232,7 +231,9 @@ const ProductWrap = (props) => {
                   }
                 })
             }else{
+              
               addtocart(sid,product_id,orderQty)
+              
               Swal.fire({
                     icon: 'success',
                     title: '已加入購物車',

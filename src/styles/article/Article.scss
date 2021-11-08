@@ -6,53 +6,65 @@
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
 /*---------- 主視覺  ----------*/
 #articlePage {
-  margin-top: -60px;
-
   img {
     width: 100%;
   }
+  margin-top: -60px;
+  @media (max-width: 992px){
+    margin-top: 0;
+  }
+  
+
+
 }
 /*---------- 共用部分  ----------*/
 
-.catTitle {
-  text-align: center;
-  margin: 80px auto;
-  display: flex;
+// .catTitle {
+//   text-align: center;
+//   margin: 80px auto;
+//   display: flex;
 
-  .col-2 {
-    padding: 0px 20px;
-    font-size: 32px;
-  }
-}
+//   .col-2 {
+//     padding: 0px 20px;
+//     font-size: 32px;
+//   }
+// }
 
-
-
-
-#col-cat {
-
-  h4,
-  p {
-    margin: 0;
-  }
-}
+// #col-cat {
+//   h4,
+//   p {
+//     margin: 0;
+//   }
+// }
 
 /*---------- 按鈕：更多文章  ----------*/
 
 //專欄卡片hover
-.cardsHover {
-  &:hover {
-    opacity: 0.7;
-    cursor: pointer;
-  }
-}
+// .cardsHover {
+//   &:hover {
+//     opacity: 0.7;
+//     cursor: pointer;
+//   }
+// }
 
 /*---------- 1st種類  ----------*/
 
-#col-cat1 {
-  .col-cat1-s {
-    margin-bottom: 20px;
+  // 專欄頁： 1st種類 聰明飲食
+  #col-cat1 {
+    @media (max-width: 992px){
+      .col-cat1-s {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+  
+        .imgWrap {
+          margin-right: 5px;
+        }
+      }
+
+    }
+
   }
-}
 
 /*---------- 3rd種類  ----------*/
 
@@ -134,7 +146,7 @@
 
 /*------------------------------ 專欄文章內文 (第三層1/2) ------------------------------*/
 
-#col-article {
+.col-article {
   .imgWrap {
     max-width: 1000px;
     max-height: 500px;
@@ -150,6 +162,7 @@
   .moreBtn {
     width: 20px;
     border-radius: 100px;
+    cursor: pointer;
   }
   .interNav .col-7 {
     //互動nav
@@ -192,24 +205,26 @@
     }
   }
   .mostPopular {
+    text-align: center;
+    .mostPopularInside {
+      border: 1px solid rgba(143, 192, 101, 0.1);
+      display: inline-block;
+      padding: 20px 50px;
+      margin: auto;
+      box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 5px;
+    }
+
     .mostPopularTitle {
-      background: linear-gradient(
-        180deg,
-        rgba(255, 182, 6, 0.05) 0%,
-        rgba(255, 182, 6, 0.5) 100%
-      );
-      border-radius: 15px;
+      border-bottom: 1px solid rgba(251, 97, 7, 0.5);
       text-align: center;
       padding: 10px 0;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 3px;
     }
 
     .mostPopularItems {
-      background: linear-gradient(
-        180deg,
-        rgba(124, 181, 24, 0) 0%,
-        rgba(124, 181, 24, 0.3) 100%
-      );
-      border-radius: 15px;
+      border-bottom: 1px solid rgba(143, 192, 101, 0.5);
       padding: 10px;
       list-style: none;
     }
@@ -217,61 +232,44 @@
   .popularMobile {
     display: none;
   }
-}
-@media (max-width: 992px) {
-  .popularMobile {
-    display: relative;
+  @media (max-width: 992px) {
+    .popularMobile {
+      display: relative;
+    }
+    .popularWeb {
+      display: none;
+    }
   }
-  .popularWeb {
-    display: none;
+}
+#recipeContent {
+  .recipeIngredient {
+    letter-spacing: 10px;
+  }
+  .ingredientQuantity {
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .recipeRelPro {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
   }
 }
 
 /*------------------------------ 手機版 ------------------------------*/
 
+//手機版尺寸設定
 @media (max-width: 992px) {
   .container,
   .container-fluid {
     max-width: 1140px;
   }
-  // 有hr的標題
-  .title-fz {
-    p {
-      font-size: 24px;
-    }
-  }
 
-  //大按鈕：更多文章
-  .col_RM_btn {
-    button {
-      letter-spacing: 1px;
-      font-size: 24px;
-      padding: 10px 80px;
-    }
-  }
+
   /*---------- 專欄主頁  ----------*/
-  // 專欄頁： KV
-  #article-kv {
-    .car-title {
-      text-align: center;
-      font-size: 30px;
-      padding: auto 0;
-      // top:25%;
-    }
-  }
 
-  // 專欄頁： 1st種類 聰明飲食
-  #col-cat1 {
-    .col-cat1-s {
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-
-      .imgWrap {
-        margin-right: 5px;
-      }
-    }
-  }
 
   // 專欄頁： 2nd 種類 運動
   #col-cat2 {

@@ -23,6 +23,8 @@ import { Link } from 'react-router-dom'
 import ResMapsearch from '../../components/Restaurant/ResMapsearch'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
 import { BsFilterLeft } from 'react-icons/bs'
+// import { css } from '@emotion/react'
+// import PacmanLoader from 'react-spinners/PacmanLoader'
 
 function ResMap() {
   delete L.Icon.Default.prototype._getIconUrl
@@ -42,6 +44,9 @@ function ResMap() {
   const [location, setLocation] = useState()
   const [filterData, setFilterData] = useState([])
   const [listData, setListData] = useState([])
+  //spinner
+  let [loading, setLoading] = useState(false)
+  let [color, setColor] = useState('#ffb606')
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
@@ -68,6 +73,7 @@ function ResMap() {
   }
 
   //存push來的原始資料
+
   useEffect(() => {
     setFilterData(history.location.state.mapData)
     setListData(history.location.state.mapData)
@@ -292,6 +298,7 @@ function ResMap() {
         </div>
 
         <div className="map-container p-0 col-md-8 col-12">
+      
           <MapContainer
             // 中心點: 會是你輸入的經緯
             center={[

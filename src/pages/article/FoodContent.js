@@ -53,10 +53,7 @@ function FoodContent(props) {
 
   return (
     <>
-      <div
-        className="container-fluid pt-5"
-        id="col-article"
-      >
+      <div className="container-fluid pt-5 col-article">
         {/* <BreadCrumb /> */}
 
         {/* <!------------ 互動nav ------------>   */}
@@ -122,7 +119,6 @@ function FoodContent(props) {
                     />
                   )}
                 </ul>
-
               </div>
             </form>
           </div>

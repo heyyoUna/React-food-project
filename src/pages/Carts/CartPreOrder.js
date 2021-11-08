@@ -58,7 +58,6 @@ function CartPreOrder(props) {
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-      // console.log('資料', r.data)
 
       Count = []
       // 讀取裡面的商品數量

@@ -3,7 +3,7 @@ import { imgUrl } from '../config/index'
 import HpArMoreBtn from '../components/HpArMoreBtn'
 import HpSBtn from '../components/HpSBtn'
 import HpFixedBgc from '../components/HpFixedBgc'
-import { withRouter , useHistory} from 'react-router-dom'
+import { withRouter, useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 import Clientinfo from '../components/Product/Clientinfo'
@@ -23,8 +23,9 @@ function Home(props) {
     oriTDEE,
     setOriTDEE,
     TDEE,
-    setTDEE,} = props 
-  
+    setTDEE,
+  } = props
+
   return (
     <>
       <div className="container-fluid px-0" id="hpTotal">
@@ -40,7 +41,7 @@ function Home(props) {
                   <i className="far fa-handshake"></i>
                 </div>
                 <span className="HP_KV_logo_words">
-                  量身訂做
+                  良身訂做
                 </span>
               </a>
 
@@ -124,7 +125,7 @@ function Home(props) {
         <div className="container" id="hp_customized">
           <div className="row">
             <div className="col-lg" id="customized">
-              <div className="title" >
+              <div className="title">
                 <h6 className="bannerSubTitle light-green">
                   怎麼
                   <span className="light-orange">吃</span>
@@ -156,10 +157,12 @@ function Home(props) {
               </div>
               <div className="col_RM_btn">
                 <button
-                onClick={(e) => {
-                  props.history.push('/customize')
-                }}>
-                查看推薦</button>
+                  onClick={(e) => {
+                    props.history.push('/customize')
+                  }}
+                >
+                  查看飲食推薦
+                </button>
               </div>
             </div>
           </div>
@@ -373,26 +376,44 @@ function Home(props) {
               </div>
             </div>
             <div class="col-lg-6 imgWrap border">
-              <div class="imgbox">
+              <div class="imgbox imgboxLeft">
                 <img
                   class="my-2"
                   src={`${imgUrl}/images/HP_res_img1.png`}
                   alt=""
                 />
                 <img
+                  src={`${imgUrl}/images/HP_res_img2.png`}
+                  alt=""
+                />
+                <img
+                  class="my-2"
                   src={`${imgUrl}/images/HP_res_img1.png`}
+                  alt=""
+                />
+                <img
+                  src={`${imgUrl}/images/HP_res_img2.png`}
                   alt=""
                 />
               </div>
 
-              <div class="imgbox">
+              <div class="imgbox imgboxRight">
                 <img
                   class="my-2"
-                  src={`${imgUrl}/images/HP_res_img1.png`}
+                  src={`${imgUrl}/images/HP_res_img3.png`}
                   alt=""
                 />
                 <img
-                  src={`${imgUrl}/images/HP_res_img1.png`}
+                  src={`${imgUrl}/images/HP_res_img4.png`}
+                  alt=""
+                />
+                <img
+                  class="my-2"
+                  src={`${imgUrl}/images/HP_res_img3.png`}
+                  alt=""
+                />
+                <img
+                  src={`${imgUrl}/images/HP_res_img4.png`}
                   alt=""
                 />
               </div>
