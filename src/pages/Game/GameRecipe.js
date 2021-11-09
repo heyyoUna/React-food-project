@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { Modal } from 'react-bootstrap';
 import spinWheel from './spinWheel.png'
 import fork from './fork.png'
-import { Modal } from 'react-bootstrap';
-import { API_img } from '../../config/index'
 import ArCardTxtRecipe from '../../components/article/ArCardTxtRecipe'
+import moment from 'moment'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -55,9 +55,9 @@ function GameRecipe(props) {
         <Modal show={show} centered={true} contentClassName={'game-card-wrap'} onHide={handleClose}>
           <ArCardTxtRecipe
             sid={recipe.sid}
-            ar_pic={recipe.ar_pic}
-            ar_title={recipe.ar_title}
-            isNotLiked={recipe.isLiked}
+            pic={recipe.ar_pic}
+            title={recipe.ar_title}
+            date={moment(recipe.ar_date).format('YYYY/MM/DD')}
           />
         </Modal>
       </div>

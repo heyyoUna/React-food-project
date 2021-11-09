@@ -55,7 +55,10 @@ function MyNavbar(props) {
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
+    localStorage.setItem('數量', 0)
+    
     setAuth(false)
+    setCountNav(0)
 
     history.push('/')
   }

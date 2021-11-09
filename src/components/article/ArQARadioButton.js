@@ -49,20 +49,7 @@ function ArQARadioButton(props) {
         value={value}
         checked={checkedReply === value}
         onChange={(e) => {
-          // console.log(
-          //   'data.ar_correct_answer',
-          //   data.ar_correct_answer
-          // )
-          // console.log(
-          //   'typeof data.ar_correct_answer',
-          //   typeof data.ar_correct_answer
-          // )
 
-          // console.log('e.target.value:', e.target.value)
-          // console.log(
-          //   'typeof e.target.value:',
-          //   typeof e.target.value
-          // )
           if (!token) {
             Swal.fire({
               title: '請登入',

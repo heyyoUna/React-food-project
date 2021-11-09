@@ -23,7 +23,6 @@ function RelatingRecipe(props) {
 
       if (j.success) {
         setProduct(j.pop)
-        console.log('j.pop:', j.pop)
       }
     })()
   }, [])
@@ -32,7 +31,6 @@ function RelatingRecipe(props) {
     <>
       {product && product.length
         ? product.map((el) => {
-            console.log('p:', el.product_img)
             return (
               <>
                 <div className="col-3">
@@ -48,7 +46,7 @@ function RelatingRecipe(props) {
                         alt=""
                       />
                     </div>
-                    <div className="pd-card-intro d-flex">
+                    <div className="recipeRelPro d-flex">
                       <div className="pd-name">
                         {el.name}
                       </div>
@@ -60,11 +58,8 @@ function RelatingRecipe(props) {
                       </p>
                       <div className="pd-btn-wrap d-flex">
                         <button className="pd-order-btn">
-                          ORDER NOW
+                          detail
                         </button>
-                        <div className="pd-love-icon">
-                          <i className="far fa-heart"></i>
-                        </div>
                       </div>
                     </div>
                   </Link>

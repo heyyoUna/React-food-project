@@ -5,6 +5,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberProfile(props) {
+  let history = useHistory()
+  const { setCountNav } = props
+  const token = localStorage.getItem('token')
   const [profile, setProfile] = useState({
     'sid': 0,
     'avatar': '',
@@ -15,8 +18,6 @@ function MemberProfile(props) {
     'birthday': '',
     'name': ''
   })
-
-  let history = useHistory()
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -36,6 +37,7 @@ function MemberProfile(props) {
         if (obj.success) {
           if (obj.data.length) {
             setProfile(obj.data[0])
+            setCartCount()
           } else {
             Swal.fire(obj.error || '資料讀取失敗')
           }
@@ -69,7 +71,7 @@ function MemberProfile(props) {
         if (obj.success) {
           Swal.fire({
             icon: 'success',
-            title:'資料修改成功',
+            title: '資料修改成功',
             showConfirmButton: false,
             timer: 1000,
           })
@@ -80,6 +82,21 @@ function MemberProfile(props) {
           })
         }
       });
+  }
+
+  const setCartCount = () => {
+    fetch(`http://localhost:3002/member/member-cart-count`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      }
+    }).then(r => r.json())
+      .then(obj => {
+        if (obj.success) {
+          localStorage.setItem('數量', obj.count)
+          setCountNav(obj.count)
+        }
+      })
   }
 
   return (

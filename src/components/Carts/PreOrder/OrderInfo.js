@@ -174,7 +174,7 @@ function OrderInfo(props) {
 
   return (
     <>
-      <div className="orderinfolist col-lg-3 mx-lg-3 mt-3">
+      <div className="orderinfolist col-lg-3 col-10 mx-lg-3 mx-auto mt-3">
         <h4>訂單資訊</h4>
         <table className="table table-borderless">
           <tbody>
@@ -229,7 +229,7 @@ function OrderInfo(props) {
         </div>
 
         {/* 確認到下一步或返回商城 */}
-        <div className="my-3">
+        <div className="my-3 text-lg-start text-center">
           <button
             className="orderconfirm col-12 my-3"
             onClick={() => {
@@ -244,7 +244,7 @@ function OrderInfo(props) {
             結帳去
           </button>
           <button
-            className="returnstore col-12 my-3"
+            className="returnstore col-12  my-3"
             onClick={() => {
               // 返回商城頁面
               props.history.push('')

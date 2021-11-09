@@ -27,18 +27,19 @@ function PopularRecipe(props) {
         ? data.map((el) => {
             return (
               <>
-                <div className="d-flex my-3 mostPopularItems justify-content-between">
+                <div className="d-flex my-3 mostPopularItems justify-content-center">
                   <Link
                     onClick={() => {
                       window.location.href =
                         '/RecipeContent/' + el.sid
                     }}
                   >
-                    <li>{el.ar_title}</li>
+                  {/* {if(el.sid)} */}
+                    <p className="text-center">{el.ar_title}</p>
                   </Link>
-                  <div className="heartWrap my-2 mx-3">
+                  {/* <div className="heartWrap my-2 mx-3">
                     <i className="far fa-heart"></i>
-                  </div>
+                  </div> */}
                 </div>
               </>
             )

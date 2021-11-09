@@ -12,32 +12,49 @@ function Heart(props) {
   let { v, i, setData, setCount, setPos, setCountNav } =
     props
   const [display, setDisplay] = useState(true)
-  let member
   let CountNav
+
+  async function MemberLogin() {}
   async function AddtoCart() {
-    let NewPos = v.sid
-    let p = await axios.post('http://localhost:3002/cart', {
-      Sid: '',
-      // Order_Sid: 'order' + localStorage.getItem('訂單編號'),
-      Member_id: '5',
-      Product_id: v.product_id,
-      Order_Amount: 1,
-    })
-    if (p.status === 200) {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      let NewPos = v.sid
+      let p = await axios.post(
+        'http://localhost:3002/cart',
+        {
+          Sid: '',
+          Member_id: m.data.data[0].sid,
+          Product_id: v.product_id,
+          Order_Amount: 1,
+        }
+      )
       Swal.fire({
         icon: 'success',
         title: '已成功加入購物車',
         showConfirmButton: false,
         timer: 1000,
       })
-      DataAxios(NewPos)
+      DataAxios(NewPos, m.data.data[0].sid)
     }
   }
 
   // 讀取商品資料的 function
-  async function DataAxios(NewPos) {
+  async function DataAxios(NewPos, member_id) {
     let Count = []
-    let r = await axios.get('http://localhost:3002/cart/')
+    let r = await axios.get(
+      `http://localhost:3002/cart/ordertempmember/${member_id}`
+    )
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
@@ -64,48 +81,47 @@ function Heart(props) {
 
   // 加入收藏清單的 function
   async function addtoFav(i) {
-    await axios
-      .get(`http://localhost:3002/member/memberprofile`, {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
         headers: {
           //token 從 header 中 Authorization 屬性傳入
           //格式為 Bearer + 空格 + token
           Authorization:
             'Bearer ' + localStorage.getItem('token'),
         },
+      }
+    )
+    console.log('succcess', m.data.success)
+    if (m.data.success) {
+      console.log('會員 id ', m.data.data[0].sid)
+      let r = axios.post(
+        'http://localhost:3002/cart/FavProduct',
+        {
+          member_id: m.data.data[0].sid,
+          product_id: v.sid,
+        }
+      )
+      Swal.fire({
+        icon: 'success',
+        title: '已成功加入收藏清單',
+        showConfirmButton: false,
+        timer: 1000,
       })
-      .then((res) => {
-        if (res.data.success) {
-          member = res.data.data[0].sid
-          console.log('會員 id ', member)
-          let r = axios
-            .post('http://localhost:3002/cart/FavProduct', {
-              member_id: member,
-              product_id: v.sid,
-            })
-            .then((res) => {
-              if (res.data.success) {
-                Swal.fire({
-                  icon: 'success',
-                  title: '已成功加入收藏清單',
-                  showConfirmButton: false,
-                  timer: 1000,
-                })
-                return setDisplay(i)
-              }
-            })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: '請先登入會員哦',
-            showConfirmButton: true,
-            confirmButtonText: '我知道了',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              props.history.push('/login')
-            }
-          })
+      return setDisplay(i)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員哦',
+        showConfirmButton: true,
+        confirmButtonText: '我知道了',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          props.history.push('/login')
         }
       })
+    }
+
     console.log('加入')
   }
 
@@ -119,7 +135,7 @@ function Heart(props) {
   }
 
   return (
-    <div className="storecard col-lg-4 col-10 position-relative">
+    <div className="storecard col-lg-4 col-10 mx-lg-0 mx-auto my-lg-0 my-5 position-relative">
       <img
         src={`http://localhost:3002/img/Product/${v.product_id}.jpg`}
         className="position-absolute"
