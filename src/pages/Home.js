@@ -82,7 +82,7 @@ function Home(props) {
 
           {/* <!-- ---------- KV 標題  ---------- --> */}
           <div id="HP_KV_title_wrap" className="col-lg-4">
-            <div className="HP_KV_title HP_KV_title_main">
+            <div className="HP_KV_title HP_KV_title_main hpKVTitleTxt">
               <div className="pb-3">
                 <h1 className="bannerTitle">良辰即食</h1>
               </div>
@@ -102,12 +102,14 @@ function Home(props) {
             className="col-lg-7 px-0"
           >
             <figure className="HP_KV_img">
+              <div className="hpKVimgBgc"></div>
               <img
                 className="first"
                 src={`${imgUrl}/images/hp_kv2-4.jpg`}
                 alt=""
               />
             </figure>
+
             <figure className="spin">
               <Link to="/game/GameChoose">
                 <img

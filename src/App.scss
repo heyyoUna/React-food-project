@@ -52,6 +52,13 @@ $light-orange: #fb6107;
   padding-top: 100px;
 }
 
+@mixin cardHover {
+  &:hover {
+    transform: translate(0px, -7px);
+    box-shadow: 4px 4px 20px lightgray;
+  }
+}
+
 main {
   padding-top: 60px;
 }
@@ -188,6 +195,7 @@ footer {
   font-size: 24px;
   color: hsla(0, 0%, 0%, 0.6);
   max-width: 200px;
+  @include cardHover;
 
   div {
     p {
@@ -216,7 +224,6 @@ footer {
     @media (max-width: 992px) {
       letter-spacing: 1px;
       padding: 10px 80px;
-    
     }
 
     &:hover {
@@ -224,7 +231,6 @@ footer {
       box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.14);
     }
   }
-
 }
 
 //首頁背景圖
@@ -263,7 +269,6 @@ footer {
     margin-bottom: 20px;
     background-color: white;
     #HP_KV_navbar_wrap {
-      // margin: auto;
       position: relative;
 
       #HP_KV_logo {
@@ -293,22 +298,87 @@ footer {
       }
     }
     #HP_KV_title_wrap {
-      background-color: $light-yellow;
+      animation-name: hpKVtitleBgc;
+      animation-fill-mode: forwards;
+      animation-duration: 1.5s;
+      animation-timing-function: ease;
       .HP_KV_title {
         text-align: center;
         position: relative;
         top: 30%;
       }
     }
+
+    @keyframes hpKVtitleBgc {
+      0% {
+        height: 0;
+        opacity: 0;
+      }
+      100% {
+        height: calc(100vh - 60px);
+        background-color: $light-yellow;
+        opacity: 1;
+      }
+    }
+
+
     #HP_KV_img_frame {
       margin-bottom: -16px;
       .HP_KV_img {
         height: calc(100vh - 60px);
 
+        .hpKVimgBgc {
+          width: 100%;
+          height: calc(100vh - 60px);
+          background-color: white;
+          position: absolute;
+          z-index: 2;
+          // opacity: 0;
+
+          animation-name: bgcOpen;
+          animation-fill-mode: forwards;
+          animation-duration: 1.5s;
+          animation-timing-function: ease;
+        }
+
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          // position: absolute;
+          z-index: 1;
+        }
+      }
+      @keyframes bgcOpen {
+        0% {
+          height: calc(100vh - 60px);
+        }
+
+        100% {
+          height: 0;
+        }
+      }
+
+    }
+
+    #HP_KV_img_frame {
+      margin-bottom: -16px;
+      .HP_KV_img {
+        height: calc(100vh - 60px);
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+            @keyframes bgcOpen {
+        0% {
+          height: calc(100vh - 60px);
+        }
+
+        100% {
+          height: 0;
         }
       }
       .spin {
@@ -507,8 +577,7 @@ footer {
       @include NOmobile;
 
       .imgboxLeft {
-bottom: 100px;
-
+        bottom: 100px;
       }
     }
     .deliveryWrap {
@@ -525,10 +594,10 @@ bottom: 100px;
 .game-card-wrap {
   border-radius: 1rem;
 
-  .imgWrap{
+  .imgWrap {
     height: 250px;
 
-    img{
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;

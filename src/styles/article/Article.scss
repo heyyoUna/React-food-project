@@ -4,6 +4,7 @@
   color: grey;
 }
 
+
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
 //卡片hover
 .articlePageCards {
@@ -49,7 +50,7 @@
     figure {
       height: 250px;
       overflow: hidden;
-      img{
+      img {
         width: 100%;
         object-fit: cover;
       }
@@ -160,7 +161,7 @@
   .article_rec img {
     width: 100%;
   }
-  .moreBtn {
+  .recipeMoreBtn {
     width: 20px;
     border-radius: 100px;
     cursor: pointer;
@@ -257,16 +258,39 @@
     align-items: center;
     margin-top: 0px;
   }
-  .stepsIcons{
+  .stepsIcons {
     width: 50px;
-    padding: 
-    img{
+    padding: img {
       width: 100%;
     }
   }
-}
 
-/*------------------------------ 手機版 ------------------------------*/
+  .relatingRecipe {
+    @media (max-width: 992px) {
+      width: 160px;
+    }
+    background-color: #ffb91759;
+    border-radius: 15px;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px;
+    padding: 20px;
+    width: 220px;
+    transition: 0.5s;
+    @include cardHover ;
+
+  }
+
+  .imgWrapPro {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto;
+  }
+}
 
 //手機版尺寸設定
 @media (max-width: 992px) {
@@ -274,8 +298,4 @@
   .container-fluid {
     max-width: 1140px;
   }
-
-  /*---------- 專欄主頁  ----------*/
-
-  // 專欄頁： 2nd 種類 運動
 }
