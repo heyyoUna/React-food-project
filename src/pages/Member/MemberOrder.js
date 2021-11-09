@@ -35,7 +35,7 @@ function MemberOrder(props) {
         }
       })
   }, [])
-  
+
   return (
     <>
       <div className="member-order-container">
@@ -66,7 +66,7 @@ function MemberOrder(props) {
                         <td>{value.Order_Status}</td>
                         <td>
                           <button type="button" className="btn member-btn-primary">
-                            <Link to={`/member/orderdetail/${value.Order_Sid}`} >檢視訂單</Link>
+                            <Link className="order-detail-btn" to={`/member/orderdetail/${value.Order_Sid}`} >檢視訂單</Link>
                           </button>
                         </td>
                       </tr>

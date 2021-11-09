@@ -48,22 +48,6 @@ function FoodContent(props) {
         className="container-fluid pt-5 col-article"
         id="recipeContent"
       >
-        <BreadCrumb />
-
-        {/* <!------------ 互動nav ------------>   */}
-        <div className="row interNav">
-          <div className="col-1"></div>
-          <div className="col-7">
-            <div>
-              <i class="fas fa-glasses"></i>
-            </div>
-            <p>200</p>
-            <div>
-              <i class="far fa-heart"></i>
-            </div>
-            <p>收藏</p>
-          </div>
-        </div>
         {/* <!------------ 正文 ------------>   */}
         <div className="row">
           <div className="col-1"></div>
@@ -144,6 +128,13 @@ function FoodContent(props) {
                 </>
               )
             })}
+            <div className="text-center recipeIngredient d-flex mt-5 dark-green">
+              <hr className="col my-auto" />
+              <div className="col-5">
+                <h4>相關商品</h4>
+              </div>
+              <hr className="col my-auto" />
+            </div>
           </div>
 
           <div className="col-3 col-lg-3 mostPopular popularWeb">
@@ -161,7 +152,12 @@ function FoodContent(props) {
         <div className="row article_rec">
           <div className="col-1"></div>
           <RelatingRecipe className="mt-5" />
-          <HpArMoreBtn />
+          <Link
+            to="/products/?cate=0&page=1"
+            className="col recipeMoreBtn"
+          >
+            <HpArMoreBtn />
+          </Link>
         </div>
 
         <div className="col-3 col-lg-3 mostPopular popularMobile">

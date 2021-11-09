@@ -33,14 +33,14 @@ function RelatingRecipe(props) {
         ? product.map((el) => {
             return (
               <>
-                <div className="col-3">
+                <div className="col-3 mt-5 relatingRecipe">
                   <Link
                     onClick={() => {
                       window.location.href =
                         '/product/' + el.sid
                     }}
                   >
-                    <div className="imgWrap">
+                    <div className="imgWrapPro ">
                       <img
                         src={`http://localhost:3002/img/Product/${el.product_img}`}
                         alt=""
@@ -58,7 +58,7 @@ function RelatingRecipe(props) {
                       </p>
                       <div className="pd-btn-wrap d-flex">
                         <button className="pd-order-btn">
-                          detail
+                          View Detail
                         </button>
                       </div>
                     </div>

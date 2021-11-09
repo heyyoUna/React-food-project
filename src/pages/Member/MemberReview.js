@@ -139,7 +139,7 @@ function MemberReview(props) {
                 )
               })}
               {/* 送出按鈕  */}
-              <div className="karin-form-group row" style={{ display: evaluating ? 'block' : 'none' }}>
+              <div className="member-review-form-group row" style={{ display: evaluating ? 'block' : 'none' }}>
                 <button type="submit" className="karin-profile-btn btn-primary">確認送出</button>
               </div>
               {/* 送出按鈕  */}
@@ -214,8 +214,8 @@ function MemberReview(props) {
                 )
               })}
               {/* 送出按鈕  */}
-              <div className="karin-form-group row">
-                <button type="submit" className="karin-profile-btn btn-primary">確認送出</button>
+              <div className="member-review-form-group row" style={{ display: evaluating ? 'block' : 'none' }}>
+                <button type="submit" className="member-review-send-btn btn-primary">確認送出</button>
               </div>
               {/* 送出按鈕  */}
               {/* <!-- 評價內容 --> */}
