@@ -5,12 +5,13 @@ import HpSBtn from '../components/HpSBtn'
 import HpFixedBgc from '../components/HpFixedBgc'
 import { withRouter, useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-
 import Clientinfo from '../components/Product/Clientinfo'
+import Fade from 'react-reveal/Fade'
 //輪盤小動畫
 import styled, { keyframes } from 'styled-components'
 import { tada } from 'react-animations'
 //輪盤動畫css
+
 const Tada = styled.div`
   position: fixed;
   right: 0px;
@@ -190,12 +191,14 @@ function Home(props) {
           >
             {/* <!------- 1st商品種類：圖片  -------> */}
             <div className="hpShopCatItemWrap col-lg-8">
-              <div className="hpShopCatImg">
-                <img
-                  src={`${imgUrl}/images/hp_shop1-3.png`}
-                  alt=""
-                />
-              </div>
+              <Fade left duration={2000}>
+                <div className="hpShopCatImg">
+                  <img
+                    src={`${imgUrl}/images/hp_shop1-3.png`}
+                    alt=""
+                  />
+                </div>
+              </Fade>
             </div>
 
             {/* <!------- 1st商品種類：文字  -------> */}
@@ -242,12 +245,14 @@ function Home(props) {
 
             {/* <!------- 2nd商品種類：圖片  -------> */}
             <div className="hpShopCatItemWrap col-lg-8">
-              <div className="hpShopCatImg">
-                <img
-                  src={`${imgUrl}/images/hp_shop2-3.png`}
-                  alt=""
-                />
-              </div>
+              <Fade right duration={2000}>
+                <div className="hpShopCatImg">
+                  <img
+                    src={`${imgUrl}/images/hp_shop2-3.png`}
+                    alt=""
+                  />
+                </div>
+              </Fade>
             </div>
           </div>
 
@@ -258,12 +263,14 @@ function Home(props) {
           >
             {/* <!------- 3rd 商品種類：圖片  -------> */}
             <div className="hpShopCatItemWrap col-lg-8">
-              <div className="hpShopCatImg">
-                <img
-                  src={`${imgUrl}/images/hp_shop3-3.png`}
-                  alt=""
-                />
-              </div>
+              <Fade left duration={2000}>
+                <div className="hpShopCatImg">
+                  <img
+                    src={`${imgUrl}/images/hp_shop3-3.png`}
+                    alt=""
+                  />
+                </div>
+              </Fade>
             </div>
 
             {/* <!------- 3rd 商品種類：文字  -------> */}
