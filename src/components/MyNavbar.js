@@ -16,42 +16,8 @@ import { NavLink } from 'react-router-dom'
 
 
 function MyNavbar(props) {
-  const { auth, setAuth, CountNav, setCountNav} = props
-  const token = localStorage.getItem('token')
   let history = useHistory()
-  const [ ID, setID] = useState(0);
-
-  // console.log(CountNav)
-
-  // 撈購物車資料筆數
-  useEffect(() => {
-    if(token){
-      ; (async () => {
-        const r = await fetch(`http://localhost:3002/member/memberprofile` , {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + token
-          }
-        })
-        const obj = await r.json()
-        console.log('obj',obj.data[0].sid)
-        setID(obj.data[0].sid)
-        if(obj.data[0].sid){
-          const rs = await fetch(`http://localhost:3002/cart/ordertempmember/${obj.data[0].sid}`, {
-            headers:{
-              'Authorization': 'Bearer ' + token
-            }
-          })
-          const orderlist = await rs.json()
-          console.log(orderlist)
-          if(orderlist.length){
-            setCountNav(orderlist.length)
-          }}     
-      })()
-    }else{
-      setCountNav(0)
-    }
-  }, [token])
+  const { auth, setAuth, CountNav, setCountNav} = props
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
