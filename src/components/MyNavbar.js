@@ -76,7 +76,6 @@ function MyNavbar(props) {
           <Link to="/">
           <img src={`${imgUrl}/images/logo.png`} alt="" />
           </Link>
-            
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

@@ -189,16 +189,29 @@
   box-shadow: 4px 0px 40px 0px lightgray;
 }
 /* 評論區 */
-.dt-review {
-  width: 100%;
-  justify-content: space-around;
-  flex-direction: row;
-  flex-wrap: wrap;
+// .dt-review {
+//   width: 100%;
+//   justify-content: space-around;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   display: flex;
+// }
+.dt-comments{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .dt-reviews-wrap {
-  flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
   width: 100%;
+  flex-wrap: wrap;
+  p{
+    font-size: 24px;
+    color: #2a593e;
+  }
 }
 .dt-comments-wrap {
   width: 100%;
