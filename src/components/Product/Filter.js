@@ -37,10 +37,10 @@ function Filter(props) {
             }
           }}
           // 按enter之後
-          onKeyDown={(e) => {
+          onKeyPress={(e) => {
             // 如果有關鍵字
             if (e.target.value) {
-              if (e.keyCode === 13) {
+              if (e.key === 'Enter') {
                 // setSearchWord(input)
                 setProductCate('0')
                 setFilter('')
