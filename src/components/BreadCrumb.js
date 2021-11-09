@@ -1,7 +1,7 @@
 import { withRouter, Link } from 'react-router-dom'
 
 function BreadCrumb(props) {
-  console.log(props)
+  // console.log(props)
   const { location } = props
 
   const pathnameList = [

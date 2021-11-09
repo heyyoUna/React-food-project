@@ -6,11 +6,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 function MemberReview(props) {
   let history = useHistory()
+  const token = localStorage.getItem('token')
   const [product, setProduct] = useState([])
   const [evaluating, setEvaluating] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
 
     if (!token) {
       Swal.fire('尚未登入，請連到登入頁面')
@@ -91,7 +91,7 @@ function MemberReview(props) {
                 return (
                   <div key={i}>
                     <div className="member-order-number">
-                      <a href="#">{v.order_id}</a>
+                      <a href="#">{v.order_id.toUpperCase()}</a>
                     </div>
                     <div className="member-review-main">
                       <div className="member-review-img">
@@ -166,7 +166,7 @@ function MemberReview(props) {
                 return (
                   <div key={i}>
                     <div className="member-order-number">
-                      <a href="#">{v.order_id}</a>
+                      <a href="#">{v.order_id.toUpperCase()}</a>
                     </div>
                     <div className="member-review-main">
                       <div className="member-review-img">
