@@ -372,7 +372,7 @@ function Home(props) {
                       window.location.href = '/restaurants'
                     }}
                   >
-                    <HpSBtn text="Find the lunchbox" />
+                    <HpSBtn text="View More" />
                   </Link>
                 </div>
               </div>

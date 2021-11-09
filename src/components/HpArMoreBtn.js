@@ -5,8 +5,9 @@ function HpArMoreBtn(props) {
     <>
       <div className="col moreBtn">
         <div>
-          <p>More</p>
+          <p>More </p>
         </div>
+        &ensp;
         <div>
           <i class="fas fa-arrow-circle-right"></i>
         </div>

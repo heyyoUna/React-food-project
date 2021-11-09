@@ -72,8 +72,8 @@ function Article(props) {
 
   return (
     <>
-      {/* <!------------ 專欄KV ------------>  */}
       <div className="container-fluid p-0" id="articlePage">
+        {/* <!------------ 專欄KV ------------>  */}
         <div className="row p-0 mx-auto" id="article-kv">
           <Carousel className="p-0 col-lg">
             <Carousel.Item className="imgWrap">
@@ -83,7 +83,7 @@ function Article(props) {
                 }}
               >
                 <img
-                  className="d-block "
+                  className="d-block"
                   src={`${imgUrl}/images/article/col_kv1-3.jpg`}
                   alt="First slide"
                 />
@@ -97,7 +97,7 @@ function Article(props) {
                 }}
               >
                 <img
-                  className="d-block "
+                  className="d-block"
                   src={`${imgUrl}/images/article/col_kv2-3.jpg`}
                   alt="Second slide"
                 />
@@ -172,10 +172,10 @@ function Article(props) {
           <TitleBorder name="運動訓練" />
 
           <div className="row" id="col-cat2">
-            <div className="col-lg d-flex">
+            <div className="exerciseWrap col">
               {exerciseRand.map((el) => {
                 return (
-                  <div className="mx-3 col">
+                  <div className="col mx-1">
                     <Link to={`/ExerciseContent/${el.sid}`}>
                       <figure className="col-cat-firstImg articlePageCards">
                         <img
@@ -238,8 +238,8 @@ function Article(props) {
             </div>
           </div>
           <div className="col_RM_btn">
-          <Link to={`/article/Recipe`}>
-            <button>更多文章</button>
+            <Link to={`/article/Recipe`}>
+              <button>更多文章</button>
             </Link>
           </div>
         </div>

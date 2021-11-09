@@ -46,6 +46,13 @@
 }
 // 專欄頁： 2nd種類 運動訓練
 #col-cat2 {
+  .exerciseWrap{
+    display: flex;
+    
+    @media (max-width: 992px){
+      display: relative;
+    }
+  }
   @media (max-width: 992px) {
     figure {
       height: 250px;
@@ -55,9 +62,10 @@
         object-fit: cover;
       }
     }
+
     .col-cat-firstImg {
       //rwd後太大的圖片
-      width: 70%;
+      width: 100%;
       margin: auto;
     }
   }

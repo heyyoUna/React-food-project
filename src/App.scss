@@ -30,7 +30,7 @@ $light-orange: #fb6107;
   letter-spacing: 3px;
   margin-bottom: 40px;
   @media (max-width: 992px) {
-    font-size: 28px;
+    font-size: 24px;
   }
 }
 
@@ -50,12 +50,17 @@ $light-orange: #fb6107;
 }
 @mixin spaceBetweenCat {
   padding-top: 100px;
+  @media (max-width: 992px) {
+    padding-top: 0px;
+  }
 }
 
 @mixin cardHover {
   &:hover {
-    transform: translate(0px, -7px);
-    box-shadow: 4px 4px 20px lightgray;
+    // transform: translate(0px, -7px);
+    // box-shadow: 4px 4px 20px lightgray;
+    // border-radius: 15px;
+    color: $light-green;
   }
 }
 
@@ -76,8 +81,13 @@ footer {
     }
     @include NOmobile;
   }
-  .col-9 {
+
+  .col-9,
+  .col-lg-9 {
     margin: auto;
+    @media (max-width: 992px) {
+      width: 375px;
+    }
     ul {
       display: flex;
       list-style: none;
@@ -116,6 +126,10 @@ footer {
           img {
             width: 100%;
           }
+          .col-4,
+          .mx-4 {
+            margin-left: 0;
+          }
         }
       }
     }
@@ -149,10 +163,11 @@ footer {
       width: 100%;
     }
   }
-  a,.nav-item{
+  a,
+  .nav-item {
     color: rgba(0, 0, 0, 0.8) !important;
 
-    &:hover{
+    &:hover {
       color: #8fc065 !important;
     }
   }
@@ -180,21 +195,20 @@ footer {
   font-size: 16px;
   color: $light-green;
   cursor: pointer;
-  background-color: white;
   margin-top: 3px;
   transition: 0.3s;
   // font-family;
   font-family: 'Poppins';
   filter: none;
   &:hover {
-    // filter: drop-shadow(
-    //   15px 15px 0px rgba(143, 192, 101, 0.5)
-    // );
-
     box-shadow: 10px 10px 0 0 #8fc06574;
   }
   i {
     margin-left: 15px;
+  }
+  @media (max-width: 992px) {
+    margin-bottom: 40px;
+    padding: 15px 20px;
   }
 }
 //文章區橫幅banner，more按鈕
@@ -203,7 +217,7 @@ footer {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  font-size: 24px;
+  font-size: 20px;
   color: hsla(0, 0%, 0%, 0.6);
   max-width: 200px;
   @include cardHover;
@@ -310,6 +324,7 @@ footer {
     }
     #HP_KV_title_wrap {
       animation-name: hpKVtitleBgc;
+      height: calc(100vh - 60px);
       animation-fill-mode: forwards;
       animation-duration: 1.5s;
       animation-timing-function: ease;
@@ -326,12 +341,11 @@ footer {
         opacity: 0;
       }
       100% {
-        height: calc(100vh - 60px);
+        // height: calc(100vh - 60px);
         background-color: $light-yellow;
         opacity: 1;
       }
     }
-
 
     #HP_KV_img_frame {
       margin-bottom: -16px;
@@ -369,7 +383,6 @@ footer {
           height: 0;
         }
       }
-
     }
 
     #HP_KV_img_frame {
@@ -383,7 +396,7 @@ footer {
         }
       }
 
-            @keyframes bgcOpen {
+      @keyframes bgcOpen {
         0% {
           height: calc(100vh - 60px);
         }
@@ -400,6 +413,9 @@ footer {
 
         img {
           width: 100px;
+        }
+        @media (max-width: 992px) {
+          bottom: 10vh;
         }
       }
     }
@@ -436,6 +452,11 @@ footer {
         letter-spacing: 10px;
       }
     }
+    @media (max-width: 992px) {
+      img {
+        width: 100%;
+      }
+    }
   }
 
   .hp-client {
@@ -447,12 +468,17 @@ footer {
     @include spaceBetweenCat;
     .hpShopCatWrap {
       margin-bottom: 50px;
+      @media (max-width: 992px) {
+        padding-top: 0;
+      }
     }
     .hpShopCatImg {
       //照片們
       text-align: center;
       @media (max-width: 992px) {
-        // padding: 0 100px;
+        img {
+          width: 100%;
+        }
       }
     }
 
@@ -562,7 +588,7 @@ footer {
           align-items: center;
           h5 {
             margin: 10px 20px;
-            font-size: 44px;
+            font-size: 36px;
           }
           h6 {
             font-size: 20px;
@@ -572,6 +598,7 @@ footer {
       }
     }
     .imgWrap {
+      @include NOmobile;
       display: flex;
       max-width: 620px;
       max-height: 720px;
@@ -585,7 +612,20 @@ footer {
           width: 100%;
         }
       }
-      @include NOmobile;
+
+      //首頁餐廳動畫
+      // .imgboxLeft {
+      //   animation: hpResCarousel 1.5s infinite;
+      // }
+
+      // @keyframes hpResCarousel {
+      //   0% {
+      //     bottom: 0;
+      //   }
+      //   100% {
+      //     bottom: 100px;
+      //   }
+      // }
 
       .imgboxLeft {
         bottom: 100px;
