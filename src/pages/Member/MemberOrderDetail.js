@@ -14,11 +14,12 @@ function MemberOrderDetail(props) {
 
   useEffect(() => {
     //讀取訂單明細
-    fetch(`http://localhost:3002/cart/addList/${orderSID}`, {
+    fetch(`http://localhost:3002/cart/getDetail/${orderSID}`, {
       method: 'GET',
     }).then(obj => obj.json())
       .then(obj => {
-        setDataDetail(obj.data)
+        // setDataDetail(obj.data)
+        console.log('test', obj)
       })
 
     //讀取訂單內商品明細資料

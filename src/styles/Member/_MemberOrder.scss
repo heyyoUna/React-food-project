@@ -68,7 +68,6 @@
       /* 檢視訂單按鈕 */
       .member-btn-primary {
         background-color: #8fc065;
-        color: #fff;
         border-radius: 50px;
         border: 0;
         white-space: nowrap;
@@ -76,4 +75,10 @@
       .member-btn-primary:hover {
         color: #fff;
         background-color: #2a593e;
+      }
+      .order-detail-btn{
+        color: #fff;
+      }
+      .order-detail-btn:hover{
+        color: #fff;
       }
