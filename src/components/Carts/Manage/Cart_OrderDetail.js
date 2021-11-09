@@ -7,7 +7,10 @@ function Cart_OrderDetail(props) {
   let b
   console.log('這是裡面的', data)
   a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-  b = a[0] + parseInt(localStorage.getItem('運費'))
+  b =
+    parseInt(a[2]) +
+    parseInt(a[1]) +
+    parseInt(localStorage.getItem('運費'))
   return (
     <>
       <div className="container col-lg-6 col-10">

@@ -52,8 +52,12 @@ function Cart_ConfimOrder(props) {
       {
         Order_Sid: OrderSid,
         Member_id: DataDetail.Member_id,
+        Promotion_Amount: a[1],
+        Delivery_Fee: localStorage.getItem('運費'),
         Total_Price:
-          a[0] + parseInt(localStorage.getItem('運費')),
+          parseInt(a[1]) +
+          parseInt(a[2]) +
+          parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
         Created_At: localStorage.getItem('訂單時間'),
       }
@@ -68,7 +72,6 @@ function Cart_ConfimOrder(props) {
           Order_Name: DataDetail.Order_Name,
           Product_id: NewData[i].Product_id,
           Order_Total: a[2],
-          Promotion_Amount: a[1],
           Order_Amount: NewData[i].Order_Amount,
         }
       )
@@ -162,7 +165,7 @@ function Cart_ConfimOrder(props) {
             </tr>
             <tr>
               <td className="title text-end col-lg-5">
-                收件人方式
+                收件人姓名
               </td>
               <td className="text-start col-6">
                 {DataDetail.Order_Name}
