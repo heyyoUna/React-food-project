@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
@@ -6,6 +6,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { FaLessThan } from 'react-icons/fa'
 
 const ProductWrap = (props) => {
+  const { CountNav,setCountNav} = props
   const token = localStorage.getItem('token')
   let history = useHistory()
   const [ ID, setID] = useState(0);
@@ -41,6 +42,7 @@ const ProductWrap = (props) => {
       .then(obj => {
         const ID=obj.data[0].sid
         setID(ID)
+        console.log('ID',ID)
         // 有會員ID才寫入暫存訂單
         if(ID){
           fetch(`http://localhost:3002/cart`, {
@@ -55,23 +57,55 @@ const ProductWrap = (props) => {
               'Content-Type': 'application/json',
               Authorization: 'Bearer ' + token,
             },
-          }).then(OrderQty())
-          console.log(sid, ID, product_id,orderQty)
+          })
+          .then(r=> r.json)
+          .then(obj=>{
+            if(obj){
+              fetch(`http://localhost:3002/cart/ordertempmember/`+ ID , {
+                method: 'GET',
+                headers: {
+                  'Authorization': 'Bearer ' + token
+                }
+              }).then(r => r.json())
+                .then(obj => {
+                  setCountNav(obj.length)
+                })
+            }
+          })
         }
       })
   }
-  // 按加入購物車時, 去讀取資料庫裡面的比數設定到localStorage
-  const OrderQty = ()=>{
-    fetch(`http://localhost:3002/cart`, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    }).then(r => r.json())
-      .then(obj => {
-        localStorage.setItem('數量',obj.length)
-      })
-  }
+
+  useEffect(() => {
+    if(token){
+      //拿到會員ID
+      ; (async () => {
+        const r = await fetch(`http://localhost:3002/member/memberprofile` , {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+        const obj = await r.json()
+        console.log('obj',obj.data[0].sid)
+        setID(obj.data[0].sid)
+        if(obj.data[0].sid){
+          const rs = await fetch(`http://localhost:3002/cart/ordertempmember/${obj.data[0].sid}`, {
+            headers:{
+              'Authorization': 'Bearer ' + token
+            }
+          })
+          const orderlist = await rs.json()
+          console.log(orderlist)
+          if(orderlist.length){
+            setCountNav(orderlist.length)
+          }}     
+      })()
+    }else{
+      setCountNav(0)
+    }
+  }, [])
+  
   
   
   // 收藏新增
@@ -231,15 +265,13 @@ const ProductWrap = (props) => {
                   }
                 })
             }else{
-              
               addtocart(sid,product_id,orderQty)
-              
               Swal.fire({
-                    icon: 'success',
-                    title: '已加入購物車',
-                    showConfirmButton: false,
-                    timer: 1000
-                  })
+                icon: 'success',
+                title: '已加入購物車',
+                showConfirmButton: false,
+                timer: 1000
+              })
             }
           }}>
             Add To Cart

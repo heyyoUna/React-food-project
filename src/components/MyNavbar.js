@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link,useHistory } from 'react-router-dom'
 
 import {
   Navbar,
@@ -13,9 +13,45 @@ import '../App.scss'
 // 要使用能有active css效果的NavLink元件
 import { NavLink } from 'react-router-dom'
 
+
+
 function MyNavbar(props) {
-  const { auth, setAuth, CountNav } = props
+  const { auth, setAuth, CountNav, setCountNav} = props
+  const token = localStorage.getItem('token')
   let history = useHistory()
+  const [ ID, setID] = useState(0);
+
+  // console.log(CountNav)
+
+  // 撈購物車資料筆數
+  useEffect(() => {
+    if(token){
+      ; (async () => {
+        const r = await fetch(`http://localhost:3002/member/memberprofile` , {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+        const obj = await r.json()
+        console.log('obj',obj.data[0].sid)
+        setID(obj.data[0].sid)
+        if(obj.data[0].sid){
+          const rs = await fetch(`http://localhost:3002/cart/ordertempmember/${obj.data[0].sid}`, {
+            headers:{
+              'Authorization': 'Bearer ' + token
+            }
+          })
+          const orderlist = await rs.json()
+          console.log(orderlist)
+          if(orderlist.length){
+            setCountNav(orderlist.length)
+          }}     
+      })()
+    }else{
+      setCountNav(0)
+    }
+  }, [token])
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
@@ -33,32 +69,37 @@ function MyNavbar(props) {
         fixed="top"
       >
         <Container>
-          <Navbar.Brand href="/" className="navLogoWrap">
-            <img src={`${imgUrl}/images/logo.png`} alt="" />
+          <Navbar.Brand className="navLogoWrap">
+          <Link to="/">
+          <img src={`${imgUrl}/images/logo.png`} alt="" />
+          </Link>
+            
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
-              <Nav.Link href="/customize">
+              <Nav.Link>
+              <Link to="/customize">
                 良身訂做
+                </Link>
               </Nav.Link>
 
               <NavDropdown
                 title="好食商城"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="/products/?cate=1&page=1">
-                  快速上桌
+                <NavDropdown.Item >
+                  <Link to="/products/?cate=1&page=1">快速上桌</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/products/?cate=2&page=1">
-                  健身專區
+                <NavDropdown.Item>
+                  <Link to="/products/?cate=2&page=1">健身專區</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/products/?cate=3&page=1">
-                  嚴選食材
+                <NavDropdown.Item>
+                  <Link to="/products/?cate=3&page=1">嚴選食材</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/products/?cate=0&page=1">
-                  查看全部
+                <NavDropdown.Item>
+                  <Link to="/products/?cate=0&page=1">全部商品</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
@@ -66,34 +107,33 @@ function MyNavbar(props) {
                 title="好食專欄"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="/article/food">
-                  聰明飲食
+                <NavDropdown.Item>
+                  <Link to="/article/food">聰明飲食</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/article/exercise">
-                  運動訓練
+                <NavDropdown.Item>
+                  <Link to="/article/exercise">運動訓練</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/article/recipe">
-                  美味食譜
+                <NavDropdown.Item>
+                  <Link to="/article/recipe">運動訓練</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/article">
-                  查看全部
+                <Link to="/article">全部文章</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
-              <Nav.Link href="/restaurants">
-                健康餐盒
+              <Nav.Link>
+              <Link to="/restaurants">健康餐盒</Link>
               </Nav.Link>
 
-              <Nav.Link href="/game/GameChoose">
-                餐食輪盤
+              <Nav.Link>
+                <Link to="/game/GameChoose">餐食輪盤</Link>
               </Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="/search">
+              {/* <Nav.Link href="/search">
                 <i className="fas fa-search"></i>
-              </Nav.Link>
-
+              </Nav.Link> */}
               <Nav.Link
                 href="/login"
                 style={
@@ -114,36 +154,37 @@ function MyNavbar(props) {
                     : { display: 'none' }
                 }
               >
-                <NavDropdown.Item href="/member/profile">
-                  個人檔案
-                </NavDropdown.Item>
-                <NavDropdown.Item href="/member/order">
-                  歷史訂單
+                <NavDropdown.Item>
+                  <Link to="/member/profile">個人檔案</Link>
                 </NavDropdown.Item>
 
-                <NavDropdown.Item href="/member/review">
-                  我的評價
+                <NavDropdown.Item>
+                  <Link to="/member/order">歷史訂單</Link>
                 </NavDropdown.Item>
 
-                <NavDropdown.Item href="/member/point">
-                  會員點數
+                <NavDropdown.Item>
+                  <Link to="/member/review">我的評價</Link>
                 </NavDropdown.Item>
 
-                <NavDropdown.Item href="/member/FavoriteProduct">
-                  商品收藏清單
+                <NavDropdown.Item>
+                  <Link to="/member/point">會員點數</Link>
                 </NavDropdown.Item>
 
-                <NavDropdown.Item href="/member/FavoriteArticle">
-                  文章收藏清單
+                <NavDropdown.Item>
+                  <Link to="/member/FavoriteProduct">商品收藏清單</Link>
                 </NavDropdown.Item>
 
-                <NavDropdown.Item href="/member/FavoriteRestaurant">
-                  餐廳收藏清單
+                <NavDropdown.Item>
+                <Link to="/member/FavoriteProduct">文章收藏清單</Link>
+                </NavDropdown.Item>
+
+                <NavDropdown.Item>
+                  <Link to="/member/FavoriteRestaurant">餐廳收藏清單</Link>
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/member/ChangePassword">
-                  更改密碼
+                <NavDropdown.Item>
+                  <Link to="/member/ChangePassword">更改密碼</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={handlingLogout}>
                   登出
@@ -157,7 +198,8 @@ function MyNavbar(props) {
                     position: 'relative',
                   }}
                 >
-                  <i className="fas fa-shopping-cart"></i>
+                <Link to="/carts/PreOrder"><i className="fas fa-shopping-cart"></i></Link>
+                  
                   <div
                     className="circle"
                     style={{
