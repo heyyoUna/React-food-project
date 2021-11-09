@@ -281,7 +281,7 @@ function CartManage(props) {
               Checkout.length === 0 ||
               Invoice.length === 0
             ) {
-              console.log('沒選到')
+              // console.log('沒選到')
               Swal.fire({
                 icon: 'warning',
                 title: '您有資料尚未填寫喔!',
@@ -294,7 +294,8 @@ function CartManage(props) {
                   if (!StoreInfo[i]) {
                     Swal.fire({
                       icon: 'warning',
-                      title: '您有資料尚未填寫喔!',
+                      title:
+                        '您有資料尚未填寫或資料格式錯誤喔!',
                       showConfirmButton: false,
                       timer: 1000,
                     })
@@ -318,7 +319,8 @@ function CartManage(props) {
                   if (!OrderInfo[i]) {
                     Swal.fire({
                       icon: 'warning',
-                      title: '您有資料尚未填寫喔!',
+                      title:
+                        '您有資料尚未填寫或資料格式錯誤喔!',
                       showConfirmButton: false,
                       timer: 1000,
                     })

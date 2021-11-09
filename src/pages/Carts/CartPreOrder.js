@@ -8,7 +8,6 @@ import {
 import OrderInfo from '../../components/Carts/PreOrder/OrderInfo'
 import OrderDetail from '../../components/Carts/PreOrder/OrderDetail'
 import StoreCard from '../../components/Carts/PreOrder/StoreCard'
-import StoreCardMobile from '../../components/Carts/PreOrder/StoreCardMobile'
 import '../../styles/Carts/CartPreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
@@ -39,7 +38,7 @@ function CartPreOrder(props) {
 
   let [Filter, setFilter] = useState([])
 
-  let member = ''
+  let [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // 讀取加入購物車的商品資料
@@ -203,7 +202,6 @@ function CartPreOrder(props) {
 
     return Pricesum
   }
-
   return (
     <>
       <div className="container-fluid Banner col-xs-10">

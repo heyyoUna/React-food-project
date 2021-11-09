@@ -62,6 +62,8 @@ import ScrollToTop from './components/ScrollToTop'
 import MyNavbarOriginal from './components/MyNavbarOriginal'
 import MyFooter from './components/MyFooter'
 import MainContent from './components/MainContent'
+import Spinner from './components/Spinner'
+
 //import BreadCrumb from './components/BreadCrumb'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
@@ -122,11 +124,11 @@ function App() {
 
               <Route path="/product/:id">
                 <ProductDetail
-                CountNav={CountNav}
-                setCountNav={setCountNav}
+                  CountNav={CountNav}
+                  setCountNav={setCountNav}
                 />
               </Route>
-              
+
               <Route path="/customize">
                 <Customize
                   favArr={favArr}
@@ -207,7 +209,8 @@ function App() {
                   TDEE={TDEE}
                   setTDEE={setTDEE}
                   oriTDEE={oriTDEE}
-                  setOriTDEE={setOriTDEE} />
+                  setOriTDEE={setOriTDEE}
+                />
               </Route>
               {/* 會員 */}
               <Route path="/signup">
@@ -221,7 +224,10 @@ function App() {
               </Route>
 
               <Route path="/member/profile">
-                <MemberProfile auth={auth} setCountNav={setCountNav} />
+                <MemberProfile
+                  auth={auth}
+                  setCountNav={setCountNav}
+                />
               </Route>
 
               <Route path="/member/order">
@@ -241,7 +247,9 @@ function App() {
               </Route>
 
               <Route path="/member/FavoriteProduct">
-                <MemberFavoriteProduct setCountNav={setCountNav} />
+                <MemberFavoriteProduct
+                  setCountNav={setCountNav}
+                />
               </Route>
 
               <Route path="/member/FavoriteArticle">
@@ -291,7 +299,6 @@ function App() {
               <Route exact path="/carts/Complete">
                 <CartComplete setCountNav={setCountNav} />
               </Route>
-
             </Switch>
           </ScrollToTop>
           {/* end 匹配路由表 */}
