@@ -41,10 +41,7 @@ function ExerciseContent(props) {
 
   return (
     <>
-      <div
-        className="container-fluid pt-5"
-        id="col-article"
-      >
+      <div className="container-fluid pt-5 col-article">
         <BreadCrumb />
 
         {/* <!------------ 互動nav ------------>   */}

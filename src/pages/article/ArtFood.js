@@ -35,8 +35,7 @@ function ArtFood(props) {
       )
       let j = await r.json()
       setData(j.rows)
-      // console.log('data in ArFood:', data)
-      // console.log('j.rows in ArtFood page', j.rows)
+      
       setPages(j)
       setTotalPages(j.totalPages)
     })()
@@ -67,18 +66,6 @@ function ArtFood(props) {
 
     return `${year} / ${month + 1} / ${date} `
   }
-
-  // // 拿到收藏商品資料
-  // useEffect(() => {
-  //   ;(async () => {
-  //     const r = await fetch(
-  //       'http://localhost:3002/article/fav/' + ID
-  //     )
-  //     const obj = await r.json()
-  //     console.log(obj)
-  //     setFavArr(obj.data)
-  //   })()
-  // }, [])
 
   return (
     <>
