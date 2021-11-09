@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { FaCcVisa } from 'react-icons/fa'
+import { FaChevronDown } from 'react-icons/fa'
 import moment from 'moment'
 import Cart_OrderDetail from '../../components/Carts/Manage/Cart_OrderDetail'
 import '../../styles/Carts/CartConfirmOrder.scss'
@@ -10,6 +11,14 @@ import '../../styles/Carts/ProcessChart.scss'
 function MemberOrderDetail(props) {
   let [data, setData] = useState([{}])
   let [dataDetail, setDataDetail] = useState({})
+  let [trans, settrans] = useState(false)
+  let a = []
+  let b
+  a = JSON.parse(localStorage.getItem('訂單價格資訊'))
+  b =
+    parseInt(a[2]) +
+    parseInt(a[1]) +
+    parseInt(localStorage.getItem('運費'))
   let orderSID = props.match.params.ordersid
 
   useEffect(() => {
@@ -39,7 +48,113 @@ function MemberOrderDetail(props) {
         </h4>
       </div>
 
-      {/* <Cart_OrderDetail data={data} setData={setData} /> */}
+      <div className="container col-lg-6 col-10">
+        <div class="square d-flex justify-content-center position-relative">
+          <h3>訂單詳細</h3>
+          <FaChevronDown
+            className="ChevronDown position-absolute"
+            style={{
+              transition: '0.5s',
+              transform: trans
+                ? 'rotate(0deg)'
+                : 'rotate(90deg)',
+            }}
+            onClick={() => {
+              if (trans === false) {
+                settrans(true)
+              } else {
+                settrans(false)
+              }
+            }}
+          />
+        </div>
+        <div
+          className="orderdetail"
+          style={{
+            display: trans ? 'block' : 'none',
+          }}
+        >
+          <div className="detail col-lg-11 col-12 mx-auto mt-3">
+            <table className="table detailinfo table-borderless">
+              <thead>
+                <tr className="border-bottom">
+                  <th scope="col"></th>
+                  <th scope="col">商品資訊</th>
+                  <th scope="col">數量</th>
+                  <th scope="col">單價</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((v) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          alt=""
+                        />
+                      </td>
+                      <td>{v.name}</td>
+                      <td>{v.Order_Amount}</td>
+                      <td>{v.price}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+
+            <table className="table detailinfomobile table-borderless">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                {data.map((v) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          alt=""
+                        />
+                      </td>
+                      <td>
+                        {v.name}
+                        <br />
+                        NT${v.price}
+                      </td>
+                      <td>{v.Order_Amount}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+
+            <table className="table detailcheck table-borderless mx-auto">
+              <tbody>
+                <tr className="border-top"></tr>
+                <tr>
+                  <th>商品小計</th>
+                  <td className="detailtd">{a[2]}</td>
+                </tr>
+                <tr>
+                  <th>優惠</th>
+                  <td className="detailtd">{a[1]}</td>
+                </tr>
+                <tr>
+                  <th>運費</th>
+                  <td className="detailtd">
+                    {localStorage.getItem('運費')}
+                  </td>
+                </tr>
+                <tr className="border-top">
+                  <th>總計</th>
+                  <td className="detailtd">{b}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
       <div className="titleBorder col-lg-6 col-10">
         <h4 className="res-title title-fz fw-700">
           付款與運送方式
