@@ -44,7 +44,7 @@
       }
 
       td {
-        font-size: var(--Order-list-content-size);
+        font-size: var(--Order-list-title-size);
         vertical-align: middle;
         font-family: var(--Font-Family);
         img {
@@ -205,7 +205,7 @@
 
 @include mobile() {
   .storelike {
-    display: none;
+    display: block;
   }
 
   //做到這邊
