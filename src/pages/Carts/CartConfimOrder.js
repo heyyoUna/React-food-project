@@ -45,7 +45,7 @@ function Cart_ConfimOrder(props) {
     let NewData = [...data]
     a = JSON.parse(localStorage.getItem('訂單價格資訊'))
     console.log('這是暫存資料', a)
-    console.log('確認訂單資訊', DataDetail.Member_id)
+    console.log('確認訂單資訊', DataDetail)
 
     let r = await axios.post(
       'http://localhost:3002/cart/ConfirmList',
@@ -60,11 +60,12 @@ function Cart_ConfimOrder(props) {
     )
 
     for (let i in NewData) {
-      console.log('訂單內容', NewData[i].Order_Sid)
+      console.log('訂單內容', DataDetail.Order_Name)
       s = await axios.post(
         'http://localhost:3002/cart/addDetail',
         {
           Order_Sid: OrderSid,
+          Order_Name: DataDetail.Order_Name,
           Product_id: NewData[i].Product_id,
           Order_Total: a[2],
           Promotion_Amount: a[1],
@@ -109,19 +110,11 @@ function Cart_ConfimOrder(props) {
         </div>
       </div>
 
-      <div class="titleBorder col-lg-6 col-10">
-        <h4 class="res-title title-fz fw-700">
-          確認訂單資訊
-        </h4>
-      </div>
+      <TitleBorder name="確認訂單資訊" />
 
       <Cart_OrderDetail data={data} setData={setData} />
 
-      <div class="titleBorder col-lg-6 col-10">
-        <h4 class="res-title title-fz fw-700">
-          付款與運送方式
-        </h4>
-      </div>
+      <TitleBorder name="付款與運送方式" />
 
       <div className="container confirmorderdetail mx-auto col-lg-6 col-10">
         <div className="container importinfo d-flex justify-content-between">

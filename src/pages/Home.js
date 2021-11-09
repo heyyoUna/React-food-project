@@ -89,7 +89,7 @@ function Home(props) {
 
               <div>
                 <p className="bannerSubTitle ">
-                  在每個需要食光 <br />
+                  在每個需要的食光 <br />
                   讓美味快速上桌
                 </p>
               </div>

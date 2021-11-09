@@ -2,17 +2,24 @@ import React, { useRef,useState, useEffect } from 'react'
 import { Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
-  withRouter,Link,
+  withRouter,Link, useHistory,
 } from 'react-router-dom'
+import { API_img } from '../../config/index'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 // 引用元件
 import ProductCard from './../../components/Product/ProductCard'
 import Target from '../../components/Product/Target'
 import Clientinfo from '../../components/Product/Clientinfo'
-import ArCardTxtExercise from '../../components/article/ArCardTxtExercise'
 
 function Customize(props) {
   const ID = localStorage.getItem('id')
+  const token = localStorage.getItem('token')
+  let history = useHistory()
+  const [display, setDisplay] = useState(true)
+
   const { 
     setProductId,
     setFavArr, 
@@ -43,6 +50,7 @@ function Customize(props) {
   const [ sugFoodBox, setSugFoodBox] = useState([])
   // 推薦文章
   const [ sugArt, setSugArt] = useState([])
+  
 
   const myRef = useRef(null)
 
@@ -177,7 +185,6 @@ function Customize(props) {
   }, [target, exercises,TDEE])
 
   const mySubmit = () => {
-    // listData()
     //滾動效果
     myRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -185,21 +192,22 @@ function Customize(props) {
     })
   }
 
-  // 按鈕動畫特效
-  // const buttonCSS = ()=>{
-  //   const btn = document.querySelectorAll('.pd-client-btn')
-  //   for (let i = 0; i < btn.length; i++) {
-  //     btn[i].classList.add('animate__pulse')
-  //     console.log('1')
-  //     btn[i].classList.remove('animate__pulse')
-  //     console.log('2')
-  //   }
-  // }
-
+  // 客製化按鈕滑動
+  const scroll = ()=>{
+    console.log('ok')
+    window.scroll({
+      top: 800,
+      behavior: 'smooth',
+    })
+  }
+ 
+  // 按鈕特效
   const buttonCSS = ()=>{
     const btn = document.querySelector('.pd-client-btn')
-    btn.classList.toggle('animate__pulse')
-    
+    btn.classList.remove('animate__pulse')
+    setTimeout(() => {
+      btn.classList.add('animate__pulse')},
+       500);
   }
 
   useEffect(() => {
@@ -207,6 +215,7 @@ function Customize(props) {
       buttonCSS()
     }
   }, [exercises,target]);
+  
   return (
     <>
       <div className="pd-client-banner d-flex">
@@ -245,11 +254,8 @@ function Customize(props) {
             <p className="dkgreen">蛋白質<span className="orange">{sugProtein}</span>克</p>
           </div>
           <button className="pd-client-btn animate__animated animate__pulse" 
-          onClick={mySubmit}
-          // onClick={()=>{
-          //   buttonCSS()
-          //   console.log('btn')
-          // }}
+          // onClick={mySubmit}
+          onClick={scroll}
           >
             查看飲食推薦
           </button>
@@ -347,31 +353,88 @@ function Customize(props) {
         <h1>文章推薦</h1>
         <div className="container col-cat-article">
           <div className="row">
-            {/* <div className="col-lg col-8 cardsWrap d-flex flex-wrap"> */}
-            <div className="col-md-12 cardsWrap d-flex flex-wrap">
-              {sugArt.map((el, i) => {
-                  return (
-                    <ArCardTxtExercise
-                      key={i}
-                      sid={el.sid}
-                      pic={el.ar_pic}
-                      title={el.ar_title}
-                      date={articleDate(el.ar_date)}
-                    />)
-                  })}
-              
-            </div>
-            <div className="pd-viewmore-wrap">
-                <i className="fas fa-angle-double-right front"></i>
-                <Link to={'/article/exercise'}>
-                <div className="pd-viewmore">查看更多文章</div>
+            <div className="col-md-12 client-art-wrap d-flex flex-wrap">
+            {sugArt.map((v,i)=>{
+              return (
+              <div className="artColCards client-art cardsHover">
+                <Link to={`/ExerciseContent/${v.sid}`}>
+                  <div className="imgWrap col-lg">
+                    <img src={`${API_img}` + v.ar_pic} alt="" />
+                  </div>
                 </Link>
-                <i className="fas fa-angle-double-right back"></i>
+
+                <div className="px-1 py-1 arCardTxt">
+                  <div className="d-flex justify-content-between pr-5">
+                    <p className="grey">運動訓練</p>
+                    <div className="pd-love-icon">
+                      <IoIosHeartEmpty
+                        onClick={(e) => {
+                          if (!token) {
+                            Swal.fire({
+                              title: '請先登入會員',
+                              icon: 'warning',
+                              showCancelButton: true,
+                              confirmButtonColor: '#3085d6',
+                              cancelButtonColor: '#d33',
+                              confirmButtonText: '前往登入頁面',
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                props.history.push('/login')
+                              }
+                            })
+                          } else {
+                            Swal.fire({
+                              icon: 'success',
+                              title: '已加入收藏清單',
+                              showConfirmButton: false,
+                              timer: 1000,
+                            })
+                            if (display) {
+                              setDisplay(false)
+                            } else {
+                              setDisplay(true)
+                            }
+                          }
+                        }}
+                        style={{
+                          display: display ? 'block' : 'none',
+                        }}
+                      />
+                      <IoIosHeart
+                        onClick={(e) => {
+                          if (display) {
+                            setDisplay(false)
+                          } else {
+                            setDisplay(true)
+                          }
+                        }}
+                        style={{
+                          display: display ? 'none' : 'block',
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <h6 className="productTitle f_darkgreen pt-1">
+                    {v.ar_title}
+                  </h6>
+                  <p className="pb-1 grey articleDate">{articleDate(v.ar_date)}</p>
+                </div>
               </div>
+              )
+            })}
+              {/* 看更多按鈕 */}
+            <div className="ar-viewmore-wrap">
+              <i className="fas fa-angle-double-right front"></i>
+              <Link to={'/article/exercise'}>
+              <div className="pd-viewmore">查看更多文章</div>
+              </Link>
+              <i className="fas fa-angle-double-right back"></i>
+            </div>
+            </div>
+            
           </div>
         </div>
-        
-
       </div>
     </>
   )

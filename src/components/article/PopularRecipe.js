@@ -34,6 +34,7 @@ function PopularRecipe(props) {
                         '/RecipeContent/' + el.sid
                     }}
                   >
+                  {/* {if(el.sid)} */}
                     <p className="text-center">{el.ar_title}</p>
                   </Link>
                   {/* <div className="heartWrap my-2 mx-3">

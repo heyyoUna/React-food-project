@@ -10,7 +10,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function ArCardTxt(props) {
-  const { sid, pic, title, date, favArr } = props
+  const { sid, title, date, favArr } = props
   const token = localStorage.getItem('token')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
@@ -64,10 +64,8 @@ function ArCardTxt(props) {
         <div className="d-flex justify-content-between pr-5">
           <p className="grey">{props.name}</p>
           <div className="pd-love-icon">
-            {/* {console.log(favArr)} */}
             <IoIosHeartEmpty
               onClick={(e) => {
-                // e.stopPropagation()
                 if (!token) {
                   Swal.fire({
                     title: '請先登入會員',
@@ -102,7 +100,6 @@ function ArCardTxt(props) {
             />
             <IoIosHeart
               onClick={(e) => {
-                e.stopPropagation()
                 handlingDelete(sid)
                 if (display) {
                   setDisplay(false)

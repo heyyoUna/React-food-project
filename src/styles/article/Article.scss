@@ -3,68 +3,64 @@
 .grey {
   color: grey;
 }
+
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
-/*---------- 主視覺  ----------*/
+//卡片hover
+.articlePageCards {
+  overflow: hidden;
+  img {
+    transition: all 1s ease;
+    &:hover {
+      transform: scale(1.1, 1.1);
+    }
+  }
+}
+
+//主視覺KV
 #articlePage {
   img {
     width: 100%;
+    border-radius: 15px;
   }
   margin-top: -60px;
-  @media (max-width: 992px){
+  @media (max-width: 992px) {
     margin-top: 0;
   }
-  
-
-
 }
-/*---------- 共用部分  ----------*/
 
-// .catTitle {
-//   text-align: center;
-//   margin: 80px auto;
-//   display: flex;
+// 專欄頁： 1st種類 聰明飲食
+#col-cat1 {
+  @media (max-width: 992px) {
+    .col-cat1-s {
+      margin-bottom: 20px;
+      // display: flex;
+      // // flex-direction: column;
+      // align-items: center;
 
-//   .col-2 {
-//     padding: 0px 20px;
-//     font-size: 32px;
-//   }
-// }
-
-// #col-cat {
-//   h4,
-//   p {
-//     margin: 0;
-//   }
-// }
-
-/*---------- 按鈕：更多文章  ----------*/
-
-//專欄卡片hover
-// .cardsHover {
-//   &:hover {
-//     opacity: 0.7;
-//     cursor: pointer;
-//   }
-// }
-
-/*---------- 1st種類  ----------*/
-
-  // 專欄頁： 1st種類 聰明飲食
-  #col-cat1 {
-    @media (max-width: 992px){
-      .col-cat1-s {
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-  
-        .imgWrap {
-          margin-right: 5px;
-        }
+      .imgWrap {
+        margin-right: 5px;
       }
-
     }
-
   }
+}
+// 專欄頁： 2nd種類 運動訓練
+#col-cat2 {
+  @media (max-width: 992px) {
+    figure {
+      height: 250px;
+      overflow: hidden;
+      img{
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .col-cat-firstImg {
+      //rwd後太大的圖片
+      width: 70%;
+      margin: auto;
+    }
+  }
+}
 
 /*---------- 3rd種類  ----------*/
 
@@ -98,6 +94,11 @@
   }
 }
 /*------------------------------ 專欄種類文章 (第二層) ------------------------------*/
+//卡片的hover
+.articleCards:hover {
+  transform: translate(0px, -7px);
+  box-shadow: 4px 4px 20px lightgray;
+}
 
 .col-cat-article {
   padding-top: 50px;
@@ -256,6 +257,13 @@
     align-items: center;
     margin-top: 0px;
   }
+  .stepsIcons{
+    width: 50px;
+    padding: 
+    img{
+      width: 100%;
+    }
+  }
 }
 
 /*------------------------------ 手機版 ------------------------------*/
@@ -267,16 +275,7 @@
     max-width: 1140px;
   }
 
-
   /*---------- 專欄主頁  ----------*/
 
-
   // 專欄頁： 2nd 種類 運動
-  #col-cat2 {
-    .col-cat-firstImg {
-      //rwd後太大的圖片
-      width: 70%;
-      margin: auto;
-    }
-  }
 }

@@ -19,7 +19,6 @@ import PageBtn from './../../components/Product/PageBtn'
 function Products(props) {
   const { setFavArr, favArr} = props
   const ID = localStorage.getItem('id')
-  console.log(ID)
   const searchParams = new URLSearchParams(
     props.location.search
   )
@@ -69,7 +68,6 @@ function Products(props) {
         'http://localhost:3002/product/fav/' + ID
       )
       const obj = await r.json()
-      console.log(obj)
       setFavArr(obj.data)
     })()
   }, [])

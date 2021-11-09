@@ -5,6 +5,7 @@ import '../../styles/article/Article.scss'
 import ArCardTxt from '../../components/article/ArCardTxt'
 import TitleBorder from '../../components/TitleBorder'
 import { Carousel } from 'react-bootstrap'
+import HpArMoreBtn from '../../components/HpArMoreBtn'
 
 function Article(props) {
   const [foodOne, setFoodOne] = useState([])
@@ -124,29 +125,32 @@ function Article(props) {
 
           <div className="row" id="col-cat1">
             <div className="col-lg-7">
-              {/* {console.log('foodOne:', foodOne)} */}
-              <figure className="col-cat-firstImg">
-                <img
-                  src={`${API_img}` + foodOne.ar_pic}
-                  alt=""
-                />
-              </figure>
+              <Link to={`/FoodContent/${foodOne.sid}`}>
+                <figure className="articlePageCards">
+                  <img
+                    src={`${API_img}` + foodOne.ar_pic}
+                    alt=""
+                  />
+                </figure>
+              </Link>
               <ArCardTxt
                 title={foodOne.ar_title}
                 date={foodOne.ar_date}
               />
             </div>
             <div className="col-lg-5">
-              <div className="col-cat1-s">
+              <div className="col-cat1-s col">
                 {twoFoodRand.map((el) => {
                   return (
                     <>
-                      <div className="imgWrap">
-                        <img
-                          src={`${API_img}` + el.ar_pic}
-                          alt=""
-                        />
-                      </div>
+                      <Link to={`/FoodContent/${el.sid}`}>
+                        <figure className="imgWrap articlePageCards">
+                          <img
+                            src={`${API_img}` + el.ar_pic}
+                            alt=""
+                          />
+                        </figure>
+                      </Link>
                       <ArCardTxt
                         title={el.ar_title}
                         date={el.ar_date}
@@ -159,23 +163,27 @@ function Article(props) {
           </div>
 
           <div className="col_RM_btn">
-            <button>更多文章</button>
+            <Link to={`/article/food`}>
+              <button>更多文章</button>
+            </Link>
           </div>
 
           {/* <!------------ 專欄頁： 2nd 種類 運動  ------------>   */}
           <TitleBorder name="運動訓練" />
 
           <div className="row" id="col-cat2">
-            <div className="col-lg d-flex col">
+            <div className="col-lg d-flex">
               {exerciseRand.map((el) => {
                 return (
-                  <div className="mx-3">
-                    <div className="col-cat-firstImg">
-                      <img
-                        src={`${API_img}` + el.ar_pic}
-                        alt=""
-                      />
-                    </div>
+                  <div className="mx-3 col">
+                    <Link to={`/ExerciseContent/${el.sid}`}>
+                      <figure className="col-cat-firstImg articlePageCards">
+                        <img
+                          src={`${API_img}` + el.ar_pic}
+                          alt=""
+                        />
+                      </figure>
+                    </Link>
                     <ArCardTxt
                       name="運動訓練"
                       title={el.ar_title}
@@ -187,7 +195,9 @@ function Article(props) {
             </div>
           </div>
           <div className="col_RM_btn">
-            <button>更多文章</button>
+            <Link to={`/article/Exercise`}>
+              <button>更多文章</button>
+            </Link>
           </div>
 
           {/* <!------------ 專欄頁： 3rd 種類 美味食譜  ------------>   */}
@@ -195,12 +205,14 @@ function Article(props) {
 
           <div className="row" id="col-cat3">
             <div className="col-lg">
-              <div className="imgWrap">
-                <img
-                  src={`${API_img}` + recipeOne.ar_pic}
-                  alt=""
-                />
-              </div>
+              <Link to={`/RecipeContent/${recipeOne.sid}`}>
+                <figure className="imgWrap articlePageCards">
+                  <img
+                    src={`${API_img}` + recipeOne.ar_pic}
+                    alt=""
+                  />
+                </figure>
+              </Link>
               <ArCardTxt
                 name="美味食譜"
                 title={recipeOne.ar_title}
@@ -212,7 +224,10 @@ function Article(props) {
                 {recipeList.map((el) => {
                   return (
                     <div>
-                      <li>{el.ar_title}</li>
+                      <Link to={`/RecipeContent/${el.sid}`}>
+                        <li>{el.ar_title}</li>
+                      </Link>
+
                       <span>
                         <i className="far fa-heart"></i>
                       </span>
@@ -223,7 +238,9 @@ function Article(props) {
             </div>
           </div>
           <div className="col_RM_btn">
+          <Link to={`/article/Recipe`}>
             <button>更多文章</button>
+            </Link>
           </div>
         </div>
       </div>

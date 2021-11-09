@@ -79,12 +79,12 @@ function FoodContent(props) {
           <div className="col-1"></div>
           <div className="col-7 col-lg-7">
             <h3>{data.ar_title}</h3>
-            <div>
+            <figure>
               <img
                 src={`${API_img}` + data.ar_pic}
                 alt=""
               />
-            </div>
+            </figure>
             <div className="art-hotlight">
               <p>{data.ar_highlight}</p>
             </div>

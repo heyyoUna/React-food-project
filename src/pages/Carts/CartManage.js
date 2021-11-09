@@ -20,19 +20,25 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import momentTZ from 'moment-timezone'
+import Swal from 'sweetalert2'
 
 function CartManage(props) {
+  let EmailCheck = new RegExp(
+    /[a-zA-Z_0-9][a-zA-Z_.0-9-]*@([a-zA-Z_0-9][a-zA-Z_.0-9-]*)+/
+  )
+  let PhoneCheck = new RegExp(/^09[0-9]{8}$/)
   let [data, setData] = useState([{}])
   let [OrderInfo, setOrderInfo] = useState([])
-  let [Checkout, setCheckout] = useState('宅配貨到付款')
+  let [Checkout, setCheckout] = useState('')
   let [Invoice, setInvoice] = useState([])
-  let [Credit, setCredit] = useState([])
   let [StoreInfo, setStoreInfo] = useState([])
+  let [Credit, setCredit] = useState([])
   let [CityArr, setCityArr] = useState([{}])
   let OrderSid =
     'order' +
     moment(OrderSid).format('YYYYMMDDHH') +
-    Math.floor(Math.random() * 99)
+    Math.floor(Math.random() * 89) +
+    parseInt(10)
   let member
   let token = localStorage.getItem('token')
   var a = momentTZ.utc().tz('Asia/Taipei').format()
@@ -90,7 +96,7 @@ function CartManage(props) {
       })
       .then((res) => {
         member = res.data.data[0].sid
-        console.log('會員 id ', member)
+        // console.log('會員 id ', member)
       })
     // console.log('寫出訂單')
     let NewOrderInfo
@@ -119,7 +125,10 @@ function CartManage(props) {
       // NewOrderInfo[5] = '-' + StoreInfo[0]
       // NewOrderInfo[6] = StoreInfo[1] + StoreInfo[2]
     }
-    if (Checkout === '宅配貨到付款') {
+    if (
+      Checkout === '宅配貨到付款' ||
+      Checkout === '信用卡支付 - 宅配到府'
+    ) {
       NewOrderInfo = [
         Checkout,
         OrderInfo[0],
@@ -136,12 +145,12 @@ function CartManage(props) {
 
     // let NewOrderInfo = [Checkout, ...OrderInfo]
     if (!NewOrderInfo[7]) {
-      console.log('這邊是 undefine')
+      // console.log('這邊是 undefine')
       NewOrderInfo[7] = '無'
-      console.log('寫出的訂購資料_加入備註', NewOrderInfo)
+      // console.log('寫出的訂購資料_加入備註', NewOrderInfo)
     }
     NewOrderInfo = [...NewOrderInfo, ...Invoice]
-    console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
 
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
@@ -178,6 +187,8 @@ function CartManage(props) {
           setStoreInfo={setStoreInfo}
           CityArr={CityArr}
           setCityArr={setCityArr}
+          EmailCheck={EmailCheck}
+          PhoneCheck={PhoneCheck}
         />
       )
     }
@@ -188,18 +199,22 @@ function CartManage(props) {
           setOrderInfo={setOrderInfo}
           CityArr={CityArr}
           setCityArr={setCityArr}
+          EmailCheck={EmailCheck}
+          PhoneCheck={PhoneCheck}
         />
       )
     }
     if (Checkout === '信用卡支付 - 宅配到府') {
       return (
         <Cart_CreditPay
-          Credit={Credit}
-          setCredit={setCredit}
           OrderInfo={OrderInfo}
           setOrderInfo={setOrderInfo}
           CityArr={CityArr}
           setCityArr={setCityArr}
+          EmailCheck={EmailCheck}
+          PhoneCheck={PhoneCheck}
+          Credit={Credit}
+          setCredit={setCredit}
         />
       )
     }
@@ -259,12 +274,67 @@ function CartManage(props) {
         <button
           className="confirminfo col-lg-4 col-10"
           onClick={() => {
-            AddOrder(
-              OrderInfo,
-              Checkout,
-              Invoice,
-              StoreInfo
-            )
+            console.log('付款方式', Checkout)
+            console.log('確認訂單', OrderInfo)
+            console.log('發票', Invoice)
+            if (
+              Checkout.length === 0 ||
+              Invoice.length === 0
+            ) {
+              console.log('沒選到')
+              Swal.fire({
+                icon: 'warning',
+                title: '您有資料尚未填寫喔!',
+                showConfirmButton: false,
+                timer: 1000,
+              })
+            } else {
+              if (Checkout === '7-11取貨付款') {
+                for (let i = 0; i < 7; i++) {
+                  if (!StoreInfo[i]) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: '您有資料尚未填寫喔!',
+                      showConfirmButton: false,
+                      timer: 1000,
+                    })
+                    break
+                  }
+                  if (i == 6) {
+                    AddOrder(
+                      OrderInfo,
+                      Checkout,
+                      Invoice,
+                      StoreInfo
+                    )
+                  }
+                }
+              }
+              if (
+                Checkout === '宅配貨到付款' ||
+                Checkout === '信用卡支付 - 宅配到府'
+              ) {
+                for (let i = 0; i < 6; i++) {
+                  if (!OrderInfo[i]) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: '您有資料尚未填寫喔!',
+                      showConfirmButton: false,
+                      timer: 1000,
+                    })
+                    break
+                  }
+                  if (i == 5) {
+                    AddOrder(
+                      OrderInfo,
+                      Checkout,
+                      Invoice,
+                      StoreInfo
+                    )
+                  }
+                }
+              }
+            }
           }}
         >
           確認訂單

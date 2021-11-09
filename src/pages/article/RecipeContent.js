@@ -4,14 +4,13 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom'
-import { API_img } from '../../config/index'
+import { API_img, imgUrl } from '../../config/index'
 import '../../styles/article/Article.scss'
 
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 import PopularRecipe from '../../components/article/PopularRecipe'
 import RelatingRecipe from '../../components/article/RelatingRecipe'
-import TitleBorder from '../../components/TitleBorder'
 import { GiKnifeFork, GiCookingPot } from 'react-icons/gi'
 
 function FoodContent(props) {
@@ -133,8 +132,11 @@ function FoodContent(props) {
                 <>
                   <table>
                     <tr>
-                      <td className="px-3">
-                        <GiCookingPot />
+                      <td className="px-3 stepsIcons">
+                        <img
+                          src={`${imgUrl}/images/article/stepsIcon.png`}
+                          alt=""
+                        />
                       </td>
                       <td className="py-2">{el}</td>
                     </tr>
@@ -159,7 +161,7 @@ function FoodContent(props) {
         <div className="row article_rec">
           <div className="col-1"></div>
           <RelatingRecipe className="mt-5" />
-          <HpArMoreBtn  />
+          <HpArMoreBtn />
         </div>
 
         <div className="col-3 col-lg-3 mostPopular popularMobile">

@@ -524,6 +524,16 @@ bottom: 100px;
 /*----------- 轉盤 -----------*/
 .game-card-wrap {
   border-radius: 1rem;
+
+  .imgWrap{
+    height: 250px;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
 @keyframes rotation {
