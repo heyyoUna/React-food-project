@@ -144,7 +144,6 @@ function ResListData(props) {
                       })
                     }
                     // handlingInsert(res_id)
-                    setDisplayEmpty(!displayEmpty)
                     // if (display) {
                     //   setDisplay(false)
                     // } else {
