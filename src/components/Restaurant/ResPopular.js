@@ -66,7 +66,7 @@ function ResPopular(props) {
             alt=""
             style={{
               width: '100%',
-              height: '175px',
+              height: '170px',
               borderRadius: '15px 15px 0 0',
               objectFit: 'cover',
             }}

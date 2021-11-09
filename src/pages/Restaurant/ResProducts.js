@@ -32,7 +32,7 @@ function ResPrdoucts(props) {
           setRestaurant(j.data.restaurant)
           console.log(j.data.restaurant)
         } else {
-          alert('出事了')
+          setProduct(j.error)
         }
       })()
     }

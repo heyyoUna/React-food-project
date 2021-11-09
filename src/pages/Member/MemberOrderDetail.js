@@ -9,34 +9,27 @@ import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 
 function MemberOrderDetail(props) {
-  let [data, setData] = useState([{}])
+  let [data, setData] = useState([])
   let [dataDetail, setDataDetail] = useState({})
   let [trans, settrans] = useState(false)
-  let a = []
-  let b
-  a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-  b =
-    parseInt(a[2]) +
-    parseInt(a[1]) +
-    parseInt(localStorage.getItem('運費'))
+
   let orderSID = props.match.params.ordersid
 
   useEffect(() => {
     //讀取訂單明細
-    fetch(`http://localhost:3002/cart/getDetail/${orderSID}`, {
+    fetch(`http://localhost:3002/member/member-detail-get/${orderSID}`, {
       method: 'GET',
     }).then(obj => obj.json())
       .then(obj => {
-        // setDataDetail(obj.data)
-        console.log('test', obj)
+        setDataDetail(obj.data)
       })
 
     //讀取訂單內商品明細資料
-    fetch(`http://localhost:3002/cart/`, {
+    fetch(`http://localhost:3002/member/member-order-detail-get/${orderSID}`, {
       method: 'GET',
     }).then(obj => obj.json())
       .then(obj => {
-        setData(obj)
+        setData(obj.data)
       })
   }, [])
 
@@ -90,19 +83,18 @@ function MemberOrderDetail(props) {
                     <tr>
                       <td>
                         <img
-                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          src={`http://localhost:3002/img/Product/${v.img}`}
                           alt=""
                         />
                       </td>
                       <td>{v.name}</td>
-                      <td>{v.Order_Amount}</td>
+                      <td>{v.amount}</td>
                       <td>{v.price}</td>
                     </tr>
                   )
                 })}
               </tbody>
             </table>
-
             <table className="table detailinfomobile table-borderless">
               <thead>
                 <tr></tr>
@@ -113,7 +105,7 @@ function MemberOrderDetail(props) {
                     <tr>
                       <td>
                         <img
-                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          src={`http://localhost:3002/img/Product/${v.img}`}
                           alt=""
                         />
                       </td>
@@ -122,7 +114,7 @@ function MemberOrderDetail(props) {
                         <br />
                         NT${v.price}
                       </td>
-                      <td>{v.Order_Amount}</td>
+                      <td>{v.amount}</td>
                     </tr>
                   )
                 })}
@@ -134,21 +126,19 @@ function MemberOrderDetail(props) {
                 <tr className="border-top"></tr>
                 <tr>
                   <th>商品小計</th>
-                  <td className="detailtd">{a[2]}</td>
+                  <td className="detailtd">{data.reduce((prev, curr) => { return prev + curr.price * curr.amount }, 0)}</td>
                 </tr>
                 <tr>
                   <th>優惠</th>
-                  <td className="detailtd">{a[1]}</td>
+                  <td className="detailtd">{dataDetail.promotion_amount}</td>
                 </tr>
                 <tr>
                   <th>運費</th>
-                  <td className="detailtd">
-                    {localStorage.getItem('運費')}
-                  </td>
+                  <td className="detailtd">{dataDetail.delivery_fee}</td>
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">{b}</td>
+                  <td className="detailtd">{data.reduce((prev, curr) => { return prev + curr.price * curr.amount }, 0) + dataDetail.promotion_amount + dataDetail.delivery_fee}</td>
                 </tr>
               </tbody>
             </table>
@@ -164,9 +154,9 @@ function MemberOrderDetail(props) {
         <div className="container importinfo d-flex justify-content-between">
           <div className="importinfotitle col-lg-9 col-6">
             <h2>以下列方式支付金額</h2>
-            <h6>{dataDetail.Payment_Type}</h6>
+            <h6>{dataDetail.payment_type}</h6>
           </div>
-          {dataDetail.Payment_Type === '信用卡支付' ? (
+          {dataDetail.payment_type === '信用卡支付' ? (
             <FaCcVisa className="favisa" />
           ) : (
             ''
@@ -201,15 +191,15 @@ function MemberOrderDetail(props) {
                 配送方式
               </td>
               <td className="text-start col-6">
-                {dataDetail.Payment_Type}
+                {dataDetail.payment_type}
               </td>
             </tr>
             <tr>
               <td className="title text-end col-lg-5">
-                收件人方式
+                收件人
               </td>
               <td className="text-start col-6">
-                {dataDetail.Order_Name}
+                {dataDetail.order_name}
               </td>
             </tr>
             <tr>
@@ -217,7 +207,7 @@ function MemberOrderDetail(props) {
                 手機號碼
               </td>
               <td className="text-start col-6">
-                {dataDetail.Order_Phone}
+                {dataDetail.order_phone}
               </td>
             </tr>
             <tr>
@@ -225,7 +215,7 @@ function MemberOrderDetail(props) {
                 電子信箱
               </td>
               <td className="text-start col-6">
-                {dataDetail.E_Mail}
+                {dataDetail.email}
               </td>
             </tr>
             <tr>
@@ -233,7 +223,7 @@ function MemberOrderDetail(props) {
                 收件地址
               </td>
               <td className="text-start col-6">
-                {dataDetail.Order_Address}{' '}
+                {dataDetail.order_address}{' '}
               </td>
             </tr>
             <tr>
@@ -241,14 +231,14 @@ function MemberOrderDetail(props) {
                 發票方式
               </td>
               <td className="text-start col-6">
-                {dataDetail.Invoice_Type} /{' '}
-                {dataDetail.Invoice_Number}
+                {dataDetail.invoice_type} /{' '}
+                {dataDetail.invoice_number}
               </td>
             </tr>
             <tr className="border-bottom">
               <td className="title text-end col-5">備註</td>
               <td className="text-start col-6">
-                {dataDetail.Order_Remark}
+                {dataDetail.order_remark}
               </td>
             </tr>
           </tbody>

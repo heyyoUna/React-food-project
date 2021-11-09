@@ -104,11 +104,15 @@
 .map-wrapper {
   display: flex;
   flex-wrap: no-wrap;
+  .map-res-introduce {
+    min-width: 300px;
+  }
   @include mobile {
     flex-wrap: wrap;
     flex-direction: column-reverse; //順序交換
   }
 }
+
 .map-container {
   // width: 100%;
 }
@@ -132,6 +136,9 @@
 }
 
 .map-searchbar {
+  @include pad {
+    display: none;
+  }
   @include mobile {
     display: none;
   }
