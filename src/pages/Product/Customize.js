@@ -167,7 +167,6 @@ function Customize(props) {
       let targetProtein = (Math.ceil(weight*1.6))
       setSugCal(sugCal)
       setTDEE(newTDEE)
-      console.log(oriTDEE)
       setSugProtein(targetProtein)
     }
     if (target === '增肌減脂' && exercises === '五次以上') {
@@ -194,7 +193,6 @@ function Customize(props) {
 
   // 客製化按鈕滑動
   const scroll = ()=>{
-    console.log('ok')
     window.scroll({
       top: 800,
       behavior: 'smooth',

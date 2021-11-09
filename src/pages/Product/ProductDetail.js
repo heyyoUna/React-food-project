@@ -109,10 +109,13 @@ function ProductDetail(props) {
           <div className="dt-sub-title">
             <h4>Reviews</h4>
           </div>
-          <div className="dt-review d-flex mb80">
-            <div className="dt-reviews-wrap d-flex col-sm-12 col-lg-3 ">
+          <div className="dt-review mb80">
+            <div className="dt-reviews-wrap d-flex ">
               {/* 評論框 */}
-              {review.map((v,i)=>{
+              {review.length ===0 ? (
+                <p>此商品目前無評論</p>
+              ) :(
+                review.map((v,i)=>{
                 return (
                 <Comments 
                   key={i}
@@ -121,7 +124,7 @@ function ProductDetail(props) {
                   rating={v.Review_Level}
                 />
                 )
-              })}
+              }))}
             </div>
           </div>
         </div>

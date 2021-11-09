@@ -3,6 +3,7 @@ import { withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import moment from 'moment'
 
 function MemberReview(props) {
   let history = useHistory()
@@ -73,12 +74,12 @@ function MemberReview(props) {
             <div className="member-review-main-right col-9">
               {/* <!-- 評價按鈕  --> */}
               <div className="member-review-button">
-                <button type="button" className={"btn " + (evaluating ? "btn member-btn-evaluating" : "member-btn-evaluated")} onClick={() => {
+                <button type="button" className={"btn " + (evaluating ? "member-btn-evaluating" : "member-btn-evaluated")} onClick={() => {
                   setEvaluating(true)
                 }}>
                   待評價
                 </button>
-                <button type="button" className={"btn " + (evaluating ? "btn member-btn-evaluated" : "member-btn-evaluating")} onClick={() => {
+                <button type="button" className={"btn " + (evaluating ? "member-btn-evaluated" : "member-btn-evaluating")} onClick={() => {
                   setEvaluating(false)
                 }
                 }>
@@ -115,10 +116,12 @@ function MemberReview(props) {
                                 <AiOutlineStar style={{ color: '#FB6107', fontSize: '20px', marginTop: '3px', display: v.level >= level ? 'none' : 'inline' }} />
                                 <AiFillStar style={{ color: '#FB6107', fontSize: '20px', marginTop: '3px', display: v.level >= level ? 'inline' : 'none' }} />
                               </div>
+
                             )
                           })
                           }
                         </div>
+                        <small>{moment(v.timestamp).format('YYYY-MM-DD HH:mm:ss')}</small>
                       </div>
                       <div className="member-review-right">
                         <div className="member-review-text">

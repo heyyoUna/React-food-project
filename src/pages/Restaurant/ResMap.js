@@ -44,9 +44,7 @@ function ResMap() {
   const [location, setLocation] = useState()
   const [filterData, setFilterData] = useState([])
   const [listData, setListData] = useState([])
-  //spinner
-  let [loading, setLoading] = useState(false)
-  let [color, setColor] = useState('#ffb606')
+
   const [filter, setFilter] = useState({
     price: '',
     rate: '',
@@ -149,72 +147,64 @@ function ResMap() {
   return (
     <div>
       <div className="map-searchbar">
-        <div className="container   justify-content-center py-4 ">
-          <div className="row">
-            {/* <ResMapsearch /> */}
-
-            <MapButtonGroup
-              name="列表模式"
-              linkFunction={goList}
-            >
-              <div className="col-md-3  col-6 ">
-                <MapSortButton
-                  name="price"
-                  options={[
-                    { name: '價格範圍', value: '' },
-                    { name: '100~200', value: '100~200' },
-                    { name: '200~300', value: '200~300' },
-                    { name: '300~400', value: '300~400' },
-                  ]}
-                  onChange={onFilterChange}
-                />
-              </div>
-
-              <div className="col-md-3  col-6 ">
-                <MapSortButton
-                  name="rate"
-                  options={[
-                    { name: '評分排序', value: '' },
-                    { name: '由高到低', value: '0' },
-                    { name: '由低到高', value: '1' },
-                  ]}
-                  onChange={onFilterChange}
-                />
-              </div>
-              <div className="col-md-3  col-6 ">
-                <MapSortButton
-                  name="distance"
-                  options={[
-                    { name: '距離範圍', value: '' },
-
-                    { name: '3公里', value: '3' },
-                    { name: '1公里', value: '1' },
-                    { name: '500公尺', value: '0.5' },
-                  ]}
-                  onChange={onFilterChange}
-                />
-              </div>
-            </MapButtonGroup>
-          </div>
-        </div>
-      </div>
-      <div className="row justify-content-start">
-        <div className="col-6">
-          <button
-            type="button"
-            class="map-filter d-md-none d-block"
+        <div className="container   justify-content-center py-4 p-0">
+          {/* <ResMapsearch /> */}
+          <MapButtonGroup
+            name="列表模式"
+            linkFunction={goList}
           >
-            <BsFilterLeft
-              style={{
-                color: '#FB6107',
-                fontSize: '24px',
-                marginBottom: '4px',
-              }}
-            />{' '}
-            篩選條件
-          </button>
+            <div className="col-md-3  col-6  filternone">
+              <MapSortButton
+                name="price"
+                options={[
+                  { name: '價格範圍', value: '' },
+                  { name: '100~200', value: '100~200' },
+                  { name: '200~300', value: '200~300' },
+                  { name: '300~400', value: '300~400' },
+                ]}
+                onChange={onFilterChange}
+              />
+            </div>
+            <div className="col-md-3  col-6 filternone">
+              <MapSortButton
+                name="rate"
+                options={[
+                  { name: '評分排序', value: '' },
+                  { name: '由高到低', value: '0' },
+                  { name: '由低到高', value: '1' },
+                ]}
+                onChange={onFilterChange}
+              />
+            </div>
+            <div className="col-md-3  col-6 filternone ">
+              <MapSortButton
+                name="distance"
+                options={[
+                  { name: '距離範圍', value: '' },
+
+                  { name: '3公里', value: '3' },
+                  { name: '1公里', value: '1' },
+                  { name: '500公尺', value: '0.5' },
+                ]}
+                onChange={onFilterChange}
+              />
+            </div>{' '}
+            <div className="col-6">
+              <button type="button" class="map-filter ">
+                <BsFilterLeft
+                  style={{
+                    color: '#FB6107',
+                    fontSize: '24px',
+                    marginBottom: '4px',
+                  }}
+                />{' '}
+                篩選條件
+              </button>
+            </div>
+          </MapButtonGroup>
         </div>
       </div>
+
       <div className=" map-wrapper ">
         <div className=" col-md-4  col-12 map-list ">
           {listData.map((item, index) => {
@@ -298,7 +288,6 @@ function ResMap() {
         </div>
 
         <div className="map-container p-0 col-md-8 col-12">
-      
           <MapContainer
             // 中心點: 會是你輸入的經緯
             center={[
@@ -346,7 +335,6 @@ function ResMap() {
                         markerChange(e)
                       },
                     }}
-                    // data-index={index}
                   >
                     <Popup>
                       <div className="map-card  d-flex align-items-center justify-content-between">
@@ -391,17 +379,6 @@ function ResMap() {
                 </>
               )
             })}
-
-            {/* <Marker position={[25.0723232, 121.4627458]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <Marker position={[25.0723999, 121.4627451]}>
-          <Popup>
-            A pretty 2222222. <br /> Easily customizable.
-          </Popup>
-        </Marker> */}
           </MapContainer>
         </div>
       </div>

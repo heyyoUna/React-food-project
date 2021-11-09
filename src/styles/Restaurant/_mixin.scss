@@ -1,10 +1,10 @@
 @mixin pad {
-    @media (max-width: 767px) {
-      @content;
-    }
+  @media (max-width: 768px) {
+    @content;
   }
-  @mixin mobile {
-    @media (max-width: 568px) {
-      @content;
-    }
+}
+@mixin mobile {
+  @media (max-width: 568px) {
+    @content;
   }
+}

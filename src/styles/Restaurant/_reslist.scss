@@ -38,6 +38,18 @@
       right: 10px;
     }
   }
+  @include pad {
+    .reslist-txt {
+      padding: 5px 5px;
+      h3 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px;
+        padding-bottom: 0;
+      }
+    }
+  }
   @include mobile {
     margin: 20px;
     height: 170px;
@@ -96,6 +108,7 @@
     }
     .res-popular-body {
       padding: 5px 20px 2px;
+      height: 160px;
     }
   }
 }
