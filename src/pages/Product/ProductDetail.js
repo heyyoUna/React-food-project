@@ -14,6 +14,7 @@ import Comments from './../../components/Product/Comments'
 
 // 細節頁
 function ProductDetail(props) {
+  const { CountNav,setCountNav} = props
   // 解析路徑
   const searchParams = (
     props.location.pathname
@@ -36,6 +37,7 @@ function ProductDetail(props) {
           'Authorization': 'Bearer ' + token
         }
       })
+      // 拿到評論
       const obj = await r.json()
       if(obj.success){
         setProductDetail(obj.data)
@@ -77,6 +79,8 @@ function ProductDetail(props) {
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}
+            CountNav={CountNav}
+            setCountNav={setCountNav}
             favIndicator={p.favIndicator}
             setFavIndicator={setFavIndicator}
           />

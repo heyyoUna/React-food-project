@@ -25,6 +25,10 @@
       .member-review-text-input{
         margin-bottom: 15;
       }
+      .member-review-button {
+          display: flex;
+          justify-content: space-around;
+        }
       }
       @media screen and (max-width: 575.99px) {
         .row{
@@ -135,4 +139,16 @@
       .member-order-number {
         margin-top: 20px;
         border-top: 3px solid #2a593e;
+      }
+      .member-review-send-btn {
+        background-color: #8fc065;
+        border-radius: 50px;
+        border-color: transparent;
+        color: #fff;
+        font-size: 16px;
+        padding: 5px 30px;
+        letter-spacing: 1px;
+        text-indent: 1px;
+        margin: 20px 0;
+        white-space: nowrap;
       }

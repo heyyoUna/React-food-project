@@ -149,6 +149,17 @@ footer {
       width: 100%;
     }
   }
+  a,.nav-item{
+    color: rgba(0, 0, 0, 0.8) !important;
+
+    &:hover{
+      color: #8fc065 !important;
+    }
+  }
+}
+//購物車icon
+.carticon i {
+  font-size: 20px;
 }
 
 .breadcrumb {

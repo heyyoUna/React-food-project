@@ -43,11 +43,11 @@ function StoreCard(props) {
       ) {
         randomresult[0] = Math.floor(Math.random() * max)
         randomresult[1] = Math.floor(Math.random() * max)
-        console.log('重新算過')
+        // console.log('重新算過')
       }
-      console.log('要pass的陣列', NewFilter)
-      console.log('數字1', randomresult[0])
-      console.log('數字2', randomresult[1])
+      // console.log('要pass的陣列', NewFilter)
+      // console.log('數字1', randomresult[0])
+      // console.log('數字2', randomresult[1])
 
       StoreCard1.push(P.data[randomresult[0]])
       StoreCard1.push(P.data[randomresult[1]])
@@ -75,7 +75,7 @@ function StoreCard(props) {
 
   return (
     <>
-      <div className="storelike col-lg-8 col-10 d-lg-flex justify-content-around align-content-center my-5">
+      <div className="storelike col-lg-8 col-12 d-lg-flex justify-content-lg-around align-content-center my-5">
         {StoreCard1.map((v, i) => {
           return (
             <Heart
@@ -90,7 +90,7 @@ function StoreCard(props) {
             />
           )
         })}
-        <div className="morecard my-auto">
+        <div className="morecard my-lg-auto mt-5">
           <FaAngleDoubleRight
             className="DoubleRight"
             onClick={() => {

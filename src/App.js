@@ -122,11 +122,12 @@ function App() {
 
               <Route path="/product/:id">
                 <ProductDetail
+                CountNav={CountNav}
+                setCountNav={setCountNav}
                 />
               </Route>
-
+              
               <Route path="/customize">
-
                 <Customize
                   favArr={favArr}
                   setFavArr={setFavArr}
@@ -143,7 +144,6 @@ function App() {
                   oriTDEE={oriTDEE}
                   setOriTDEE={setOriTDEE}
                 />
-
               </Route>
 
               {/* 文章 */}
