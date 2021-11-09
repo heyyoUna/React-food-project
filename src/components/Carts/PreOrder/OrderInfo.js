@@ -139,7 +139,7 @@ function OrderInfo(props) {
               change_type: 'USE',
               left_point: data[0].left_point - textvalue,
               change_reason: '會員使用點數',
-              create_at: '',
+              // create_at: '',
             }
           )
           if (R.status === 200) {
