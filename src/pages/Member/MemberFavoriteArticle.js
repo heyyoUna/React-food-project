@@ -42,16 +42,16 @@ function MemberFavoriteArticle(props) {
       })
   }
 
-  const handlingClick = (articleid, index, remove_flag) => {
+  const handlingClick = (article_id, article_cate, index, remove_flag) => {
     if (remove_flag) {
-      handlingInsert(articleid, index)
+      handlingInsert(article_id, article_cate, index)
     } else {
-      handlingDelete(articleid, index)
+      handlingDelete(article_id, article_cate, index)
     }
   }
 
-  const handlingDelete = (articleid, index) => {
-    fetch(`http://localhost:3002/member/favorite-article-delete/${articleid}`, {
+  const handlingDelete = (article_id, article_cate, index) => {
+    fetch(`http://localhost:3002/member/favorite-article-delete/${article_id}/${article_cate}`, {
       method: 'DELETE',
     }).then(r => r.json())
       .then(obj => {
@@ -71,11 +71,12 @@ function MemberFavoriteArticle(props) {
       })
   }
 
-  const handlingInsert = (articleid, index) => {
+  const handlingInsert = (article_id, article_cate, index) => {
     fetch(`http://localhost:3002/member/favorite-article-insert`, {
       method: 'POST',
       body: JSON.stringify({
-        articleid: articleid
+        article_id: article_id,
+        article_cate: article_cate
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -110,12 +111,12 @@ function MemberFavoriteArticle(props) {
           <h1 id="member-favorite-h1">文章收藏清單</h1>
         </div>
         <div className="row member-favorite">
-          <MemberNavbar/>
+          <MemberNavbar />
           <div className="member-n col-1"></div>
           <div className="member-favorite-card col-9">
             {article.map((value, index) => {
               return (
-                <div className="card mb-3" key={value.sid}>
+                <div className="card mb-3" key={index}>
                   <div className="row member-favorite-product">
                     <div className="col-md-4">
                       <img className="img-fluid rounded-start"
@@ -136,7 +137,7 @@ function MemberFavoriteArticle(props) {
                     </div>
                     <div className="member-icon col-md-1">
                       <div className="member-like" onClick={() =>
-                        handlingClick(value.sid, index, value.remove_flag)
+                        handlingClick(value.sid, value.ar_cate, index, value.remove_flag)
                       }>
                         <IoIosHeartEmpty
                           style={{
@@ -164,7 +165,7 @@ function MemberFavoriteArticle(props) {
           <div className="member-favorite-card-mobile">
             {article.map((value, index) => {
               return (
-                <div className="card mb-3 " key={value.sid}>
+                <div className="card mb-3 " key={index}>
                   <div className="row member-favorite-product">
                     <div className="col-md-4">
                       <img className="img-fluid rounded-start"
