@@ -13,6 +13,9 @@ import '../../styles/Carts/CartPreOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
 import axios from 'axios'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+import { withRouter } from 'react-router-dom'
 
 function CartPreOrder(props) {
   let { CountNav, setCountNav } = props
@@ -36,29 +39,65 @@ function CartPreOrder(props) {
 
   let [Filter, setFilter] = useState([])
 
+  let member = ''
+
   useEffect(() => {
     // 讀取加入購物車的商品資料
-    DataAxios()
+    MemberLogin()
   }, [])
 
   useEffect(() => {
     // 修改購物車內的商品資料
+    console.log('讀取Modify')
     ModifyProduct(Count, Pos, ODPos)
   }, [Count[Pos]])
 
   useEffect(() => {
     // 刪除購物車內的商品資料
-    console.log('刪除', DeletePos)
+    console.log('讀取Delete')
+
+    // console.log('刪除', DeletePos)
     DeleteProduct(DeletePos)
   }, [DeletePos])
 
+  async function MemberLogin() {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      DataAxios(m.data.data[0].sid)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員哦',
+        showConfirmButton: true,
+        confirmButtonColor: '#8FC065',
+        confirmButtonText: '我知道了',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          props.history.push('/login')
+        }
+      })
+    }
+  }
   // 讀取商品資料的 function
-  async function DataAxios() {
-    let r = await axios.get('http://localhost:3002/cart/')
+  async function DataAxios(Member_id) {
+    let r = await axios.get(
+      `http://localhost:3002/cart/ordertempmember/${Member_id}`
+    )
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-
+      console.log('讀取到的 preorder data', r)
       Count = []
       // 讀取裡面的商品數量
       for (let i = 0; i < r.data.length; i++) {
@@ -82,29 +121,55 @@ function CartPreOrder(props) {
 
   // 修改商品數量函式
   async function ModifyProduct(Count, Pos, ODPos) {
-    // console.log('修改函數', Count, Pos, ODPos, Count[Pos])
-    // console.log('修改數量', ODPos, Count[Pos])
-    let Mod = await axios.put(
-      `http://localhost:3002/cart/${ODPos}`,
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
       {
-        Order_Amount: Count[Pos],
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
       }
     )
-    if (Mod.status === 200) {
-      // console.log('已經 Modify', Count)
-      DataAxios()
-      return Count
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      let Mod = await axios.put(
+        `http://localhost:3002/cart/${ODPos}`,
+        {
+          Order_Amount: Count[Pos],
+        }
+      )
+      if (Mod.status === 200) {
+        console.log('經過 Modify')
+        DataAxios(m.data.data[0].sid)
+        return Count
+      }
     }
   }
 
   // 刪除商品函式
   async function DeleteProduct(DeletePos) {
-    let del = await axios.delete(
-      `http://localhost:3002/cart/${DeletePos}`
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
     )
-    if (del.status === 200) {
-      // console.log('已經刪除', Count)
-      DataAxios()
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      let del = await axios.delete(
+        `http://localhost:3002/cart/${DeletePos}`
+      )
+      if (del.status === 200) {
+        console.log('經過刪除')
+        DataAxios(m.data.data[0].sid)
+      }
     }
   }
 
@@ -219,4 +284,4 @@ function CartPreOrder(props) {
   )
 }
 
-export default CartPreOrder
+export default withRouter(CartPreOrder)
