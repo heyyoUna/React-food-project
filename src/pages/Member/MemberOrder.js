@@ -57,9 +57,9 @@ function MemberOrder(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {order.map((value) => {
+                  {order.map((value, index) => {
                     return (
-                      <tr key={value.Member_id}>
+                      <tr key={index}>
                         <th scope="row">{value.Order_Sid.toUpperCase()}</th>
                         <td>{value.Created_At}</td>
                         <td>${value.Total_Price}</td>
@@ -89,9 +89,9 @@ function MemberOrder(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {order.map((value) => {
+                  {order.map((value, index) => {
                     return (
-                      <tr key={value.Member_id}>
+                      <tr key={index}>
                         <th scope="row">{value.Order_Sid}</th>
                         <td>{value.Created_At}</td>
                         <td>${value.Total_Price}</td>
