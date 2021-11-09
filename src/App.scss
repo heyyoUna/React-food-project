@@ -138,6 +138,8 @@ footer {
 }
 
 /*----------- Navbar -----------*/
+.MyNavbar {
+  background-color: green;
 
 .myNavbarNew {
   text-align: center;
@@ -393,9 +395,10 @@ footer {
         }
       }
       .spin {
-        position: absolute;
-        right: 0;
-        bottom: 0;
+        // position: absolute;
+        // position: fixed;
+        // right: 0;
+        // bottom: 0;
         transform: translateX(-20px) rotate(-15deg);
 
         img {
