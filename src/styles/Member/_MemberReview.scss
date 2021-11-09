@@ -25,6 +25,10 @@
       .member-review-text-input{
         margin-bottom: 15;
       }
+      .member-review-button {
+          display: flex;
+          justify-content: space-around;
+        }
       }
       @media screen and (max-width: 575.99px) {
         .row{
