@@ -76,8 +76,7 @@ function Cart_ConfimOrder(props) {
         }
       )
     }
-
-    if (r.status === 200) {
+    if (s.status === 200) {
       console.log('已完成訂單，請到 DB 查看')
       props.history.push('/carts/Complete')
     }

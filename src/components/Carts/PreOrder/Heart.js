@@ -135,7 +135,7 @@ function Heart(props) {
   }
 
   return (
-    <div className="storecard col-lg-4 col-10 position-relative">
+    <div className="storecard col-lg-4 col-10 mx-lg-0 mx-auto my-lg-0 my-5 position-relative">
       <img
         src={`http://localhost:3002/img/Product/${v.product_id}.jpg`}
         className="position-absolute"

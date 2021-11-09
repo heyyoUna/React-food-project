@@ -217,7 +217,7 @@ function CartPreOrder(props) {
         </div>
       </div>
 
-      <div className="Process col-lg-8 col-xs-6 d-flex justify-content-around align-content-end">
+      <div className="Process col-lg-8 col-10 d-flex justify-content-around align-content-end">
         <div className="CartImage col-lg-3 col-xs-1">
           <FaShoppingCart className="icons first" />
           <h3 className="first">確認購物車</h3>
@@ -261,11 +261,11 @@ function CartPreOrder(props) {
         />
       </div>
 
-      <div className="container likemore col-lg-8 col-12">
+      <div className="container likemore col-lg-10 col-10">
         <div className="bottomline col-lg-6"></div>
 
         {/* 你可能會喜歡，的 component */}
-        <h4 className="col-lg-10 text-lg-start">
+        <h4 className="col-lg-10 text-lg-start text-center">
           你可能也會喜歡
         </h4>
         {/* 喜歡的卡片 */}

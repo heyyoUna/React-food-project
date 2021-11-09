@@ -75,7 +75,7 @@ function StoreCard(props) {
 
   return (
     <>
-      <div className="storelike col-lg-8 col-10 d-lg-flex justify-content-around align-content-center my-5">
+      <div className="storelike col-lg-8 col-12 d-lg-flex justify-content-lg-around align-content-center my-5">
         {StoreCard1.map((v, i) => {
           return (
             <Heart
@@ -90,7 +90,7 @@ function StoreCard(props) {
             />
           )
         })}
-        <div className="morecard my-auto">
+        <div className="morecard my-lg-auto mt-5">
           <FaAngleDoubleRight
             className="DoubleRight"
             onClick={() => {
