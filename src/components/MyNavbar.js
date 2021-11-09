@@ -178,7 +178,7 @@ function MyNavbar(props) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item>
-                <Link to="/member/FavoriteProduct">文章收藏清單</Link>
+                  <Link to="/member/FavoriteArticle">文章收藏清單</Link>
                 </NavDropdown.Item>
 
                 <NavDropdown.Item>
