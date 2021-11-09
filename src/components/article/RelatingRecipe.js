@@ -23,7 +23,6 @@ function RelatingRecipe(props) {
 
       if (j.success) {
         setProduct(j.pop)
-        console.log('j.pop:', j.pop)
       }
     })()
   }, [])
@@ -32,23 +31,22 @@ function RelatingRecipe(props) {
     <>
       {product && product.length
         ? product.map((el) => {
-            console.log('p:', el.product_img)
             return (
               <>
-                <div className="col-3">
+                <div className="col-3 mt-5 relatingRecipe">
                   <Link
                     onClick={() => {
                       window.location.href =
                         '/product/' + el.sid
                     }}
                   >
-                    <div className="imgWrap">
+                    <div className="imgWrapPro ">
                       <img
                         src={`http://localhost:3002/img/Product/${el.product_img}`}
                         alt=""
                       />
                     </div>
-                    <div className="pd-card-intro d-flex">
+                    <div className="recipeRelPro d-flex">
                       <div className="pd-name">
                         {el.name}
                       </div>
@@ -60,11 +58,8 @@ function RelatingRecipe(props) {
                       </p>
                       <div className="pd-btn-wrap d-flex">
                         <button className="pd-order-btn">
-                          ORDER NOW
+                          View Detail
                         </button>
-                        <div className="pd-love-icon">
-                          <i className="far fa-heart"></i>
-                        </div>
                       </div>
                     </div>
                   </Link>

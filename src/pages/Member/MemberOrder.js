@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter, useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, withRouter, useHistory } from 'react-router-dom'
 import MemberNavbar from './../../components/member/MemberNavbar'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberOrder(props) {
+  let history = useHistory()
   const token = localStorage.getItem('token')
   const [order, setOrder] = useState([])
-  let history = useHistory()
 
   useEffect(() => {
     if (!token) {
@@ -36,6 +35,7 @@ function MemberOrder(props) {
         }
       })
   }, [])
+
   return (
     <>
       <div className="member-order-container">
@@ -60,14 +60,14 @@ function MemberOrder(props) {
                   {order.map((value) => {
                     return (
                       <tr key={value.Member_id}>
-                        <th scope="row">{value.Order_Sid}</th>
+                        <th scope="row">{value.Order_Sid.toUpperCase()}</th>
                         <td>{value.Created_At}</td>
                         <td>${value.Total_Price}</td>
                         <td>{value.Order_Status}</td>
                         <td>
                           <button type="button" className="btn member-btn-primary">
-                            <Link to={`/member/orderdetail/${value.Order_Sid}`} >檢視訂單</Link>
-                    </button>
+                            <Link className="order-detail-btn" to={`/member/orderdetail/${value.Order_Sid}`} >檢視訂單</Link>
+                          </button>
                         </td>
                       </tr>
                     )

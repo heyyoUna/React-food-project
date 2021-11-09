@@ -21,10 +21,11 @@ function ResListData(props) {
     res_starttime,
     res_endtime,
     isNotLiked,
+    refreshData,
   } = props
 
-  //true 實心 false 空心
-  const [display, setDisplay] = useState(
+  //true 空心 false 實心
+  const [displayEmpty, setDisplayEmpty] = useState(
     isNotLiked ? false : true
   )
   const token = localStorage.getItem('token')
@@ -47,7 +48,8 @@ function ResListData(props) {
       .then((r) => r.json())
       .then((obj) => {
         if (obj.success) {
-          setDisplay(!display)
+          setDisplayEmpty(!displayEmpty)
+          refreshData(id, displayEmpty)
         }
       })
   }
@@ -60,12 +62,17 @@ function ResListData(props) {
         method: 'DELETE',
       }
     )
+      .then((r) => r.json())
+      .then((obj) => {
+        if (obj.success) {
+          setDisplayEmpty(!displayEmpty)
+          refreshData(res_id, displayEmpty)
+        }
+      })
   }
   return (
     <>
       <div className="reslist-card d-flex">
-        {/* <img className="res-foodImg" src={`${imgUrl}/images/food.jpg`} alt="" /> */}
-        {/* <img className="res-foodImg" src={` http://localhost:3000/images/Restaurant/food.jpg`} alt="" /> */}
         <img
           className="res-foodImg"
           src={`http://localhost:3002/img/restaurant/${res_img}`}
@@ -111,7 +118,7 @@ function ResListData(props) {
                     display: display ? 'none' : 'block',
                   }}
                 /> */}
-              {display ? (
+              {displayEmpty ? (
                 <IoIosHeartEmpty
                   onClick={(e) => {
                     if (!token) {
@@ -137,7 +144,7 @@ function ResListData(props) {
                       })
                     }
                     // handlingInsert(res_id)
-                    setDisplay(!display)
+                    setDisplayEmpty(!displayEmpty)
                     // if (display) {
                     //   setDisplay(false)
                     // } else {
@@ -161,7 +168,6 @@ function ResListData(props) {
                       timer: 1000,
                     })
                     handlingDelete(res_id)
-                    setDisplay(!display)
                     // if (display) {
                     //   setDisplay(false)
                     // } else {
@@ -198,7 +204,7 @@ function ResListData(props) {
                 paddingRight: '3px',
               }}
             />
-            平均消費:{res_aveprice}
+            均消:NT{res_aveprice}
           </p>
           <p>
             <BsClock

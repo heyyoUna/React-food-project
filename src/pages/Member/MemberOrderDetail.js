@@ -1,99 +1,172 @@
 import { useState, useEffect } from 'react'
-import Cart_OrderDetail from '../../components/Carts/Manage/Cart_OrderDetail'
+import { withRouter } from 'react-router-dom'
 import { FaCcVisa } from 'react-icons/fa'
+import { FaChevronDown } from 'react-icons/fa'
+import moment from 'moment'
+import Cart_OrderDetail from '../../components/Carts/Manage/Cart_OrderDetail'
 import '../../styles/Carts/CartConfirmOrder.scss'
 import '../../styles/Carts/Banner.scss'
 import '../../styles/Carts/ProcessChart.scss'
-import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 
 function MemberOrderDetail(props) {
   let [data, setData] = useState([{}])
-  let [DataDetail, setDataDetail] = useState({})
-  let OrderSid = props.match.params.ordersid
+  let [dataDetail, setDataDetail] = useState({})
+  let [trans, settrans] = useState(false)
+  let a = []
+  let b
+  a = JSON.parse(localStorage.getItem('訂單價格資訊'))
+  b =
+    parseInt(a[2]) +
+    parseInt(a[1]) +
+    parseInt(localStorage.getItem('運費'))
+  let orderSID = props.match.params.ordersid
 
-  // 設定訂單編號的格式
   useEffect(() => {
-    console.log('這邊是初始化')
-    DataAxios()
+    //讀取訂單明細
+    fetch(`http://localhost:3002/cart/getDetail/${orderSID}`, {
+      method: 'GET',
+    }).then(obj => obj.json())
+      .then(obj => {
+        // setDataDetail(obj.data)
+        console.log('test', obj)
+      })
+
+    //讀取訂單內商品明細資料
+    fetch(`http://localhost:3002/cart/`, {
+      method: 'GET',
+    }).then(obj => obj.json())
+      .then(obj => {
+        setData(obj)
+      })
   }, [])
-
-  async function DataAxios() {
-    let r = await axios.get('http://localhost:3002/cart/')
-    let rD = await axios.get(
-      `http://localhost:3002/cart/addList/${OrderSid}`
-    )
-    if (r.status === 200 && rD.status === 200) {
-      setData(r.data)
-      console.log('rD', rD)
-      setDataDetail(rD.data.data)
-      // console.log(rD.data)
-    }
-  }
-
-  async function ConfirmOrder() {
-    let a = []
-    let s
-    let NewData = [...data]
-    a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-    console.log('這是暫存資料', a)
-    console.log('確認訂單資訊', DataDetail.Member_id)
-
-    let r = await axios.post(
-      'http://localhost:3002/cart/ConfirmList',
-      {
-        Order_Sid: OrderSid,
-        Member_id: DataDetail.Member_id,
-        Total_Price:
-          a[0] + parseInt(localStorage.getItem('運費')),
-        Order_Status: '訂單成立',
-        Created_At: localStorage.getItem('訂單時間'),
-      }
-    )
-
-    for (let i in NewData) {
-      console.log('訂單內容', NewData[i].Order_Sid)
-      s = await axios.post(
-        'http://localhost:3002/cart/addDetail',
-        {
-          Order_Sid: OrderSid,
-          Product_id: NewData[i].Product_id,
-          Order_Total: a[2],
-          Promotion_Amount: a[1],
-          Order_Amount: NewData[i].Order_Amount,
-        }
-      )
-    }
-
-    if (r.status === 200) {
-      console.log('已完成訂單，請到 DB 查看')
-      props.history.push('/carts/Complete')
-    }
-  }
 
   return (
     <>
-      <div class="titleBorder col-lg-6 col-10">
-        <h4 class="res-title title-fz fw-700">
+      <div className="titleBorder col-lg-6 col-10">
+        <h4 className="res-title title-fz fw-700">
           訂單資訊
         </h4>
       </div>
 
-      <Cart_OrderDetail data={data} setData={setData} />
+      <div className="container col-lg-6 col-10">
+        <div class="square d-flex justify-content-center position-relative">
+          <h3>訂單詳細</h3>
+          <FaChevronDown
+            className="ChevronDown position-absolute"
+            style={{
+              transition: '0.5s',
+              transform: trans
+                ? 'rotate(0deg)'
+                : 'rotate(90deg)',
+            }}
+            onClick={() => {
+              if (trans === false) {
+                settrans(true)
+              } else {
+                settrans(false)
+              }
+            }}
+          />
+        </div>
+        <div
+          className="orderdetail"
+          style={{
+            display: trans ? 'block' : 'none',
+          }}
+        >
+          <div className="detail col-lg-11 col-12 mx-auto mt-3">
+            <table className="table detailinfo table-borderless">
+              <thead>
+                <tr className="border-bottom">
+                  <th scope="col"></th>
+                  <th scope="col">商品資訊</th>
+                  <th scope="col">數量</th>
+                  <th scope="col">單價</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((v) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          alt=""
+                        />
+                      </td>
+                      <td>{v.name}</td>
+                      <td>{v.Order_Amount}</td>
+                      <td>{v.price}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
 
-      <div class="titleBorder col-lg-6 col-10">
-        <h4 class="res-title title-fz fw-700">
+            <table className="table detailinfomobile table-borderless">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                {data.map((v) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          src={`http://localhost:3002/img/Product/${v.product_img}`}
+                          alt=""
+                        />
+                      </td>
+                      <td>
+                        {v.name}
+                        <br />
+                        NT${v.price}
+                      </td>
+                      <td>{v.Order_Amount}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+
+            <table className="table detailcheck table-borderless mx-auto">
+              <tbody>
+                <tr className="border-top"></tr>
+                <tr>
+                  <th>商品小計</th>
+                  <td className="detailtd">{a[2]}</td>
+                </tr>
+                <tr>
+                  <th>優惠</th>
+                  <td className="detailtd">{a[1]}</td>
+                </tr>
+                <tr>
+                  <th>運費</th>
+                  <td className="detailtd">
+                    {localStorage.getItem('運費')}
+                  </td>
+                </tr>
+                <tr className="border-top">
+                  <th>總計</th>
+                  <td className="detailtd">{b}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div className="titleBorder col-lg-6 col-10">
+        <h4 className="res-title title-fz fw-700">
           付款與運送方式
         </h4>
       </div>
-
       <div className="container confirmorderdetail mx-auto col-lg-6 col-10">
         <div className="container importinfo d-flex justify-content-between">
           <div className="importinfotitle col-lg-9 col-6">
             <h2>以下列方式支付金額</h2>
-            <h6>{DataDetail.Payment_Type}</h6>
+            <h6>{dataDetail.Payment_Type}</h6>
           </div>
-          {DataDetail.Payment_Type === '信用卡支付' ? (
+          {dataDetail.Payment_Type === '信用卡支付' ? (
             <FaCcVisa className="favisa" />
           ) : (
             ''
@@ -112,7 +185,7 @@ function MemberOrderDetail(props) {
                 訂單編號
               </td>
               <td className="text-start col-lg-6">
-                {OrderSid}
+                {orderSID.toUpperCase()}
               </td>
             </tr>
             <tr>
@@ -120,7 +193,7 @@ function MemberOrderDetail(props) {
                 訂單時間
               </td>
               <td className="text-start col-6">
-                {localStorage.getItem('訂單時間')}
+                {moment(orderSID.split('order')[1], 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss')}
               </td>
             </tr>
             <tr>
@@ -128,7 +201,7 @@ function MemberOrderDetail(props) {
                 配送方式
               </td>
               <td className="text-start col-6">
-                {DataDetail.Payment_Type}
+                {dataDetail.Payment_Type}
               </td>
             </tr>
             <tr>
@@ -136,7 +209,7 @@ function MemberOrderDetail(props) {
                 收件人方式
               </td>
               <td className="text-start col-6">
-                {DataDetail.Order_Name}
+                {dataDetail.Order_Name}
               </td>
             </tr>
             <tr>
@@ -144,7 +217,7 @@ function MemberOrderDetail(props) {
                 手機號碼
               </td>
               <td className="text-start col-6">
-                {DataDetail.Order_Phone}
+                {dataDetail.Order_Phone}
               </td>
             </tr>
             <tr>
@@ -152,7 +225,7 @@ function MemberOrderDetail(props) {
                 電子信箱
               </td>
               <td className="text-start col-6">
-                {DataDetail.E_Mail}
+                {dataDetail.E_Mail}
               </td>
             </tr>
             <tr>
@@ -160,7 +233,7 @@ function MemberOrderDetail(props) {
                 收件地址
               </td>
               <td className="text-start col-6">
-                {DataDetail.Order_Address}{' '}
+                {dataDetail.Order_Address}{' '}
               </td>
             </tr>
             <tr>
@@ -168,14 +241,14 @@ function MemberOrderDetail(props) {
                 發票方式
               </td>
               <td className="text-start col-6">
-                {DataDetail.Invoice_Type} /{' '}
-                {DataDetail.Invoice_Number}
+                {dataDetail.Invoice_Type} /{' '}
+                {dataDetail.Invoice_Number}
               </td>
             </tr>
             <tr className="border-bottom">
               <td className="title text-end col-5">備註</td>
               <td className="text-start col-6">
-                {DataDetail.Order_Remark}
+                {dataDetail.Order_Remark}
               </td>
             </tr>
           </tbody>

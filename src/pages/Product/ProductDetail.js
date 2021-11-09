@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import conf, {
-  ProductDetail_API, IMG_PATH,
+  ProductDetail_API, 
 } from './../../config/config.js'
 import {withRouter} from 'react-router-dom'
 
@@ -14,12 +14,16 @@ import Comments from './../../components/Product/Comments'
 
 // 細節頁
 function ProductDetail(props) {
+  const { CountNav,setCountNav} = props
   // 解析路徑
   const searchParams = (
     props.location.pathname
   )
   const [ProductDetail, setProductDetail] = useState([])
   const token = localStorage.getItem('token')
+
+  // 拿到評論資料
+  const [ review, setReview] = useState([])
 
   // 解析字串(帶數字路由去fetch)
   const sp = searchParams.split('/')[2]
@@ -33,8 +37,20 @@ function ProductDetail(props) {
           'Authorization': 'Bearer ' + token
         }
       })
+      // 拿到評論
       const obj = await r.json()
-      setProductDetail(obj.data)
+      if(obj.success){
+        setProductDetail(obj.data)
+        const rs = await fetch(`http://localhost:3002/product/reviews/${obj.data.product_id}`, {
+          headers:{
+            'Authorization': 'Bearer ' + token
+          }
+        })
+        const obj2 = await rs.json()
+        if(obj2.success){
+          setReview(obj2.data)
+        } 
+      }
     })()
   }, [])
 
@@ -63,6 +79,8 @@ function ProductDetail(props) {
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}
+            CountNav={CountNav}
+            setCountNav={setCountNav}
             favIndicator={p.favIndicator}
             setFavIndicator={setFavIndicator}
           />
@@ -94,7 +112,16 @@ function ProductDetail(props) {
           <div className="dt-review d-flex mb80">
             <div className="dt-reviews-wrap d-flex col-sm-12 col-lg-3 ">
               {/* 評論框 */}
-              <Comments />
+              {review.map((v,i)=>{
+                return (
+                <Comments 
+                  key={i}
+                  name={v.Order_Name}
+                  comments={v.Review_Description}
+                  rating={v.Review_Level}
+                />
+                )
+              })}
             </div>
           </div>
         </div>

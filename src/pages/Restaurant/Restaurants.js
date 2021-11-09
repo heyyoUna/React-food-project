@@ -180,7 +180,7 @@ function Restaurants(props) {
   useEffect(() => {
     ;(async () => {
       //spinner
-      setLoading(true)
+      // setLoading(true)
       let r = await fetch(
         'http://localhost:3002/reslist/address',
         {
@@ -250,6 +250,7 @@ function Restaurants(props) {
         console.error(error)
       }
     )
+    setLoading(true)
   }
   useEffect(() => {
     ;(async () => {
@@ -264,6 +265,20 @@ function Restaurants(props) {
       }
     })()
   }, [])
+  //更新舊資料的收藏狀態
+  const refreshDataAfterHeartEvent = (resId, display) => {
+    const newApiData = [...apiData]
+    let i = 0
+    for (i = 0; i < newApiData.length; i++) {
+      if (newApiData[i].res_id === resId) {
+        break
+      }
+    }
+
+    newApiData[i].isLiked = display
+
+    setApiData(newApiData)
+  }
 
   return (
     <>
@@ -375,6 +390,7 @@ function Restaurants(props) {
                     res_endtime={v.res_endtime}
                     favIndicator={v.favIndicator}
                     isNotLiked={v.isLiked}
+                    refreshData={refreshDataAfterHeartEvent}
                   />
                 </div>
               )

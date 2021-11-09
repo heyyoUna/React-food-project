@@ -62,16 +62,15 @@ import ScrollToTop from './components/ScrollToTop'
 import MyNavbarOriginal from './components/MyNavbarOriginal'
 import MyFooter from './components/MyFooter'
 import MainContent from './components/MainContent'
+import Spinner from './components/Spinner'
+
 //import BreadCrumb from './components/BreadCrumb'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
 
 function App() {
-  let a = parseInt(localStorage.getItem('數量'))
   const [restaurantId, setRestaurantId] = useState('')
   const [productId, setProductId] = useState('')
-  const [CountNav, setCountNav] = useState(
-    !CountNav ? a : CountNav
-  )
+  const [CountNav, setCountNav] = useState(0)
   const [auth, setAuth] = useState(false)
   //給客製化跟商品區收藏商品資料用
   const [favArr, setFavArr] = useState([])
@@ -85,10 +84,13 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
+    const count = parseInt(localStorage.getItem('數量'))
+
     if (!token) {
       setAuth(false)
     } else {
       setAuth(true)
+      setCountNav(count)
     }
   }, [])
 
@@ -111,22 +113,23 @@ function App() {
           {/* 切換顯示的元件畫面放在這下面 */}
           {/* ScrollToTop是為了讓連到另一頁內容時，頁面回到最上方 */}
           <ScrollToTop>
-          <Switch>
-            {/* 商城 */}
-            <Route path="/products">
-              <Products
-                favArr={favArr}
-                setFavArr={setFavArr}
-              />
-            </Route>
+            <Switch>
+              {/* 商城 */}
+              <Route path="/products">
+                <Products
+                  favArr={favArr}
+                  setFavArr={setFavArr}
+                />
+              </Route>
 
-            <Route path="/product/:id">
-              <ProductDetail
-              />
-            </Route>
-            
-            <Route path="/customize">
-              
+              <Route path="/product/:id">
+                <ProductDetail
+                  CountNav={CountNav}
+                  setCountNav={setCountNav}
+                />
+              </Route>
+
+              <Route path="/customize">
                 <Customize
                   favArr={favArr}
                   setFavArr={setFavArr}
@@ -143,156 +146,160 @@ function App() {
                   oriTDEE={oriTDEE}
                   setOriTDEE={setOriTDEE}
                 />
-              
-            </Route>
+              </Route>
 
-            {/* 文章 */}
-            {/* <Route path="/article/ExerciseContent">
+              {/* 文章 */}
+              {/* <Route path="/article/ExerciseContent">
                 <ExerciseContent auth={auth} />
               </Route> */}
-            <Route
-              path="/RecipeContent/:id"
-              component={RecipeContent}
-            ></Route>
+              <Route
+                path="/RecipeContent/:id"
+                component={RecipeContent}
+              ></Route>
 
-            <Route
-              path="/ExerciseContent/:id"
-              component={ExerciseContent}
-            ></Route>
+              <Route
+                path="/ExerciseContent/:id"
+                component={ExerciseContent}
+              ></Route>
 
-            <Route
-              path="/FoodContent/:id"
-              component={FoodContent}
-            ></Route>
+              <Route
+                path="/FoodContent/:id"
+                component={FoodContent}
+              ></Route>
 
-            <Route path="/article/recipe">
-              <ArtRecipe auth={auth} />
-            </Route>
+              <Route path="/article/recipe">
+                <ArtRecipe auth={auth} />
+              </Route>
 
-            <Route path="/article/exercise">
-              <ArtExercise auth={auth} />
-            </Route>
+              <Route path="/article/exercise">
+                <ArtExercise auth={auth} />
+              </Route>
 
-            <Route path="/article/food">
-              <ArtFood auth={auth} />
-            </Route>
+              <Route path="/article/food">
+                <ArtFood auth={auth} />
+              </Route>
 
-            <Route path="/article">
-              <Article auth={auth} />
-            </Route>
+              <Route path="/article">
+                <Article auth={auth} />
+              </Route>
 
-            {/* 餐廳 */}
-            <Route path="/restaurants">
-              <Restaurants />
-            </Route>
-            <Route path="/resmap">
-              <ResMap />
-            </Route>
-            <Route
-              path="/resprdoucts/:id"
-              component={ResProducts}
-            />
+              {/* 餐廳 */}
+              <Route path="/restaurants">
+                <Restaurants />
+              </Route>
+              <Route path="/resmap">
+                <ResMap />
+              </Route>
+              <Route
+                path="/resprdoucts/:id"
+                component={ResProducts}
+              />
 
-            <Route exact path="/">
-              <Home 
-              auth={auth}
-              gender={gender}
-              setGender={setGender}
-              years={years}
-              setYears={setYears}
-              height={height}
-              setHeight={setHeight}
-              weight={weight}
-              setWeight={setWeight}
-              TDEE={TDEE}
-              setTDEE={setTDEE}
-              oriTDEE={oriTDEE}
-              setOriTDEE={setOriTDEE} />
-            </Route>
-            {/* 會員 */}
-            <Route path="/signup">
-              {/* 利用props傳入頁面元件狀態 */}
-              <Signup auth={auth} setAuth={setAuth} />
-            </Route>
+              <Route exact path="/">
+                <Home
+                  auth={auth}
+                  gender={gender}
+                  setGender={setGender}
+                  years={years}
+                  setYears={setYears}
+                  height={height}
+                  setHeight={setHeight}
+                  weight={weight}
+                  setWeight={setWeight}
+                  TDEE={TDEE}
+                  setTDEE={setTDEE}
+                  oriTDEE={oriTDEE}
+                  setOriTDEE={setOriTDEE}
+                />
+              </Route>
+              {/* 會員 */}
+              <Route path="/signup">
+                {/* 利用props傳入頁面元件狀態 */}
+                <Signup auth={auth} setAuth={setAuth} />
+              </Route>
 
-            <Route path="/login">
-              {/* 利用props傳入頁面元件狀態 */}
-              <Login auth={auth} setAuth={setAuth} />
-            </Route>
+              <Route path="/login">
+                {/* 利用props傳入頁面元件狀態 */}
+                <Login auth={auth} setAuth={setAuth} />
+              </Route>
 
-            <Route path="/member/profile">
-              <MemberProfile auth={auth} />
-            </Route>
+              <Route path="/member/profile">
+                <MemberProfile
+                  auth={auth}
+                  setCountNav={setCountNav}
+                />
+              </Route>
 
-            <Route path="/member/order">
-              <MemberOrder />
-            </Route>
+              <Route path="/member/order">
+                <MemberOrder />
+              </Route>
 
-            <Route path="/member/orderdetail/:ordersid">
+              <Route path="/member/orderdetail/:ordersid">
                 <MemberOrderDetail />
               </Route>
 
-            <Route path="/member/review">
-              <MemberReview />
-            </Route>
+              <Route path="/member/review">
+                <MemberReview />
+              </Route>
 
-            <Route path="/member/point">
-              <MemberPoint />
-            </Route>
+              <Route path="/member/point">
+                <MemberPoint />
+              </Route>
 
-            <Route path="/member/FavoriteProduct">
-              <MemberFavoriteProduct />
-            </Route>
+              <Route path="/member/FavoriteProduct">
+                <MemberFavoriteProduct
+                  setCountNav={setCountNav}
+                />
+              </Route>
 
-            <Route path="/member/FavoriteArticle">
-              <MemberFavoriteArticle />
-            </Route>
+              <Route path="/member/FavoriteArticle">
+                <MemberFavoriteArticle />
+              </Route>
 
-            <Route path="/member/FavoriteRestaurant">
-              <MemberFavoriteRestaurant />
-            </Route>
+              <Route path="/member/FavoriteRestaurant">
+                <MemberFavoriteRestaurant />
+              </Route>
 
-            <Route path="/member/ChangePassword">
-              <MemberChangePassword />
-            </Route>
+              <Route path="/member/ChangePassword">
+                <MemberChangePassword />
+              </Route>
 
-            <Route path="/member/ForgotPassword/:email/:password">
-              <MemberForgotPassword />
-            </Route>
+              <Route path="/member/ForgotPassword/:email/:password">
+                <MemberForgotPassword />
+              </Route>
 
-            {/* 輪盤 */}
-            <Route path="/game/GameChoose">
-              <GameChoose />
-            </Route>
+              {/* 輪盤 */}
+              <Route path="/game/GameChoose">
+                <GameChoose />
+              </Route>
 
-            <Route path="/game/GameRecipe">
-              <GameRecipe setProductId={setProductId} />
-            </Route>
+              <Route path="/game/GameRecipe">
+                <GameRecipe setProductId={setProductId} />
+              </Route>
 
-            <Route path="/game/GameDelivery">
-              <GameDelivery
-                setRestaurantId={setRestaurantId}
-              />
-            </Route>
+              <Route path="/game/GameDelivery">
+                <GameDelivery
+                  setRestaurantId={setRestaurantId}
+                />
+              </Route>
 
-            {/* 購物車 */}
-            <Route exact path="/carts/PreOrder">
-              <CartPreOrder
-                CountNav={CountNav}
-                setCountNav={setCountNav}
-              />
-            </Route>
-            <Route exact path="/carts/Manage">
-              <CartManage />
-            </Route>
-            <Route exact path="/carts/ConfirmOrder">
-              <CartConfimOrder />
-            </Route>
-            <Route exact path="/carts/Complete">
-              <CartComplete setCountNav={setCountNav} />
-            </Route>
-            
-          </Switch>
+              {/* 購物車 */}
+              <Route exact path="/carts/PreOrder">
+                <CartPreOrder
+                  CountNav={CountNav}
+                  setCountNav={setCountNav}
+                />
+              </Route>
+              <Route exact path="/carts/Manage">
+                <CartManage />
+              </Route>
+              <Route exact path="/carts/ConfirmOrder">
+                <CartConfimOrder />
+              </Route>
+              <Route exact path="/carts/Complete">
+                <CartComplete setCountNav={setCountNav} />
+              </Route>
+            </Switch>
           </ScrollToTop>
           {/* end 匹配路由表 */}
         </MainContent>

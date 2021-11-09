@@ -43,6 +43,9 @@
 
 .map-search {
   position: relative;
+  @include mobile {
+    padding: 5px 20px;
+  }
 }
 
 #resaddress {
@@ -62,10 +65,12 @@
   margin-top: 15px;
   @include pad {
     width: 75%;
+    font-size: 16px;
   }
   @include mobile {
     width: 90%;
     margin-bottom: 10px;
+    font-size: 14px;
   }
 }
 

@@ -3,67 +3,63 @@
 .grey {
   color: grey;
 }
+
+
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
-/*---------- 主視覺  ----------*/
-#article-kv {
-  .car-title {
-    text-align: left;
-    top: 30%;
-    font-size: 60px;
-    color: $dark-green;
-    padding: 0 20px;
-  }
-}
-/*---------- 共用部分  ----------*/
-
-.catTitle {
-  text-align: center;
-  margin: 80px auto;
-  display: flex;
-
-  .col-2 {
-    padding: 0px 20px;
-    font-size: 32px;
+//卡片hover
+.articlePageCards {
+  overflow: hidden;
+  img {
+    transition: all 1s ease;
+    &:hover {
+      transform: scale(1.1, 1.1);
+    }
   }
 }
 
-.title-fz {
-  p {
-    color: $dark-green;
-    font-size: 32px;
-  }
-}
-
-hr {
-  border: 2px solid $dark-green;
-}
-
-#col-cat {
+//主視覺KV
+#articlePage {
   img {
     width: 100%;
+    border-radius: 15px;
   }
-  h4,
-  p {
-    margin: 0;
-  }
-}
-
-/*---------- 按鈕：更多文章  ----------*/
-
-
-//專欄卡片hover
-.cardsHover {
-  &:hover {
-    opacity: 0.7;
-    cursor: pointer;
+  margin-top: -60px;
+  @media (max-width: 992px) {
+    margin-top: 0;
   }
 }
 
-/*---------- 1st種類  ----------*/
-
+// 專欄頁： 1st種類 聰明飲食
 #col-cat1 {
-  .col-cat1-s {
-    margin-bottom: 20px;
+  @media (max-width: 992px) {
+    .col-cat1-s {
+      margin-bottom: 20px;
+      // display: flex;
+      // // flex-direction: column;
+      // align-items: center;
+
+      .imgWrap {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+// 專欄頁： 2nd種類 運動訓練
+#col-cat2 {
+  @media (max-width: 992px) {
+    figure {
+      height: 250px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .col-cat-firstImg {
+      //rwd後太大的圖片
+      width: 70%;
+      margin: auto;
+    }
   }
 }
 
@@ -99,6 +95,11 @@ hr {
   }
 }
 /*------------------------------ 專欄種類文章 (第二層) ------------------------------*/
+//卡片的hover
+.articleCards:hover {
+  transform: translate(0px, -7px);
+  box-shadow: 4px 4px 20px lightgray;
+}
 
 .col-cat-article {
   padding-top: 50px;
@@ -147,7 +148,7 @@ hr {
 
 /*------------------------------ 專欄文章內文 (第三層1/2) ------------------------------*/
 
-#col-article {
+.col-article {
   .imgWrap {
     max-width: 1000px;
     max-height: 500px;
@@ -160,9 +161,10 @@ hr {
   .article_rec img {
     width: 100%;
   }
-  .moreBtn {
+  .recipeMoreBtn {
     width: 20px;
     border-radius: 100px;
+    cursor: pointer;
   }
   .interNav .col-7 {
     //互動nav
@@ -205,24 +207,26 @@ hr {
     }
   }
   .mostPopular {
+    text-align: center;
+    .mostPopularInside {
+      border: 1px solid rgba(143, 192, 101, 0.1);
+      display: inline-block;
+      padding: 20px 50px;
+      margin: auto;
+      box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 5px;
+    }
+
     .mostPopularTitle {
-      background: linear-gradient(
-        180deg,
-        rgba(255, 182, 6, 0.05) 0%,
-        rgba(255, 182, 6, 0.5) 100%
-      );
-      border-radius: 15px;
+      border-bottom: 1px solid rgba(251, 97, 7, 0.5);
       text-align: center;
       padding: 10px 0;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 3px;
     }
 
     .mostPopularItems {
-      background: linear-gradient(
-        180deg,
-        rgba(124, 181, 24, 0) 0%,
-        rgba(124, 181, 24, 0.3) 100%
-      );
-      border-radius: 15px;
+      border-bottom: 1px solid rgba(143, 192, 101, 0.5);
       padding: 10px;
       list-style: none;
     }
@@ -230,69 +234,68 @@ hr {
   .popularMobile {
     display: none;
   }
-}
-@media (max-width: 992px){
-  .popularMobile {
-    display: relative;
+  @media (max-width: 992px) {
+    .popularMobile {
+      display: relative;
+    }
+    .popularWeb {
+      display: none;
+    }
   }
-  .popularWeb{
-    display: none;
+}
+#recipeContent {
+  .recipeIngredient {
+    letter-spacing: 10px;
+  }
+  .ingredientQuantity {
+    text-align: right;
+    padding-right: 20px;
   }
 
+  .recipeRelPro {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+  }
+  .stepsIcons {
+    width: 50px;
+    padding: img {
+      width: 100%;
+    }
+  }
+
+  .relatingRecipe {
+    @media (max-width: 992px) {
+      width: 160px;
+    }
+    background-color: #ffb91759;
+    border-radius: 15px;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px;
+    padding: 20px;
+    width: 220px;
+    transition: 0.5s;
+    @include cardHover ;
+
+  }
+
+  .imgWrapPro {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto;
+  }
 }
 
-/*------------------------------ 手機版 ------------------------------*/
-
+//手機版尺寸設定
 @media (max-width: 992px) {
   .container,
   .container-fluid {
     max-width: 1140px;
-  }
-  // 有hr的標題
-  .title-fz {
-    p {
-      font-size: 24px;
-    }
-  }
-
-  //大按鈕：更多文章
-  .col_RM_btn {
-    button {
-      letter-spacing: 1px;
-      font-size: 24px;
-      padding: 10px 80px;
-    }
-  }
-  /*---------- 專欄主頁  ----------*/
-  // 專欄頁： KV
-  #article-kv {
-    .car-title {
-      text-align: center;
-      font-size: 30px;
-      padding: auto 0;
-      // top:25%;
-    }
-  }
-
-  // 專欄頁： 1st種類 聰明飲食
-  #col-cat1 {
-    .col-cat1-s {
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-
-      .imgWrap {
-        margin-right: 5px;
-      }
-    }
-  }
-
-  // 專欄頁： 2nd 種類 運動
-  #col-cat2 {
-    .col-cat-firstImg {
-      //rwd後太大的圖片
-      width: 70%;
-      margin: auto;
-    }
   }
 }

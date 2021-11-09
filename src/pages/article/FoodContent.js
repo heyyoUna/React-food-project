@@ -53,10 +53,7 @@ function FoodContent(props) {
 
   return (
     <>
-      <div
-        className="container-fluid pt-5"
-        id="col-article"
-      >
+      <div className="container-fluid pt-5 col-article">
         {/* <BreadCrumb /> */}
 
         {/* <!------------ 互動nav ------------>   */}
@@ -82,12 +79,12 @@ function FoodContent(props) {
           <div className="col-1"></div>
           <div className="col-7 col-lg-7">
             <h3>{data.ar_title}</h3>
-            <div>
+            <figure>
               <img
                 src={`${API_img}` + data.ar_pic}
                 alt=""
               />
-            </div>
+            </figure>
             <div className="art-hotlight">
               <p>{data.ar_highlight}</p>
             </div>
@@ -122,11 +119,6 @@ function FoodContent(props) {
                     />
                   )}
                 </ul>
-                {/* <div>
-                  <button className="QAbtn" type="submit">
-                    作答
-                  </button>
-                </div> */}
               </div>
             </form>
           </div>

@@ -93,14 +93,14 @@ function Home(props) {
 
           {/* <!-- ---------- KV 標題  ---------- --> */}
           <div id="HP_KV_title_wrap" className="col-lg-4">
-            <div className="HP_KV_title HP_KV_title_main">
+            <div className="HP_KV_title HP_KV_title_main hpKVTitleTxt">
               <div className="pb-3">
                 <h1 className="bannerTitle">良辰即食</h1>
               </div>
 
               <div>
                 <p className="bannerSubTitle ">
-                  在每個需要食光 <br />
+                  在每個需要的食光 <br />
                   讓美味快速上桌
                 </p>
               </div>
@@ -113,6 +113,7 @@ function Home(props) {
             className="col-lg-7 px-0"
           >
             <figure className="HP_KV_img">
+              <div className="hpKVimgBgc"></div>
               <img
                 className="first"
                 src={`${imgUrl}/images/hp_kv2-4.jpg`}
@@ -131,6 +132,16 @@ function Home(props) {
                 </Link>
               </figure>
             </Tada>
+
+            <figure className="spin">
+              <Link to="/game/GameChoose">
+                <img
+                  className="first"
+                  src={`${imgUrl}/images/spin.png`}
+                  alt=""
+                />
+              </Link>
+            </figure>
           </div>
         </div>
         {/* 背景圖 */}
@@ -396,26 +407,44 @@ function Home(props) {
               </div>
             </div>
             <div class="col-lg-6 imgWrap border">
-              <div class="imgbox">
+              <div class="imgbox imgboxLeft">
                 <img
                   class="my-2"
                   src={`${imgUrl}/images/HP_res_img1.png`}
                   alt=""
                 />
                 <img
+                  src={`${imgUrl}/images/HP_res_img2.png`}
+                  alt=""
+                />
+                <img
+                  class="my-2"
                   src={`${imgUrl}/images/HP_res_img1.png`}
+                  alt=""
+                />
+                <img
+                  src={`${imgUrl}/images/HP_res_img2.png`}
                   alt=""
                 />
               </div>
 
-              <div class="imgbox">
+              <div class="imgbox imgboxRight">
                 <img
                   class="my-2"
-                  src={`${imgUrl}/images/HP_res_img1.png`}
+                  src={`${imgUrl}/images/HP_res_img3.png`}
                   alt=""
                 />
                 <img
-                  src={`${imgUrl}/images/HP_res_img1.png`}
+                  src={`${imgUrl}/images/HP_res_img4.png`}
+                  alt=""
+                />
+                <img
+                  class="my-2"
+                  src={`${imgUrl}/images/HP_res_img3.png`}
+                  alt=""
+                />
+                <img
+                  src={`${imgUrl}/images/HP_res_img4.png`}
                   alt=""
                 />
               </div>

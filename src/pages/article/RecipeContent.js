@@ -4,18 +4,20 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom'
-import { API_img } from '../../config/index'
+import { API_img, imgUrl } from '../../config/index'
 import '../../styles/article/Article.scss'
 
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 import PopularRecipe from '../../components/article/PopularRecipe'
 import RelatingRecipe from '../../components/article/RelatingRecipe'
-// import ReceipeIngredient from '../../components/article/ReceipeIngredient'
+import { GiKnifeFork, GiCookingPot } from 'react-icons/gi'
 
 function FoodContent(props) {
   const [data, setData] = useState([])
   const [ingredient, setIngredient] = useState([])
+  const [ingredientSec, setIngredientSec] = useState([])
+
   const [steps, setSteps] = useState([])
 
   useEffect(() => {
@@ -32,6 +34,9 @@ function FoodContent(props) {
       if (j.success) {
         setData(j.data)
         setIngredient(JSON.parse(j.data.ar_rec_ingredient))
+        setIngredientSec(
+          JSON.parse(j.data.ar_rec_ingredient2)
+        )
         setSteps(JSON.parse(j.data.ar_rec_process))
       }
     })()
@@ -40,25 +45,9 @@ function FoodContent(props) {
   return (
     <>
       <div
-        className="container-fluid pt-5"
-        id="col-article"
+        className="container-fluid pt-5 col-article"
+        id="recipeContent"
       >
-        <BreadCrumb />
-
-        {/* <!------------ 互動nav ------------>   */}
-        <div className="row interNav">
-          <div className="col-1"></div>
-          <div className="col-7">
-            <div>
-              <i class="fas fa-glasses"></i>
-            </div>
-            <p>200</p>
-            <div>
-              <i class="far fa-heart"></i>
-            </div>
-            <p>收藏</p>
-          </div>
-        </div>
         {/* <!------------ 正文 ------------>   */}
         <div className="row">
           <div className="col-1"></div>
@@ -70,25 +59,86 @@ function FoodContent(props) {
                 alt=""
               />
             </div>
-            <div className="text-center">
-              <h3>材料</h3>
-              <p>（ 約{data.ar_rec_quan}人份 ）</p>
-            </div>
-            <ul>{/* {data.ar_rec_ingredient} */}</ul>
 
-            <div className="text-center">
-              <h3>步驟</h3>
-              <p>
-                （ 料理時間{data.ar_rec_cookTime}分鐘 ）
-              </p>
+            <div className="text-center recipeIngredient d-flex mt-3 dark-green">
+              <hr className="col my-auto" />
+              <div className="col-5">
+                <h4>材料</h4>
+                <p>(約{data.ar_rec_quan}人份)</p>
+              </div>
+              <hr className="col my-auto" />
             </div>
-            <ul>{/* {data.ar_rec_process} */}</ul>
 
-            <div>{data.ar_index1}</div>
+            <div className="d-flex me-auto justify-content-between align-middle mb-5">
+              <table className="col-4">
+                {ingredient.map((el) => {
+                  return (
+                    <tr>
+                      <td>{el.name}</td>
+                      <td className="ingredientQuantity">
+                        {el.quantity}
+                      </td>
+                      <td>{el.unit}</td>
+                    </tr>
+                  )
+                })}
+              </table>
+              <div className="my-auto">
+                <GiKnifeFork />
+              </div>
+
+              <table className="col-4">
+                {ingredientSec.map((el) => {
+                  return (
+                    <tr>
+                      <td>{el.name}</td>
+                      <td className="ingredientQuantity">
+                        {el.quantity}
+                      </td>
+                      <td>{el.unit}</td>
+                    </tr>
+                  )
+                })}
+              </table>
+            </div>
+
+            <div className="text-center recipeIngredient d-flex mt-5 dark-green">
+              <hr className="col my-auto" />
+              <div className="col-5">
+                <h4>步驟</h4>
+                <p>(約{data.ar_rec_cookTime}分鐘)</p>
+              </div>
+              <hr className="col my-auto" />
+            </div>
+
+            {steps.map((el) => {
+              return (
+                <>
+                  <table>
+                    <tr>
+                      <td className="px-3 stepsIcons">
+                        <img
+                          src={`${imgUrl}/images/article/stepsIcon.png`}
+                          alt=""
+                        />
+                      </td>
+                      <td className="py-2">{el}</td>
+                    </tr>
+                  </table>
+                </>
+              )
+            })}
+            <div className="text-center recipeIngredient d-flex mt-5 dark-green">
+              <hr className="col my-auto" />
+              <div className="col-5">
+                <h4>相關商品</h4>
+              </div>
+              <hr className="col my-auto" />
+            </div>
           </div>
 
           <div className="col-3 col-lg-3 mostPopular popularWeb">
-            <ul>
+            <ul className="mostPopularInside">
               <div className="mostPopularTitle">
                 Most Popular
               </div>
@@ -101,17 +151,19 @@ function FoodContent(props) {
 
         <div className="row article_rec">
           <div className="col-1"></div>
-          <RelatingRecipe />
-          <HpArMoreBtn />
+          <RelatingRecipe className="mt-5" />
+          <Link
+            to="/products/?cate=0&page=1"
+            className="col recipeMoreBtn"
+          >
+            <HpArMoreBtn />
+          </Link>
         </div>
 
         <div className="col-3 col-lg-3 mostPopular popularMobile">
-          <ul>
-            <div className="mostPopularTitle">
-              Most Popular
-            </div>
-            <PopularRecipe />
-          </ul>
+          <h5 className="mostPopularTitle">Most Popular</h5>
+
+          <PopularRecipe />
         </div>
       </div>
     </>

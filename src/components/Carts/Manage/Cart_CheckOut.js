@@ -118,6 +118,7 @@ function Cart_CheckOut(props) {
             value="7-11取貨付款"
             onChange={(e) => {
               setCheckout(e.target.value)
+              localStorage.setItem('運費', 60)
             }}
           />
           <label for="">7-11取貨付款</label>
@@ -144,6 +145,7 @@ function Cart_CheckOut(props) {
             value="宅配貨到付款"
             onChange={(e) => {
               setCheckout(e.target.value)
+              localStorage.setItem('運費', 80)
               // setStoreA(e.target.value)
               // UpdateInfo(e.target.value, 1)
             }}
@@ -160,6 +162,8 @@ function Cart_CheckOut(props) {
             value="信用卡支付 - 宅配到府"
             onChange={(e) => {
               setCheckout(e.target.value)
+              localStorage.setItem('運費', 100)
+
               // setStoreA(e.target.value)
               // UpdateInfo(e.target.value, 1)
             }}

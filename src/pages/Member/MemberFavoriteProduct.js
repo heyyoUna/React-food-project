@@ -7,9 +7,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberFavoriteProduct(props) {
-  const token = localStorage.getItem('token')
-  const [products, setProducts] = useState([])
   let history = useHistory()
+  const { setCountNav } = props
+  const token = localStorage.getItem('token')
+  const [memberID, setMemberID] = useState(0)
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
     favoriteProductGet()
@@ -33,6 +35,7 @@ function MemberFavoriteProduct(props) {
         if (obj.success) {
           if (obj.data.length) {
             setProducts(obj.data)
+            setMemberID(obj.memberID)
           } else {
             Swal.fire(obj.error || '尚未收藏商品')
           }
@@ -76,11 +79,6 @@ function MemberFavoriteProduct(props) {
       method: 'POST',
       body: JSON.stringify({
         productid: productid
-        // req.body.Sid,
-        // req.body.Order_Sid, ''
-        // req.body.Member_id,
-        // req.body.Product_id,
-        // req.body.Order_Amount
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -108,6 +106,45 @@ function MemberFavoriteProduct(props) {
       })
   }
 
+  const handlingAddToCart = (product) => {
+    fetch(`http://localhost:3002/cart`, {
+      method: 'POST',
+      body: JSON.stringify({
+        Sid: product.sid,
+        Member_id: memberID,
+        Product_id: product.product_id,
+        Order_Amount: 1,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    }).then(obj => {
+      setCartCount()
+    })
+  }
+
+  const setCartCount = () => {
+    fetch(`http://localhost:3002/member/member-cart-count`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      }
+    }).then(r => r.json())
+      .then(obj => {
+        if (obj.success) {
+          Swal.fire({
+            icon: 'success',
+            title: '已加入購物車',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          localStorage.setItem('數量', obj.count)
+          setCountNav(obj.count)
+        }
+      })
+  }
+
   return (
     <>
       <div className="member-favorite-container">
@@ -115,7 +152,7 @@ function MemberFavoriteProduct(props) {
           <h1 id="member-favorite-h1">商品收藏清單</h1>
         </div>
         <div className="row member-favorite">
-          <MemberNavbar/>
+          <MemberNavbar />
           <div className="member-n col-1"></div>
           <div className="member-favorite-card col-9">
             {products.map((value, index) => {
@@ -163,7 +200,10 @@ function MemberFavoriteProduct(props) {
                       <div className="member-cart">
                         <button
                           type="button"
-                          className="btn member-cart-btn-primary">
+                          className="btn member-cart-btn-primary"
+                          onClick={() =>
+                            handlingAddToCart(value)
+                          }>
                           加入購物車
                         </button>
                         <CgShoppingCart
@@ -224,7 +264,9 @@ function MemberFavoriteProduct(props) {
                           }}
                         />
                       </div>
-                      <div className="member-cart">
+                      <div className="member-cart" onClick={() =>
+                        handlingAddToCart(value)
+                      }>
                         <CgShoppingCart
                           style={{
                             fontSize: '26px',

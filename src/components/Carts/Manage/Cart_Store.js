@@ -12,6 +12,7 @@ import {
 } from 'react-leaflet'
 import markerIconPng from '../../../../node_modules/leaflet/dist/images/marker-icon.png'
 import { Icon } from 'leaflet'
+import InputWarning from './InputWarning'
 import '../../../../node_modules/leaflet/dist/leaflet.css'
 
 // import { MapContainer } from 'react-leaflet'
@@ -20,8 +21,14 @@ import { FaChevronDown } from 'react-icons/fa'
 // 抓取 7-11 資料
 function Cart_Store(props) {
   // 從購物車填寫資料頁傳入
-  let { StoreInfo, setStoreInfo, CityArr, setCityArr } =
-    props
+  let {
+    StoreInfo,
+    setStoreInfo,
+    CityArr,
+    setCityArr,
+    EmailCheck,
+    PhoneCheck,
+  } = props
 
   // 抓路段
   let [GetAddress, setGetAddress] = useState([])
@@ -39,6 +46,9 @@ function Cart_Store(props) {
   let [GetPosition, setGetPosition] = useState([
     25.0475613, 121.5173399,
   ])
+
+  // 未填寫資料時的顯示字元
+  let [WarningText, setWarningText] = useState([])
 
   // 訂購人資料
   let [Name, setName] = useState()
@@ -382,12 +392,23 @@ function Cart_Store(props) {
               type="text"
               className="ordername px-3"
               name={Name}
+              onBlur={(e) => {
+                // console.log(e.target.value)
+                if (e.target.value === '') {
+                  WarningText[4] = '您尚未輸入收件人姓名喔'
+                  setWarningText(WarningText)
+                } else {
+                  WarningText[4] = ''
+                  setWarningText(WarningText)
+                }
+                UpdateInfo(e.target.value, 4)
+              }}
               onChange={(e) => {
                 setName(e.target.value)
-                UpdateInfo(e.target.value, 4)
               }}
             />
           </div>
+          <InputWarning name={WarningText[4]} />
           <div className="storeinput phone">
             <label for="">
               <span>*</span>手機號碼
@@ -397,12 +418,27 @@ function Cart_Store(props) {
               className="ordername px-3"
               name={Phone}
               id="Phone"
+              onBlur={(e) => {
+                // console.log(e.target.value)
+                if (
+                  !PhoneCheck.test(e.target.value) ||
+                  e.target.value === ''
+                ) {
+                  WarningText[5] =
+                    '手機格式不正確，例如:0910xxxxxx。或尚未輸入'
+                  setWarningText(WarningText)
+                } else {
+                  WarningText[5] = ''
+                  setWarningText(WarningText)
+                }
+                UpdateInfo(e.target.value, 5)
+              }}
               onChange={(e) => {
                 setPhone(e.target.value)
-                UpdateInfo(e.target.value, 5)
               }}
             />
           </div>
+          <InputWarning name={WarningText[5]} />
           <div className="storeinput email">
             <label for="">
               <span>*</span>電子郵件
@@ -412,12 +448,27 @@ function Cart_Store(props) {
               className="emailname px-3"
               name={Email}
               id="Email"
+              onBlur={(e) => {
+                // console.log(e.target.value)
+                if (
+                  !EmailCheck.test(e.target.value) ||
+                  e.target.value === ''
+                ) {
+                  WarningText[6] =
+                    '信箱格式不正確，例如:123@gmail.com。或尚未輸入'
+                  setWarningText(WarningText)
+                } else {
+                  WarningText[6] = ''
+                  setWarningText(WarningText)
+                }
+                UpdateInfo(e.target.value, 6)
+              }}
               onChange={(e) => {
                 setEmail(e.target.value)
-                UpdateInfo(e.target.value, 6)
               }}
             />
           </div>
+          <InputWarning name={WarningText[6]} />
           <div className="storeinput notice">
             <label for="">是否需填寫備註</label>
             <input

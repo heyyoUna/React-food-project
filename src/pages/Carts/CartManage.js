@@ -32,6 +32,7 @@ function CartManage(props) {
   let [Checkout, setCheckout] = useState('')
   let [Invoice, setInvoice] = useState([])
   let [StoreInfo, setStoreInfo] = useState([])
+  let [Credit, setCredit] = useState([])
   let [CityArr, setCityArr] = useState([{}])
   let OrderSid =
     'order' +
@@ -95,7 +96,7 @@ function CartManage(props) {
       })
       .then((res) => {
         member = res.data.data[0].sid
-        console.log('會員 id ', member)
+        // console.log('會員 id ', member)
       })
     // console.log('寫出訂單')
     let NewOrderInfo
@@ -124,7 +125,10 @@ function CartManage(props) {
       // NewOrderInfo[5] = '-' + StoreInfo[0]
       // NewOrderInfo[6] = StoreInfo[1] + StoreInfo[2]
     }
-    if (Checkout === '宅配貨到付款') {
+    if (
+      Checkout === '宅配貨到付款' ||
+      Checkout === '信用卡支付 - 宅配到府'
+    ) {
       NewOrderInfo = [
         Checkout,
         OrderInfo[0],
@@ -141,12 +145,12 @@ function CartManage(props) {
 
     // let NewOrderInfo = [Checkout, ...OrderInfo]
     if (!NewOrderInfo[7]) {
-      console.log('這邊是 undefine')
+      // console.log('這邊是 undefine')
       NewOrderInfo[7] = '無'
-      console.log('寫出的訂購資料_加入備註', NewOrderInfo)
+      // console.log('寫出的訂購資料_加入備註', NewOrderInfo)
     }
     NewOrderInfo = [...NewOrderInfo, ...Invoice]
-    console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
 
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
@@ -183,6 +187,8 @@ function CartManage(props) {
           setStoreInfo={setStoreInfo}
           CityArr={CityArr}
           setCityArr={setCityArr}
+          EmailCheck={EmailCheck}
+          PhoneCheck={PhoneCheck}
         />
       )
     }
@@ -207,6 +213,8 @@ function CartManage(props) {
           setCityArr={setCityArr}
           EmailCheck={EmailCheck}
           PhoneCheck={PhoneCheck}
+          Credit={Credit}
+          setCredit={setCredit}
         />
       )
     }
@@ -266,12 +274,14 @@ function CartManage(props) {
         <button
           className="confirminfo col-lg-4 col-10"
           onClick={() => {
-            console.log('發票', Invoice.length)
+            console.log('付款方式', Checkout)
+            console.log('確認訂單', OrderInfo)
+            console.log('發票', Invoice)
             if (
               Checkout.length === 0 ||
               Invoice.length === 0
             ) {
-              console.log('沒選到')
+              // console.log('沒選到')
               Swal.fire({
                 icon: 'warning',
                 title: '您有資料尚未填寫喔!',
@@ -284,7 +294,8 @@ function CartManage(props) {
                   if (!StoreInfo[i]) {
                     Swal.fire({
                       icon: 'warning',
-                      title: '您有資料尚未填寫喔!',
+                      title:
+                        '您有資料尚未填寫或資料格式錯誤喔!',
                       showConfirmButton: false,
                       timer: 1000,
                     })
@@ -300,12 +311,16 @@ function CartManage(props) {
                   }
                 }
               }
-              if (Checkout === '宅配貨到付款') {
+              if (
+                Checkout === '宅配貨到付款' ||
+                Checkout === '信用卡支付 - 宅配到府'
+              ) {
                 for (let i = 0; i < 6; i++) {
                   if (!OrderInfo[i]) {
                     Swal.fire({
                       icon: 'warning',
-                      title: '您有資料尚未填寫喔!',
+                      title:
+                        '您有資料尚未填寫或資料格式錯誤喔!',
                       showConfirmButton: false,
                       timer: 1000,
                     })
@@ -320,8 +335,6 @@ function CartManage(props) {
                     )
                   }
                 }
-              }
-              if (Checkout === '信用卡支付 - 宅配到府') {
               }
             }
           }}
