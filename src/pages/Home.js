@@ -132,16 +132,6 @@ function Home(props) {
                 </Link>
               </figure>
             </Tada>
-
-            <figure className="spin">
-              <Link to="/game/GameChoose">
-                <img
-                  className="first"
-                  src={`${imgUrl}/images/spin.png`}
-                  alt=""
-                />
-              </Link>
-            </figure>
           </div>
         </div>
         {/* 背景圖 */}

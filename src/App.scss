@@ -138,8 +138,8 @@ footer {
 }
 
 /*----------- Navbar -----------*/
-.MyNavbar {
-  background-color: green;
+// .MyNavbar {
+//   background-color: green;
 
 .myNavbarNew {
   text-align: center;
@@ -151,10 +151,11 @@ footer {
       width: 100%;
     }
   }
-  a,.nav-item{
+  a,
+  .nav-item {
     color: rgba(0, 0, 0, 0.8) !important;
 
-    &:hover{
+    &:hover {
       color: #8fc065 !important;
     }
   }
@@ -168,7 +169,7 @@ footer {
   margin: auto;
   padding: 10px;
 }
-
+// }
 /*----------- 首頁 -----------*/
 
 //首頁小按鈕
@@ -334,7 +335,6 @@ footer {
       }
     }
 
-
     #HP_KV_img_frame {
       margin-bottom: -16px;
       .HP_KV_img {
@@ -371,7 +371,6 @@ footer {
           height: 0;
         }
       }
-
     }
 
     #HP_KV_img_frame {
@@ -385,7 +384,7 @@ footer {
         }
       }
 
-            @keyframes bgcOpen {
+      @keyframes bgcOpen {
         0% {
           height: calc(100vh - 60px);
         }
