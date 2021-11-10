@@ -64,7 +64,7 @@ function FoodContent(props) {
               <i class="fas fa-graduation-cap"></i>
             </div>
             <p>{data.ar_inter}</p>
-            <div className="pd-love-icon" >
+            <div className="pd-love-icon">
               <IoIosHeartEmpty />
             </div>
             <p>收藏</p>
@@ -75,20 +75,21 @@ function FoodContent(props) {
           <div className="col-1"></div>
           <div className="col-7 col-lg-7">
             <h3>{data.ar_title}</h3>
-            <figure>
+            <figure className="imgWrap">
               <img
                 src={`${API_img}` + data.ar_pic}
                 alt=""
               />
             </figure>
             <div className="art-hotlight">
+
               <p>{data.ar_highlight}</p>
             </div>
-            <h3>{data.ar_index_title1}</h3>
+            <h3 className="dark-green py-3">{data.ar_index_title1}</h3>
             <div>{data.ar_index1}</div>
-            <h3>{data.ar_index_title2}</h3>
+            <h3 className="dark-green py-3" >{data.ar_index_title2}</h3>
             <div>{data.ar_index2}</div>
-            <h3>{data.ar_index_title3}</h3>
+            <h3 className="dark-green py-3">{data.ar_index_title3}</h3>
             <div>{data.ar_index3}</div>
             <form onSubmit={handleSubmit}>
               <div className="QA">
@@ -131,6 +132,15 @@ function FoodContent(props) {
 
         <div className="row article_rec">
           <div className="col-1"></div>
+
+          <div className="text-center articleRecom d-flex my-5 dark-green">
+            <hr className="col my-auto" />
+            <div className="col-5">
+              <h4>推薦文章</h4>
+            </div>
+            <hr className="col my-auto" />
+          </div>
+
           <RelatingFood />
           <Link
             className="col-1 mx-auto my-auto"
