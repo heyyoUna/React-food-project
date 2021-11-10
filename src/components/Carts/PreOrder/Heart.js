@@ -12,7 +12,6 @@ function Heart(props) {
   const [display, setDisplay] = useState(true)
   let CountNav
 
-  async function MemberLogin() {}
   async function AddtoCart() {
     let m = await axios.get(
       `http://localhost:3002/member/memberprofile`,
@@ -90,7 +89,6 @@ function Heart(props) {
         },
       }
     )
-    console.log('succcess', m.data.success)
     if (m.data.success) {
       let r = axios.post(
         'http://localhost:3002/cart/FavProduct',
@@ -170,12 +168,12 @@ function Heart(props) {
                   setDisplay(false)
                 } else {
                   deletetoFav(v.sid)
-                  Swal.fire({
-                    icon: 'success',
-                    title: '已成功移除收藏商品',
-                    showConfirmButton: false,
-                    timer: 1000,
-                  })
+                  // Swal.fire({
+                  //   icon: 'success',
+                  //   title: '已成功移除收藏商品',
+                  //   showConfirmButton: false,
+                  //   timer: 1000,
+                  // })
                   setDisplay(true)
                 }
               }}
