@@ -84,13 +84,13 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    const count = parseInt(localStorage.getItem('數量'))
+    // const count = parseInt(localStorage.getItem('數量'))
 
     if (!token) {
       setAuth(false)
     } else {
       setAuth(true)
-      setCountNav(count)
+      // setCountNav(count)
     }
   }, [])
 

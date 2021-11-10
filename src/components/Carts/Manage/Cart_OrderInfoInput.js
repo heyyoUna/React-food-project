@@ -27,39 +27,39 @@ function Cart_OrderInfoInput(props) {
   function UpdateInfo(value, index) {
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo[index] = value
-    console.log('123', NewOrderInfo)
+    // console.log('123', NewOrderInfo)
     setOrderInfo(NewOrderInfo)
   }
 
   async function getMembersInfo() {
+    let NewData
     let M = await axios.get(
-      'http://localhost:3002/member/memberprofile',
+      `http://localhost:3002/member/memberprofile`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization: 'Bearer ' + token,
         },
       }
     )
-    if (M.status === 200) {
-      let NewData
-      console.log('讀取成功')
-      console.log(M.data.data)
-      setdata(M.data.data)
-      NewData = M.data.data
-      setName(NewData[0].name)
-      setEmail(NewData[0].email)
-      setPhone(NewData[0].mobile)
-      console.log('New', NewData)
-      let NewOrderInfo = [...OrderInfo]
-      NewOrderInfo.push(NewData[0].name)
-      NewOrderInfo.push(NewData[0].email)
-      NewOrderInfo.push(NewData[0].mobile)
-      setOrderInfo(NewOrderInfo)
-      WarningText[0] = ''
-      WarningText[1] = ''
-      WarningText[2] = ''
-      setWarningText(WarningText)
-    }
+    // console.log('讀取成功')
+    // console.log(M.data.data)
+    setdata(M.data.data)
+    NewData = M.data.data
+    setName(NewData[0].name)
+    setEmail(NewData[0].email)
+    setPhone(NewData[0].mobile)
+    // console.log('New', NewData)
+    let NewOrderInfo = [...OrderInfo]
+    NewOrderInfo.push(NewData[0].name)
+    NewOrderInfo.push(NewData[0].email)
+    NewOrderInfo.push(NewData[0].mobile)
+    setOrderInfo(NewOrderInfo)
+    WarningText[0] = ''
+    WarningText[1] = ''
+    WarningText[2] = ''
+    setWarningText(WarningText)
   }
 
   return (

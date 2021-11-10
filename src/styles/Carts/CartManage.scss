@@ -548,13 +548,6 @@
     color: var(--Third-color);
     font-weight: var(--Second-Font-Weight);
   }
-  .info1:focus,
-  .info_mobile:focus {
-    color: #ffffff;
-    background-color: var(--Primary-color);
-    border: transparent;
-    outline: transparent;
-  }
   .info_mobile {
     border-radius: 50px;
     border: transparent;
@@ -565,6 +558,12 @@
     font-weight: var(--Second-Font-Weight);
     outline: 1px solid var(--Third-color);
     color: var(--Third-color);
+  }
+  .foucsOn {
+    color: #ffffff;
+    background-color: var(--Primary-color);
+    border: transparent;
+    outline: transparent;
   }
   // 其他兩種發票方式的顯示內容
   .infoinput {
@@ -605,9 +604,10 @@
 }
 
 .returninfo:hover {
-  background-color: var(--Primary-color);
+  background-color: var(--Third-color);
   color: #ffffff;
-  border: 1px solid var(--Primary-color);
+  border: 1px solid var(--Third-color);
+  transition: 2s;
 }
 
 .confirminfo {
@@ -625,6 +625,7 @@
   background-color: var(--Second-color);
   color: #ffffff;
   border: 1px solid var(--Second-color);
+  transition: 2s;
 }
 
 @include mobile() {

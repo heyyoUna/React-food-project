@@ -310,7 +310,6 @@ function CartManage(props) {
         <button
           className="returninfo col-lg-4 col-10"
           onClick={() => {
-            console.log(props)
             props.history.push('/carts/PreOrder')
           }}
         >
