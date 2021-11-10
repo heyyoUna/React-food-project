@@ -1,11 +1,13 @@
-import { withRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function MemberSignup(props) {
   let history = useHistory();
+
+  const [close, setClose] = useState('far fa-eye-slash')
+  const [type, setType] = useState('password')
 
    const handleSubmit = (e) => {
     //阻擋form的預設送出行為
@@ -55,12 +57,24 @@ function MemberSignup(props) {
           </div>
           <div className="karin-form-group">
             <input
-              type="password"
+              type={type}
               name="password"
               className="karin-form-control"
               placeholder="Password" 
               minLength="5"  //最少要輸入5個字元
               required/>
+              <i
+                className={`mt-4 mt-md-3 ml-2 ${close}`}
+                onClick={() => {
+                  if (type === 'password') {
+                    setType('text')
+                    setClose('far fa-eye')
+                  } else {
+                    setType('password')
+                    setClose('far fa-eye-slash')
+                  }
+                }}
+              ></i>
           </div>
           <button type="submit" className="btn karin-btn-signuppage-signup">SIGN UP</button>
           <Link to="/login"
