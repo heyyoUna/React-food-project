@@ -3,6 +3,7 @@ import '../../styles/Carts/Banner.scss'
 import { withRouter } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 // 清空 LocalStorage 資訊
 
@@ -12,12 +13,49 @@ function CartComplete(props) {
   // localStorage.removeItem('訂單價格資訊')
   localStorage.removeItem('店號')
   localStorage.setItem('數量', 0)
+
   useEffect(() => {
-    let r = axios.delete('http://localhost:3002/cart/')
+    MemberLogin()
+  }, [])
+
+  async function MemberLogin() {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      deleteTmpList(m.data.data[0].sid)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員哦',
+        showConfirmButton: true,
+        confirmButtonColor: '#8FC065',
+        confirmButtonText: '我知道了',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          props.history.push('/login')
+        }
+      })
+    }
+  }
+
+  async function deleteTmpList(Member_id) {
+    let r = await axios.delete(
+      `http://localhost:3002/cart/truncate/${Member_id}`
+    )
     if (r.status === 200) {
       console.log('刪除完成')
     }
-  }, [])
+  }
   return (
     <>
       <div className="container-fluid Banner col-xs-10">
