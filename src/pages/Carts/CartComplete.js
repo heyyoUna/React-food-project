@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+
 
 // 清空 LocalStorage 資訊
 

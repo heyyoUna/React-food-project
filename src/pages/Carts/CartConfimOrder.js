@@ -15,6 +15,8 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
 import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
