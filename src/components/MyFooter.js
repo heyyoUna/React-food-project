@@ -6,7 +6,7 @@ import { imgUrl } from '../config/index'
 function MyFooter(props) {
   return (
     <>
-      <footer className="container my-5">
+      <footer className="container">
         <div className="row">
           <div className="col-1 col-lg-2 logo">
             <img src={`${imgUrl}/images/logo.png`} alt="" />
@@ -70,7 +70,7 @@ function MyFooter(props) {
               </div>
 
               <div className="mobile">
-                <figure className="col-4 mx-4">
+                <figure className="col-4 mx-2">
                   <img
                     src={`${imgUrl}/images/logo.png`}
                     alt=""
@@ -79,7 +79,7 @@ function MyFooter(props) {
                 <div className="col">
                   <div className="d-flex">
                     <li className="dark-green ">
-                      量身訂做
+                      良身訂做
                     </li>
                     <li className="dark-green ">
                       好食商城

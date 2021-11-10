@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { API_img, imgUrl } from '../../config/index'
 import '../../styles/article/Article.scss'
 import { Link } from 'react-router-dom'
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-import ArCardTxt from '../../components/article/ArCardTxt'
 
 function RelatingRecipe(props) {
   const fcURL = new URL(document.location.href) //目前網頁網址

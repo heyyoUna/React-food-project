@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { API_img, imgUrl } from '../../config/index'
+import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import { Link } from 'react-router-dom'
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 function RelatingRecipe(props) {
   const [product, setProduct] = useState([])
