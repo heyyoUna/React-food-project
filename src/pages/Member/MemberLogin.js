@@ -10,6 +10,8 @@ function MemberLogin(props) {
     'email': '',
     'password': '',
   })
+  const [close, setClose] = useState('far fa-eye-slash')
+  const [type, setType] = useState('password')
 
   let history = useHistory()
 
@@ -112,7 +114,7 @@ function MemberLogin(props) {
             </div>
             <div className="karin-form-group">
               <input
-                type="password"
+                type={type}
                 name="password"
                 className="karin-form-control"
                 placeholder="Password"
@@ -120,6 +122,18 @@ function MemberLogin(props) {
                 value={info.password}
                 onChange={handleInfoChange}
                 required />
+              <i
+                className={`mt-4 mt-md-3 ml-2 ${close}`}
+                onClick={() => {
+                  if (type === 'password') {
+                    setType('text')
+                    setClose('far fa-eye')
+                  } else {
+                    setType('password')
+                    setClose('far fa-eye-slash')
+                  }
+                }}
+              ></i>
             </div>
             <button type="submit" className="btn karin-btn-login">LOG IN</button>
             <Link to="/signup"
