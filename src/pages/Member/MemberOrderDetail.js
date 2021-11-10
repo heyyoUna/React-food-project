@@ -140,7 +140,9 @@ function MemberOrderDetail(props) {
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">{total ?? 0 + dataDetail.promotion_amount + dataDetail.delivery_fee}</td>
+                  <td className="detailtd">{(total ?? 0) - dataDetail.promotion_amount + dataDetail.delivery_fee
+                  }
+                  </td>
                 </tr>
               </tbody>
             </table>
