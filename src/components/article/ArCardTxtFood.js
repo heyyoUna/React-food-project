@@ -57,7 +57,7 @@ function ArCardTxtFood(props) {
     <>
       <div className="artColCards cardsHover key={i}">
         <Link to={`/FoodContent/${sid}`}>
-          <div className="imgWrap col-lg">
+          <div className="imgWrap col-lg articlePageCards">
             <img src={`${API_img}` + pic} alt="" />
           </div>
         </Link>

@@ -57,9 +57,6 @@ $light-orange: #fb6107;
 
 @mixin cardHover {
   &:hover {
-    // transform: translate(0px, -7px);
-    // box-shadow: 4px 4px 20px lightgray;
-    // border-radius: 15px;
     color: $light-green;
   }
 }
@@ -155,9 +152,6 @@ footer {
 }
 
 /*----------- Navbar -----------*/
-// .MyNavbar {
-//   background-color: green;
-
 .myNavbarNew {
   text-align: center;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 20%);
@@ -186,7 +180,7 @@ footer {
   margin: auto;
   padding: 10px;
 }
-// }
+
 /*----------- 首頁 -----------*/
 
 //首頁小按鈕
@@ -202,7 +196,6 @@ footer {
   cursor: pointer;
   margin-top: 3px;
   transition: 0.3s;
-  // font-family;
   font-family: 'Poppins';
   filter: none;
   &:hover {
@@ -346,7 +339,7 @@ footer {
         opacity: 0;
       }
       100% {
-        // height: calc(100vh - 60px);
+        // height: calc(calc(100vh - 60px) - 60px);
         background-color: $light-yellow;
         opacity: 1;
       }
