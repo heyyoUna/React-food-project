@@ -121,7 +121,7 @@ function MemberReview(props) {
                           })
                           }
                         </div>
-                        <small>{moment(v.timestamp).format('YYYY-MM-DD HH:mm:ss')}</small>
+                        <small>{v.timestamp == null ? '' : moment(v.timestamp).format('YYYY-MM-DD HH:mm:ss')}</small>
                       </div>
                       <div className="member-review-right">
                         <div className="member-review-text">
