@@ -13,12 +13,13 @@ function MemberForgotPassword(props) {
   let history = useHistory()
   useEffect(() => {
     const email = props.match.params.email
+    const password = props.match.params.password.replaceAll('%2f','\/')
     //url = 網址
     //為了取得密碼
-    const url = props.match.url
+    //const url = props.match.url
     //密碼加密過會有'/'無法用props.match.params.password取出正確密碼
     //必須用url拆解
-    const password = url.split(email)[1].substring(1)
+    //const password = url.split(email)[1].substring(1)
 
     fetch(`http://localhost:3002/member/memberprofile`, {
       method: 'POST',

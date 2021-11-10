@@ -88,7 +88,7 @@ function MemberLogin(props) {
 
   const sendEmail = (data) => {
     //send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', content, 'YOUR_USER_ID')
-    emailjs.send('EatHealthy', 'template_cz0cu1b', { email: data.email, password: data.password }, 'user_YM7Y1JKslMi9OVCYc197i')
+    emailjs.send('EatHealthy', 'template_cz0cu1b', { email: data.email, password: data.password.replaceAll('\/', '%2f')}, 'user_YM7Y1JKslMi9OVCYc197i')
       .then((result) => {
         console.log(result.text);
       }, (error) => {
