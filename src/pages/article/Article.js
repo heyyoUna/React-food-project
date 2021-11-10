@@ -142,7 +142,7 @@ function Article(props) {
               <div className="col-cat1-s col">
                 {twoFoodRand.map((el) => {
                   return (
-                    <>
+                    <div>
                       <Link to={`/FoodContent/${el.sid}`}>
                         <figure className="imgWrap articlePageCards">
                           <img
@@ -155,7 +155,7 @@ function Article(props) {
                         title={el.ar_title}
                         date={el.ar_date}
                       />
-                    </>
+                    </div>
                   )
                 })}
               </div>
@@ -204,7 +204,7 @@ function Article(props) {
           <TitleBorder name="美味食譜" />
 
           <div className="row" id="col-cat3">
-            <div className="col-lg">
+            <div className="col-lg-7">
               <Link to={`/RecipeContent/${recipeOne.sid}`}>
                 <figure className="imgWrap articlePageCards">
                   <img
@@ -220,21 +220,32 @@ function Article(props) {
               />
             </div>
             <div className="col-lg colList">
-              <ul>
+              <div className="titleListWrap py-3">
                 {recipeList.map((el) => {
                   return (
-                    <div>
-                      <Link to={`/RecipeContent/${el.sid}`}>
-                        <li>{el.ar_title}</li>
-                      </Link>
-
-                      <span>
+                    <div className="d-flex titleList">
+                      &ensp;
+                      <figure>
+                        <img
+                          src={`${imgUrl}/images/article/stepsIcon.png`}
+                          alt=""
+                        />
+                      </figure>
+                      &ensp;
+                      <p className="text-center ">
+                        <Link
+                          to={`/RecipeContent/${el.sid}`}
+                        >
+                          {el.ar_title}
+                        </Link>
+                      </p>
+                      {/* <span>
                         <i className="far fa-heart"></i>
-                      </span>
+                      </span> */}
                     </div>
                   )
                 })}
-              </ul>
+              </div>
             </div>
           </div>
           <div className="col_RM_btn">

@@ -363,9 +363,9 @@ function Home(props) {
           <div className="col-1"></div>
         </div>
         {/* <!---------------------- 首頁餐廳 ----------------------> */}
-        <div class="container" id="hpRes">
-          <div class="row">
-            <div class="col-lg-4 txtWrap">
+        <div className="container" id="hpRes">
+          <div className="row">
+            <div className="col-lg-4 txtWrap">
               <div className="MobileFlex ">
                 <h5 className="bannerSubTitle light-green">
                   HEALTHY
@@ -396,50 +396,102 @@ function Home(props) {
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 imgWrap border">
-              <div class="imgbox imgboxLeft">
-                <img
-                  class="my-2"
-                  src={`${imgUrl}/images/HP_res_img1.png`}
-                  alt=""
-                />
-                <img
-                  src={`${imgUrl}/images/HP_res_img2.png`}
-                  alt=""
-                />
-                <img
-                  class="my-2"
-                  src={`${imgUrl}/images/HP_res_img1.png`}
-                  alt=""
-                />
-                <img
-                  src={`${imgUrl}/images/HP_res_img2.png`}
-                  alt=""
-                />
-              </div>
+            <div className="col-lg-6 imgboxWrap d-flex mt-5 hpResRun">
+              <div className="imgbox d-flex">
+                <div>
+                  <div className="imgboxLeft d-flex px-3">
+                    <div>
+                      <img
+                        className="mt-1"
+                        src={`${imgUrl}/images/hp_res_img1.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img2.png`}
+                        alt=""
+                      />
+                      <img
+                        className=""
+                        src={`${imgUrl}/images/hp_res_img1.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img2.png`}
+                        alt=""
+                      />
+                      <img
+                        className="mt-1"
+                        src={`${imgUrl}/images/hp_res_img1.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img2.png`}
+                        alt=""
+                      />
+                      <img
+                        className=""
+                        src={`${imgUrl}/images/hp_res_img1.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img2.png`}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              <div class="imgbox imgboxRight">
-                <img
-                  class="my-2"
-                  src={`${imgUrl}/images/HP_res_img3.png`}
-                  alt=""
-                />
-                <img
-                  src={`${imgUrl}/images/HP_res_img4.png`}
-                  alt=""
-                />
-                <img
-                  class="my-2"
-                  src={`${imgUrl}/images/HP_res_img3.png`}
-                  alt=""
-                />
-                <img
-                  src={`${imgUrl}/images/HP_res_img4.png`}
-                  alt=""
-                />
+                <div>
+                  <div className="imgboxRight d-flex px-3">
+                    <div>
+                      <img
+                        className="mt-1"
+                        src={`${imgUrl}/images/hp_res_img3.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img4.png`}
+                        alt=""
+                      />
+                      <img
+                        src={`${imgUrl}/images/hp_res_img3.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img4.png`}
+                        alt=""
+                      />
+                      <img
+                        className="mt-1"
+                        src={`${imgUrl}/images/hp_res_img3.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img4.png`}
+                        alt=""
+                      />
+                      <img
+                        src={`${imgUrl}/images/hp_res_img3.png`}
+                        alt=""
+                      />
+                      <img
+                        className="my-1"
+                        src={`${imgUrl}/images/hp_res_img4.png`}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-lg-1 deliveryWrap">
+            <div className="col-lg-1 deliveryWrap">
               <img
                 src={`${imgUrl}/images/hp_res_delivery.png`}
                 alt=""

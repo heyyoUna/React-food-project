@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
-import { Link } from 'react-router-dom'
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { withRouter } from 'react-router-dom'
 import '../../styles/article/Article.scss'
 
@@ -64,7 +61,7 @@ function ArtFood(props) {
     let month = time.getMonth()
     let date = time.getDate()
 
-    return `${year} / ${month + 1} / ${date} `
+    return `${year} - ${month + 1} - ${date} `
   }
 
   return (

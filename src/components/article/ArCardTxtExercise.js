@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  withRouter,
-  useHistory,
-  Link,
-} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
@@ -120,7 +116,6 @@ function ArCardTxtExercise(props) {
                 }}
               />
             </div>
-
           </div>
 
           <h6 className="productTitle f_darkgreen pt-1">

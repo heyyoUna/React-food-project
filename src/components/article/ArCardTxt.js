@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
-import {
-  withRouter,
-  useHistory,
-  Link,
-} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import '../../styles/article/Article.scss'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
@@ -22,7 +18,7 @@ function ArCardTxt(props) {
     let month = time.getMonth()
     let date = time.getDate()
 
-    return `${year} / ${month + 1} / ${date} `
+    return `${year} - ${month + 1} - ${date} `
   }
 
   // 新增收藏

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import { Link } from 'react-router-dom'
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 
 function PopularFood(props) {
   const [data, setData] = useState([])
-  // const [totalRows, setTotalRows] = useState(0)
+
 
   useEffect(() => {
     ;(async () => {

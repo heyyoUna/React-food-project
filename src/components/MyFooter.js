@@ -6,7 +6,7 @@ import { imgUrl } from '../config/index'
 function MyFooter(props) {
   return (
     <>
-      <footer className="container my-5">
+      <footer className="container">
         <div className="row">
           <div className="col-1 col-lg-2 logo">
             <img src={`${imgUrl}/images/logo.png`} alt="" />

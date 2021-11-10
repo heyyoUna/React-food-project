@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import {
-  withRouter,
-  BrowserRouter as Router,
-  Link,
-} from 'react-router-dom'
-import { imgUrl, API_img } from '../../config/index'
+import { withRouter, Link } from 'react-router-dom'
+import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
-import ArCardTxt from '../../components/article/ArCardTxt'
+
 import HpArMoreBtn from '../../components/HpArMoreBtn'
 import BreadCrumb from '../../components/BreadCrumb'
 import PopularExercise from '../../components/article/PopularExercise'
 import RelatingExercise from '../../components/article/RelatingExercise'
-import ArQARadioButton from '../../components/article/ArQARadioButton'
-import { Spinner } from 'react-bootstrap'
 
 function ExerciseContent(props) {
   const [data, setData] = useState([])
   const [options, setOptions] = useState([])
-  const [reply, setReply] = useState('')
 
   useEffect(() => {
     const fcURL = new URL(document.location.href) //目前網頁網址
