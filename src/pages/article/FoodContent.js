@@ -7,12 +7,11 @@ import {
 import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
-import BreadCrumb from '../../components/BreadCrumb'
 import PopularFood from '../../components/article/PopularFood'
 import RelatingFood from '../../components/article/RelatingFood'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+// import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function FoodContent(props) {

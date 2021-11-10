@@ -4,7 +4,6 @@
   color: grey;
 }
 
-
 /*------------------------------ 專欄主頁 (第一層) ------------------------------*/
 //卡片hover
 .articlePageCards {
@@ -31,69 +30,106 @@
 
 // 專欄頁： 1st種類 聰明飲食
 #col-cat1 {
-  @media (max-width: 992px) {
-    .col-cat1-s {
-      margin-bottom: 20px;
-      // display: flex;
-      // // flex-direction: column;
-      // align-items: center;
+  .col-cat1-s{
+    figure{
+      width: 100%;
+      height: 200px;
 
-      .imgWrap {
+      @media (max-width: 992px){
+        margin-bottom: 20px;
         margin-right: 5px;
       }
+
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
+
   }
 }
 // 專欄頁： 2nd種類 運動訓練
 #col-cat2 {
-  @media (max-width: 992px) {
-    figure {
+  .exerciseWrap {
+    display: flex;
+    figure{
       height: 250px;
       overflow: hidden;
       img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
       }
     }
+
+    @media (max-width: 992px) {
+      flex-direction: column;
+      figure{
+        height: 200px;
+      }
+    }
+  }
+  @media (max-width: 992px) {
+
+
     .col-cat-firstImg {
       //rwd後太大的圖片
-      width: 70%;
+      width: 100%;
       margin: auto;
     }
   }
 }
 
-/*---------- 3rd種類  ----------*/
+// 3rd種類
 
-#col-cat3 .colList {
-  margin: auto;
+#col-cat3 {
+  .colList {
 
-  .imgWrap {
-    padding: 30px;
-  }
+    figure {
+      width: 30px;
+      margin-bottom: 0;
 
-  ul {
-    background: rgba(242, 242, 242, 0.4);
-    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
-    border-radius: 15px;
-    padding: 35px;
-  }
+      img {
+        width: 100%;
+      }
+    }
+    .titleListWrap{
+      box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 5px;
+      border-radius: 15px;
 
-  div {
-    border-bottom: 2px solid rgba(42, 89, 62, 0.2);
-    display: flex;
-    justify-content: space-around;
-    margin: 20px auto;
 
-    li {
-      padding-right: 10px;
     }
 
-    span {
-      margin: auto 0;
+    .imgWrap {
+      padding: 30px;
+    }
+
+    ul {
+      box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 15px;
+      padding: 35px;
+    }
+
+    div {
+      .titleList {
+        border-bottom: 2px solid rgba(42, 89, 62, 0.2);
+        width: 70%;
+      }
+
+      margin: 20px auto;
+
+      li {
+        padding-right: 10px;
+      }
+
+      span {
+        margin: auto 0;
+      }
     }
   }
 }
+
 /*------------------------------ 專欄種類文章 (第二層) ------------------------------*/
 //卡片的hover
 .articleCards:hover {
@@ -279,8 +315,7 @@
     padding: 20px;
     width: 220px;
     transition: 0.5s;
-    @include cardHover ;
-
+    @include cardHover;
   }
 
   .imgWrapPro {

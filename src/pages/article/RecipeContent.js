@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {
-  withRouter,
-  BrowserRouter as Router,
-  Link,
-} from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { API_img, imgUrl } from '../../config/index'
 import '../../styles/article/Article.scss'
 
 import HpArMoreBtn from '../../components/HpArMoreBtn'
-import BreadCrumb from '../../components/BreadCrumb'
 import PopularRecipe from '../../components/article/PopularRecipe'
 import RelatingRecipe from '../../components/article/RelatingRecipe'
-import { GiKnifeFork, GiCookingPot } from 'react-icons/gi'
+import { GiKnifeFork } from 'react-icons/gi'
 
 function FoodContent(props) {
   const [data, setData] = useState([])
