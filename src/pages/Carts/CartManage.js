@@ -21,6 +21,8 @@ import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import momentTZ from 'moment-timezone'
 import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+
 
 function CartManage(props) {
   let EmailCheck = new RegExp(

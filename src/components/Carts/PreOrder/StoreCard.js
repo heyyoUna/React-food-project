@@ -33,7 +33,6 @@ function StoreCard(props) {
       NewFilter.push(Pos)
       let max = 24
       let randomresult = ['', '']
-      // console.log(P.data)
       randomresult[0] = Math.floor(Math.random() * max)
       randomresult[1] = Math.floor(Math.random() * max)
       while (
@@ -43,35 +42,14 @@ function StoreCard(props) {
       ) {
         randomresult[0] = Math.floor(Math.random() * max)
         randomresult[1] = Math.floor(Math.random() * max)
-        // console.log('重新算過')
       }
-      // console.log('要pass的陣列', NewFilter)
-      // console.log('數字1', randomresult[0])
-      // console.log('數字2', randomresult[1])
 
       StoreCard1.push(P.data[randomresult[0]])
       StoreCard1.push(P.data[randomresult[1]])
       setStoreCard1(StoreCard1)
       setFilter(NewFilter)
-      // console.log('新陣列', StoreCard1)
     }
   }
-
-  // async function AddProduct(addProductPos) {
-  //   console.log('我在這喔', addProductPos)
-  //   let Add = await axios.post(
-  //     `http://localhost:3002/cart/`,
-  //     {
-  //       Order_Amount: 1,
-  //       Product_id: 'PM001',
-  //       Member_id: 'st880517',
-  //     }
-  //   )
-  //   if (Add.status === 200) {
-  //     setaddProductPos(0)
-  //     console.log('現在的addProduct', addProductPos)
-  //   }
-  // }
 
   return (
     <>
@@ -90,7 +68,7 @@ function StoreCard(props) {
             />
           )
         })}
-        <div className="morecard my-lg-auto mt-5">
+        <div className="morecard my-lg-auto mt-5 justify-content-lg-start justify-content-center">
           <FaAngleDoubleRight
             className="DoubleRight"
             onClick={() => {
