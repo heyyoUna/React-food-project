@@ -57,7 +57,7 @@ function ArCardTxtExercise(props) {
     <>
       <div className="artColCards cardsHover key={i}">
         <Link to={`/ExerciseContent/${sid}`}>
-          <div className="imgWrap col-lg">
+          <div className="imgWrap col-lg articlePageCards">
             <img src={`${API_img}` + pic} alt="" />
           </div>
         </Link>

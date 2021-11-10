@@ -11,7 +11,7 @@
   position: relative;
 
   &:hover .res-foodImg {
-    transform: scale(1.03);
+    transform: scale(1.04);
   }
 
   .res-foodImg {
@@ -78,6 +78,7 @@
 
 .res-popular {
   position: relative;
+  
   h3 {
     color: $dark-green;
     font-size: 24px;
@@ -98,8 +99,10 @@
     border-radius: 0 0 15px 15px;
     height: 170px;
   }
+  
   @include mobile {
-    margin: 10px 45px;
+    // margin: 10px 45px;
+   
     h3 {
       font-size: 18px;
     }
