@@ -44,27 +44,26 @@ function FoodContent(props) {
         id="recipeContent"
       >
         {/* <!------------ 正文 ------------>   */}
-        <div className="row">
-          <div className="col-1"></div>
-          <div className="col-7 col-lg-7">
+        <div className="row contentMobileFlex">
+          <div className="col-7">
             <h3>{data.ar_title}</h3>
-            <div className="imgWrap">
+            <figure className="imgWrap">
               <img
                 src={`${API_img}` + data.ar_pic}
                 alt=""
               />
-            </div>
+            </figure>
 
             <div className="text-center recipeIngredient d-flex mt-3 dark-green">
               <hr className="col my-auto" />
-              <div className="col-5">
+              <div className="col-5 recipeContentIngreTitle">
                 <h4>材料</h4>
                 <p>(約{data.ar_rec_quan}人份)</p>
               </div>
               <hr className="col my-auto" />
             </div>
 
-            <div className="d-flex me-auto justify-content-between align-middle mb-5">
+            <div className="d-flex me-auto justify-content-between align-middle mb-5 ingredientList">
               <table className="col-4">
                 {ingredient.map((el) => {
                   return (
@@ -78,10 +77,9 @@ function FoodContent(props) {
                   )
                 })}
               </table>
-              <div className="my-auto">
+              <div className="my-auto forkIcon">
                 <GiKnifeFork />
               </div>
-
               <table className="col-4">
                 {ingredientSec.map((el) => {
                   return (
@@ -123,42 +121,39 @@ function FoodContent(props) {
                 </>
               )
             })}
-            <div className="text-center recipeIngredient d-flex mt-5 dark-green">
-              <hr className="col my-auto" />
-              <div className="col-5">
-                <h4>相關商品</h4>
-              </div>
-              <hr className="col my-auto" />
-            </div>
           </div>
 
-          <div className="col-3 col-lg-3 mostPopular popularWeb">
-            <ul className="mostPopularInside">
+          <div className="col-3 mostPopular mostPopularRecipe">
+            <ul>
               <div className="mostPopularTitle">
                 Most Popular
               </div>
               <PopularRecipe />
             </ul>
           </div>
-
-          <div className="col-1"></div>
         </div>
 
         <div className="row article_rec">
           <div className="col-1"></div>
-          <RelatingRecipe className="mt-5" />
-          <Link
-            to="/products/?cate=0&page=1"
-            className="col recipeMoreBtn"
-          >
-            <HpArMoreBtn />
-          </Link>
-        </div>
+          <div className="text-center articleRecom d-flex my-5 dark-green">
+            <hr className="col my-auto" />
+            <div className="col-5 my-3">
+              <h4>相關商品</h4>
+            </div>
+            <hr className="col my-auto" />
+          </div>
 
-        <div className="col-3 col-lg-3 mostPopular popularMobile">
-          <h5 className="mostPopularTitle">Most Popular</h5>
-
-          <PopularRecipe />
+          <div className="row artColCardsWrap">
+            <RelatingRecipe className="mt-5" />
+            <Link
+              className="col-1 mx-auto my-auto"
+              onClick={() => {
+                window.location.href = '/article/recipe'
+              }}
+            >
+              <HpArMoreBtn />
+            </Link>
+          </div>
         </div>
       </div>
     </>

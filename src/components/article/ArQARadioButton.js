@@ -43,13 +43,12 @@ function ArQARadioButton(props) {
   }, [])
 
   return (
-    <div>
+    <div className="QAanswers">
       <input
         type="radio"
         value={value}
         checked={checkedReply === value}
         onChange={(e) => {
-
           if (!token) {
             Swal.fire({
               title: '請登入',
