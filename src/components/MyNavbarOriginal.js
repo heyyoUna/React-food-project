@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { imgUrl } from '../config/index'
 import '../App.scss'
@@ -8,7 +8,7 @@ import '../App.scss'
 import { NavLink } from 'react-router-dom'
 
 function MyNavbarOriginal (props) {
-  const { auth } = props
+  // const { auth } = props
   const [isActive, setIsActive] = useState('')
 
   return (

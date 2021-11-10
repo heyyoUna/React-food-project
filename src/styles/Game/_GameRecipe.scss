@@ -91,7 +91,11 @@
       cursor: pointer;
       white-space: nowrap;
     }
-    .karin-game-again:hover,
+    .karin-game-again:hover{
+      color: #fff;
+      background-color: #ffb606;
+      border-radius: 50px;
+    }
     .karin-game-leave:hover {
       color: #fff;
       background-color: #2a593e;

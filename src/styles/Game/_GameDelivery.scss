@@ -91,7 +91,11 @@
       cursor: pointer;
       white-space: nowrap;
     }
-    .game-again-delivery:hover,
+    .game-again-delivery:hover{
+      color: #fff;
+      background-color: #ffb606;
+      border-radius: 50px;
+    }
     .game-leave-delivery:hover {
       color: #fff;
       background-color: #2a593e;

@@ -7,11 +7,11 @@ import {
 import { API_img } from '../../config/index'
 import '../../styles/article/Article.scss'
 import HpArMoreBtn from '../../components/HpArMoreBtn'
-import BreadCrumb from '../../components/BreadCrumb'
 import PopularFood from '../../components/article/PopularFood'
 import RelatingFood from '../../components/article/RelatingFood'
 import ArQARadioButton from '../../components/article/ArQARadioButton'
 import { Spinner } from 'react-bootstrap'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -59,17 +59,13 @@ function FoodContent(props) {
         {/* <!------------ 互動nav ------------>   */}
         <div className="row interNav">
           <div className="col-1"></div>
-          <div className="col-7">
-            <div>
-              <i class="fas fa-glasses"></i>
-            </div>
-            <p>{data.ar_read}</p>
+          <div className="col-7 my-auto">
             <div>
               <i class="fas fa-graduation-cap"></i>
             </div>
             <p>{data.ar_inter}</p>
-            <div>
-              <i class="far fa-heart"></i>
+            <div className="pd-love-icon" >
+              <IoIosHeartEmpty />
             </div>
             <p>收藏</p>
           </div>

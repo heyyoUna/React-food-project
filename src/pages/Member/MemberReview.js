@@ -121,7 +121,7 @@ function MemberReview(props) {
                           })
                           }
                         </div>
-                        <small>{moment(v.timestamp).format('YYYY-MM-DD HH:mm:ss')}</small>
+                        <small>{v.timestamp == null ? '' : moment(v.timestamp).format('YYYY-MM-DD HH:mm:ss')}</small>
                       </div>
                       <div className="member-review-right">
                         <div className="member-review-text">
@@ -142,9 +142,12 @@ function MemberReview(props) {
                 )
               })}
               {/* 送出按鈕  */}
-              <div className="member-review-form-group row" style={{ display: evaluating && product.length > 0 ? 'block' : 'none' }}>
+              <div className="member-top-check-btn">
+                <div className="member-review-form-group row" style={{ display: evaluating && product.length > 0 ? 'block' : 'none' }}>
                 <button type="submit" className="karin-profile-btn btn-primary">確認送出</button>
               </div>
+              </div>
+              
               {/* 送出按鈕  */}
               {/* <!-- 評價內容 --> */}
             </div>

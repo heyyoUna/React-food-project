@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link,useHistory } from 'react-router-dom'
+import React from 'react'
+import { Link, useHistory } from 'react-router-dom'
 
 import {
   Navbar,
@@ -11,18 +11,16 @@ import { imgUrl } from '../config/index'
 import '../App.scss'
 
 // 要使用能有active css效果的NavLink元件
-import { NavLink } from 'react-router-dom'
-
-
+// import { NavLink } from 'react-router-dom'
 
 function MyNavbar(props) {
   let history = useHistory()
-  const { auth, setAuth, CountNav, setCountNav} = props
+  const { auth, setAuth, CountNav, setCountNav } = props
 
   const handlingLogout = (e) => {
     localStorage.removeItem('token')
     localStorage.setItem('數量', 0)
-    
+
     setAuth(false)
     setCountNav(0)
 
@@ -39,35 +37,44 @@ function MyNavbar(props) {
       >
         <Container>
           <Navbar.Brand className="navLogoWrap">
-          <Link to="/">
-          <img src={`${imgUrl}/images/logo.png`} alt="" />
-          </Link>
+            <Link to="/">
+              <img
+                src={`${imgUrl}/images/logo.png`}
+                alt=""
+              />
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto mx-auto">
               <Nav.Link>
-              <Link to="/customize">
-                良身訂做
-                </Link>
+                <Link to="/customize">良身訂做</Link>
               </Nav.Link>
 
               <NavDropdown
                 title="好食商城"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item >
-                  <Link to="/products/?cate=1&page=1">快速上桌</Link>
+                <NavDropdown.Item>
+                  <Link to="/products/?cate=1&page=1">
+                    快速上桌
+                  </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  <Link to="/products/?cate=2&page=1">健身專區</Link>
+                  <Link to="/products/?cate=2&page=1">
+                    健身專區
+                  </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  <Link to="/products/?cate=3&page=1">嚴選食材</Link>
+                  <Link to="/products/?cate=3&page=1">
+                    嚴選食材
+                  </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/products/?cate=0&page=1">全部商品</Link>
+                  <Link to="/products/?cate=0&page=1">
+                    全部商品
+                  </Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
@@ -79,19 +86,21 @@ function MyNavbar(props) {
                   <Link to="/article/food">聰明飲食</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  <Link to="/article/exercise">運動訓練</Link>
+                  <Link to="/article/exercise">
+                    運動訓練
+                  </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  <Link to="/article/recipe">運動訓練</Link>
+                  <Link to="/article/recipe">美味食譜</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/article">
-                <Link to="/article">全部文章</Link>
+                  <Link to="/article">全部文章</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link>
-              <Link to="/restaurants">健康餐盒</Link>
+                <Link to="/restaurants">健康餐盒</Link>
               </Nav.Link>
 
               <Nav.Link>
@@ -139,20 +148,28 @@ function MyNavbar(props) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item>
-                  <Link to="/member/FavoriteProduct">商品收藏清單</Link>
+                  <Link to="/member/FavoriteProduct">
+                    商品收藏清單
+                  </Link>
                 </NavDropdown.Item>
 
                 <NavDropdown.Item>
-                  <Link to="/member/FavoriteArticle">文章收藏清單</Link>
+                  <Link to="/member/FavoriteArticle">
+                    文章收藏清單
+                  </Link>
                 </NavDropdown.Item>
 
                 <NavDropdown.Item>
-                  <Link to="/member/FavoriteRestaurant">餐廳收藏清單</Link>
+                  <Link to="/member/FavoriteRestaurant">
+                    餐廳收藏清單
+                  </Link>
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/member/ChangePassword">更改密碼</Link>
+                  <Link to="/member/ChangePassword">
+                    更改密碼
+                  </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={handlingLogout}>
                   登出
@@ -166,8 +183,10 @@ function MyNavbar(props) {
                     position: 'relative',
                   }}
                 >
-                <Link to="/carts/PreOrder"><i className="fas fa-shopping-cart"></i></Link>
-                  
+                  <Link to="/carts/PreOrder">
+                    <i className="fas fa-shopping-cart"></i>
+                  </Link>
+
                   <div
                     className="circle"
                     style={{

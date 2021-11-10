@@ -58,7 +58,7 @@
           font-size: 24px;
           letter-spacing: 1px;
           text-indent: 1px;
-          margin: 0 0 20px 0;
+          margin: 100px 0 20px 0;
         }
         .karin-btn-signuppage-login {
           background-color: #f5f4f2;
@@ -98,7 +98,9 @@
       }
       .karin-btn-signuppage-signup:focus,
       .karin-btn-signuppage-login:focus {
-        box-shadow: none;
+        box-shadow: none ;
+        border-color:#ff904f;
+        
       }
       #karin-forgot-password {
         color: #ff904f;

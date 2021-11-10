@@ -121,10 +121,6 @@ function MemberLogin(props) {
                 onChange={handleInfoChange}
                 required />
             </div>
-            <div className="karin-form-group form-check">
-              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-              <label className="form-check-label" for="exampleCheck1">Remember me</label>
-            </div>
             <button type="submit" className="btn karin-btn-login">LOG IN</button>
             <Link to="/signup"
               button type="submit" className="btn karin-btn-signup">SIGN UP</Link>

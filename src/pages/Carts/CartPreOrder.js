@@ -90,20 +90,21 @@ function CartPreOrder(props) {
   }
   // 讀取商品資料的 function
   async function DataAxios(Member_id) {
+    console.log('會員 id', Member_id)
     let r = await axios.get(
       `http://localhost:3002/cart/ordertempmember/${Member_id}`
     )
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-      console.log('讀取到的 preorder data', r)
+      // console.log('讀取到的 preorder data', r)
       Count = []
       // 讀取裡面的商品數量
       for (let i = 0; i < r.data.length; i++) {
         Count[i] = r.data[i].Order_Amount
       }
       CountNav = r.data.length
-      console.log('por', CountNav)
+      // console.log('por', CountNav)
 
       // 設定商品初始數量
       setCount(Count)
@@ -140,7 +141,7 @@ function CartPreOrder(props) {
         }
       )
       if (Mod.status === 200) {
-        console.log('經過 Modify')
+        // console.log('經過 Modify')
         DataAxios(m.data.data[0].sid)
         return Count
       }
@@ -166,7 +167,7 @@ function CartPreOrder(props) {
         `http://localhost:3002/cart/${DeletePos}`
       )
       if (del.status === 200) {
-        console.log('經過刪除')
+        // console.log('經過刪除')
         DataAxios(m.data.data[0].sid)
       }
     }
@@ -189,6 +190,7 @@ function CartPreOrder(props) {
   // 計算訂單的商品總計
   const totalPrice = () => {
     let Pricesum = 0
+
 
     // 解構賦值
     let Priceinfo = [...data]
@@ -275,8 +277,6 @@ function CartPreOrder(props) {
           CountNav={CountNav}
           setCountNav={setCountNav}
         />
-
-        {/* <StoreCardMobile /> */}
       </div>
     </>
   )
