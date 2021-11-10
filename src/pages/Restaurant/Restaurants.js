@@ -324,7 +324,7 @@ function Restaurants(props) {
         <TitleBorder name="健康餐盒" />
       </div>
 
-      <div className="container d-flex  justify-content-center ">
+      <div className="container d-flex  justify-content-center p-0 ">
         <MapButtonGroup
           linkFunction={goToMap}
           name="地圖模式"

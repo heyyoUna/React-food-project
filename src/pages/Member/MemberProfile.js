@@ -114,7 +114,7 @@ function MemberProfile(props) {
                 <img src="" alt="" />
               </div>
               <div className="karin-form-group row">
-                <label for="email" className="col-sm-3 col-form-label">Email</label>
+                <label htmlFor="email" className="col-sm-3 col-form-label">Email</label>
                 <div className="col-sm-9">
                   <input
                     type="email"
@@ -128,7 +128,7 @@ function MemberProfile(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="name" className="col-sm-3 col-form-label">姓名</label>
+                <label htmlFor="name" className="col-sm-3 col-form-label">姓名</label>
                 <div className="col-sm-9">
                   <input
                     type="text"
@@ -142,7 +142,7 @@ function MemberProfile(props) {
               </div>
 
               <div className="karin-form-group row">
-                <label for="mobile" className="col-sm-3 col-form-label">手機</label>
+                <label htmlFor="mobile" className="col-sm-3 col-form-label">手機</label>
                 <div className="col-sm-9">
                   <input
                     type="text"
@@ -155,7 +155,7 @@ function MemberProfile(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="address" className="col-sm-3 col-form-label">地址</label>
+                <label htmlFor="address" className="col-sm-3 col-form-label">地址</label>
                 <div className="col-sm-9">
                   <input
                     type="text"
@@ -168,7 +168,7 @@ function MemberProfile(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="birthday" className="col-sm-3 col-form-label">生日</label>
+                <label htmlFor="birthday" className="col-sm-3 col-form-label">生日</label>
                 <div className="col-sm-9">
                   <input
                     type="date"
