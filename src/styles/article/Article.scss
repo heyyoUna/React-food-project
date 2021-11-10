@@ -30,30 +30,29 @@
 
 // 專欄頁： 1st種類 聰明飲食
 #col-cat1 {
-  .col-cat1-s{
-    figure{
+  .col-cat1-s {
+    figure {
       width: 100%;
       height: 200px;
 
-      @media (max-width: 992px){
+      @media (max-width: 992px) {
         margin-bottom: 20px;
         margin-right: 5px;
       }
 
-      img{
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
     }
-
   }
 }
 // 專欄頁： 2nd種類 運動訓練
 #col-cat2 {
   .exerciseWrap {
     display: flex;
-    figure{
+    figure {
       height: 250px;
       overflow: hidden;
       img {
@@ -65,14 +64,12 @@
 
     @media (max-width: 992px) {
       flex-direction: column;
-      figure{
+      figure {
         height: 200px;
       }
     }
   }
   @media (max-width: 992px) {
-
-
     .col-cat-firstImg {
       //rwd後太大的圖片
       width: 100%;
@@ -81,11 +78,9 @@
   }
 }
 
-// 3rd種類
-
+// 專欄頁： 3rd種類 
 #col-cat3 {
   .colList {
-
     figure {
       width: 30px;
       margin-bottom: 0;
@@ -94,11 +89,9 @@
         width: 100%;
       }
     }
-    .titleListWrap{
+    .titleListWrap {
       box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 5px;
       border-radius: 15px;
-
-
     }
 
     .imgWrap {
@@ -141,15 +134,15 @@
   padding-top: 50px;
   width: 100%;
 
+  .imgWrap {
+    height: 250px;
+  }
+
+
   .artColCards {
     width: 28%;
     margin: auto;
     margin-bottom: 5px;
-    border-radius: 15px;
-
-    .imgWrap {
-      height: 250px;
-    }
 
     .arCardTxt {
       height: 180px;
@@ -163,6 +156,17 @@
       height: 100%;
       object-fit: cover;
       border-radius: 15px;
+    }
+  }
+  .artContentRecoms {
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
@@ -186,9 +190,63 @@
 /*------------------------------ 專欄文章內文 (第三層1/2) ------------------------------*/
 
 .col-article {
-  .pd-love-icon{
+
+  .artColCardsWrap{
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: column;
+      .col-3{
+        width: 100vh;
+      }
+    }
+  }
+
+  .contentMobileFlex {
+    padding: 0 20px;
+    @media (max-width: 992px) {
+      padding:0;
+      display: flex;
+      flex-direction: column;
+      .col-7,
+      .col-3 {
+        width: 100vh;
+      }
+      .col-7 {
+        figure {
+          height: 200px;
+          overflow: visible;
+          margin: 20px 0;
+
+          img {
+            border-radius: 15px;
+          }
+        }
+      }
+      .QA h3 {
+        padding: 0 10px;
+        text-align: left;
+      }
+    }
+  }
+
+  .pd-love-icon {
     font-size: 16px;
   }
+
+  .artContentRecoms {
+    height: 250px;
+    overflow: hidden;
+    border-radius: 15px;
+    @media (max-width: 992px) {
+      height: 200px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
   .imgWrap {
     // max-width: 1000px;
     height: 500px;
@@ -197,7 +255,7 @@
   }
   img {
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
   .article_rec img {
     width: 100%;
@@ -223,8 +281,14 @@
     margin: 20px 0 25px 0;
     // max-width: 1000px;
     p {
-      padding: 50px 70px;
+      padding:0 70px 0 70px;
       margin: 16px 0;
+    }
+    .rightCommaWrap{
+      text-align: right;
+      .rightComma{
+        transform: rotateY(180deg);
+      }
     }
   }
   .QA {
@@ -286,8 +350,34 @@
   }
 }
 #recipeContent {
+
+  @media (max-width: 992px){
+    .recipeContentIngreTitle{
+      margin-top: 50px;
+    }
+    .ingredientList{
+      flex-direction: column;
+      .col-4{
+        width: 350px;
+        margin: auto;
+
+      }
+      .forkIcon{
+       text-align: center;
+      }
+    } 
+    .mostPopularRecipe{
+      margin-top: 30px;
+    }
+
+
+
+  }
   .recipeIngredient {
     letter-spacing: 10px;
+    @media (max-width: 992px) {
+      letter-spacing: 3px;
+    }
   }
   .ingredientQuantity {
     text-align: right;
