@@ -28,10 +28,10 @@ function ArtRecipe(props) {
   const ID = localStorage.getItem('id')
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtRecipe' +
-          `${props.location.search}`
+        `${props.location.search}`
       )
       let j = await r.json()
       setData(j.rows)
@@ -76,16 +76,17 @@ function ArtRecipe(props) {
           <div className="col-lg col-8 cardsWrap d-flex flex-wrap">
             {data && data.length
               ? data.map((el, i) => {
-                  return (
-                    <ArCardTxtRecipe
-                      favArr={favArr}
-                      sid={el.sid}
-                      pic={el.ar_pic}
-                      title={el.ar_title}
-                      date={articleDate(el.ar_date)}
-                    />
-                  )
-                })
+                return (
+                  <ArCardTxtRecipe
+                    favArr={favArr}
+                    cate={el.ar_cate}
+                    sid={el.sid}
+                    pic={el.ar_pic}
+                    title={el.ar_title}
+                    date={articleDate(el.ar_date)}
+                  />
+                )
+              })
               : ''}
           </div>
           <ArPageBtn

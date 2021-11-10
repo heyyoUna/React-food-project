@@ -11,3 +11,9 @@
   right: 15px;
   bottom: 50px;
 }
+
+#scrollToTopBtn:hover {
+  box-shadow: 2px 10px 16px lightgrey;
+  transform: translateY(-5px);
+  transition: 0.3s;
+}

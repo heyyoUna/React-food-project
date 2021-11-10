@@ -29,8 +29,10 @@
   @include sortBtn($light-orange, 2px, 20px);
 
   &:hover {
-    background-color: #fb6007c0;
-    color: white;
+    // background-color: #fb6007c0;
+    // color: white;
+    box-shadow: 8px 8px 0 0 #fb600769;
+    transition: 0.5s;
   }
   @include mobile {
     // width: 101%;
