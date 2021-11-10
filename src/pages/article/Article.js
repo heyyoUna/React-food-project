@@ -16,7 +16,7 @@ function Article(props) {
 
   //聰明飲食路由
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtFood/' + 1
       )
@@ -26,7 +26,7 @@ function Article(props) {
   }, [])
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtFood/FoodContent/TwoRandom'
       )
@@ -37,7 +37,7 @@ function Article(props) {
 
   //運動訓練路由
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtExercise/ExerciseContent/relatingArt'
       )
@@ -49,7 +49,7 @@ function Article(props) {
 
   //食譜路由
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtRecipe/1'
       )
@@ -60,7 +60,7 @@ function Article(props) {
   }, [])
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtRecipe/RecipeContent/popluar'
       )
@@ -134,6 +134,8 @@ function Article(props) {
                 </figure>
               </Link>
               <ArCardTxt
+                sid={foodOne.sid}
+                cate={foodOne.ar_cate}
                 title={foodOne.ar_title}
                 date={foodOne.ar_date}
               />
@@ -152,6 +154,8 @@ function Article(props) {
                         </figure>
                       </Link>
                       <ArCardTxt
+                        sid={el.sid}
+                        cate={el.ar_cate}
                         title={el.ar_title}
                         date={el.ar_date}
                       />
@@ -186,6 +190,8 @@ function Article(props) {
                     </Link>
                     <ArCardTxt
                       name="運動訓練"
+                      sid={el.sid}
+                      cate={el.ar_cate}
                       title={el.ar_title}
                       date={el.ar_date}
                     />
@@ -215,6 +221,8 @@ function Article(props) {
               </Link>
               <ArCardTxt
                 name="美味食譜"
+                sid={recipeOne.sid}
+                cate={recipeOne.ar_cate}
                 title={recipeOne.ar_title}
                 date={recipeOne.ar_date}
               />

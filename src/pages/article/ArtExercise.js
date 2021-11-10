@@ -25,10 +25,10 @@ function ArtExercise(props) {
   const ID = localStorage.getItem('id')
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtExercise' +
-          `${props.location.search}`
+        `${props.location.search}`
       )
       let j = await r.json()
       setData(j.rows)
@@ -74,16 +74,17 @@ function ArtExercise(props) {
           <div className="col-md-12 cardsWrap d-flex flex-wrap">
             {data && data.length
               ? data.map((el, i) => {
-                  return (
-                    <ArCardTxtExercise
-                      favArr={favArr}
-                      sid={el.sid}
-                      pic={el.ar_pic}
-                      title={el.ar_title}
-                      date={articleDate(el.ar_date)}
-                    />
-                  )
-                })
+                return (
+                  <ArCardTxtExercise
+                    favArr={favArr}
+                    sid={el.sid}
+                    cate={el.ar_cate}
+                    pic={el.ar_pic}
+                    title={el.ar_title}
+                    date={articleDate(el.ar_date)}
+                  />
+                )
+              })
               : ''}
           </div>
           <ArPageBtn

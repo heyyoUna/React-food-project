@@ -9,9 +9,6 @@ import 'sweetalert2/src/sweetalert2.scss'
 
 function OrderInfo(props) {
   const [data, setdata] = useState()
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
   const token = localStorage.getItem('token')
   // let pointChange = false
   let [pointChange, setpointChange] = useState('未登入')
@@ -25,9 +22,12 @@ function OrderInfo(props) {
     setPromotion,
   } = props
 
+  const numberJudge = new RegExp(/\d/)
+
   // 清空 localstorage 裡的資訊
   localStorage.removeItem('訂單編號')
   localStorage.setItem('運費', 0)
+
 
   console.log('優惠點數', Promotion)
   // 記錄會員優惠點數
@@ -55,7 +55,7 @@ function OrderInfo(props) {
     )
     if (M.status === 200) {
       setdata(M.data)
-      console.log('會員點數', pointChange)
+      console.log('會員點數資料', M.data)
       if (!token) {
       } else {
         setpointChange(M.data[0].left_point)
@@ -100,24 +100,23 @@ function OrderInfo(props) {
     if (promo && member) {
       promo = false
       // console.log('會員點數')
-      // console.log('點數', data[0].left_point)
-
       // 如果購物車內沒商品
       if (productPrice() === 0) {
+        console.log('點數', data[0].left_point)
+
         // 跳出 Modal 顯示購物車內沒商品
         Swal.fire({
           icon: 'info',
           title: '購物車內沒有商品喔',
-          showConfirmButton: true,
-          confirmButtonText: '我知道了',
+          showConfirmButton: false,
+          timer: 1500,
         })
-      }
-      if (textvalue === '') {
+      } else if (textvalue === '') {
         Swal.fire({
           icon: 'error',
           title: '您沒有輸入點數喔，請重新輸入',
-          showConfirmButton: true,
-          confirmButtonText: '我知道了',
+          showConfirmButton: false,
+          timer: 1500,
         })
       } else {
         // 如果輸入的點數 > 會員目前所有點數
@@ -126,8 +125,8 @@ function OrderInfo(props) {
           Swal.fire({
             icon: 'error',
             title: '點數不足!',
-            showConfirmButton: true,
-            confirmButtonText: '我知道了',
+            showConfirmButton: false,
+            timer: 1500,
           })
         } else {
           // 記錄扣點與扣款，到會員資料表
@@ -146,8 +145,8 @@ function OrderInfo(props) {
             Swal.fire({
               icon: 'success',
               title: '扣點成功!',
-              showConfirmButton: true,
-              confirmButtonText: '我知道了',
+              showConfirmButton: false,
+              timer: 1500,
             })
 
             setpointChange(data[0].left_point - textvalue)
@@ -160,15 +159,24 @@ function OrderInfo(props) {
     // 如果點擊是到下一步填寫資料
     if (nextStep) {
       nextStep = false
+      if (productPrice() === 0) {
+        // 跳出 Modal 顯示購物車內沒商品
+        Swal.fire({
+          icon: 'info',
+          title: '購物車內沒有商品喔',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      } else {
+        // 記錄到 LocalStorage 裡，使用 JSON 包進去
+        localStorage.setItem(
+          '訂單價格資訊',
+          JSON.stringify(orderdetailPriceInfo)
+        )
 
-      // 記錄到 LocalStorage 裡，使用 JSON 包進去
-      localStorage.setItem(
-        '訂單價格資訊',
-        JSON.stringify(orderdetailPriceInfo)
-      )
-
-      // 到填寫資料頁面
-      props.history.push('/carts/Manage')
+        // 到填寫資料頁面
+        props.history.push('/carts/Manage')
+      }
     }
   }
 
@@ -218,10 +226,17 @@ function OrderInfo(props) {
           <button
             onClick={(e) => {
               promo = true
-              // console.log('promo', promo)
-
-              // 點擊使用優惠鈕，交給函式處理
-              getLoginData()
+              if (!numberJudge.test(textvalue)) {
+                Swal.fire({
+                  icon: 'error',
+                  title: '輸入格式不對喔，請檢查',
+                  showConfirmButton: false,
+                  timer: 1500,
+                })
+              } else {
+                // 點擊使用優惠鈕，交給函式處理
+                getLoginData()
+              }
             }}
           >
             使用

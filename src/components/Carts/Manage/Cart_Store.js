@@ -195,11 +195,19 @@ function Cart_Store(props) {
     // 解構 props 的定位資料
     let NewGetPosition = [...GetPosition]
 
+    console.log('選擇門市了', StoreInfo[3])
+
     // 如果已經選擇道路名稱的話
     if (GetStoreInfo.length !== 0) {
+      if (StoreInfo[3]) {
+        // 記錄那個路段的初始畫面到地圖上
+        let NewGetStoreInfo = [...GetStoreInfo]
+        NewGetPosition[0] = NewGetStoreInfo[0].Y
+        NewGetPosition[1] = NewGetStoreInfo[0].X
+      }
       if (StoreInfo.length === 3) {
-        console.log('gellll')
-        console.log('座標資料', GetStoreInfo[0])
+        // console.log('gellll')
+        // console.log('座標資料', GetStoreInfo[0])
         let NewGetStoreInfo = [...GetStoreInfo]
         // console.log('座標資料', NewGetStoreInfo[0])
 
@@ -253,9 +261,12 @@ function Cart_Store(props) {
             <select
               name="city"
               id="city"
-              onChange={(e) => {
-                // console.log('選到的A', e.target.value)
+              onBlur={(e) => {
                 UpdateInfo(e.target.value, 0)
+              }}
+              onChange={(e) => {
+                console.log('選到的縣市', e.target.value)
+                // UpdateInfo(e.target.value, 0)
               }}
             >
               {CityArr.map((v, i) => {
@@ -282,17 +293,21 @@ function Cart_Store(props) {
                 setGetAddress(GetAddress)
               }}
             >
-              {CityArr.map((v, i) => {
-                if (v.City === StoreInfo[0]) {
-                  return v.districts.map((a) => {
-                    return (
-                      <option value={a.name}>
-                        {a.name}
-                      </option>
-                    )
-                  })
-                }
-              })}
+              {!StoreInfo[0] ? (
+                <option>請選擇行政區</option>
+              ) : (
+                CityArr.map((v, i) => {
+                  if (v.City === StoreInfo[0]) {
+                    return v.districts.map((a) => {
+                      return (
+                        <option value={a.name}>
+                          {a.name}
+                        </option>
+                      )
+                    })
+                  }
+                })
+              )}
             </select>
             <FaChevronDown className="ChevronDown position-absolute" />
           </div>
@@ -359,10 +374,7 @@ function Cart_Store(props) {
                         </h6>
                         <button
                           onClick={(e) => {
-                            console.log(
-                              '已選擇',
-                              e.target.value
-                            )
+                            console.log('已選擇', v.X)
                             localStorage.setItem(
                               '店號',
                               v.POIID

@@ -25,14 +25,14 @@ function ArtFood(props) {
   const ID = localStorage.getItem('id')
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let r = await fetch(
         'http://localhost:3002/ArtFood' +
-          `${props.location.search}`
+        `${props.location.search}`
       )
       let j = await r.json()
       setData(j.rows)
-      
+
       setPages(j)
       setTotalPages(j.totalPages)
     })()
@@ -72,16 +72,17 @@ function ArtFood(props) {
           <div className="col-lg col-8 cardsWrap d-flex flex-wrap">
             {data && data.length
               ? data.map((el, i) => {
-                  return (
-                    <ArCardTxtFood
-                      favArr={favArr}
-                      sid={el.sid}
-                      pic={el.ar_pic}
-                      title={el.ar_title}
-                      date={articleDate(el.ar_date)}
-                    />
-                  )
-                })
+                return (
+                  <ArCardTxtFood
+                    favArr={favArr}
+                    cate={el.ar_cate}
+                    sid={el.sid}
+                    pic={el.ar_pic}
+                    title={el.ar_title}
+                    date={articleDate(el.ar_date)}
+                  />
+                )
+              })
               : ''}
           </div>
           <ArPageBtn

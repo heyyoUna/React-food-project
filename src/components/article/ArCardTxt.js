@@ -6,7 +6,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function ArCardTxt(props) {
-  const { sid, title, date, favArr } = props
+  const { sid, cate, title, date, favArr } = props
   const token = localStorage.getItem('token')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
@@ -22,13 +22,14 @@ function ArCardTxt(props) {
   }
 
   // 新增收藏
-  const handlingInsert = (sid) => {
+  const handlingInsert = () => {
     fetch(
       `http://localhost:3002/member/favorite-article-insert`,
       {
         method: 'POST',
         body: JSON.stringify({
-          articleid: sid,
+          article_id: sid,
+          article_cate: cate
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -39,9 +40,9 @@ function ArCardTxt(props) {
     console.log('sid in insert', sid)
   }
   //  刪除收藏
-  const handlingDelete = (sid) => {
+  const handlingDelete = () => {
     fetch(
-      `http://localhost:3002/member/favorite-article-delete/${sid}`,
+      `http://localhost:3002/member/favorite-article-delete/${sid}/${cate}`,
       {
         method: 'DELETE',
       }
@@ -76,7 +77,7 @@ function ArCardTxt(props) {
                     }
                   })
                 } else {
-                  handlingInsert(sid)
+                  handlingInsert()
                   Swal.fire({
                     icon: 'success',
                     title: '已加入收藏清單',
@@ -96,7 +97,7 @@ function ArCardTxt(props) {
             />
             <IoIosHeart
               onClick={(e) => {
-                handlingDelete(sid)
+                handlingDelete()
                 if (display) {
                   setDisplay(false)
                 } else {

@@ -9,20 +9,20 @@ function MemberNavbar(props) {
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/profile"
-                    a className="nav-link" id="v-pills-home-tab"
+                    className="nav-link" id="v-pills-home-tab"
                     data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">個人檔案</NavDropdown.Item>
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/order"
-                    a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">歷史訂單</NavDropdown.Item>
+                    className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">歷史訂單</NavDropdown.Item>
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/review"
-                    a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">我的評價</NavDropdown.Item>
+                    className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">我的評價</NavDropdown.Item>
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/point"
-                    a className="nav-link"
+                    className="nav-link"
                     id="v-pills-messages-tab"
                     data-toggle="pill"
                     href="#v-pills-messages"
@@ -32,7 +32,7 @@ function MemberNavbar(props) {
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/FavoriteProduct"
-                    a className="nav-link"
+                    className="nav-link"
                     id="v-pills-settings-tab"
                     data-toggle="pill"
                     href="#v-pills-settings"
@@ -42,7 +42,7 @@ function MemberNavbar(props) {
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/FavoriteArticle"
-                    a className="nav-link"
+                    className="nav-link"
                     id="v-pills-settings-tab"
                     data-toggle="pill"
                     href="#v-pills-settings"
@@ -52,7 +52,7 @@ function MemberNavbar(props) {
                 <NavDropdown.Item
                     as={NavLink}
                     to="/member/FavoriteRestaurant"
-                    a className="nav-link"
+                    className="nav-link"
                     id="v-pills-settings-tab"
                     data-toggle="pill"
                     href="#v-pills-settings"

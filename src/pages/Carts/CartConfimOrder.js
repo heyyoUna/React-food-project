@@ -14,6 +14,7 @@ import '../../styles/Carts/ProcessChart.scss'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
+import Swal from 'sweetalert2'
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
@@ -23,11 +24,45 @@ function Cart_ConfimOrder(props) {
   // 設定訂單編號的格式
   useEffect(() => {
     console.log('這邊是初始化')
-    DataAxios()
+    // DataAxios()
+    MemberLogin()
   }, [])
 
-  async function DataAxios() {
-    let r = await axios.get('http://localhost:3002/cart/')
+  async function MemberLogin() {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      DataAxios(m.data.data[0].sid)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員哦',
+        showConfirmButton: true,
+        confirmButtonColor: '#8FC065',
+        confirmButtonText: '我知道了',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          props.history.push('/login')
+        }
+      })
+    }
+  }
+  // 讀取商品資料的 function
+  async function DataAxios(Member_id) {
+    console.log('會員 id', Member_id)
+    let r = await axios.get(
+      `http://localhost:3002/cart/ordertempmember/${Member_id}`
+    )
     let rD = await axios.get(
       `http://localhost:3002/cart/addList/${OrderSid}`
     )
@@ -38,6 +73,19 @@ function Cart_ConfimOrder(props) {
       // console.log(rD.data)
     }
   }
+
+  // async function DataAxios() {
+  //   let r = await axios.get('http://localhost:3002/cart/')
+  //   let rD = await axios.get(
+  //     `http://localhost:3002/cart/addList/${OrderSid}`
+  //   )
+  //   if (r.status === 200 && rD.status === 200) {
+  //     setData(r.data)
+  //     console.log('rD', rD)
+  //     setDataDetail(rD.data.data)
+  //     // console.log(rD.data)
+  //   }
+  // }
 
   async function ConfirmOrder() {
     let a = []

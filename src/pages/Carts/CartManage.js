@@ -41,11 +41,14 @@ function CartManage(props) {
     parseInt(10)
   let member
   let token = localStorage.getItem('token')
-  var a = momentTZ.utc().tz('Asia/Taipei').format()
+  var a = momentTZ
+    .utc()
+    .tz('Asia/Taipei')
+    .format('YYYY-MM-DD HH:mm:ss')
   useEffect(() => {
     console.log('這邊是初始化')
     CityAxios()
-    DataAxios()
+    MemberLogin()
   }, [])
 
   useEffect(() => {
@@ -70,14 +73,55 @@ function CartManage(props) {
       console.log('Store城市', CityArr)
     }
   }
-
-  async function DataAxios() {
-    let r = await axios.get('http://localhost:3002/cart/')
-    if (r.status === 200) {
-      setData(r.data)
-      console.log(r.data)
+  async function MemberLogin() {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      DataAxios(m.data.data[0].sid)
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員哦',
+        showConfirmButton: true,
+        confirmButtonColor: '#8FC065',
+        confirmButtonText: '我知道了',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          props.history.push('/login')
+        }
+      })
     }
   }
+  // 讀取商品資料的 function
+  async function DataAxios(Member_id) {
+    console.log('會員 id', Member_id)
+    let r = await axios.get(
+      `http://localhost:3002/cart/ordertempmember/${Member_id}`
+    )
+    if (r.status === 200) {
+      // 設定 data
+      setData(r.data)
+      console.log('抓回來的資料', r.data)
+    }
+  }
+
+  // async function DataAxios() {
+  //   let r = await axios.get('http://localhost:3002/cart/')
+  //   if (r.status === 200) {
+  //     setData(r.data)
+  //     console.log(r.data)
+  //   }
+  // }
 
   async function AddOrder(
     OrderInfo,

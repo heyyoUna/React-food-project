@@ -55,6 +55,7 @@ function GameRecipe(props) {
         <Modal show={show} centered={true} contentClassName={'game-card-wrap'} onHide={handleClose}>
           <ArCardTxtRecipe
             sid={recipe.sid}
+            cate={recipe.ar_cate}
             pic={recipe.ar_pic}
             title={recipe.ar_title}
             date={moment(recipe.ar_date).format('YYYY/MM/DD')}

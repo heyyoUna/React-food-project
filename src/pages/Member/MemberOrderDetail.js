@@ -11,6 +11,7 @@ import '../../styles/Carts/ProcessChart.scss'
 function MemberOrderDetail(props) {
   let [data, setData] = useState([])
   let [dataDetail, setDataDetail] = useState({})
+  let [total, setTotal] = useState(0)
   let [trans, settrans] = useState(false)
 
   let orderSID = props.match.params.ordersid
@@ -30,6 +31,7 @@ function MemberOrderDetail(props) {
     }).then(obj => obj.json())
       .then(obj => {
         setData(obj.data)
+        setTotal(obj.data.reduce((prev, curr) => { return prev + curr.price * curr.amount }, 0))
       })
   }, [])
 
@@ -42,7 +44,7 @@ function MemberOrderDetail(props) {
       </div>
 
       <div className="container col-lg-6 col-10">
-        <div class="square d-flex justify-content-center position-relative">
+        <div className="square d-flex justify-content-center position-relative">
           <h3>訂單詳細</h3>
           <FaChevronDown
             className="ChevronDown position-absolute"
@@ -78,9 +80,9 @@ function MemberOrderDetail(props) {
                 </tr>
               </thead>
               <tbody>
-                {data.map((v) => {
+                {data.map((v, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>
                         <img
                           src={`http://localhost:3002/img/Product/${v.img}`}
@@ -100,9 +102,9 @@ function MemberOrderDetail(props) {
                 <tr></tr>
               </thead>
               <tbody>
-                {data.map((v) => {
+                {data.map((v, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>
                         <img
                           src={`http://localhost:3002/img/Product/${v.img}`}
@@ -126,7 +128,7 @@ function MemberOrderDetail(props) {
                 <tr className="border-top"></tr>
                 <tr>
                   <th>商品小計</th>
-                  <td className="detailtd">{data.reduce((prev, curr) => { return prev + curr.price * curr.amount }, 0)}</td>
+                  <td className="detailtd">{total ?? 0}</td>
                 </tr>
                 <tr>
                   <th>優惠</th>
@@ -138,7 +140,9 @@ function MemberOrderDetail(props) {
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">{data.reduce((prev, curr) => { return prev + curr.price * curr.amount }, 0) + dataDetail.promotion_amount + dataDetail.delivery_fee}</td>
+                  <td className="detailtd">{(total ?? 0) - dataDetail.promotion_amount + dataDetail.delivery_fee
+                  }
+                  </td>
                 </tr>
               </tbody>
             </table>

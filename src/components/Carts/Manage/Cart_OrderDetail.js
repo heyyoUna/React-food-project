@@ -8,7 +8,7 @@ function Cart_OrderDetail(props) {
   console.log('這是裡面的', data)
   a = JSON.parse(localStorage.getItem('訂單價格資訊'))
   b =
-    parseInt(a[2]) +
+    parseInt(a[2]) -
     parseInt(a[1]) +
     parseInt(localStorage.getItem('運費'))
   return (
@@ -61,7 +61,7 @@ function Cart_OrderDetail(props) {
                       </td>
                       <td>{v.name}</td>
                       <td>{v.Order_Amount}</td>
-                      <td>{v.price}</td>
+                      <td>NT${v.price}</td>
                     </tr>
                   )
                 })}
@@ -99,21 +99,21 @@ function Cart_OrderDetail(props) {
                 <tr className="border-top"></tr>
                 <tr>
                   <th>商品小計</th>
-                  <td className="detailtd">{a[2]}</td>
+                  <td className="detailtd">NT${a[2]}</td>
                 </tr>
                 <tr>
                   <th>優惠</th>
-                  <td className="detailtd">{a[1]}</td>
+                  <td className="detailtd">-NT${a[1]}</td>
                 </tr>
                 <tr>
                   <th>運費</th>
                   <td className="detailtd">
-                    {localStorage.getItem('運費')}
+                    NT${localStorage.getItem('運費')}
                   </td>
                 </tr>
                 <tr className="border-top">
                   <th>總計</th>
-                  <td className="detailtd">{b}</td>
+                  <td className="detailtd">NT${b}</td>
                 </tr>
               </tbody>
             </table>
