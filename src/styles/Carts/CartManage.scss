@@ -24,29 +24,29 @@
 
 /* Section 標題樣式 */
 
-.title-fz {
-  font-size: 32px;
-  color: var(--Third-color);
-}
+// .title-fz {
+//   font-size: 32px;
+//   color: var(--Third-color);
+// }
 
 .titleBorder {
-  border-bottom: 2px solid var(--Third-color);
-  position: relative;
+  // border-bottom: 2px solid var(--Third-color);
+  // position: relative;
   margin: 80px auto;
 
-  .res-title {
-    position: absolute;
-    top: -17px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ffffff;
-    padding: 0px 17px;
-    letter-spacing: 3px;
-    text-indent: 3px;
-    color: var(--Third-color);
-    font-weight: var(--Second-Font-Weight);
-    font-family: var(--Font-Family);
-  }
+  // .res-title {
+  //   position: absolute;
+  //   top: -17px;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   background-color: #ffffff;
+  //   padding: 0px 17px;
+  //   letter-spacing: 3px;
+  //   text-indent: 3px;
+  //   color: var(--Third-color);
+  //   font-weight: var(--Second-Font-Weight);
+  //   font-family: var(--Font-Family);
+  // }
 
   @include mobile() {
     /* Section 標題與密碼 */
@@ -55,9 +55,9 @@
 
     .res-title {
       text-align: center;
-      font-size: var(--Section-Title-font-size-mobile);
+      // font-size: var(--Section-Title-font-size-mobile);
       /* margin-bottom: 0px; */
-      margin: 10px 0px;
+      // margin: 10px 0px;
     }
   }
 }
