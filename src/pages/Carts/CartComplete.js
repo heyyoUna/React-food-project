@@ -6,7 +6,6 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
 
-
 // 清空 LocalStorage 資訊
 
 function CartComplete(props) {
@@ -58,6 +57,8 @@ function CartComplete(props) {
       console.log('刪除完成')
     }
   }
+
+ 
   return (
     <>
       <div className="container-fluid Banner col-xs-10">

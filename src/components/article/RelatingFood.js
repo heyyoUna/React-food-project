@@ -44,7 +44,7 @@ function RelatingRecipe(props) {
                         '/FoodContent/' + el.sid
                     }}
                   >
-                    <figure className="imgWrap col-lg">
+                    <figure className="col-lg artContentRecoms">
                       <img
                         src={`${API_img}` + el.ar_pic}
                         alt=""

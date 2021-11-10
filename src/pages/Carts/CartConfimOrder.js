@@ -16,6 +16,9 @@ import axios from 'axios'
 import moment from 'moment'
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
+import emailjs from 'emailjs-com'
+import { init } from 'emailjs-com'
+init('user_DhpBZeJsJ1uk9kl5grjzX')
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
@@ -126,9 +129,33 @@ function Cart_ConfimOrder(props) {
       )
     }
     if (s.status === 200) {
+      sendEmail()
       console.log('已完成訂單，請到 DB 查看')
       props.history.push('/carts/Complete')
     }
+  }
+
+  async function sendEmail() {
+    let templateParams = {
+      userMail: DataDetail.E_Mail,
+      user: DataDetail.Order_Name,
+    }
+
+    let service_id = 'service_txsprev'
+    let template_id = 'template_3g1239b'
+    let userID = 'user_DhpBZeJsJ1uk9kl5grjzX'
+    emailjs
+      .send(service_id, template_id, templateParams, userID)
+      .then((response) => {
+        console.log(
+          'SUCCESS!',
+          response.status,
+          response.text
+        )
+      })
+      .catch((error) => {
+        console.log('FAILED...', error)
+      })
   }
 
   return (

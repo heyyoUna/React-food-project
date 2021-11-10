@@ -25,7 +25,7 @@ function PopularExercise(props) {
         ? data.map((el) => {
             return (
               <>
-                <div className="d-flex my-3 mostPopularItems ">
+                <div className="my-3 mostPopularItems ">
                   <Link
                     onClick={() => {
                       window.location.href =
@@ -34,9 +34,6 @@ function PopularExercise(props) {
                   >
                     <li>{el.ar_title}</li>
                   </Link>
-                  <div className="heartWrap my-2 mx-3">
-                    <i className="far fa-heart"></i>
-                  </div>
                 </div>
               </>
             )

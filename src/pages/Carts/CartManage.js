@@ -203,8 +203,8 @@ function CartManage(props) {
         Order_Sid: localStorage.getItem('訂單編號'),
         Payment_Type: NewOrderInfo[0],
         Order_Name: NewOrderInfo[1],
-        Order_Phone: NewOrderInfo[2],
-        E_Mail: NewOrderInfo[3],
+        E_Mail: NewOrderInfo[2],
+        Order_Phone: NewOrderInfo[3],
         Order_Address:
           NewOrderInfo[4] +
           NewOrderInfo[5] +
@@ -310,7 +310,6 @@ function CartManage(props) {
         <button
           className="returninfo col-lg-4 col-10"
           onClick={() => {
-            console.log(props)
             props.history.push('/carts/PreOrder')
           }}
         >

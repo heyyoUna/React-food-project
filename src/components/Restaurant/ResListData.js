@@ -49,7 +49,8 @@ function ResListData(props) {
       .then((obj) => {
         if (obj.success) {
           setDisplayEmpty(!displayEmpty)
-          refreshData(id, displayEmpty)
+          if (refreshData)
+            refreshData(id, displayEmpty)//轉盤不會定義這個方法所以下判斷
         }
       })
   }
@@ -66,7 +67,8 @@ function ResListData(props) {
       .then((obj) => {
         if (obj.success) {
           setDisplayEmpty(!displayEmpty)
-          refreshData(res_id, displayEmpty)
+          if (refreshData)
+            refreshData(res_id, displayEmpty)
         }
       })
   }
