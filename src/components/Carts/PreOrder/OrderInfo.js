@@ -11,7 +11,7 @@ function OrderInfo(props) {
   const token = localStorage.getItem('token')
   // let pointChange = false
   let [pointChange, setpointChange] = useState('未登入')
-  let [textvalue, settextvalue] = useState()
+  let [textvalue, settextvalue] = useState(0)
 
   let promo = false
   let nextStep = false
@@ -34,11 +34,11 @@ function OrderInfo(props) {
 
   // 記錄訂單小計、優惠總額與訂單總計
   let orderdetailPriceInfo = [
-    // 訂單小計
+    // 訂單小計 0
     totalPrice(),
-    // 優惠
+    // 優惠 1
     Promotion,
-    // 訂單總計
+    // 訂單總計 2
     productPrice(),
   ]
 
@@ -184,25 +184,29 @@ function OrderInfo(props) {
         )
 
         //記錄扣點與扣款，到會員資料表
-        let R = await axios.post(
-          `http://localhost:3002/cart/modifyPoint`,
-          {
-            member_sid: data[0].member_sid,
-            change_point: textvalue,
-            change_type: 'USE',
-            left_point: data[0].left_point - textvalue,
-            change_reason: '會員使用點數',
-            // create_at: '',
+        if (textvalue !== 0 && textvalue) {
+          console.log('文字', textvalue)
+
+          let R = await axios.post(
+            `http://localhost:3002/cart/modifyPoint`,
+            {
+              member_sid: data[0].member_sid,
+              change_point: textvalue,
+              change_type: 'USE',
+              left_point: data[0].left_point - textvalue,
+              change_reason: '會員使用點數',
+              // create_at: '',
+            }
+          )
+          if (R.status === 200) {
+            // Swal.fire({
+            //   icon: 'success',
+            //   title: '扣點成功!',
+            //   showConfirmButton: false,
+            //   timer: 1500,
+            // })
+            console.log('扣點成功')
           }
-        )
-        if (R.status === 200) {
-          // Swal.fire({
-          //   icon: 'success',
-          //   title: '扣點成功!',
-          //   showConfirmButton: false,
-          //   timer: 1500,
-          // })
-          console.log('扣點成功')
         }
         // 到填寫資料頁面
         props.history.push('/carts/Manage')
