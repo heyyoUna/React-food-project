@@ -119,6 +119,10 @@
   font-weight: 100;
   cursor: pointer;
   border: none;
+
+  &:hover{
+    background-color: #2a593e;
+  }
 }
 .dt-minus:focus,
 .dt-add:focus {
@@ -145,7 +149,8 @@
   outline: none;
 }
 .dt-addtocart:hover {
-  box-shadow: 4px 10px 20px lightgray;
+  // box-shadow: 4px 10px 20px lightgray;
+  background-color: #2a593e;
 }
 
 // 副標題
@@ -208,6 +213,8 @@
   justify-content: space-evenly;
   width: 100%;
   flex-wrap: wrap;
+  flex-direction: row;
+  
   p{
     font-size: 24px;
     color: #2a593e;
@@ -323,5 +330,11 @@
   }
   .dt-product-wrap ul{
     padding-left: 0;
+  }
+  .dt-reviews-wrap{
+    flex-direction: column;
+  }
+  .dt-comments{
+    width: 90%;
   }
 }
