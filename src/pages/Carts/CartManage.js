@@ -21,6 +21,7 @@ import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import momentTZ from 'moment-timezone'
 import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function CartManage(props) {
   let EmailCheck = new RegExp(
@@ -333,50 +334,63 @@ function CartManage(props) {
                 timer: 1000,
               })
             } else {
-              if (Checkout === '7-11取貨付款') {
-                for (let i = 0; i < 7; i++) {
-                  if (!StoreInfo[i]) {
-                    Swal.fire({
-                      icon: 'warning',
-                      title:
-                        '您有資料尚未填寫或資料格式錯誤喔!',
-                      showConfirmButton: false,
-                      timer: 1000,
-                    })
-                    break
-                  }
-                  if (i == 6) {
-                    AddOrder(
-                      OrderInfo,
-                      Checkout,
-                      Invoice,
-                      StoreInfo
-                    )
+              if (
+                (Invoice[0] === '手機條碼載具' ||
+                  Invoice[0] === '電子發票 - 公司') &&
+                (Invoice[1] === '' || !Invoice[1])
+              ) {
+                console.log('有近來')
+                Swal.fire({
+                  icon: 'warning',
+                  title: '您有資料尚未填寫喔!',
+                  showConfirmButton: false,
+                  timer: 1000,
+                })
+              } else {
+                if (Checkout === '7-11取貨付款') {
+                  for (let i = 0; i < 7; i++) {
+                    if (!StoreInfo[i]) {
+                      Swal.fire({
+                        icon: 'warning',
+                        title:
+                          '您有資料尚未填寫或資料格式錯誤喔!',
+                        showConfirmButton: false,
+                        timer: 1000,
+                      })
+                      break
+                    }
+                    if (i == 6) {
+                      AddOrder(
+                        OrderInfo,
+                        Checkout,
+                        Invoice,
+                        StoreInfo
+                      )
+                    }
                   }
                 }
-              }
-              if (
-                Checkout === '宅配貨到付款' ||
-                Checkout === '信用卡支付 - 宅配到府'
-              ) {
-                for (let i = 0; i < 6; i++) {
-                  if (!OrderInfo[i]) {
-                    Swal.fire({
-                      icon: 'warning',
-                      title:
-                        '您有資料尚未填寫或資料格式錯誤喔!',
-                      showConfirmButton: false,
-                      timer: 1000,
-                    })
-                    break
-                  }
-                  if (i == 5) {
-                    AddOrder(
-                      OrderInfo,
-                      Checkout,
-                      Invoice,
-                      StoreInfo
-                    )
+                if (
+                  Checkout === '宅配貨到付款' ||
+                  Checkout === '信用卡支付 - 宅配到府'
+                ) {
+                  for (let i = 0; i < 6; i++) {
+                    if (!OrderInfo[i]) {
+                      Swal.fire({
+                        icon: 'warning',
+                        title:
+                          '您有資料尚未填寫或資料格式錯誤喔!',
+                        showConfirmButton: false,
+                        timer: 1000,
+                      })
+                      break
+                    } else if (i == 5) {
+                      AddOrder(
+                        OrderInfo,
+                        Checkout,
+                        Invoice,
+                        StoreInfo
+                      )
+                    }
                   }
                 }
               }

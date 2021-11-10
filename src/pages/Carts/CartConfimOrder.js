@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
 import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
@@ -103,8 +104,8 @@ function Cart_ConfimOrder(props) {
         Promotion_Amount: a[1],
         Delivery_Fee: localStorage.getItem('運費'),
         Total_Price:
+          parseInt(a[2]) -
           parseInt(a[1]) +
-          parseInt(a[2]) +
           parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
         Created_At: localStorage.getItem('訂單時間'),

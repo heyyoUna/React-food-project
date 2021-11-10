@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
-import { FaCartPlus } from 'react-icons/fa'
-import { Modal } from 'react-bootstrap'
+import { FaShoppingCart } from 'react-icons/fa'
 import { withRouter } from 'react-router-dom'
-import Button from '@restart/ui/esm/Button'
 import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
@@ -94,7 +92,6 @@ function Heart(props) {
     )
     console.log('succcess', m.data.success)
     if (m.data.success) {
-      console.log('會員 id ', m.data.data[0].sid)
       let r = axios.post(
         'http://localhost:3002/cart/FavProduct',
         {
@@ -122,7 +119,6 @@ function Heart(props) {
       })
     }
 
-    console.log('加入')
   }
 
   async function deletetoFav(sid) {
@@ -163,7 +159,6 @@ function Heart(props) {
               }}
             />
             <IoIosHeart
-              // cardstate={cardstate[1]}
               style={{
                 color: '#d96e30',
                 fontSize: '40px',
@@ -185,7 +180,7 @@ function Heart(props) {
                 }
               }}
             />
-            <FaCartPlus
+            <FaShoppingCart
               className="cartlike"
               onClick={() => {
                 console.log('點擊', i)

@@ -49,6 +49,7 @@ function ProductDetail(props) {
         const obj2 = await rs.json()
         if(obj2.success){
           setReview(obj2.data)
+          
         } 
       }
     })()
@@ -109,24 +110,26 @@ function ProductDetail(props) {
           <div className="dt-sub-title">
             <h4>Reviews</h4>
           </div>
-          <div className="dt-review mb80">
+          {/* <div className="dt-review mb80"> */}
             <div className="dt-reviews-wrap d-flex ">
               {/* 評論框 */}
               {review.length ===0 ? (
                 <p>此商品目前無評論</p>
               ) :(
                 review.map((v,i)=>{
+                  console.log(v.Review_Timestamp)
                 return (
                 <Comments 
                   key={i}
                   name={v.Order_Name}
                   comments={v.Review_Description}
                   rating={v.Review_Level}
+                  commenttime={v.Review_Timestamp}
                 />
                 )
               }))}
             </div>
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </>
