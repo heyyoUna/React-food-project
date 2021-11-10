@@ -119,7 +119,7 @@ function Customize(props) {
     let month = time.getMonth()
     let date = time.getDate()
 
-    return `${year} / ${month + 1} / ${date} `
+    return `${year} - ${month + 1} - ${date} `
   }
 
   // TDEE設定完在設定建議攝取量(建議熱量/建議蛋白質)
@@ -259,8 +259,6 @@ function Customize(props) {
           </button>
         </div>
       </div>
-      
-      <div ref={myRef}></div>
       {/* 推薦區 */}
       <div className="container d-flex pd-sug-wrap">
         <h1>商品推薦</h1>
@@ -354,7 +352,7 @@ function Customize(props) {
             <div className="col-md-12 client-art-wrap d-flex flex-wrap">
             {sugArt.map((v,i)=>{
               return (
-              <div className="artColCards client-art cardsHover">
+              <div className="artColCards client-art cardsHover sug-art">
                 <Link to={`/ExerciseContent/${v.sid}`}>
                   <div className="imgWrap col-lg">
                     <img src={`${API_img}` + v.ar_pic} alt="" />

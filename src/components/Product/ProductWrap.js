@@ -232,7 +232,12 @@ const ProductWrap = (props) => {
                     setOrderQty(orderQty - 1)
                   }
                   if (orderQty <= 1) {
-                    alert('商品最少一樣')
+                    Swal.fire({
+                    icon: 'warning',
+                    title: '商品最少一樣',
+                    showConfirmButton: false,
+                    timer: 1000,
+                  })
                   }
                 }}
               ></i>
@@ -256,8 +261,8 @@ const ProductWrap = (props) => {
                   title: '請先登入會員',
                   icon: 'warning',
                   showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
+                  confirmButtonColor: '#8fc065',
+                  cancelButtonColor: '#fb6107',
                   confirmButtonText: '前往登入頁面',
                 }).then((result) => {
                   if (result.isConfirmed) {

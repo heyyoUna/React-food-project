@@ -92,6 +92,13 @@
 .pd-none-wrap {
   text-align: center;
   margin: auto 20px;
+
+  div{
+    margin-bottom: 10px;
+  }
+  p{
+    letter-spacing: 3px;
+  }
 }
 .pd-target{
   margin-bottom: 50px;
@@ -151,7 +158,9 @@
   outline: none;
 }
 .pd-client-btn:hover {
-  box-shadow: 4px 0 20px lightgray;
+  // box-shadow: 4px 0 20px lightgray;
+  background-color: #FFB606;
+  // background-color: ;
   transform: translateY(-5px);
 }
 .pd-suggest {
@@ -293,6 +302,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  
 }
 .ar-viewmore-wrap{
   transform: translate(600px, 20px);
@@ -400,5 +411,16 @@
   .pd-client-btn {
     font-size: 20px;
     padding: 15px 80px;
+  }
+  .client-art-wrap{
+    justify-content: center;
+    align-items: center;
+  }
+  .sug-art{
+    width: 100% !important;
+  }
+  .ar-viewmore-wrap,
+  .pd-viewmore-wrap{
+    display: none;
   }
 }

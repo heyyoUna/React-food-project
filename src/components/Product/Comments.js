@@ -1,8 +1,17 @@
 import React from 'react'
 
 const Comments = (props) => {
-  const { name, comments,rating} = props
+  const { name, comments,rating, commenttime} = props
   
+  function commentsdate(commenttime) {
+    let time = new Date(commenttime)
+    let year = time.getFullYear()
+    let month = time.getMonth()
+    let date = time.getDate()
+
+    return `${year} - ${month + 1} - ${date} `
+  }
+
   //把星星數轉成陣列
   const level = []
   for (let i = 1; i <= rating; i++) {
@@ -20,7 +29,7 @@ const Comments = (props) => {
               })}
               </div>
               <p className="dt-member-cmts">{comments}</p>
-              <p className="dt-cmts-date">2021/10/16</p>
+              <p className="dt-cmts-date">{commentsdate(commenttime)}</p>
           </div>
           <div className="dt-cmts-btm"></div>
           <p className="dt-member-name">{name}</p>
