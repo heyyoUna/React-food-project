@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import React, { useRef, useState, useEffect } from 'react'
 import '../../App.scss'
 import { BsCursor } from 'react-icons/bs'
-import { imgUrl } from '../../config'
 import ResListData from '../../components/Restaurant/ResListData'
 import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
 import ResPopular from '../../components/Restaurant/ResPopular'
@@ -10,9 +9,7 @@ import TitleBorder from '../../components/TitleBorder'
 import Geocode from 'react-geocode'
 import { apiKey } from '../../api/googleApi'
 import { useHistory } from 'react-router-dom'
-import ResMap from './ResMap'
 import MapSortButton from '../../components/Restaurant/MapSortButton'
-import { FiFilter } from 'react-icons/fi'
 import Carousel from 'react-grid-carousel'
 import ToTop from '../../components/Restaurant/ToTop'
 import Spinner from '../../components/Spinner'
@@ -502,7 +499,7 @@ function Restaurants(props) {
           rows={1}
           showDots
           loop
-          gap={35}
+          gap={18}
           justify-content-center
         >
           {popular.map((v, i) => {

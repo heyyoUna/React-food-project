@@ -53,7 +53,8 @@ function ResPopular(props) {
   return (
     <>
       {/* <div className="col-md-3 col-12 m-4"> */}
-
+  
+    <div>
       <div class="res-popular">
         <div className="res-popular-pic-wrapper">
           <img
@@ -154,7 +155,8 @@ function ResPopular(props) {
           </div>
         </div>
       </div>
-
+      </div>
+  
       {/* </div> */}
     </>
   )

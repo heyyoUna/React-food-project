@@ -24,29 +24,29 @@
 
 /* Section 標題樣式 */
 
-.title-fz {
-  font-size: 32px;
-  color: var(--Third-color);
-}
+// .title-fz {
+//   font-size: 32px;
+//   color: var(--Third-color);
+// }
 
 .titleBorder {
-  border-bottom: 2px solid var(--Third-color);
-  position: relative;
+  // border-bottom: 2px solid var(--Third-color);
+  // position: relative;
   margin: 80px auto;
 
-  .res-title {
-    position: absolute;
-    top: -17px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ffffff;
-    padding: 0px 17px;
-    letter-spacing: 3px;
-    text-indent: 3px;
-    color: var(--Third-color);
-    font-weight: var(--Second-Font-Weight);
-    font-family: var(--Font-Family);
-  }
+  // .res-title {
+  //   position: absolute;
+  //   top: -17px;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   background-color: #ffffff;
+  //   padding: 0px 17px;
+  //   letter-spacing: 3px;
+  //   text-indent: 3px;
+  //   color: var(--Third-color);
+  //   font-weight: var(--Second-Font-Weight);
+  //   font-family: var(--Font-Family);
+  // }
 
   @include mobile() {
     /* Section 標題與密碼 */
@@ -55,9 +55,9 @@
 
     .res-title {
       text-align: center;
-      font-size: var(--Section-Title-font-size-mobile);
+      // font-size: var(--Section-Title-font-size-mobile);
       /* margin-bottom: 0px; */
-      margin: 10px 0px;
+      // margin: 10px 0px;
     }
   }
 }
@@ -548,13 +548,6 @@
     color: var(--Third-color);
     font-weight: var(--Second-Font-Weight);
   }
-  .info1:focus,
-  .info_mobile:focus {
-    color: #ffffff;
-    background-color: var(--Primary-color);
-    border: transparent;
-    outline: transparent;
-  }
   .info_mobile {
     border-radius: 50px;
     border: transparent;
@@ -565,6 +558,12 @@
     font-weight: var(--Second-Font-Weight);
     outline: 1px solid var(--Third-color);
     color: var(--Third-color);
+  }
+  .foucsOn {
+    color: #ffffff;
+    background-color: var(--Primary-color);
+    border: transparent;
+    outline: transparent;
   }
   // 其他兩種發票方式的顯示內容
   .infoinput {
@@ -605,9 +604,10 @@
 }
 
 .returninfo:hover {
-  background-color: var(--Primary-color);
+  background-color: var(--Third-color);
   color: #ffffff;
-  border: 1px solid var(--Primary-color);
+  border: 1px solid var(--Third-color);
+  transition: 2s;
 }
 
 .confirminfo {
@@ -625,6 +625,7 @@
   background-color: var(--Second-color);
   color: #ffffff;
   border: 1px solid var(--Second-color);
+  transition: 2s;
 }
 
 @include mobile() {

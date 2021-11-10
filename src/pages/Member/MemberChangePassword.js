@@ -11,6 +11,15 @@ function MemberChangePassword(props) {
     'newpassword': '',
     'checknewpassword': ''
   })
+  
+  //小眼睛設定，因為有兩個input要用，所以需要另設狀態，不能共用狀態
+  const [close, setClose] = useState('far fa-eye-slash')
+  const [closeAnother, setCloseAnother] = useState(
+    'far fa-eye-slash'
+  )
+  // 切換input type
+  const [type, setType] = useState('password')
+  const [typeAnother, setTypeAnother] = useState('password')
 
   let history = useHistory()
 
@@ -70,24 +79,48 @@ function MemberChangePassword(props) {
                 <label for="password" className="col-sm-3 col-form-label">舊密碼</label>
                 <div className="col-sm-9">
                   <input
-                    type="password"
+                    type={type}
                     className="karin-profile-form-control"
                     name="oldpassword"
                     value={changepassword.oldpassword}
                     onChange={handlePasswordChange}
                   />
+                  <i
+                    className={`mt-4 mt-md-3 ml-2 ${close}`}
+                    onClick={() => {
+                      if (type === 'password') {
+                        setType('text')
+                        setClose('far fa-eye')
+                      } else {
+                        setType('password')
+                        setClose('far fa-eye-slash')
+                      }
+                    }}
+                  ></i>
                 </div>
               </div>
               <div className="karin-form-group row">
                 <label for="password" className="col-sm-3 col-form-label">新密碼</label>
                 <div className="col-sm-9">
                   <input
-                    type="password"
+                    type={typeAnother}
                     className="karin-profile-form-control"
                     name="newpassword"
                     value={changepassword.newpassword}
                     onChange={handlePasswordChange}
                   />
+                  <i
+                    className={`mt-3 mt-md-3 ml-2 ${closeAnother}`}
+                    onClick={() => {
+                      if (typeAnother === 'password') {
+                        setTypeAnother('text')
+                        setCloseAnother('far fa-eye')
+                      } else {
+                        setTypeAnother('password')
+                        setCloseAnother('far fa-eye-slash')
+                      }
+                    }}
+                  ></i>
                 </div>
               </div>
               <div className="karin-form-group row">
