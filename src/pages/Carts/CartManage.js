@@ -117,14 +117,6 @@ function CartManage(props) {
     }
   }
 
-  // async function DataAxios() {
-  //   let r = await axios.get('http://localhost:3002/cart/')
-  //   if (r.status === 200) {
-  //     setData(r.data)
-  //     console.log(r.data)
-  //   }
-  // }
-
   async function AddOrder(
     OrderInfo,
     Checkout,
@@ -367,9 +359,9 @@ function CartManage(props) {
         <button
           className="confirminfo"
           onClick={() => {
-            console.log('付款方式', Checkout)
+            // console.log('付款方式', Checkout)
             console.log('確認訂單', OrderInfo)
-            console.log('發票', Invoice)
+            // console.log('發票', Invoice)
 
             // 判斷是否都有選擇付款方式與發票形式
             if (

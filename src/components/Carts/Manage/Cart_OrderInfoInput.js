@@ -50,15 +50,15 @@ function Cart_OrderInfoInput(props) {
     setName(NewData[0].name)
     setEmail(NewData[0].email)
     setPhone(NewData[0].mobile)
-    // console.log('New', NewData)
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo.push(NewData[0].name)
     NewOrderInfo.push(NewData[0].email)
     NewOrderInfo.push(NewData[0].mobile)
-    setOrderInfo(NewOrderInfo)
+    console.log('新訂單', NewOrderInfo)
     WarningText[0] = ''
     WarningText[1] = ''
     WarningText[2] = ''
+    setOrderInfo(NewOrderInfo)
     setWarningText(WarningText)
   }
 
@@ -107,8 +107,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[0] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 0)
               }
-              UpdateInfo(e.target.value, 0)
             }}
             onChange={(e) => {
               setName(e.target.value)
@@ -137,8 +137,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[1] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 1)
               }
-              UpdateInfo(e.target.value, 1)
             }}
             onChange={(e) => {
               setPhone(e.target.value)
@@ -167,8 +167,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[2] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 2)
               }
-              UpdateInfo(e.target.value, 2)
             }}
             onChange={(e) => {
               setEmail(e.target.value)
@@ -201,8 +201,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[3] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 3)
               }
-              UpdateInfo(e.target.value, 3)
             }}
             onChange={(e) => {
               // console.log('選到的A', e.target.value)
@@ -243,8 +243,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[4] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 4)
               }
-              UpdateInfo(e.target.value, 4)
             }}
             onChange={(e) => {
               setDistrict(e.target.value)
@@ -286,8 +286,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[5] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 5)
               }
-              UpdateInfo(e.target.value, 5)
             }}
             onChange={(e) => {
               setAddress(e.target.value)
