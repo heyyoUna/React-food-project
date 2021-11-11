@@ -3,7 +3,6 @@ import { withRouter, useHistory } from 'react-router-dom'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import { FaLessThan } from 'react-icons/fa'
 
 const ProductWrap = (props) => {
   const { CountNav, setCountNav } = props
@@ -31,7 +30,7 @@ const ProductWrap = (props) => {
   const [orderQty, setOrderQty] = useState(1)
 
   //  token 解密拿到會員ID
-  const addtocart = (sid, product_id, orderQty) => {
+  const addtocart = (product_id, orderQty) => {
     fetch(`http://localhost:3002/member/memberprofile`, {
       method: 'GET',
       headers: {
@@ -42,13 +41,11 @@ const ProductWrap = (props) => {
       .then((obj) => {
         const ID = obj.data[0].sid
         setID(ID)
-        console.log('ID', ID)
         // 有會員ID才寫入暫存訂單
         if (ID) {
           fetch(`http://localhost:3002/cart`, {
             method: 'POST',
             body: JSON.stringify({
-              // Sid: sid,
               Member_id: ID,
               Product_id: product_id,
               Order_Amount: orderQty,
@@ -96,7 +93,7 @@ const ProductWrap = (props) => {
           }
         )
         const obj = await r.json()
-        console.log('obj', obj.data[0].sid)
+        // console.log('obj', obj.data[0].sid)
         setID(obj.data[0].sid)
         if (obj.data[0].sid) {
           const rs = await fetch(
@@ -108,7 +105,7 @@ const ProductWrap = (props) => {
             }
           )
           const orderlist = await rs.json()
-          console.log(orderlist)
+          // console.log(orderlist)
           if (orderlist.length) {
             setCountNav(orderlist.length)
           }
@@ -260,7 +257,6 @@ const ProductWrap = (props) => {
                 className="fas fa-plus"
                 onClick={() => {
                   setOrderQty(orderQty + 1)
-                  console.log(typeof orderQty)
                 }}
               ></i>
             </button>
@@ -283,7 +279,7 @@ const ProductWrap = (props) => {
                   }
                 })
               } else {
-                addtocart(sid, product_id, orderQty)
+                addtocart(product_id, orderQty)
                 Swal.fire({
                   icon: 'success',
                   title: '已加入購物車',
