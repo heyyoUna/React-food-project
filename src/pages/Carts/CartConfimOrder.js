@@ -18,6 +18,7 @@ import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
 import emailjs from 'emailjs-com'
 import { init } from 'emailjs-com'
+import Spinner from '../../components/SpinnerCart'
 init('user_DhpBZeJsJ1uk9kl5grjzX')
 
 function Cart_ConfimOrder(props) {
@@ -25,6 +26,7 @@ function Cart_ConfimOrder(props) {
   let [DataDetail, setDataDetail] = useState({})
   let [MemberPoint, setMemberPoint] = useState({})
   let [pointChange, setpointChange] = useState()
+  let [loading, setLoading] = useState(true)
   let OrderSid = localStorage.getItem('訂單編號')
 
   // 設定訂單編號的格式
@@ -87,6 +89,9 @@ function Cart_ConfimOrder(props) {
       setDataDetail(rD.data.data)
       setMemberPoint(M.data)
       setpointChange(M.data[0].left_point)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   }
 
@@ -104,6 +109,7 @@ function Cart_ConfimOrder(props) {
   // }
 
   async function ConfirmOrder() {
+    setLoading(true)
     let a = []
     let s
     let NewData = [...data]
@@ -178,6 +184,7 @@ function Cart_ConfimOrder(props) {
       )
       if (r.status === 200) {
         console.log('刪除成功')
+        setLoading(false)
         props.history.push('/carts/Manage')
       }
     } else {
@@ -228,6 +235,15 @@ function Cart_ConfimOrder(props) {
 
   return (
     <>
+      <Spinner
+        loading={loading}
+        customCss={{
+          position: 'sticky',
+          top: '50%',
+          left: '50%',
+          zIndex: '100',
+        }}
+      />
       <div className="container-fluid Banner col-xs-10">
         <div className="bannerTitle col-lg-8 col-xs-8 ">
           <h1 className="bannerTitle1 col-xs-6">

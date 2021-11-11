@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { css } from '@emotion/react'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 
-function Spinner(props) {
+function SpinnerCart(props) {
   const { loading, color, customCss } = props
   // const override = css`
   //   position: 'absolute',
@@ -26,8 +26,20 @@ function Spinner(props) {
         css={customCss ? customCss : override}
         size={30}
       />
+      <div
+        className="container-fluid"
+        style={{
+          display: loading ? 'block' : 'none',
+          background: '#FFFFFF',
+          height: '100vh',
+          position: 'fixed',
+          zIndex: '90',
+          top: '0%',
+          left: '0%',
+        }}
+      ></div>
     </>
   )
 }
 
-export default Spinner
+export default SpinnerCart
