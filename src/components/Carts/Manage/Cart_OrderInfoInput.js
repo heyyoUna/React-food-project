@@ -100,7 +100,7 @@ function Cart_OrderInfoInput(props) {
             name="Name"
             value={Name}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (e.target.value === '') {
                 WarningText[0] = '您尚未輸入收件人姓名喔'
                 setWarningText(WarningText)
@@ -126,7 +126,7 @@ function Cart_OrderInfoInput(props) {
             name="Phone"
             value={Phone}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (
                 !PhoneCheck.test(e.target.value) ||
                 e.target.value === ''
@@ -156,7 +156,7 @@ function Cart_OrderInfoInput(props) {
             name="Email"
             value={Email}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (
                 !EmailCheck.test(e.target.value) ||
                 e.target.value === ''
@@ -236,7 +236,7 @@ function Cart_OrderInfoInput(props) {
             name="districts"
             id="districts"
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (e.target.value === '') {
                 WarningText[4] = '尚未選擇行政區喔'
                 setWarningText(WarningText)
@@ -279,7 +279,7 @@ function Cart_OrderInfoInput(props) {
             name="Address"
             value={Address}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (e.target.value === '') {
                 WarningText[5] = '尚未輸入地址喔'
                 setWarningText(WarningText)

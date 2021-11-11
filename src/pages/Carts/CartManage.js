@@ -12,6 +12,7 @@ import {
   FaLongArrowAltRight,
   FaRegEdit,
   FaCheck,
+  FaExclamationTriangle,
 } from 'react-icons/fa'
 import '../../styles/Carts/CartManage.scss'
 import '../../styles/Carts/Banner.scss'
@@ -50,7 +51,7 @@ function CartManage(props) {
     .tz('Asia/Taipei')
     .format('YYYY-MM-DD HH:mm:ss')
   useEffect(() => {
-    console.log('這邊是初始化')
+    // console.log('這邊是初始化')
     CityAxios()
     MemberLogin()
   }, [])
@@ -58,7 +59,7 @@ function CartManage(props) {
   useEffect(() => {
     // console.log('訂購資料', OrderInfo)
     // console.log('付款資料', Checkout)
-    console.log('發票資料', Invoice)
+    // console.log('發票資料', Invoice)
   }, [OrderInfo, Checkout, Invoice])
 
   async function CityAxios() {
@@ -67,14 +68,14 @@ function CartManage(props) {
     )
     if (r.status === 200) {
       // setData(r.data)
-      console.log(r.data)
+      // console.log(r.data)
       for (let i = 0; i < r.data.length; i++) {
         CityArr[i] = {
           City: r.data[i].name,
           districts: r.data[i].districts,
         }
       }
-      console.log('Store城市', CityArr)
+      // console.log('Store城市', CityArr)
     }
   }
   async function MemberLogin() {
@@ -90,7 +91,7 @@ function CartManage(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       DataAxios(m.data.data[0].sid)
     } else {
       Swal.fire({
@@ -108,14 +109,14 @@ function CartManage(props) {
   }
   // 讀取商品資料的 function
   async function DataAxios(Member_id) {
-    console.log('會員 id', Member_id)
+    // console.log('會員 id', Member_id)
     let r = await axios.get(
       `http://localhost:3002/cart/ordertempmember/${Member_id}`
     )
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-      console.log('抓回來的資料', r.data)
+      // console.log('抓回來的資料', r.data)
       setTimeout(() => {
         setLoading(false)
       }, 2000)
@@ -192,7 +193,7 @@ function CartManage(props) {
         // ...Invoice,
       ]
     }
-    console.log('寫出的訂購資料', NewOrderInfo)
+    // console.log('寫出的訂購資料', NewOrderInfo)
 
     // let NewOrderInfo = [Checkout, ...OrderInfo]
     if (!NewOrderInfo[7]) {
@@ -223,14 +224,14 @@ function CartManage(props) {
       }
     )
     if (r.status === 200) {
-      console.log('寫入 DB')
+      // console.log('寫入 DB')
       localStorage.removeItem('門市')
       props.history.push('/carts/ConfirmOrder')
     }
   }
 
   function DeliveryJudge() {
-    console.log('測試checkout', Checkout)
+    // console.log('測試checkout', Checkout)
     if (Checkout === '7-11取貨付款') {
       return (
         <Cart_Store
@@ -315,7 +316,36 @@ function CartManage(props) {
       <Cart_CheckOut setCheckout={setCheckout} />
       <TitleBorder name="取貨資料" />
 
-      {DeliveryJudge()}
+      {!Checkout ? (
+        <div
+          className="container col-10"
+          style={{
+            height: '200px',
+            backgroundColor: '#2A593E',
+            textAlign: 'center',
+            lineHeight: '120px',
+            borderRadius: '20px',
+          }}
+        >
+          <FaExclamationTriangle
+            style={{
+              color: '#ffffff',
+              fontSize: '80px',
+            }}
+          />
+          <h1
+            style={{
+              color: '#ffffff',
+              fontFamily: 'Noto Sans TC',
+              fontWeight: '700',
+            }}
+          >
+            Oops...請記得選擇付款與運送方式唷!
+          </h1>
+        </div>
+      ) : (
+        DeliveryJudge()
+      )}
       <TitleBorder name="發票方式" />
       <Cart_Invoice
         Invoice={Invoice}
@@ -333,9 +363,9 @@ function CartManage(props) {
         <button
           className="confirminfo"
           onClick={() => {
-            console.log('付款方式', Checkout)
-            console.log('確認訂單', OrderInfo)
-            console.log('發票', Invoice)
+            // console.log('付款方式', Checkout)
+            // console.log('確認訂單', OrderInfo)
+            // console.log('發票', Invoice)
             if (
               Checkout.length === 0 ||
               Invoice.length === 0
@@ -353,7 +383,7 @@ function CartManage(props) {
                   Invoice[0] === '電子發票 - 公司') &&
                 (Invoice[1] === '' || !Invoice[1])
               ) {
-                console.log('有近來')
+                // console.log('有近來')
                 Swal.fire({
                   icon: 'warning',
                   title: '您有資料尚未填寫喔!',

@@ -19,7 +19,7 @@ function StoreCard(props) {
   let NewFilter = [...Filter]
 
   useEffect(() => {
-    console.log('重新整理')
+    // console.log('重新整理')
     StoreCard1 = []
     GetProduct(Pos)
   }, [Pos])
@@ -29,7 +29,7 @@ function StoreCard(props) {
       'http://localhost:3002/cart/getProduct'
     )
     if (P.status === 200) {
-      console.log('記錄商品位置', Pos)
+      // console.log('記錄商品位置', Pos)
       NewFilter.push(Pos)
       let max = 24
       let randomresult = ['', '']
@@ -71,7 +71,7 @@ function StoreCard(props) {
         <div
           className="morecard my-lg-auto mt-5 justify-content-lg-start justify-content-center"
           onClick={() => {
-            console.log('點擊')
+            // console.log('點擊')
             props.history.push('/products')
           }}
         >

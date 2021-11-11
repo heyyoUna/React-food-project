@@ -50,13 +50,13 @@ function CartPreOrder(props) {
 
   useEffect(() => {
     // 修改購物車內的商品資料
-    console.log('讀取Modify')
+    // console.log('讀取Modify')
     ModifyProduct(Count, Pos, ODPos)
   }, [Count[Pos]])
 
   useEffect(() => {
     // 刪除購物車內的商品資料
-    console.log('讀取Delete')
+    // console.log('讀取Delete')
 
     // console.log('刪除', DeletePos)
     DeleteProduct(DeletePos)
@@ -75,7 +75,7 @@ function CartPreOrder(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       DataAxios(m.data.data[0].sid)
     } else {
       Swal.fire({
@@ -93,7 +93,7 @@ function CartPreOrder(props) {
   }
   // 讀取商品資料的 function
   async function DataAxios(Member_id) {
-    console.log('會員 id', Member_id)
+    // console.log('會員 id', Member_id)
     let r = await axios.get(
       `http://localhost:3002/cart/ordertempmember/${Member_id}`
     )
@@ -139,7 +139,7 @@ function CartPreOrder(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       let Mod = await axios.put(
         `http://localhost:3002/cart/${ODPos}`,
         {
@@ -168,7 +168,6 @@ function CartPreOrder(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
       let del = await axios.delete(
         `http://localhost:3002/cart/${DeletePos}`
       )

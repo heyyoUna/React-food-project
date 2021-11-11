@@ -541,29 +541,35 @@
 .invoice {
   .info1 {
     border-radius: 50px;
-    outline: 1px solid var(--Third-color);
     border: transparent;
-    background-color: #ffffff;
+    background-color: var(--Primary-color);
     padding: var(--button-padding);
     font-size: var(--Order-list-content-size);
     font-family: var(--Font-Family);
-    color: var(--Third-color);
+    color: #ffffff;
     font-weight: var(--Second-Font-Weight);
+    transition: 0.5s;
   }
+
   .info_mobile {
     border-radius: 50px;
     border: transparent;
-    background-color: #ffffff;
+    background-color: var(--Primary-color);
     padding: var(--button-padding);
     font-size: var(--Order-list-content-size);
     font-family: var(--Font-Family);
     font-weight: var(--Second-Font-Weight);
-    outline: 1px solid var(--Third-color);
-    color: var(--Third-color);
+    color: #ffffff;
+  }
+  .info1:hover,
+  .info_mobile:hover {
+    background-color: var(--Third-color);
+    color: #ffffff;
+    transition: 0.5s;
   }
   .foucsOn {
     color: #ffffff;
-    background-color: var(--Primary-color);
+    background-color: var(--Third-color);
     border: transparent;
     outline: transparent;
   }

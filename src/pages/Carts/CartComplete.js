@@ -32,7 +32,7 @@ function CartComplete(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       deleteTmpList(m.data.data[0].sid)
     } else {
       Swal.fire({
@@ -53,9 +53,6 @@ function CartComplete(props) {
     let r = await axios.delete(
       `http://localhost:3002/cart/truncate/${Member_id}`
     )
-    if (r.status === 200) {
-      console.log('刪除完成')
-    }
   }
 
  

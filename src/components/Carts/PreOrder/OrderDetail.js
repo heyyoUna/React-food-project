@@ -21,7 +21,7 @@ function OrderDetail(props) {
     setDeleteODPos,
   } = props
   let NewCount = [...Count]
-  console.log('第二層資料', NewCount)
+  // console.log('第二層資料', NewCount)
   return (
     <>
       <div className="orderlist col-lg-8 col-10 mx-lg-0 mx-auto">
