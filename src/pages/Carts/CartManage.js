@@ -155,8 +155,8 @@ function CartManage(props) {
       NewOrderInfo = [
         Checkout,
         StoreInfo[4],
-        StoreInfo[5],
         StoreInfo[6],
+        StoreInfo[5],
         StoreInfo[3] + '-' + StoreInfo[0],
         StoreInfo[1],
         StoreInfo[2],

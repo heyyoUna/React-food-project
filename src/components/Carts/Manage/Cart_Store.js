@@ -376,6 +376,7 @@ function Cart_Store(props) {
                         </h6>
                         <button
                           onClick={(e) => {
+                            console.log('onclick門市了')
                             setChoose('已選擇')
                             localStorage.setItem(
                               '店號',

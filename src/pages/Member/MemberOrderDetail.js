@@ -15,6 +15,7 @@ function MemberOrderDetail(props) {
   let [trans, settrans] = useState(false)
 
   let orderSID = props.match.params.ordersid
+  console.log('orderSID',orderSID)
 
   useEffect(() => {
     //讀取訂單明細

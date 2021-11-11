@@ -99,7 +99,7 @@ function Cart_ConfimOrder(props) {
     console.log('這是暫存資料', a)
     console.log('確認訂單資訊', DataDetail)
 
-    let r = await axios.post(
+    await axios.post(
       'http://localhost:3002/cart/ConfirmList',
       {
         Order_Sid: OrderSid,
@@ -132,6 +132,42 @@ function Cart_ConfimOrder(props) {
       sendEmail()
       console.log('已完成訂單，請到 DB 查看')
       props.history.push('/carts/Complete')
+    }
+  }
+
+  async function returnfilldata() {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      let r = await axios.delete(
+        `http://localhost:3002/cart/deleteList/${m.data.data[0].sid}`
+      )
+      if (r.status === 200) {
+        console.log('刪除成功')
+        props.history.push('/carts/Manage')
+      }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入會員哦',
+        showConfirmButton: true,
+        confirmButtonColor: '#8FC065',
+        confirmButtonText: '我知道了',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          props.history.push('/login')
+        }
+      })
     }
   }
 
@@ -305,7 +341,8 @@ function Cart_ConfimOrder(props) {
         <button
           class="returninfo"
           onClick={() => {
-            props.history.push('/carts/Manage')
+            // props.history.push('/carts/Manage')
+            returnfilldata()
           }}
         >
           返回填寫資料
