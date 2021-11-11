@@ -126,7 +126,6 @@ function FoodContent(props) {
               <PopularFood />
             </ul>
           </div>
-          {/* <div className="col-1"></div> */}
         </div>
 
         <div className="row article_rec">
@@ -139,7 +138,7 @@ function FoodContent(props) {
             </div>
             <hr className="col my-auto" />
           </div>
-          
+
           <div className="row artColCardsWrap">
             <RelatingFood />
             <Link

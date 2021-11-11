@@ -11,6 +11,11 @@ function ExerciseContent(props) {
   const [data, setData] = useState([])
   const [options, setOptions] = useState([])
 
+  // function stringToObject(aaa) {
+  //   let sTo = JSON.parse(JSON.stringify(aaa))
+  //   return sTo
+  // }
+
   useEffect(() => {
     const fcURL = new URL(document.location.href) //目前網頁網址
     const fcSid = fcURL.pathname //目前網址的路徑
@@ -46,7 +51,13 @@ function ExerciseContent(props) {
             <h3 className="dark-green py-3">
               {data.ar_index_title1}
             </h3>
-            <div>{data.ar_index1}</div>
+            {/* <div>{data.ar_index1}</div> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data.ar_index1,
+              }}
+            ></div>
+
             <figure className="imgWrap my-3 py-3">
               <img
                 src={`${API_img}` + data.ar_index_pic1}

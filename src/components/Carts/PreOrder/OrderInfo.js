@@ -193,28 +193,29 @@ function OrderInfo(props) {
 
         //記錄扣點與扣款，到會員資料表
         if (textvalue !== 0 && textvalue && Promotion) {
-          console.log('文字', textvalue)
+          // console.log('文字', textvalue)
+          // localStorage.setItem('會員使用點數', textvalue)
 
-          let R = await axios.post(
-            `http://localhost:3002/cart/modifyPoint`,
-            {
-              member_sid: data[0].member_sid,
-              change_point: textvalue,
-              change_type: 'USE',
-              left_point: data[0].left_point - textvalue,
-              change_reason: '會員使用點數',
-              // create_at: '',
-            }
-          )
-          if (R.status === 200) {
-            // Swal.fire({
-            //   icon: 'success',
-            //   title: '扣點成功!',
-            //   showConfirmButton: false,
-            //   timer: 1500,
-            // })
-            console.log('扣點成功')
-          }
+          // let R = await axios.post(
+          //   `http://localhost:3002/cart/modifyPoint`,
+          //   {
+          //     member_sid: data[0].member_sid,
+          //     change_point: textvalue,
+          //     change_type: 'USE',
+          //     left_point: data[0].left_point - textvalue,
+          //     change_reason: '會員使用點數',
+          //     // create_at: '',
+          //   }
+          // )
+          // if (R.status === 200) {
+          //   // Swal.fire({
+          //   //   icon: 'success',
+          //   //   title: '扣點成功!',
+          //   //   showConfirmButton: false,
+          //   //   timer: 1500,
+          //   // })
+          //   console.log('扣點成功')
+          // }
         }
         // 到填寫資料頁面
         props.history.push('/carts/Manage')

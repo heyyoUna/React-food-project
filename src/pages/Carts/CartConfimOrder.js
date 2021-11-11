@@ -18,11 +18,15 @@ import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
 import emailjs from 'emailjs-com'
 import { init } from 'emailjs-com'
+import Spinner from '../../components/SpinnerCart'
 init('user_DhpBZeJsJ1uk9kl5grjzX')
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
   let [DataDetail, setDataDetail] = useState({})
+  let [MemberPoint, setMemberPoint] = useState({})
+  let [pointChange, setpointChange] = useState()
+  let [loading, setLoading] = useState(true)
   let OrderSid = localStorage.getItem('訂單編號')
 
   // 設定訂單編號的格式
@@ -70,11 +74,24 @@ function Cart_ConfimOrder(props) {
     let rD = await axios.get(
       `http://localhost:3002/cart/addList/${OrderSid}`
     )
-    if (r.status === 200 && rD.status === 200) {
+
+    let M = await axios.get(
+      `http://localhost:3002/cart/memberpoint/${Member_id}`
+    )
+
+    if (
+      r.status === 200 &&
+      rD.status === 200 &&
+      M.status === 200
+    ) {
       setData(r.data)
       console.log('rD', rD)
       setDataDetail(rD.data.data)
-      // console.log(rD.data)
+      setMemberPoint(M.data)
+      setpointChange(M.data[0].left_point)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   }
 
@@ -92,6 +109,7 @@ function Cart_ConfimOrder(props) {
   // }
 
   async function ConfirmOrder() {
+    setLoading(true)
     let a = []
     let s
     let NewData = [...data]
@@ -112,6 +130,18 @@ function Cart_ConfimOrder(props) {
           parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
         Created_At: localStorage.getItem('訂單時間'),
+      }
+    )
+
+    await axios.post(
+      `http://localhost:3002/cart/modifyPoint`,
+      {
+        member_sid: MemberPoint[0].member_sid,
+        change_point: a[1],
+        change_type: 'USE',
+        left_point: MemberPoint[0].left_point - a[1],
+        change_reason: '會員使用點數',
+        // create_at: '',
       }
     )
 
@@ -154,6 +184,7 @@ function Cart_ConfimOrder(props) {
       )
       if (r.status === 200) {
         console.log('刪除成功')
+        setLoading(false)
         props.history.push('/carts/Manage')
       }
     } else {
@@ -204,6 +235,15 @@ function Cart_ConfimOrder(props) {
 
   return (
     <>
+      <Spinner
+        loading={loading}
+        customCss={{
+          position: 'sticky',
+          top: '50%',
+          left: '50%',
+          zIndex: '100',
+        }}
+      />
       <div className="container-fluid Banner col-xs-10">
         <div className="bannerTitle col-lg-8 col-xs-8 ">
           <h1 className="bannerTitle1 col-xs-6">

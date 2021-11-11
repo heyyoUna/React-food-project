@@ -15,6 +15,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { withRouter } from 'react-router-dom'
+import Spinner from '../../components/SpinnerCart'
 
 function CartPreOrder(props) {
   let { CountNav, setCountNav } = props
@@ -38,7 +39,9 @@ function CartPreOrder(props) {
 
   let [Filter, setFilter] = useState([])
 
-  let [loading, setLoading] = useState(false)
+  let [loading, setLoading] = useState(true)
+
+  //客製化spinner css
 
   useEffect(() => {
     // 讀取加入購物車的商品資料
@@ -116,6 +119,9 @@ function CartPreOrder(props) {
 
       // 計算訂單總計(扣除會員點數)
       totalPrice()
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   }
 
@@ -191,7 +197,6 @@ function CartPreOrder(props) {
   const totalPrice = () => {
     let Pricesum = 0
 
-
     // 解構賦值
     let Priceinfo = [...data]
 
@@ -206,6 +211,15 @@ function CartPreOrder(props) {
   }
   return (
     <>
+      <Spinner
+        loading={loading}
+        customCss={{
+          position: 'sticky',
+          top: '50%',
+          left: '50%',
+          zIndex: '100',
+        }}
+      />
       <div className="container-fluid Banner col-xs-10">
         <div className="bannerTitle col-lg-8 col-xs-8 ">
           <h1 className="bannerTitle1 col-xs-6">

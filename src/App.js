@@ -63,6 +63,7 @@ import MyNavbarOriginal from './components/MyNavbarOriginal'
 import MyFooter from './components/MyFooter'
 import MainContent from './components/MainContent'
 import Spinner from './components/Spinner'
+import axios from 'axios'
 
 //import BreadCrumb from './components/BreadCrumb'
 // import MultiLevelBreadCrumb from './components/MultiLevelBreadCrumb'
@@ -70,7 +71,7 @@ import Spinner from './components/Spinner'
 function App() {
   const [restaurantId, setRestaurantId] = useState('')
   const [productId, setProductId] = useState('')
-  const [CountNav, setCountNav] = useState(0)
+  const [CountNav, setCountNav] = useState()
   const [auth, setAuth] = useState(false)
   //給客製化跟商品區收藏商品資料用
   const [favArr, setFavArr] = useState([{}])
@@ -90,9 +91,38 @@ function App() {
       setAuth(false)
     } else {
       setAuth(true)
+      MemberLogin()
       // setCountNav(count)
     }
   }, [])
+
+  async function MemberLogin() {
+    let m = await axios.get(
+      `http://localhost:3002/member/memberprofile`,
+      {
+        headers: {
+          //token 從 header 中 Authorization 屬性傳入
+          //格式為 Bearer + 空格 + token
+          Authorization:
+            'Bearer ' + localStorage.getItem('token'),
+        },
+      }
+    )
+    if (m.data.success) {
+      console.log('會員成功登入 id', m.data.data[0].sid)
+      CartAmount(m.data.data[0].sid)
+    }
+  }
+
+  async function CartAmount(Member_id) {
+    let r = await axios.get(
+      `http://localhost:3002/cart/ordertempmember/${Member_id}`
+    )
+    if (r.status === 200) {
+      console.log('資料長度', r.data.length)
+      setCountNav(r.data.length)
+    }
+  }
 
   return (
     <Router>

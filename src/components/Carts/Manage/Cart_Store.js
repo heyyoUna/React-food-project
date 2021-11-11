@@ -59,7 +59,7 @@ function Cart_Store(props) {
   let [Choose, setChoose] = useState('請選擇門市')
 
   // console.log(CityArr)
-  // console.log('店名資訊', StoreInfo)
+  console.log('店名資訊', StoreInfo[0])
   // console.log('路段資訊', GetAddress)
 
   useEffect(() => {
@@ -185,7 +185,7 @@ function Cart_Store(props) {
   function UpdateInfo(value, index) {
     let NewStoreInfo = [...StoreInfo]
     NewStoreInfo[index] = value
-    // console.log('店鋪資料', NewStoreInfo)
+    console.log('店鋪資料', NewStoreInfo)
     setStoreInfo(NewStoreInfo)
   }
 
@@ -195,8 +195,6 @@ function Cart_Store(props) {
     let map = useMap()
     // 解構 props 的定位資料
     let NewGetPosition = [...GetPosition]
-
-    console.log('選擇門市了', StoreInfo[3])
 
     // 如果已經選擇道路名稱的話
     if (GetStoreInfo.length !== 0) {
@@ -270,6 +268,7 @@ function Cart_Store(props) {
                 // UpdateInfo(e.target.value, 0)
               }}
             >
+              <option>請選擇縣市</option>
               {CityArr.map((v, i) => {
                 return (
                   <option value={v.City}>{v.City}</option>
@@ -294,9 +293,8 @@ function Cart_Store(props) {
                 setGetAddress(GetAddress)
               }}
             >
-              {!StoreInfo[0] ? (
-                <option>請選擇行政區</option>
-              ) : (
+              <option>請選擇行政區</option>
+              {StoreInfo[0] ? (
                 CityArr.map((v, i) => {
                   if (v.City === StoreInfo[0]) {
                     return v.districts.map((a) => {
@@ -308,6 +306,8 @@ function Cart_Store(props) {
                     })
                   }
                 })
+              ) : (
+                <option>請先選擇縣市，再選擇行政區</option>
               )}
             </select>
             <FaChevronDown className="ChevronDown position-absolute" />
@@ -329,13 +329,20 @@ function Cart_Store(props) {
                 UpdateInfo(e.target.value, 2)
               }}
             >
-              {GetAddress.map((v, i) => {
-                return (
-                  <option value={v.RoadName}>
-                    {v.RoadName}
-                  </option>
-                )
-              })}
+              <option>請選擇道路名稱</option>
+              {StoreInfo[1] ? (
+                GetAddress.map((v, i) => {
+                  return (
+                    <option value={v.RoadName}>
+                      {v.RoadName}
+                    </option>
+                  )
+                })
+              ) : (
+                <option>
+                  請先選擇行政區，再選擇道路名稱
+                </option>
+              )}
             </select>
             <FaChevronDown className="ChevronDown position-absolute" />
           </div>
@@ -415,8 +422,8 @@ function Cart_Store(props) {
                 } else {
                   WarningText[4] = ''
                   setWarningText(WarningText)
+                  UpdateInfo(e.target.value, 4)
                 }
-                UpdateInfo(e.target.value, 4)
               }}
               onChange={(e) => {
                 setName(e.target.value)
@@ -434,7 +441,6 @@ function Cart_Store(props) {
               name={Phone}
               id="Phone"
               onBlur={(e) => {
-                // console.log(e.target.value)
                 if (
                   !PhoneCheck.test(e.target.value) ||
                   e.target.value === ''
@@ -445,8 +451,8 @@ function Cart_Store(props) {
                 } else {
                   WarningText[5] = ''
                   setWarningText(WarningText)
+                  UpdateInfo(e.target.value, 5)
                 }
-                UpdateInfo(e.target.value, 5)
               }}
               onChange={(e) => {
                 setPhone(e.target.value)
@@ -475,8 +481,9 @@ function Cart_Store(props) {
                 } else {
                   WarningText[6] = ''
                   setWarningText(WarningText)
+                  UpdateInfo(e.target.value, 6)
                 }
-                UpdateInfo(e.target.value, 6)
+                console.log('Email', e.target.value)
               }}
               onChange={(e) => {
                 setEmail(e.target.value)
