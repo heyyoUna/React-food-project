@@ -79,6 +79,7 @@
 
   .ChevronDown {
     font-size: 25px;
+    cursor: pointer;
     color: #ffffff;
     top: 30%;
     left: 90%;
@@ -159,6 +160,9 @@
   .check {
     width: 100%;
     margin-bottom: 50px;
+    .choose{
+      display: flex;
+    }
     span {
       font-size: 10px;
       font-family: var(--Font-Family);
@@ -175,6 +179,7 @@
       height: 30px;
       color: var(--Third-color);
       margin: 0 20px;
+      cursor: pointer;
     }
     img {
       width: 40px;
