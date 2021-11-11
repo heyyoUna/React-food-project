@@ -317,7 +317,7 @@ function CartManage(props) {
           className="container col-10"
           style={{
             height: '200px',
-            backgroundColor: '#2A593E',
+            // backgroundColor: '#2A593E',
             textAlign: 'center',
             lineHeight: '120px',
             borderRadius: '20px',
@@ -325,15 +325,18 @@ function CartManage(props) {
         >
           <FaExclamationTriangle
             style={{
-              color: '#ffffff',
-              fontSize: '80px',
+              // color: '#ffffff',
+              color: '#fb620980',
+              // color: '#2a593e',
+              fontSize: '70px',
             }}
           />
           <h3
             style={{
-              color: '#ffffff',
+              color: '#fb620980',
+              // color: '#2a593e',
               fontFamily: 'Noto Sans TC',
-              fontWeight: '700',
+              fontWeight: '500',
             }}
           >
             Oops...請記得選擇付款與運送方式唷!

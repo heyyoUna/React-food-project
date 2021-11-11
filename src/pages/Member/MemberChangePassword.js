@@ -76,7 +76,7 @@ function MemberChangePassword(props) {
           <div className="karin-profile-main col-8">
             <form name="memberForm" onSubmit={handleSubmit}>
               <div className="karin-form-group row">
-                <label for="password" className="col-sm-3 col-form-label">舊密碼</label>
+                <label htmlFor="password" className="col-sm-3 col-form-label">舊密碼</label>
                 <div className="col-sm-9">
                   <input
                     type={type}
@@ -100,7 +100,7 @@ function MemberChangePassword(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="password" className="col-sm-3 col-form-label">新密碼</label>
+                <label htmlFor="password" className="col-sm-3 col-form-label">新密碼</label>
                 <div className="col-sm-9">
                   <input
                     type={typeAnother}
@@ -124,7 +124,7 @@ function MemberChangePassword(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="password" className="col-sm-3 col-form-label">確認新密碼</label>
+                <label htmlFor="password" className="col-sm-3 col-form-label">確認新密碼</label>
                 <div className="col-sm-9">
                   <input
                     type="password"

@@ -541,31 +541,35 @@
 .invoice {
   .info1 {
     border-radius: 50px;
-    border: transparent;
-    background-color: var(--Primary-color);
+    border: 1px solid #2a593e;
+    // background-color: var(--Primary-color);
+    background-color: white;
     padding: var(--button-padding);
     font-size: var(--Order-list-content-size);
     font-family: var(--Font-Family);
-    color: #ffffff;
-    font-weight: var(--Second-Font-Weight);
+    color: #2a593e;
+    // font-weight: var(--Second-Font-Weight);
     transition: 0.5s;
   }
 
   .info_mobile {
     border-radius: 50px;
     border: transparent;
-    background-color: var(--Primary-color);
+    border: 1px solid #2a593e;
+    background-color: white;
+    // background-color: var(--Primary-color);
     padding: var(--button-padding);
     font-size: var(--Order-list-content-size);
     font-family: var(--Font-Family);
-    font-weight: var(--Second-Font-Weight);
-    color: #ffffff;
+    // font-weight: var(--Second-Font-Weight);
+    color: #2a593e;
   }
   .info1:hover,
   .info_mobile:hover {
-    background-color: var(--Third-color);
+    background-color: #2a593e;
     color: #ffffff;
-    transition: 0.5s;
+    transition: 0.3s;
+    border: 1px solid #2a593e;
   }
   .foucsOn {
     color: #ffffff;
@@ -609,14 +613,14 @@
   font-size: var(--Button-font-size);
   font-weight: var(--Second-Font-Weight);
   color: #ffffff;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .returninfo:hover {
   background-color: var(--Third-color);
   color: #ffffff;
   border: 1px solid var(--Third-color);
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .confirminfo {
@@ -628,7 +632,7 @@
   font-family: var(--Font-Family);
   font-size: var(--Button-font-size);
   font-weight: var(--Second-Font-Weight);
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .confirminfo:hover {
