@@ -19,7 +19,7 @@ const Comments = (props) => {
   }
   return (
     <>
-        <div class="dt-comments col-sm-12 col-lg-3 ">
+        <div class="dt-comments col-sm-12 col-lg-4 ">
           <div className="dt-comments-wrap d-flex">
               <div className="dt-rating">
               {level.map((v,i)=>{
