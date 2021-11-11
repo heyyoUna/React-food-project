@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState } from 'react'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { FaShoppingCart } from 'react-icons/fa'
 import { withRouter } from 'react-router-dom'
@@ -33,7 +33,7 @@ function Heart(props) {
           Sid: '',
           Member_id: m.data.data[0].sid,
           Product_id: v.product_id,
-          Order_Amount: 1,
+          Order_Amount: '1',
         }
       )
       Swal.fire({
@@ -116,7 +116,6 @@ function Heart(props) {
         }
       })
     }
-
   }
 
   async function deletetoFav(sid) {
