@@ -14,7 +14,7 @@ import Comments from './../../components/Product/Comments'
 
 // 細節頁
 function ProductDetail(props) {
-  const { CountNav,setCountNav} = props
+  const { CountNav,setCountNav,setFavArr,favArr} = props
   // 解析路徑
   const searchParams = (
     props.location.pathname
@@ -69,6 +69,7 @@ function ProductDetail(props) {
       <div className="container dt-pd-container">
         <div className="row d-flex dt-product">
           <ProductWrap
+          // {...p}
             sid={p.sid}
             name={p.name}
             product_id={p.product_id}
@@ -80,6 +81,8 @@ function ProductDetail(props) {
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}
+            setFavArr={setFavArr}
+            favArr={favArr}
             CountNav={CountNav}
             setCountNav={setCountNav}
             favIndicator={p.favIndicator}
@@ -117,7 +120,6 @@ function ProductDetail(props) {
                 <p>此商品目前無評論</p>
               ) :(
                 review.map((v,i)=>{
-                  console.log(v.Review_Timestamp)
                 return (
                 <Comments 
                   key={i}

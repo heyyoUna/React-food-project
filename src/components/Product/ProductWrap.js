@@ -81,6 +81,7 @@ const ProductWrap = (props) => {
       })
   }
 
+  // 更新購物車數量
   useEffect(() => {
     if (token) {
       //拿到會員ID
@@ -156,6 +157,7 @@ const ProductWrap = (props) => {
         }
       })
   }
+
   return (
     <>
       <div className="dt-product-imgwrap col-lg-6">

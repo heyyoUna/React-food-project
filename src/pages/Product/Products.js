@@ -18,7 +18,7 @@ import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
   const { setFavArr, favArr} = props
-  const ID = localStorage.getItem('id')
+  const token = localStorage.getItem('token')
   const searchParams = new URLSearchParams(
     props.location.search
   )
@@ -63,15 +63,41 @@ function Products(props) {
   
   // 拿到會員收藏商品資料
   useEffect(() => {
-    ;(async () => {
-      const r = await fetch(
-        'http://localhost:3002/product/fav/' + ID
-      )
-      const obj = await r.json()
-      setFavArr(obj.data)
-    })()
+    // if(token){
+    //   // 有token 的話去拿到ID
+    //   ;(async () => {
+    //     const r = await fetch(
+    //       `http://localhost:3002/member/memberprofile`,{
+    //         method: 'GET',
+    //         headers: {
+    //           'Authorization': 'Bearer ' + token
+    //         }
+    //       })
+    //     const obj = await r.json()
+    //     if(obj.data[0].sid){
+    //       const rs = await fetch(`http://localhost:3002/product/fav/${obj.data[0].sid}`,{
+    //         headers:{
+    //           'Authorization': 'Bearer ' + token
+    //         }
+    //       })
+    //       const favlist = await rs.json()
+    //       console.log(favlist.data)
+    //       setFavArr(favlist.data)
+    //       console.log('favlist.data:', favlist.data)
+    //     }
+    //   })()
+    // }
+    
   }, [])
 
+
+  // ;(async () => {
+  //   const r = await fetch(
+  //     'http://localhost:3002/product/fav/' + ID
+  //   )
+  //   const obj = await r.json()
+  //   setFavArr(obj.data)
+  // })()
   //要所有資料
   useEffect(() => {
     ;(async () => {
@@ -79,8 +105,41 @@ function Products(props) {
         `${Product_API}` + `${props.location.search}`
       )
       const obj = await r.json()
+      console.log('obj.rows', obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
+
+      //  拿收藏商品
+      if(token){
+        // 有token 的話去拿到ID
+        ;(async () => {
+          const r = await fetch(
+            `http://localhost:3002/member/memberprofile`,{
+              method: 'GET',
+              headers: {
+                'Authorization': 'Bearer ' + token
+              }
+            })
+          const obj = await r.json()
+          if(obj.data[0].sid){
+            const rs = await fetch(`http://localhost:3002/product/fav/${obj.data[0].sid}`,{
+              headers:{
+                'Authorization': 'Bearer ' + token
+              }
+            })
+            const favlist = await rs.json()
+            console.log('favlist', favlist)
+            const favData = {};
+            if(favlist.data.length){
+              favlist.data.forEach(el=>{
+                favData[el.product_id] = 1
+              })
+            }
+            setFavArr(favData)
+            // console.log('favData:', favData)
+          }
+        })()
+      }
     })()
   }, [nowpage, productCate, searchWord, filter])
 
@@ -149,6 +208,7 @@ function Products(props) {
               return (
                 <ProductCard
                   favArr={favArr}
+                  setFavArr={setFavArr}
                   index={i}
                   key={v.sid}
                   sid={v.sid}

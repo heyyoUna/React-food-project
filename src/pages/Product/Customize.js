@@ -56,14 +56,39 @@ function Customize(props) {
 
   // 拿到會員收藏商品資料
   useEffect(() => {
-    ;(async () => {
-      const r = await fetch(
-        'http://localhost:3002/product/fav/' + ID
-      )
-      const obj = await r.json()
-      setFavArr(obj.data)
-    })()
+    if(token){
+      // 有token 的話去拿到ID
+      ;(async () => {
+        const r = await fetch(
+          `http://localhost:3002/member/memberprofile`,{
+            method: 'GET',
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+          })
+        const obj = await r.json()
+        if(obj.data[0].sid){
+          const rs = await fetch(`http://localhost:3002/product/fav/${obj.data[0].sid}`,{
+            headers:{
+              'Authorization': 'Bearer ' + token
+            }
+          })
+          const favlist = await rs.json()
+          const favData = {};
+          if(favlist.data.length){
+            favlist.data.forEach(el=>{
+              favData[el.product_id] = 1
+            })
+          }
+
+          setFavArr(favData)
+        }
+      })()
+    }else{
+      setFavArr({})
+    }
   }, [])
+
 
   // 商品區要資料
   useEffect(() => {
@@ -266,6 +291,7 @@ function Customize(props) {
           {sugProducts.map((v, i) => {
             return (
               <ProductCard
+                setFavArr={setFavArr}
                 favArr={favArr}
                 key={v.sid}
                 sid={v.sid}
