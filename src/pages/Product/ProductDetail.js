@@ -48,13 +48,15 @@ function ProductDetail(props) {
         })
         const obj2 = await rs.json()
         if(obj2.success){
-          setReview(obj2.data)
-          
+          const newReview = obj2.data.filter(function(value){
+            return value.Review_Level !==0
+          })
+          setReview(newReview)
         } 
       }
     })()
   }, [])
-
+  
   //  判斷收藏
   const setFavIndicator = (indicator) => {
     let tempProduct = { ...ProductDetail }
