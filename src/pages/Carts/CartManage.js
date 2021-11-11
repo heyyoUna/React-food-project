@@ -22,6 +22,7 @@ import moment from 'moment'
 import momentTZ from 'moment-timezone'
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
+import Spinner from '../../components/SpinnerCart'
 
 function CartManage(props) {
   let EmailCheck = new RegExp(
@@ -42,6 +43,8 @@ function CartManage(props) {
     parseInt(10)
   let member
   let token = localStorage.getItem('token')
+  let [loading, setLoading] = useState(true)
+
   var a = momentTZ
     .utc()
     .tz('Asia/Taipei')
@@ -113,6 +116,9 @@ function CartManage(props) {
       // 設定 data
       setData(r.data)
       console.log('抓回來的資料', r.data)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   }
 
@@ -267,6 +273,15 @@ function CartManage(props) {
 
   return (
     <>
+      <Spinner
+        loading={loading}
+        customCss={{
+          position: 'sticky',
+          top: '50%',
+          left: '50%',
+          zIndex: '100',
+        }}
+      />
       <div className="container-fluid Banner col-xs-10">
         <div className="bannerTitle col-lg-8 col-xs-8 ">
           <h1 className="bannerTitle1 col-xs-6">
