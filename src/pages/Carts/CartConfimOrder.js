@@ -117,6 +117,21 @@ function Cart_ConfimOrder(props) {
     // console.log('這是暫存資料', a)
     // console.log('確認訂單資訊', DataDetail)
 
+    if (a[1] !== 0) {
+      console.log('會員點數', a[1])
+      await axios.post(
+        `http://localhost:3002/cart/modifyPoint`,
+        {
+          member_sid: MemberPoint[0].member_sid,
+          change_point: a[1],
+          change_type: 'USE',
+          left_point: MemberPoint[0].left_point - a[1],
+          change_reason: '會員使用點數',
+          // create_at: '',
+        }
+      )
+    }
+
     await axios.post(
       'http://localhost:3002/cart/ConfirmList',
       {
@@ -130,18 +145,6 @@ function Cart_ConfimOrder(props) {
           parseInt(localStorage.getItem('運費')),
         Order_Status: '訂單成立',
         Created_At: localStorage.getItem('訂單時間'),
-      }
-    )
-
-    await axios.post(
-      `http://localhost:3002/cart/modifyPoint`,
-      {
-        member_sid: MemberPoint[0].member_sid,
-        change_point: a[1],
-        change_type: 'USE',
-        left_point: MemberPoint[0].left_point - a[1],
-        change_reason: '會員使用點數',
-        // create_at: '',
       }
     )
 

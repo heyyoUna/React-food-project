@@ -209,6 +209,7 @@ function Cart_OrderInfoInput(props) {
               setCity(e.target.value)
             }}
           >
+            <option>請選擇縣市</option>
             {CityArr.map((v, i) => {
               return (
                 <option value={v.City}>{v.City}</option>
@@ -250,8 +251,9 @@ function Cart_OrderInfoInput(props) {
               setDistrict(e.target.value)
             }}
           >
+            <option>請選擇行政區</option>
             {!OrderInfo[3] ? (
-              <option selected>請選擇地區</option>
+              <option selected>請選擇行政區</option>
             ) : (
               CityArr.map((v, i) => {
                 if (v.City === OrderInfo[3]) {
