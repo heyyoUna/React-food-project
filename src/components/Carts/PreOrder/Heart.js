@@ -30,7 +30,6 @@ function Heart(props) {
       let p = await axios.post(
         'http://localhost:3002/cart',
         {
-          Sid: '',
           Member_id: m.data.data[0].sid,
           Product_id: v.product_id,
           Order_Amount: '1',
