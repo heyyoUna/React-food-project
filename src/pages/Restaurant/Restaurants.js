@@ -126,10 +126,8 @@ function Restaurants(props) {
 
       if (filter.distance) {
         processFilterData = processFilterData.filter(
-          (d) => {
-            console.log(d)
-            console.log(d.distance)
-            return d.distance <= filter.distance
+          (d) => {                 
+            return parseInt(d.distance) <= parseInt(filter.distance)
           }
         )
       }
@@ -141,7 +139,6 @@ function Restaurants(props) {
         0,
         pages.perPage
       )
-      console.log(dataPerpage)
 
       setDisplayData(dataPerpage)
       const totalPages = Math.ceil(
@@ -153,7 +150,7 @@ function Restaurants(props) {
       for (let i = 1; i <= totalPages; i++) {
         arr.push(i)
       }
-      console.log(arr)
+    
       setPagination(arr)
     }
   }, [filter])
@@ -175,9 +172,9 @@ function Restaurants(props) {
   // }, [])
 
   useEffect(() => {
+    //spinner
+    setLoading(true)
     ;(async () => {
-      //spinner
-      // setLoading(true)
       let r = await fetch(
         'http://localhost:3002/reslist/address',
         {
@@ -193,7 +190,6 @@ function Restaurants(props) {
         }
       )
       const data = await r.json()
-      console.log('data', data)
       if (data.success) {
         setApiData(data.data)
         setDisplayData(data.data)
@@ -202,12 +198,10 @@ function Restaurants(props) {
         const totalPages = Math.ceil(
           dataSize / pages.perPage
         )
-        console.log(totalPages)
         const arr = []
         for (let i = 1; i <= totalPages; i++) {
           arr.push(i)
         }
-        console.log(arr)
         setPages({ ...pages, totalPages })
         setPagination(arr)
       }
@@ -217,11 +211,11 @@ function Restaurants(props) {
         pages.perPage
       )
       console.log(dataPerpage)
-      setDisplayData(dataPerpage)
-      setTimeout(() => {
-        setLoading(false)
-      }, 2000)
+      setDisplayData(dataPerpage)     
     })()
+    setTimeout(() => {
+      setLoading(false)
+    }, 1500)
   }, [lat, lng])
 
   const mySubmit = () => {
@@ -247,8 +241,8 @@ function Restaurants(props) {
         console.error(error)
       }
     )
-    setLoading(true)
   }
+
   useEffect(() => {
     ;(async () => {
       let r = await fetch(

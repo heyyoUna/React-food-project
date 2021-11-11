@@ -117,7 +117,7 @@ function ResMap() {
           (d) => {
             console.log(d)
             console.log(d.distance)
-            return d.distance <= filter.distance
+            return parseInt(d.distance) <= parseInt(filter.distance)
           }
         )
       }
