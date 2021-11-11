@@ -73,7 +73,7 @@ function App() {
   const [CountNav, setCountNav] = useState(0)
   const [auth, setAuth] = useState(false)
   //給客製化跟商品區收藏商品資料用
-  const [favArr, setFavArr] = useState([])
+  const [favArr, setFavArr] = useState([{}])
   // 客製化用
   const [gender, setGender] = useState('男')
   const [years, setYears] = useState('')
@@ -124,6 +124,8 @@ function App() {
 
               <Route path="/product/:id">
                 <ProductDetail
+                  favArr={favArr}
+                  setFavArr={setFavArr}
                   CountNav={CountNav}
                   setCountNav={setCountNav}
                 />

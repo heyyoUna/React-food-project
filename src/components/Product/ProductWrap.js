@@ -31,7 +31,7 @@ const ProductWrap = (props) => {
   const [orderQty, setOrderQty] = useState(1)
 
 
-  //  token 解密拿到會員ID
+  //  token 解密拿到會員ID, 更新購物車比數
   const addtocart = (sid, product_id,orderQty) => {
     fetch(`http://localhost:3002/member/memberprofile`, {
       method: 'GET',
@@ -76,6 +76,7 @@ const ProductWrap = (props) => {
       })
   }
 
+  // 更新購物車數量
   useEffect(() => {
     if(token){
       //拿到會員ID
@@ -146,6 +147,7 @@ const ProductWrap = (props) => {
         }
       })
   }
+
   return (
     <>
       <div className="dt-product-imgwrap col-lg-6">

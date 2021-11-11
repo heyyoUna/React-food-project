@@ -5,7 +5,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 function ProductCard(props) {
-  const { sid, index,img, name, cal, price,favArr } = props
+  const { sid, index,img, name, cal, price,favArr,setFavArr } = props
   const token = localStorage.getItem('token')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
@@ -13,16 +13,12 @@ function ProductCard(props) {
 
   // 判斷商品有在收藏清單時，設定icon為實心
   useEffect(() => {
-    if(token){
-      if(favArr){
-        favArr.forEach((value)=>{
-          if(value.product_id === sid){
-            setDisplay(false)
-          }
-        })
-      }
+    if(favArr[sid]){
+      setDisplay(false)
+    }else{
+      setDisplay(true)
     }
-  }, []);
+  }, [favArr]);
 
   // 新增收藏
   const handlingInsert = (sid) => {
@@ -30,8 +26,6 @@ function ProductCard(props) {
       method: 'POST',
       body: JSON.stringify({
         productid: sid
-        
-
       }),
       headers: {
         'Content-Type': 'application/json',
