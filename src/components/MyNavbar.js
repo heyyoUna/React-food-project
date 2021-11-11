@@ -28,9 +28,7 @@ function MyNavbar(props) {
     history.push('/')
   }
 
-  async function CartAmount() {
-    let r = await axios.get('')
-  }
+
   return (
     <>
       <Navbar
