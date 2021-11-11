@@ -89,6 +89,7 @@ function App() {
 
     if (!token) {
       setAuth(false)
+      setCountNav(0)
     } else {
       setAuth(true)
       MemberLogin()
@@ -119,7 +120,6 @@ function App() {
       `http://localhost:3002/cart/ordertempmember/${Member_id}`
     )
     if (r.status === 200) {
-      console.log('資料長度', r.data.length)
       setCountNav(r.data.length)
     }
   }

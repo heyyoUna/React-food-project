@@ -333,7 +333,7 @@ function CartManage(props) {
               fontSize: '80px',
             }}
           />
-          <h1
+          <h3
             style={{
               color: '#ffffff',
               fontFamily: 'Noto Sans TC',
@@ -341,7 +341,7 @@ function CartManage(props) {
             }}
           >
             Oops...請記得選擇付款與運送方式唷!
-          </h1>
+          </h3>
         </div>
       ) : (
         DeliveryJudge()
@@ -363,41 +363,44 @@ function CartManage(props) {
         <button
           className="confirminfo"
           onClick={() => {
-            // console.log('付款方式', Checkout)
-            // console.log('確認訂單', OrderInfo)
-            // console.log('發票', Invoice)
+            console.log('付款方式', Checkout)
+            console.log('確認訂單', OrderInfo)
+            console.log('發票', Invoice)
+
+            // 判斷是否都有選擇付款方式與發票形式
             if (
               Checkout.length === 0 ||
               Invoice.length === 0
             ) {
-              // console.log('沒選到')
               Swal.fire({
                 icon: 'warning',
-                title: '您有資料尚未填寫喔!',
+                title: '您尚未選擇付款方式或發票類型喔!',
                 showConfirmButton: false,
                 timer: 1000,
               })
             } else {
+              // 判斷有選擇發票形式但未填裡面的資料
               if (
                 (Invoice[0] === '手機條碼載具' ||
                   Invoice[0] === '電子發票 - 公司') &&
                 (Invoice[1] === '' || !Invoice[1])
               ) {
-                // console.log('有近來')
                 Swal.fire({
                   icon: 'warning',
-                  title: '您有資料尚未填寫喔!',
+                  title:
+                    '您尚未填寫手機條碼載具或是公司統編喔!',
                   showConfirmButton: false,
                   timer: 1000,
                 })
               } else {
+                // 如果是 7-11 取貨付款
                 if (Checkout === '7-11取貨付款') {
                   for (let i = 0; i < 7; i++) {
                     if (!StoreInfo[i]) {
                       Swal.fire({
                         icon: 'warning',
                         title:
-                          '您有資料尚未填寫或資料格式錯誤喔!',
+                          '您尚未填寫 7-11 收件資料或是填寫格式錯誤喔!',
                         showConfirmButton: false,
                         timer: 1000,
                       })
@@ -413,6 +416,8 @@ function CartManage(props) {
                     }
                   }
                 }
+
+                // 如果是宅配付款或信用卡支付
                 if (
                   Checkout === '宅配貨到付款' ||
                   Checkout === '信用卡支付 - 宅配到府'
@@ -422,7 +427,7 @@ function CartManage(props) {
                       Swal.fire({
                         icon: 'warning',
                         title:
-                          '您有資料尚未填寫或資料格式錯誤喔!',
+                          '您尚未填寫宅配收件資料或是填寫格式錯誤喔!',
                         showConfirmButton: false,
                         timer: 1000,
                       })
