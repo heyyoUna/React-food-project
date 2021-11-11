@@ -303,21 +303,21 @@ function Cart_ConfimOrder(props) {
 
       <div class="container col-lg-7 col-12 confirm my-5 d-lg-flex text-center justify-content-around">
         <button
-          class="returninfo col-lg-4 col-10"
+          class="returninfo"
           onClick={() => {
             props.history.push('/carts/Manage')
           }}
         >
-          返回
+          返回填寫資料
         </button>
         <button
-          class="confirminfo col-lg-4 col-10"
+          class="confirminfo"
           onClick={() => {
             console.log('確認')
             ConfirmOrder()
           }}
         >
-          送出訂單
+          完成送出訂單
         </button>
       </div>
     </>

@@ -156,6 +156,14 @@ function OrderInfo(props) {
             showConfirmButton: false,
             timer: 1500,
           })
+        } else if (textvalue > productPrice()) {
+          console.log('總價', productPrice())
+          Swal.fire({
+            icon: 'error',
+            title: '金額不能為負值喔，請調整使用的會員點數',
+            showConfirmButton: false,
+            timer: 1500,
+          })
         } else {
           // 記錄扣點與扣款
           setpointChange(data[0].left_point - textvalue)
@@ -184,7 +192,7 @@ function OrderInfo(props) {
         )
 
         //記錄扣點與扣款，到會員資料表
-        if (textvalue !== 0 && textvalue) {
+        if (textvalue !== 0 && textvalue && Promotion) {
           console.log('文字', textvalue)
 
           let R = await axios.post(

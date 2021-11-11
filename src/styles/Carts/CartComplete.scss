@@ -6,7 +6,6 @@
   }
 }
 
-
 .confirmtitle {
   h1 {
     font-size: 32px;
@@ -14,8 +13,8 @@
     color: var(--Second-color);
     font-weight: var(--Second-Font-Weight);
   }
-  @include mobile()
-  {}
+  @include mobile() {
+  }
 }
 
 .confirmnumber {
@@ -30,33 +29,45 @@
 .confirm {
   .info {
     border-radius: 50px;
-    border: 0.5px solid #2a593e;
+    border: 0.5px solid #8fc065;
     padding: var(--button-padding);
-    background-color: #ffffff;
-    color: var(--Third-color);
+    background-color: #8fc065;
+    color: #ffffff;
     font-weight: var(--Second-Font-Weight);
     font-size: var(--Button-font-size);
     font-weight: var(--Second-Font-Weight);
     font-family: var(--Font-Family);
+    transition: 0.5s;
+  }
+  .info:hover {
+    border-radius: 50px;
+    border: 0.5px solid #2a593e;
+    padding: var(--button-padding);
+    background-color: #2a593e;
+    color: #ffffff;
+    font-weight: var(--Second-Font-Weight);
+    font-size: var(--Button-font-size);
+    font-weight: var(--Second-Font-Weight);
+    font-family: var(--Font-Family);
+    transition: 0.5s;
   }
 }
 
+@include mobile() {
+  .confirmtitle h1,
+  .confirmnumber h3 {
+    font-size: var(--Font-banner-size-mobile);
+  }
 
-@include mobile()
-{
-    .confirmtitle h1, .confirmnumber h3{
-        font-size: var(--Font-banner-size-mobile);
-      }
-    
-    /* 結帳或返回商城 */
-    .returninfo {
-      font-size: var(--ConfirmReturn-button-font-size-mobile);
-      padding: var(--bigbutton-padding-mobile);
-      margin:20px auto;
-    }
-    .confirminfo {
-      font-size: var(--ConfirmReturn-button-font-size-mobile);
-      padding: var(--bigbutton-padding-mobile);
-      margin:20px auto;
-    }
+  /* 結帳或返回商城 */
+  .returninfo {
+    font-size: var(--ConfirmReturn-button-font-size-mobile);
+    padding: var(--bigbutton-padding-mobile);
+    margin: 20px auto;
+  }
+  .confirminfo {
+    font-size: var(--ConfirmReturn-button-font-size-mobile);
+    padding: var(--bigbutton-padding-mobile);
+    margin: 20px auto;
+  }
 }

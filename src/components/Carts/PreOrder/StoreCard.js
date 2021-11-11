@@ -68,13 +68,14 @@ function StoreCard(props) {
             />
           )
         })}
-        <div className="morecard my-lg-auto mt-5 justify-content-lg-start justify-content-center">
-          <FaAngleDoubleRight
-            className="DoubleRight"
-            onClick={() => {
-              props.history.push('/products')
-            }}
-          />
+        <div
+          className="morecard my-lg-auto mt-5 justify-content-lg-start justify-content-center"
+          onClick={() => {
+            console.log('點擊')
+            props.history.push('/products')
+          }}
+        >
+          <FaAngleDoubleRight className="DoubleRight" />
           <h1>MORE</h1>
         </div>
       </div>

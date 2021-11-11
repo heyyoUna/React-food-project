@@ -91,15 +91,15 @@ function CartComplete(props) {
       "
       >
         <button
-          class="info col-lg-4 col-10 my-3"
+          class="info my-3"
           onClick={() => {
             props.history.push('/products')
           }}
         >
-          返回商城
+          前往商城查看
         </button>
         <button
-          class="info col-lg-4 col-10 my-3"
+          class="info my-3"
           onClick={() => {
             props.history.push('/member/order')
           }}

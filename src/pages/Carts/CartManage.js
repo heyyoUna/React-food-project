@@ -308,15 +308,15 @@ function CartManage(props) {
       />
       <div className="container col-lg-7 col-12 confirm my-5 d-lg-flex text-center justify-content-around">
         <button
-          className="returninfo col-lg-4 col-10"
+          className="returninfo"
           onClick={() => {
             props.history.push('/carts/PreOrder')
           }}
         >
-          返回購物車
+          返回至購物車
         </button>
         <button
-          className="confirminfo col-lg-4 col-10"
+          className="confirminfo"
           onClick={() => {
             console.log('付款方式', Checkout)
             console.log('確認訂單', OrderInfo)
@@ -396,7 +396,7 @@ function CartManage(props) {
             }
           }}
         >
-          確認訂單
+          確認，下一步
         </button>
       </div>
     </>
