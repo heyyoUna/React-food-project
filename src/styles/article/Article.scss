@@ -192,6 +192,8 @@
 .col-article {
 
   .artColCardsWrap{
+    justify-content: space-evenly;
+    align-items: center;
     @media (max-width: 992px) {
       display: flex;
       flex-direction: column;
@@ -199,10 +201,14 @@
         width: 100vh;
       }
     }
+    // a{
+    //   width: 150px;
+    // }
   }
 
   .contentMobileFlex {
     padding: 0 20px;
+    justify-content: center;
     @media (max-width: 992px) {
       padding:0;
       display: flex;
@@ -227,6 +233,11 @@
         text-align: left;
       }
     }
+    div{
+      line-height: 35px;
+      font-size: 18px;
+    }
+
   }
 
   .pd-love-icon {
@@ -279,6 +290,9 @@
     box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     margin: 20px 0 25px 0;
+    @media (max-width: 992px) {
+      box-shadow:none
+    }
     // max-width: 1000px;
     p {
       padding:0 70px 0 70px;
@@ -290,6 +304,9 @@
         transform: rotateY(180deg);
       }
     }
+    i{
+      color: #8fc065;
+    }
   }
   .QA {
     margin: 20px auto;
@@ -297,10 +314,24 @@
     border-radius: 15px;
     padding: 20px 0;
     text-align: center;
-
+    .QAanswers{
+      font-size: 20px;
+      color:#2a593e;
+      cursor: pointer;
+      label{
+        cursor: pointer;
+      }
+      input{
+        margin-right: 10px;
+      }
+    }
     ul {
       display: flex;
       justify-content: space-around;
+      padding-left: 0px;
+      @media (max-width: 992px) {
+        margin: 10;
+      }
     }
 
     .QAbtn {
@@ -314,6 +345,10 @@
   }
   .mostPopular {
     text-align: center;
+    margin: 0 20px;
+    @media (max-width: 992px) {
+      margin: 0;
+    }
     .mostPopularInside {
       border: 1px solid rgba(143, 192, 101, 0.1);
       display: inline-block;
@@ -335,6 +370,10 @@
       border-bottom: 1px solid rgba(143, 192, 101, 0.5);
       padding: 10px;
       list-style: none;
+    }
+
+    ul{
+      padding-left: 0 !important;
     }
   }
   .popularMobile {

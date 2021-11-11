@@ -98,7 +98,7 @@ function ExerciseContent(props) {
           <div className="row artColCardsWrap">
             <RelatingExercise />
             <Link
-              className="col-1 mx-auto my-auto"
+              className="col-1"
               onClick={() => {
                 window.location.href = '/article/exercise'
               }}

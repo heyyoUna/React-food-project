@@ -46,6 +46,7 @@ function ArQARadioButton(props) {
     <div className="QAanswers">
       <input
         type="radio"
+        id={value}
         value={value}
         checked={checkedReply === value}
         onChange={(e) => {
@@ -83,7 +84,7 @@ function ArQARadioButton(props) {
           }
         }}
       />
-      <label>{value}</label>
+      <label htmlFor={value}>{value}</label>
     </div>
   )
 }
