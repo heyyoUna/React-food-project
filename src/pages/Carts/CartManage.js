@@ -37,15 +37,9 @@ function CartManage(props) {
   let [StoreInfo, setStoreInfo] = useState([])
   let [Credit, setCredit] = useState([])
   let [CityArr, setCityArr] = useState([{}])
-  let OrderSid =
-    'order' +
-    moment(OrderSid).format('YYYYMMDDHH') +
-    Math.floor(Math.random() * 89) +
-    parseInt(10)
   let member
   let token = localStorage.getItem('token')
   let [loading, setLoading] = useState(true)
-
   var a = momentTZ
     .utc()
     .tz('Asia/Taipei')
@@ -152,6 +146,16 @@ function CartManage(props) {
       })
     // console.log('寫出訂單')
     let NewOrderInfo
+    var b = momentTZ
+      .utc()
+      .tz('Asia/Taipei')
+      .format('YYYYMMDDHHmmss')
+    let OrderSid =
+      'order' +
+      b +
+      '-' +
+      Math.floor(Math.random() * (9999 - 1000)) +
+      parseInt(1000)
     localStorage.setItem('訂單編號', OrderSid)
     // console.log('CHECKOUT', Checkout)
 
