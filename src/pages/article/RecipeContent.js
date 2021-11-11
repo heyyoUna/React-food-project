@@ -12,7 +12,6 @@ function FoodContent(props) {
   const [data, setData] = useState([])
   const [ingredient, setIngredient] = useState([])
   const [ingredientSec, setIngredientSec] = useState([])
-
   const [steps, setSteps] = useState([])
 
   useEffect(() => {
