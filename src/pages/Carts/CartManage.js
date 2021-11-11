@@ -37,15 +37,9 @@ function CartManage(props) {
   let [StoreInfo, setStoreInfo] = useState([])
   let [Credit, setCredit] = useState([])
   let [CityArr, setCityArr] = useState([{}])
-  let OrderSid =
-    'order' +
-    moment(OrderSid).format('YYYYMMDDHH') +
-    Math.floor(Math.random() * 89) +
-    parseInt(10)
   let member
   let token = localStorage.getItem('token')
   let [loading, setLoading] = useState(true)
-
   var a = momentTZ
     .utc()
     .tz('Asia/Taipei')
@@ -152,6 +146,16 @@ function CartManage(props) {
       })
     // console.log('寫出訂單')
     let NewOrderInfo
+    var b = momentTZ
+      .utc()
+      .tz('Asia/Taipei')
+      .format('YYYYMMDDHHmmss')
+    let OrderSid =
+      'order' +
+      b +
+      '-' +
+      Math.floor(Math.random() * (9999 - 1000)) +
+      parseInt(1000)
     localStorage.setItem('訂單編號', OrderSid)
     // console.log('CHECKOUT', Checkout)
 
@@ -321,7 +325,7 @@ function CartManage(props) {
           className="container col-10"
           style={{
             height: '200px',
-            backgroundColor: '#2A593E',
+            // backgroundColor: '#2A593E',
             textAlign: 'center',
             lineHeight: '120px',
             borderRadius: '20px',
@@ -329,15 +333,18 @@ function CartManage(props) {
         >
           <FaExclamationTriangle
             style={{
-              color: '#ffffff',
-              fontSize: '80px',
+              // color: '#ffffff',
+              color: '#fb620980',
+              // color: '#2a593e',
+              fontSize: '70px',
             }}
           />
           <h3
             style={{
-              color: '#ffffff',
+              color: '#fb620980',
+              // color: '#2a593e',
               fontFamily: 'Noto Sans TC',
-              fontWeight: '700',
+              fontWeight: '500',
             }}
           >
             Oops...請記得選擇付款與運送方式唷!
