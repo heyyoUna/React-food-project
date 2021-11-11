@@ -6,11 +6,11 @@ import 'sweetalert2/src/sweetalert2.scss'
 import { FaLessThan } from 'react-icons/fa'
 
 const ProductWrap = (props) => {
-  const { CountNav,setCountNav} = props
+  const { CountNav, setCountNav } = props
   const token = localStorage.getItem('token')
   let history = useHistory()
-  const [ ID, setID] = useState(0);
-  
+  const [ID, setID] = useState(0)
+
   const {
     sid,
     name,
@@ -30,84 +30,94 @@ const ProductWrap = (props) => {
   const [display, setDisplay] = useState(true)
   const [orderQty, setOrderQty] = useState(1)
 
-
   //  token 解密拿到會員ID
-  const addtocart = (sid, product_id,orderQty) => {
+  const addtocart = (sid, product_id, orderQty) => {
     fetch(`http://localhost:3002/member/memberprofile`, {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    }).then(r => r.json())
-      .then(obj => {
-        const ID=obj.data[0].sid
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((r) => r.json())
+      .then((obj) => {
+        const ID = obj.data[0].sid
         setID(ID)
-        console.log('ID',ID)
+        console.log('ID', ID)
         // 有會員ID才寫入暫存訂單
-        if(ID){
+        if (ID) {
           fetch(`http://localhost:3002/cart`, {
             method: 'POST',
             body: JSON.stringify({
-              Sid: sid,
-              Member_id:ID,
-              Product_id:product_id,
-              Order_Amount:orderQty,
+              // Sid: sid,
+              Member_id: ID,
+              Product_id: product_id,
+              Order_Amount: orderQty,
             }),
             headers: {
               'Content-Type': 'application/json',
               Authorization: 'Bearer ' + token,
             },
           })
-          .then(r=> r.json)
-          .then(obj=>{
-            if(obj){
-              fetch(`http://localhost:3002/cart/ordertempmember/`+ ID , {
-                method: 'GET',
-                headers: {
-                  'Authorization': 'Bearer ' + token
-                }
-              }).then(r => r.json())
-                .then(obj => {
-                  setCountNav(obj.length)
-                })
-            }
-          })
+            .then((r) => r.json)
+            .then((obj) => {
+              if (obj) {
+                fetch(
+                  `http://localhost:3002/cart/ordertempmember/` +
+                    ID,
+                  {
+                    method: 'GET',
+                    headers: {
+                      Authorization: 'Bearer ' + token,
+                    },
+                  }
+                )
+                  .then((r) => r.json())
+                  .then((obj) => {
+                    setCountNav(obj.length)
+                  })
+              }
+            })
         }
       })
   }
 
   useEffect(() => {
-    if(token){
+    if (token) {
       //拿到會員ID
-      ; (async () => {
-        const r = await fetch(`http://localhost:3002/member/memberprofile` , {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + token
+      ;(async () => {
+        const r = await fetch(
+          `http://localhost:3002/member/memberprofile`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: 'Bearer ' + token,
+            },
           }
-        })
+        )
         const obj = await r.json()
-        console.log('obj',obj.data[0].sid)
+        console.log('obj', obj.data[0].sid)
         setID(obj.data[0].sid)
-        if(obj.data[0].sid){
-          const rs = await fetch(`http://localhost:3002/cart/ordertempmember/${obj.data[0].sid}`, {
-            headers:{
-              'Authorization': 'Bearer ' + token
+        if (obj.data[0].sid) {
+          const rs = await fetch(
+            `http://localhost:3002/cart/ordertempmember/${obj.data[0].sid}`,
+            {
+              headers: {
+                Authorization: 'Bearer ' + token,
+              },
             }
-          })
+          )
           const orderlist = await rs.json()
           console.log(orderlist)
-          if(orderlist.length){
+          if (orderlist.length) {
             setCountNav(orderlist.length)
-          }}     
+          }
+        }
       })()
-    }else{
+    } else {
       setCountNav(0)
     }
   }, [])
-  
-  
-  
+
   // 收藏新增
   const handlingInsert = (sid) => {
     fetch(
@@ -233,11 +243,11 @@ const ProductWrap = (props) => {
                   }
                   if (orderQty <= 1) {
                     Swal.fire({
-                    icon: 'warning',
-                    title: '商品最少一樣',
-                    showConfirmButton: false,
-                    timer: 1000,
-                  })
+                      icon: 'warning',
+                      title: '商品最少一樣',
+                      showConfirmButton: false,
+                      timer: 1000,
+                    })
                   }
                 }}
               ></i>
@@ -254,10 +264,11 @@ const ProductWrap = (props) => {
             </button>
           </div>
           {/* 加入購物車 */}
-          <button className="dt-addtocart"
-          onClick={(e)=>{
-            if(!token){
-              Swal.fire({
+          <button
+            className="dt-addtocart"
+            onClick={(e) => {
+              if (!token) {
+                Swal.fire({
                   title: '請先登入會員',
                   icon: 'warning',
                   showCancelButton: true,
@@ -269,16 +280,17 @@ const ProductWrap = (props) => {
                     props.history.push('/login')
                   }
                 })
-            }else{
-              addtocart(sid,product_id,orderQty)
-              Swal.fire({
-                icon: 'success',
-                title: '已加入購物車',
-                showConfirmButton: false,
-                timer: 1000
-              })
-            }
-          }}>
+              } else {
+                addtocart(sid, product_id, orderQty)
+                Swal.fire({
+                  icon: 'success',
+                  title: '已加入購物車',
+                  showConfirmButton: false,
+                  timer: 1000,
+                })
+              }
+            }}
+          >
             Add To Cart
           </button>
         </div>
