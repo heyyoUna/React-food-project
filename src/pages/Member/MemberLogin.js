@@ -113,6 +113,10 @@ function MemberLogin(props) {
                 required />
             </div>
             <div className="karin-form-group">
+              <div className="eye"  >
+                <i className={`mt-4 mt-md-3 ml-2 ${close}`} style={{'visibility':'hidden'}}
+                ></i>
+              </div>
               <input
                 type={type}
                 name="password"
@@ -122,7 +126,8 @@ function MemberLogin(props) {
                 value={info.password}
                 onChange={handleInfoChange}
                 required />
-              <i
+                <div className="eye" >
+                  <i
                 className={`mt-4 mt-md-3 ml-2 ${close}`}
                 onClick={() => {
                   if (type === 'password') {
@@ -134,10 +139,12 @@ function MemberLogin(props) {
                   }
                 }}
               ></i>
+                </div>
+              
             </div>
             <button type="submit" className="btn karin-btn-login">LOG IN</button>
             <Link to="/signup"
-              button type="submit" className="btn karin-btn-signup">SIGN UP</Link>
+              type="submit" className="btn karin-btn-signup">SIGN UP</Link>
             <div className="forgot-password">
               <a id="karin-forgot-password" onClick={handlingForgotPassword}>Forgot Password?</a>
             </div>
