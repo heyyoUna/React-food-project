@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   withRouter,
 } from 'react-router-dom'
 
 function Filter(props) {
-  const [input, setInput] = useState('')
   const {
     searchWord,
     setSearchWord,
@@ -41,12 +40,11 @@ function Filter(props) {
             // 如果有關鍵字
             if (e.target.value) {
               if (e.key === 'Enter') {
-                // setSearchWord(input)
                 setProductCate('0')
                 setFilter('')
                 const keyword = e.target.value
                 props.history.push(
-                  '/products/?keyword=' + `${keyword}&page=1`
+                  '/products/?keyword=' + `${keyword}&page=1&cate=0`
                 )
               } 
             }// 如果沒有關鍵字

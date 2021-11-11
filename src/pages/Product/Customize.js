@@ -89,6 +89,7 @@ function Customize(props) {
     }
   }, [])
 
+ 
 
   // 商品區要資料
   useEffect(() => {
@@ -101,6 +102,7 @@ function Customize(props) {
         const r = await fetch(`${Customize_API}` + `${props.location.search}`)
         const obj = await r.json()
         setSugProducts(obj.rows)
+        console.log(obj.rows)
       }
     })()
   }, [target])
@@ -233,6 +235,7 @@ function Customize(props) {
        500);
   }
 
+  //目標跟習慣都有的時候btn加classname
   useEffect(() => {
     if(exercises&&target){
       buttonCSS()

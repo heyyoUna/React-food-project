@@ -3,7 +3,7 @@ import {
   withRouter,
 } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
-import conf, { Product_API } from './../../config/config.js'
+import { Product_API } from './../../config/config.js'
 
 // 組合用元件
 import AllBanner from './../../components/Product/AllBanner'
@@ -91,13 +91,6 @@ function Products(props) {
   }, [])
 
 
-  // ;(async () => {
-  //   const r = await fetch(
-  //     'http://localhost:3002/product/fav/' + ID
-  //   )
-  //   const obj = await r.json()
-  //   setFavArr(obj.data)
-  // })()
   //要所有資料
   useEffect(() => {
     ;(async () => {
@@ -105,7 +98,7 @@ function Products(props) {
         `${Product_API}` + `${props.location.search}`
       )
       const obj = await r.json()
-      console.log('obj.rows', obj.rows)
+      // console.log('obj.rows', obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
 
@@ -136,7 +129,6 @@ function Products(props) {
               })
             }
             setFavArr(favData)
-            // console.log('favData:', favData)
           }
         })()
       }
