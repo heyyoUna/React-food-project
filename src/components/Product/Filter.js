@@ -46,13 +46,13 @@ function Filter(props) {
                 setFilter('')
                 const keyword = e.target.value
                 props.history.push(
-                  '/products/?keyword=' + `${keyword}`
+                  '/products/?keyword=' + `${keyword}&page=1`
                 )
               } 
             }// 如果沒有關鍵字
             if (!e.target.value) {
               setSearchWord('')
-              props.history.push('/products/?cate=0')
+              props.history.push('/products/?cate=0&page=1')
               setProductCate('0')
             }
           }}
@@ -69,7 +69,7 @@ function Filter(props) {
           onChange={(e) => {
             setFilter(e.target.value)
             setSearchWord('')
-            props.history.push('/products/?cate=0&filter=低熱量')
+            props.history.push('/products/?cate=0&filter=低熱量&page=1')
           }}
         />
         <label htmlFor="low">低熱量優先</label>
@@ -84,7 +84,7 @@ function Filter(props) {
           onChange={(e) => {
             setFilter(e.target.value)
             setSearchWord('')
-            props.history.push('/products/?cate=0&filter=高蛋白')
+            props.history.push('/products/?cate=0&filter=高蛋白&page=1')
           }}
         />
         <label htmlFor="hight">高蛋白優先</label>
@@ -99,7 +99,7 @@ function Filter(props) {
           onChange={(e) => {
             setFilter(e.target.value)
             setSearchWord('')
-            props.history.push('/products/?cate=0&filter=低醣')
+            props.history.push('/products/?cate=0&filter=低醣&page=1')
           }}
         />
         <label htmlFor="lowsugar">低醣料理</label>

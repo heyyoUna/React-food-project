@@ -607,7 +607,7 @@
   background-color: var(--Third-color);
   color: #ffffff;
   border: 1px solid var(--Third-color);
-  transition: 2s;
+  transition: .5s;
 }
 
 .confirminfo {
@@ -625,7 +625,7 @@
   background-color: var(--Second-color);
   color: #ffffff;
   border: 1px solid var(--Second-color);
-  transition: 2s;
+  transition: .5s;
 }
 
 @include mobile() {
