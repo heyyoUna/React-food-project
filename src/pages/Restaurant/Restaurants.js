@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import React, { useRef, useState, useEffect } from 'react'
 import '../../App.scss'
 import { BsCursor } from 'react-icons/bs'
@@ -28,7 +27,11 @@ const token = localStorage.getItem('token')
 const Bounce = styled.div`
   animation: 2s ${keyframes`${bounce}`};
 `
+
 function Restaurants(props) {
+  const history = useHistory()
+  const myRef = useRef(null)
+
   const [lat, setLat] = useState(25.033198)
   const [lng, setLng] = useState(121.543575)
   const [address, setAddress] = useState('')
@@ -53,41 +56,6 @@ function Restaurants(props) {
   })
   //精選商品
   const [popular, setPopular] = useState([])
-
-  const onFilterChange = (e) => {
-    setFilter({
-      ...filter,
-      // 物件中給變數要用[]包起來
-      [e.target.name]: e.target.value, //下拉選單的值
-    })
-  }
-
-  //點擊當前頁碼
-  const onperPageChange = (e) => {
-    const index =
-      e.target.attributes.getNamedItem('data-index').value
-
-    const data =
-      filter.data || filter.price || filter.distance
-        ? filterData
-        : apiData
-    let newData = [...data]
-
-    newData = newData.slice(
-      parseInt(index) * pages.perPage,
-      pages.perPage * (parseInt(index) + 1) //0*6,6*1
-    )
-    //計算用舊資料算  呈現塞進filterdata
-    setDisplayData(newData)
-    setPages({ ...pages, currentPage: parseInt(index) }) //當前頁碼為點擊頁碼
-  }
-
-  const goToMap = () => {
-    history.push({
-      pathname: '/resmap',
-      state: { mapData: apiData, lat, lng },
-    })
-  }
 
   // filter 不是陣列的filter，是狀態的filter
   useEffect(() => {
@@ -155,23 +123,7 @@ function Restaurants(props) {
     }
   }, [filter])
 
-  const history = useHistory()
-  const myRef = useRef(null)
-
-  // async function listData() {
-  //   let r = await fetch('http://localhost:3002/reslist')
-  //   let j = await r.json()
-  //   if (j.length) {
-  //     /** apiData包存原始資料，filterData設定渲染所需的資料 */
-  //     setApiData(j)
-  //     setFilterData(j)
-  //   }
-  // }
-  // useEffect(() => {
-  //   listData()
-  // }, [])
-
-  useEffect(() => {
+ useEffect(() => {
     //spinner
     setLoading(true)
     ;(async () => {
@@ -215,8 +167,70 @@ function Restaurants(props) {
     })()
     setTimeout(() => {
       setLoading(false)
-    }, 1500)
+    }, 2200)
   }, [lat, lng])
+
+ useEffect(() => {
+    ;(async () => {
+      let r = await fetch(
+        'http://localhost:3002/reslist/popular/list'
+      )
+
+      let data = await r.json()
+      console.log('data', data)
+      if (data.length) {
+        setPopular(data)
+      }
+    })()
+  }, [])
+
+  const onFilterChange = (e) => {
+    setFilter({
+      ...filter,
+      // 物件中給變數要用[]包起來
+      [e.target.name]: e.target.value, //下拉選單的值
+    })
+  }
+
+  //點擊當前頁碼
+  const onperPageChange = (e) => {
+    const index =
+      e.target.attributes.getNamedItem('data-index').value
+
+    const data =
+      filter.data || filter.price || filter.distance
+        ? filterData
+        : apiData
+    let newData = [...data]
+
+    newData = newData.slice(
+      parseInt(index) * pages.perPage,
+      pages.perPage * (parseInt(index) + 1) //0*6,6*1
+    )
+    //計算用舊資料算  呈現塞進filterdata
+    setDisplayData(newData)
+    setPages({ ...pages, currentPage: parseInt(index) }) //當前頁碼為點擊頁碼
+  }
+
+  const goToMap = () => {
+    history.push({
+      pathname: '/resmap',
+      state: { mapData: apiData, lat, lng },
+    })
+  }
+
+  // async function listData() {
+  //   let r = await fetch('http://localhost:3002/reslist')
+  //   let j = await r.json()
+  //   if (j.length) {
+  //     /** apiData包存原始資料，filterData設定渲染所需的資料 */
+  //     setApiData(j)
+  //     setFilterData(j)
+  //   }
+  // }
+  // useEffect(() => {
+  //   listData()
+  // }, [])
 
   const mySubmit = () => {
     // listData()
@@ -243,19 +257,7 @@ function Restaurants(props) {
     )
   }
 
-  useEffect(() => {
-    ;(async () => {
-      let r = await fetch(
-        'http://localhost:3002/reslist/popular/list'
-      )
-
-      let data = await r.json()
-      console.log('data', data)
-      if (data.length) {
-        setPopular(data)
-      }
-    })()
-  }, [])
+ 
   //更新舊資料的收藏狀態
   const refreshDataAfterHeartEvent = (resId, display) => {
     const newApiData = [...apiData]
@@ -360,7 +362,6 @@ function Restaurants(props) {
       </div>
       {/* 餐廳列表 */}
       <div className="container mt-35 mb-5">
-        <Spinner loading={loading} />
         <div class="row  justify-content-center">
           {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
           {displayData &&
@@ -512,7 +513,6 @@ function Restaurants(props) {
         </Carousel>
       </div>
       <ToTop />
-      {/* </div> */}
     </>
   )
 }

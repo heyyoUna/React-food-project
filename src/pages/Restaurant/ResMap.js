@@ -1,28 +1,22 @@
-import React, { useRef, useState, useEffect } from 'react'
 import L from 'leaflet'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+import 'leaflet/dist/leaflet.css'
+import React, { useEffect, useState } from 'react'
+import { BsClock, BsFilterLeft, BsStarFill } from 'react-icons/bs'
+import { FiPhone } from 'react-icons/fi'
+import { RiMapPinLine } from 'react-icons/ri'
 import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
+  MapContainer, Marker,
+  Popup, TileLayer
 } from 'react-leaflet'
+import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
+import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
+import MapSortButton from '../../components/Restaurant/MapSortButton'
 // import centericon from 'leaflet/dist/images/centericon.png'
 // import mapicon from 'leaflet/dist/images/mapicon.png'
 import centericon from '../../imgs/centericon.png'
 import mapicon from '../../imgs/mapicon.png'
-import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import 'leaflet/dist/leaflet.css'
-import { BsStarFill } from 'react-icons/bs'
-import { BsClock } from 'react-icons/bs'
-import { RiMapPinLine } from 'react-icons/ri'
-import { MdOutlineAttachMoney } from 'react-icons/md'
-import { FiPhone } from 'react-icons/fi'
-import { useHistory } from 'react-router'
-import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
-import { Link } from 'react-router-dom'
-import ResMapsearch from '../../components/Restaurant/ResMapsearch'
-import MapSortButton from '../../components/Restaurant/MapSortButton'
-import { BsFilterLeft } from 'react-icons/bs'
 // import { css } from '@emotion/react'
 // import PacmanLoader from 'react-spinners/PacmanLoader'
 
@@ -41,7 +35,6 @@ function ResMap() {
     iconRetinaUrl: centericon,
   })
 
-  const [location, setLocation] = useState()
   const [filterData, setFilterData] = useState([])
   const [listData, setListData] = useState([])
 
@@ -98,7 +91,7 @@ function ResMap() {
           }
         )
       }
-      // TODO: 評分排序
+
       if (filter.rate) {
         // rate ===0  就用 原始資料由小到大排序
         // rate ===1  就用 原始資料由大到小排序
@@ -210,7 +203,7 @@ function ResMap() {
           {listData.map((item, index) => {
             return (
               <>
-                <div className="map-res-introduce d-flex key={index}">
+                <div key={index} className="map-res-introduce d-flex">
                   <div class="col-md-4 col-4  p-0 ">
                     <img
                       className="mapImg"
@@ -321,15 +314,6 @@ function ResMap() {
                     key={index}
                     markerIndex={index}
                     position={[item.res_lat, item.res_lng]}
-                    // eventHandlers={{
-                    //   click: (e) => {
-                    //     console.log(
-                    //       'marker clicked',
-                    //       e.latlng.lat,
-                    //       e.latlng.lng
-                    //     )
-                    //   },
-                    // }}
                     eventHandlers={{
                       click: (e) => {
                         markerChange(e)
@@ -342,7 +326,8 @@ function ResMap() {
                           <img
                             className="mapImg"
                             src={
-                              'http://localhost:3002/img/restaurant/' +
+                              // 'http://localhost:3002/img/restaurant/' +
+                              `${process.env.REACT_APP_API_ENDPOINT}/img/restaurant/` +
                               item.res_img
                             }
                             alt=""

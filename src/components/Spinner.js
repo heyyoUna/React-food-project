@@ -11,7 +11,7 @@ function Spinner(props) {
   //   transform: translate(-50%, -50%);
   //   z-index: 100;
   const override = {
-    position: 'absolute',
+    position: 'fixed',
     top: '50%',
     left: '47%',
     // transform: translate('-50%', '-50%'),
