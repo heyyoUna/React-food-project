@@ -56,6 +56,7 @@ function Cart_Store(props) {
   let [Email, setEmail] = useState()
   let [Notice, setNotice] = useState()
   let [random, setrandom] = useState()
+  let [Choose, setChoose] = useState('請選擇門市')
 
   // console.log(CityArr)
   // console.log('店名資訊', StoreInfo)
@@ -319,6 +320,7 @@ function Cart_Store(props) {
               name="roadname"
               id="roadname"
               onClick={(e) => {
+                setChoose('請選擇門市')
                 settest(test + 1)
               }}
               onChange={(e) => {
@@ -374,7 +376,7 @@ function Cart_Store(props) {
                         </h6>
                         <button
                           onClick={(e) => {
-                            console.log('已選擇', v.X)
+                            setChoose('已選擇')
                             localStorage.setItem(
                               '店號',
                               v.POIID
@@ -386,7 +388,7 @@ function Cart_Store(props) {
                             UpdateInfo(v.POIName, 3)
                           }}
                         >
-                          請選擇門市
+                          {Choose}
                         </button>
                       </div>
                     </Popup>

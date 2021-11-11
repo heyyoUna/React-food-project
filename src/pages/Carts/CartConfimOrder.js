@@ -139,6 +139,14 @@ function Cart_ConfimOrder(props) {
     let templateParams = {
       userMail: DataDetail.E_Mail,
       user: DataDetail.Order_Name,
+      time: DataDetail.Created_At,
+      orderSid: DataDetail.Order_Sid,
+      address: DataDetail.Order_Address,
+      paymentType: DataDetail.Payment_Type,
+      Invoice:
+        DataDetail.Invoice_Type +
+        ':' +
+        DataDetail.Invoice_Number,
     }
 
     let service_id = 'service_txsprev'

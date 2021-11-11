@@ -278,20 +278,22 @@
           }
         }
         button {
-          background-color: #ffffff;
-          border: 0.5px solid var(--Third-color);
-          border-radius: 50px;
-          font-size: 18px;
-          color: var(--Third-color);
-          font-weight: var(--Second-Font-Weight);
-        }
-        button:hover {
-          background-color: var(--Primary-color);
-          border: transparent;
+          background-color: var(--Second-color);
+          border: 0.5px solid var(--Second-color);
           border-radius: 50px;
           font-size: 18px;
           font-weight: var(--Second-Font-Weight);
           color: #ffffff;
+          transition: 0.5s;
+        }
+        button:hover {
+          background-color: #ffb606;
+          border: 0.5px solid #ffb606;
+          border-radius: 50px;
+          font-size: 18px;
+          color: #ffffff;
+          font-weight: var(--Second-Font-Weight);
+          transition: 0.5s;
         }
       }
     }
@@ -594,38 +596,40 @@
 .returninfo {
   border-radius: 50px;
   border: transparent;
-  border: 1px solid var(--Third-color);
+  border: 1px solid var(--Primary-color);
   padding: var(--bigbutton-padding);
-  background-color: #ffffff;
+  background-color: var(--Primary-color);
   font-family: var(--Font-Family);
   font-size: var(--Button-font-size);
   font-weight: var(--Second-Font-Weight);
-  color: var(--Third-color);
+  color: #ffffff;
+  transition: 0.5s;
 }
 
 .returninfo:hover {
   background-color: var(--Third-color);
   color: #ffffff;
   border: 1px solid var(--Third-color);
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .confirminfo {
   border-radius: 50px;
-  border: 1px solid var(--Third-color);
-  background-color: #ffffff;
+  border: 1px solid var(--Second-color);
+  background-color: var(--Second-color);
   padding: var(--bigbutton-padding);
-  color: var(--Third-color);
+  color: #ffffff;
   font-family: var(--Font-Family);
   font-size: var(--Button-font-size);
   font-weight: var(--Second-Font-Weight);
+  transition: 0.5s;
 }
 
 .confirminfo:hover {
-  background-color: var(--Second-color);
+  background-color: #ffb606;
   color: #ffffff;
-  border: 1px solid var(--Second-color);
-  transition: .5s;
+  border: 1px solid #ffb606;
+  transition: 0.5s;
 }
 
 @include mobile() {
