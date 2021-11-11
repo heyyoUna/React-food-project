@@ -293,6 +293,15 @@
   color: #8fc065;
 }
 
+.ar-viewmore-wrap:hover .front{
+  transform: translate(10px);
+  color: transparent;
+}
+.ar-viewmore-wrap:hover .back{
+  transform: translate(10px);
+  color: #8fc065;
+}
+
 // 文章區
 .client-art{
   width: 30% !important;
@@ -353,7 +362,12 @@
     width: 100px;
     height: 100px;
     transition: .3s;
+
+    &:hover{
+      transform: translateY(-5px);
+    }
   }
+  
   .pd-target-wrap {
     background-color: transparent;
     width: 100%;
@@ -372,6 +386,10 @@
   .pd-three-wrap,
   .pd-none-wrap {
     margin: auto 10px;
+
+    &:hover{
+      transform: translateY(-5px);
+    }
   }
   /* 客製化右邊 */
 

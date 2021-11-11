@@ -146,7 +146,7 @@ function FoodContent(props) {
           <div className="row artColCardsWrap">
             <RelatingRecipe className="mt-5" />
             <Link
-              className="col-1 mx-auto my-auto"
+              className="col-1 "
               onClick={() => {
                 window.location.href = '/article/recipe'
               }}
