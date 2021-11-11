@@ -70,7 +70,7 @@ import Spinner from './components/Spinner'
 function App() {
   const [restaurantId, setRestaurantId] = useState('')
   const [productId, setProductId] = useState('')
-  const [CountNav, setCountNav] = useState(0)
+  const [CountNav, setCountNav] = useState()
   const [auth, setAuth] = useState(false)
   //給客製化跟商品區收藏商品資料用
   const [favArr, setFavArr] = useState([])

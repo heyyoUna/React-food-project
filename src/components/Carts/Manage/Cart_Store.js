@@ -415,8 +415,8 @@ function Cart_Store(props) {
                 } else {
                   WarningText[4] = ''
                   setWarningText(WarningText)
+                  UpdateInfo(e.target.value, 4)
                 }
-                UpdateInfo(e.target.value, 4)
               }}
               onChange={(e) => {
                 setName(e.target.value)
@@ -434,7 +434,6 @@ function Cart_Store(props) {
               name={Phone}
               id="Phone"
               onBlur={(e) => {
-                // console.log(e.target.value)
                 if (
                   !PhoneCheck.test(e.target.value) ||
                   e.target.value === ''
@@ -445,8 +444,8 @@ function Cart_Store(props) {
                 } else {
                   WarningText[5] = ''
                   setWarningText(WarningText)
+                  UpdateInfo(e.target.value, 5)
                 }
-                UpdateInfo(e.target.value, 5)
               }}
               onChange={(e) => {
                 setPhone(e.target.value)
@@ -475,8 +474,9 @@ function Cart_Store(props) {
                 } else {
                   WarningText[6] = ''
                   setWarningText(WarningText)
+                  UpdateInfo(e.target.value, 6)
                 }
-                UpdateInfo(e.target.value, 6)
+                console.log('Email', e.target.value)
               }}
               onChange={(e) => {
                 setEmail(e.target.value)

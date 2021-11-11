@@ -141,7 +141,7 @@
 }
 .storelike {
   .storecard {
-    transition: .3s;
+    transition: 0.3s;
     .storeproduct {
       margin-right: 15px;
       cursor: pointer;
@@ -165,9 +165,8 @@
       }
       .body {
         // background: var(--Primary-color);
-        background-color:#ffb91759 ;
+        background-color: #ffb91759;
 
-        
         // box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
         border-radius: 15px;
       }
@@ -183,7 +182,7 @@
         padding-left: 10px;
       }
     }
-    &:hover{
+    &:hover {
       transform: translate(0px, -5px);
     }
     img {
@@ -221,7 +220,6 @@
     font-size: 24px;
     line-height: 24px;
     margin-bottom: 0;
-
   }
   .DoubleRight {
     font-size: 24px;
@@ -363,8 +361,8 @@
       width: 50%;
       padding: 3px 3px 3px 10px;
       border: 1px solid #8fc065;
-      border-radius: 5px;
-      &:focus{
+      border-radius: 50px;
+      &:focus {
         outline: none;
       }
     }
@@ -374,10 +372,10 @@
       font-family: var(--Font-Family);
       padding: var(--button-padding);
       border-radius: 50px;
-      background-color: #ffffff;
-      color: var(--Third-color);
-      outline: 0.5px solid var(--Third-color);
+      background-color: var(--Primary-color);
+      color: #ffffff;
       border: transparent;
+      transition: 0.5s;
     }
     button:hover {
       font-size: var(--Order-list-content-size);
@@ -387,7 +385,7 @@
       background-color: var(--Third-color);
       color: #ffffff;
       border: transparent;
-      outline: transparent;
+      transition: 0.5s;
     }
   }
 
@@ -409,17 +407,19 @@
   font-family: var(--Font-Family);
   padding: var(--button-padding);
   border-radius: 100px;
-  background-color: #8fc065;
+  background-color: var(--Second-color);
   color: white;
   font-weight: var(--Second-Font-Weight);
-  border: 1px solid #8fc065;
+  border: transparent;
+  transition: 0.5s;
 }
 
 .orderconfirm:hover {
-  background-color: #2a593e;
+  background-color: #ffb606;
   // border: 1px solid var(--Third-color);
   color: #ffffff;
-  border:1px solid #2a593e;
+  border: transparent;
+  transition: 0.5s;
 }
 
 .returnstore {
@@ -427,17 +427,19 @@
   font-family: var(--Font-Family);
   padding: var(--button-padding);
   border-radius: 50px;
-  background-color: #ffffff;
-  color: #2a593e;
+  background-color: var(--Primary-color);
+  color: #ffffff;
   font-weight: var(--Second-Font-Weight);
-  border: 1px solid #2a593e;
+  border: transparent;
+  transition: 0.5s;
 }
 
 .returnstore:hover {
-  background-color: #2a593e;
+  background-color: var(--Third-color);
   // border: 1px solid var(--Third-color);
   color: #ffffff;
-  border: 1px solid #2a593e;
+  border: transparent;
+  transition: 0.5s;
 }
 
 @include mobile() {

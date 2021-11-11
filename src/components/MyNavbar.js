@@ -8,6 +8,7 @@ import {
   Container,
 } from 'react-bootstrap'
 import { imgUrl } from '../config/index'
+import axios from 'axios'
 import '../App.scss'
 
 // 要使用能有active css效果的NavLink元件
@@ -27,6 +28,9 @@ function MyNavbar(props) {
     history.push('/')
   }
 
+  async function CartAmount() {
+    let r = await axios.get('')
+  }
   return (
     <>
       <Navbar

@@ -96,6 +96,8 @@ function Cart_Invoice(props) {
             // )
             if (!MobileBarcode.test(Warning)) {
               setText('手機載具條碼格式錯誤')
+            } else if (CssStyle[0]) {
+              setText('')
             } else {
               UpdateInfo(Warning, 1)
               setText('')
