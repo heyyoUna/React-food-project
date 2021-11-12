@@ -43,8 +43,6 @@ function Products(props) {
   )
   // 篩選radio
   const [filter, setFilter] = useState('')
-  // 收藏商品陣列
-  // const [ favArr, setFavArr] = useState([])
 
   // 解析URL參數
   const sp = searchParams.toString()
@@ -60,6 +58,7 @@ function Products(props) {
     setNowPage(page)
   }
 
+<<<<<<< HEAD
   // 拿到會員收藏商品資料
   useEffect(() => {
     // if(token){
@@ -87,15 +86,18 @@ function Products(props) {
     //   })()
     // }
   }, [])
+=======
+  const [reset, setReset] = useState(0)
+>>>>>>> cbbb406227f40ad0d094f2d7e4c9da5e017132fb
 
   //要所有資料
   useEffect(() => {
     ;(async () => {
+      console.log('test')
       const r = await fetch(
         `${Product_API}` + `${props.location.search}`
       )
       const obj = await r.json()
-      // console.log('obj.rows', obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
 
@@ -123,19 +125,28 @@ function Products(props) {
               }
             )
             const favlist = await rs.json()
+<<<<<<< HEAD
             console.log('favlist', favlist)
             const favData = {}
             if (favlist.data.length) {
               favlist.data.forEach((el) => {
+=======
+            // console.log('favlist', favlist)
+            const favData = {};
+            if(favlist.data.length){
+              favlist.data.forEach(el=>{
+>>>>>>> cbbb406227f40ad0d094f2d7e4c9da5e017132fb
                 favData[el.product_id] = 1
               })
             }
             setFavArr(favData)
           }
         })()
+      }else{
+        setFavArr([])
       }
     })()
-  }, [nowpage, productCate, searchWord, filter])
+  }, [nowpage, productCate, searchWord, filter, reset])
 
   // 切換banner
   const All = <AllBanner />
@@ -194,6 +205,7 @@ function Products(props) {
                 searchWord={searchWord}
                 setSearchWord={setSearchWord}
                 setProductCate={setProductCate}
+                setReset={setReset}
               />
             </div>
           </div>

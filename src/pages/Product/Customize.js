@@ -18,7 +18,7 @@ import Clientinfo from '../../components/Product/Clientinfo'
 
 function Customize(props) {
   const token = localStorage.getItem('token')
-  let history = useHistory()
+  // let history = useHistory()
   const [display, setDisplay] = useState(true)
 
   const {
@@ -224,6 +224,7 @@ function Customize(props) {
   // 有變動的時候重新計算
   useEffect(() => {
     calculate()
+    
   }, [target, exercises, TDEE])
 
   const mySubmit = () => {
@@ -253,7 +254,7 @@ function Customize(props) {
 
   //目標跟習慣都有的時候btn加classname
   useEffect(() => {
-    if (exercises && target) {
+    if (exercises && target && TDEE) {
       buttonCSS()
     }
   }, [exercises, target])
@@ -305,8 +306,19 @@ function Customize(props) {
           </div>
           <button
             className="pd-client-btn animate__animated animate__pulse"
-            // onClick={mySubmit}
-            onClick={scroll}
+            onClick={(e) => {
+              if(!TDEE){
+                  Swal.fire({
+                      icon: 'warning',
+                      title: '請先填寫基本資料',
+                      showConfirmButton: false,
+                      timer: 1000,
+                    })
+              }else{
+                scroll()
+              }
+            }}
+            
           >
             查看飲食推薦
           </button>
