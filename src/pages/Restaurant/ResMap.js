@@ -326,9 +326,7 @@ function ResMap() {
                           <img
                             className="mapImg"
                             src={
-                              // 'http://localhost:3002/img/restaurant/' +
-                              `${process.env.REACT_APP_API_ENDPOINT}/img/restaurant/` +
-                              item.res_img
+                              'http://localhost:3002/img/restaurant/' +item.res_img
                             }
                             alt=""
                           />
