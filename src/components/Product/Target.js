@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 
 function Target(props) {
-  const { target,setTarget, setExercises,TDEE,setTDEE} = props
+  const { setTarget, setExercises} = props
   // 移除target選中CSS
   const removeTargetCss = (e) => {
     const all = document.querySelectorAll('.pd-targetImg')

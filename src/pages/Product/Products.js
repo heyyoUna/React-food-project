@@ -43,8 +43,6 @@ function Products(props) {
   )
   // 篩選radio
   const [filter, setFilter] = useState('')
-  // 收藏商品陣列
-  // const [ favArr, setFavArr] = useState([])
 
   // 解析URL參數
   const sp = searchParams.toString()
@@ -60,45 +58,16 @@ function Products(props) {
     setNowPage(page)
   }
 
-  
-  // 拿到會員收藏商品資料
-  useEffect(() => {
-    // if(token){
-    //   // 有token 的話去拿到ID
-    //   ;(async () => {
-    //     const r = await fetch(
-    //       `http://localhost:3002/member/memberprofile`,{
-    //         method: 'GET',
-    //         headers: {
-    //           'Authorization': 'Bearer ' + token
-    //         }
-    //       })
-    //     const obj = await r.json()
-    //     if(obj.data[0].sid){
-    //       const rs = await fetch(`http://localhost:3002/product/fav/${obj.data[0].sid}`,{
-    //         headers:{
-    //           'Authorization': 'Bearer ' + token
-    //         }
-    //       })
-    //       const favlist = await rs.json()
-    //       console.log(favlist.data)
-    //       setFavArr(favlist.data)
-    //       console.log('favlist.data:', favlist.data)
-    //     }
-    //   })()
-    // }
-    
-  }, [])
-
+  const [reset, setReset] = useState(0)
 
   //要所有資料
   useEffect(() => {
     ;(async () => {
+      console.log('test')
       const r = await fetch(
         `${Product_API}` + `${props.location.search}`
       )
       const obj = await r.json()
-      // console.log('obj.rows', obj.rows)
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
 
@@ -121,7 +90,7 @@ function Products(props) {
               }
             })
             const favlist = await rs.json()
-            console.log('favlist', favlist)
+            // console.log('favlist', favlist)
             const favData = {};
             if(favlist.data.length){
               favlist.data.forEach(el=>{
@@ -131,9 +100,11 @@ function Products(props) {
             setFavArr(favData)
           }
         })()
+      }else{
+        setFavArr([])
       }
     })()
-  }, [nowpage, productCate, searchWord, filter])
+  }, [nowpage, productCate, searchWord, filter, reset])
 
   // 切換banner
   const All = <AllBanner />
@@ -190,6 +161,7 @@ function Products(props) {
                 searchWord={searchWord}
                 setSearchWord={setSearchWord}
                 setProductCate={setProductCate}
+                setReset={setReset}
               />
             </div>
           </div>

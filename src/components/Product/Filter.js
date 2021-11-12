@@ -11,6 +11,7 @@ function Filter(props) {
     filter,
     setFilter,
     setProductCate,
+    setReset,
   } = props
 
   return (
@@ -29,17 +30,18 @@ function Filter(props) {
           onChange={(e) => {
             setSearchWord(e.target.value)
             // 如果沒有關鍵字, 回到全部商品
-            if (!e.target.value) {
-              setSearchWord('')
+            if (e.target.value==='') {
+              console.log('123')
               setProductCate('0')
-              props.history.push('/products/?cate=0')
+              props.history.push('/products/?cate=0&page=1')
             }
           }}
           // 按enter之後
           onKeyPress={(e) => {
             // 如果有關鍵字
-            if (e.target.value) {
+            if (e.target.value!=='') {
               if (e.key === 'Enter') {
+                setReset(Math.random())
                 setProductCate('0')
                 setFilter('')
                 const keyword = e.target.value
@@ -48,11 +50,11 @@ function Filter(props) {
                 )
               } 
             }// 如果沒有關鍵字
-            if (!e.target.value) {
-              setSearchWord('')
-              props.history.push('/products/?cate=0&page=1')
-              setProductCate('0')
-            }
+            // if (!e.target.value) {
+            //   setSearchWord('')
+            //   props.history.push('/products/?cate=0&page=1')
+            //   setProductCate('0')
+            // }
           }}
         />
       </div>
