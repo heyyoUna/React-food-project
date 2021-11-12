@@ -19,7 +19,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import emailjs from 'emailjs-com'
 import { init } from 'emailjs-com'
 import Spinner from '../../components/SpinnerCart'
-init('user_DhpBZeJsJ1uk9kl5grjzX')
+init('user_YM7Y1JKslMi9OVCYc197i')
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
@@ -219,9 +219,9 @@ function Cart_ConfimOrder(props) {
         DataDetail.Invoice_Number,
     }
 
-    let service_id = 'service_txsprev'
-    let template_id = 'template_3g1239b'
-    let userID = 'user_DhpBZeJsJ1uk9kl5grjzX'
+    let service_id = 'EatHealthy'
+    let template_id = 'template_wiunfpk'
+    let userID = 'user_YM7Y1JKslMi9OVCYc197i'
     emailjs
       .send(service_id, template_id, templateParams, userID)
       .then((response) => {
