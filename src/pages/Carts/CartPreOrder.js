@@ -41,6 +41,8 @@ function CartPreOrder(props) {
 
   let [loading, setLoading] = useState(true)
 
+  let [NewFilter, setNewFilter] = useState([])
+
   //客製化spinner css
 
   useEffect(() => {
@@ -287,6 +289,8 @@ function CartPreOrder(props) {
           setCount={setCount}
           Filter={Filter}
           setFilter={setFilter}
+          NewFilter={NewFilter}
+          setNewFilter={setNewFilter}
           CountNav={CountNav}
           setCountNav={setCountNav}
         />

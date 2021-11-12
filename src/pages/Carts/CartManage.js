@@ -158,8 +158,8 @@ function CartManage(props) {
       NewOrderInfo = [
         Checkout,
         StoreInfo[4],
-        StoreInfo[6],
         StoreInfo[5],
+        StoreInfo[6],
         StoreInfo[3] + '-' + StoreInfo[0],
         StoreInfo[1],
         StoreInfo[2],
@@ -198,7 +198,7 @@ function CartManage(props) {
       // console.log('寫出的訂購資料_加入備註', NewOrderInfo)
     }
     NewOrderInfo = [...NewOrderInfo, ...Invoice]
-    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+    console.log('寫出的訂購資料_加入發票', NewOrderInfo)
 
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
@@ -206,8 +206,8 @@ function CartManage(props) {
         Order_Sid: localStorage.getItem('訂單編號'),
         Payment_Type: NewOrderInfo[0],
         Order_Name: NewOrderInfo[1],
-        E_Mail: NewOrderInfo[2],
-        Order_Phone: NewOrderInfo[3],
+        E_Mail: NewOrderInfo[3],
+        Order_Phone: NewOrderInfo[2],
         Order_Address:
           NewOrderInfo[4] +
           NewOrderInfo[5] +

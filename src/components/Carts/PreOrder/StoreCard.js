@@ -29,7 +29,7 @@ function StoreCard(props) {
       'http://localhost:3002/cart/getProduct'
     )
     if (P.status === 200) {
-      // console.log('記錄商品位置', Pos)
+      console.log('記錄商品位置', Pos)
       NewFilter.push(Pos)
       let max = 24
       let randomresult = ['', '']
@@ -43,7 +43,6 @@ function StoreCard(props) {
         randomresult[0] = Math.floor(Math.random() * max)
         randomresult[1] = Math.floor(Math.random() * max)
       }
-
       StoreCard1.push(P.data[randomresult[0]])
       StoreCard1.push(P.data[randomresult[1]])
       setStoreCard1(StoreCard1)

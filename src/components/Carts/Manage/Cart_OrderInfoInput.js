@@ -27,7 +27,7 @@ function Cart_OrderInfoInput(props) {
   function UpdateInfo(value, index) {
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo[index] = value
-    // console.log('123', NewOrderInfo)
+    console.log('收件資料', NewOrderInfo)
     setOrderInfo(NewOrderInfo)
   }
 
@@ -52,8 +52,8 @@ function Cart_OrderInfoInput(props) {
     setPhone(NewData[0].mobile)
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo.push(NewData[0].name)
-    NewOrderInfo.push(NewData[0].email)
     NewOrderInfo.push(NewData[0].mobile)
+    NewOrderInfo.push(NewData[0].email)
     console.log('新訂單', NewOrderInfo)
     WarningText[0] = ''
     WarningText[1] = ''
