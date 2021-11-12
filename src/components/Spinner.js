@@ -11,22 +11,21 @@ function Spinner(props) {
   //   transform: translate(-50%, -50%);
   //   z-index: 100;
   const override = {
-    position: 'fixed',
-    top: '50%',
-    left: '47%',
-    // transform: translate('-50%', '-50%'),
+    position: 'absolute',
+    top: '20%',
+    left: '48%',
+    paddingRight: '0!important',
+    paddingLeft: '0!important',
     zIndex: '100',
   }
 
   return (
-    <>
       <PacmanLoader
         loading={loading}
         color={color ? color : '#ffb606'}
         css={customCss ? customCss : override}
         size={30}
       />
-    </>
   )
 }
 

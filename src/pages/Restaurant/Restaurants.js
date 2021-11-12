@@ -167,7 +167,7 @@ function Restaurants(props) {
     })()
     setTimeout(() => {
       setLoading(false)
-    }, 2200)
+    }, 2000)
   }, [lat, lng])
 
  useEffect(() => {
@@ -277,9 +277,7 @@ function Restaurants(props) {
           css={override}
           size={30}
         /> */}
-        <Spinner
-          loading={loading} /*customCss={customCss} */
-        />
+      
         <div className="res-slogan">
           <h1>尋找，</h1>
           <Bounce>
@@ -305,7 +303,6 @@ function Restaurants(props) {
       <div className="ma-80" ref={myRef}>
         <TitleBorder name="健康餐盒" />
       </div>
-
       <div className="container d-flex  justify-content-center p-0 ">
         <MapButtonGroup
           linkFunction={goToMap}
@@ -348,12 +345,15 @@ function Restaurants(props) {
             />
           </div>
         </MapButtonGroup>
-      </div>
+      </div>    
       {/* 餐廳列表 */}
-      <div className="container mt-35 mb-5">
-        <div class="row  justify-content-center">
+      <div className="container mt-35 mb-5 spinnerRelative">
+        <div class="row  justify-content-center" style={{minHeight:'500px'}}>
+        <Spinner
+          loading={loading} /*customCss={customCss} */
+        />
           {/* 原本是傳apiData進來，但為了呈現篩選過後的資料，所以改傳filterData */}
-          {displayData &&
+          {(!loading && displayData) &&
             displayData.map((v, i) => {
               return (
                 <div
@@ -380,97 +380,99 @@ function Restaurants(props) {
       </div>
 
       {/* 分頁 */}
+      {
+        !loading &&
+        <div className="page-btn-wrap d-flex">
+          {/* 前一頁 */}
+          <div
+            className="page-pre"
+            onClick={() => {
+              console.log('currentPage', pages.currentPage)
+              console.log('totalPages', pages.totalPages)
+              if (pages.currentPage === 0) {
+                return
+              }
 
-      <div className="page-btn-wrap d-flex">
-        {/* 前一頁 */}
-        <div
-          className="page-pre"
-          onClick={() => {
-            console.log('currentPage', pages.currentPage)
-            console.log('totalPages', pages.totalPages)
-            if (pages.currentPage === 0) {
-              return
-            }
+              const data =
+                filter.distance || filter.price || filter.rate
+                  ? filterData
+                  : apiData
 
-            const data =
-              filter.distance || filter.price || filter.rate
-                ? filterData
-                : apiData
-
-            const arr = data.slice(
-              (pages.currentPage - 1) * pages.perPage,
-              pages.currentPage * pages.perPage
-            )
-
-            setDisplayData(arr)
-
-            setPages({
-              ...pages,
-              currentPage: pages.currentPage - 1,
-            })
-          }}
-        >
-          <i className="fas fa-chevron-left"></i>
-        </div>
-        {/* 頁數 */}
-        <div className="page d-flex">
-          {pagination.map((item, i) => {
-            return (
-              <div
-                className={
-                  pages.currentPage === i
-                    ? 'res-pages-active res-pages'
-                    : 'res-pages'
-                }
-                key={i}
-                onClick={onperPageChange}
-                data-index={i}
-              >
-                {item}
-              </div>
-            )
-          })}
-        </div>
-        {/* 下一頁 */}
-        <div
-          className="page-next"
-          onClick={() => {
-            if (
-              pages.currentPage + 1 ===
-              pages.totalPages
-            ) {
-              return
-            }
-            console.log(
-              'currentPage',
-              pages.currentPage + 1
-            )
-            console.log('totalPages', pages.totalPages)
-
-            const data =
-              filter.distance || filter.price || filter.rate
-                ? filterData
-                : apiData
-
-            setDisplayData(
-              data.slice(
-                (pages.currentPage + 1) * pages.perPage,
-                (pages.currentPage + 2) * pages.perPage
+              const arr = data.slice(
+                (pages.currentPage - 1) * pages.perPage,
+                pages.currentPage * pages.perPage
               )
-            )
 
-            setPages({
-              ...pages,
-              currentPage: pages.currentPage + 1,
-            })
-          }}
-        >
-          <i className="fas fa-chevron-right"></i>
+              setDisplayData(arr)
+
+              setPages({
+                ...pages,
+                currentPage: pages.currentPage - 1,
+              })
+            }}
+          >
+            <i className="fas fa-chevron-left"></i>
+          </div>
+          {/* 頁數 */}
+          <div className="page d-flex">
+            {pagination.map((item, i) => {
+              return (
+                <div
+                  className={
+                    pages.currentPage === i
+                      ? 'res-pages-active res-pages'
+                      : 'res-pages'
+                  }
+                  key={i}
+                  onClick={onperPageChange}
+                  data-index={i}
+                >
+                  {item}
+                </div>
+              )
+            })}
+          </div>
+          {/* 下一頁 */}
+          <div
+            className="page-next"
+            onClick={() => {
+              if (
+                pages.currentPage + 1 ===
+                pages.totalPages
+              ) {
+                return
+              }
+              console.log(
+                'currentPage',
+                pages.currentPage + 1
+              )
+              console.log('totalPages', pages.totalPages)
+
+              const data =
+                filter.distance || filter.price || filter.rate
+                  ? filterData
+                  : apiData
+
+              setDisplayData(
+                data.slice(
+                  (pages.currentPage + 1) * pages.perPage,
+                  (pages.currentPage + 2) * pages.perPage
+                )
+              )
+
+              setPages({
+                ...pages,
+                currentPage: pages.currentPage + 1,
+              })
+            }}
+          >
+            <i className="fas fa-chevron-right"></i>
+          </div>
+          <p className="total-page">
+            共 {pages.totalPages} 頁
+          </p>
         </div>
-        <p className="total-page">
-          共 {pages.totalPages} 頁
-        </p>
-      </div>
+      }
 
       <div className="ma-80">
         <TitleBorder name="人氣精選" />
