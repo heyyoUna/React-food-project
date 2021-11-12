@@ -15,7 +15,6 @@ import Target from '../../components/Product/Target'
 import Clientinfo from '../../components/Product/Clientinfo'
 
 function Customize(props) {
-  const ID = localStorage.getItem('id')
   const token = localStorage.getItem('token')
   let history = useHistory()
   const [display, setDisplay] = useState(true)
@@ -75,12 +74,13 @@ function Customize(props) {
           })
           const favlist = await rs.json()
           const favData = {};
-          if(favlist.data.length){
-            favlist.data.forEach(el=>{
-              favData[el.product_id] = 1
-            })
+          if(favlist.success){
+            if(favlist.data.length){
+              favlist.data.forEach(el=>{
+                favData[el.product_id] = 1
+              })
+            }
           }
-
           setFavArr(favData)
         }
       })()
@@ -102,7 +102,6 @@ function Customize(props) {
         const r = await fetch(`${Customize_API}` + `${props.location.search}`)
         const obj = await r.json()
         setSugProducts(obj.rows)
-        console.log(obj.rows)
       }
     })()
   }, [target])
@@ -376,7 +375,7 @@ function Customize(props) {
           </div>
         </div>
         <h1>文章推薦</h1>
-        <div className="container col-cat-article">
+        <div className="container col-cat-article client-sugArt">
           <div className="row">
             <div className="col-md-12 client-art-wrap d-flex flex-wrap">
             {sugArt.map((v,i)=>{

@@ -259,7 +259,7 @@
   justify-content: center;
   text-decoration: none;
   transition: .3s;
-  max-width: 185px;
+  max-width: 250px !important;
   .pd-viewmore{
     color: #8fc065;
     transition: .3s;
@@ -313,6 +313,9 @@
   align-items: center;
 
   
+}
+.client-sugArt{
+  padding-top: 0 !important;
 }
 .ar-viewmore-wrap{
   transform: translate(600px, 20px);
