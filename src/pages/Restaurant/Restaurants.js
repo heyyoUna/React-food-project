@@ -219,18 +219,7 @@ function Restaurants(props) {
     })
   }
 
-  // async function listData() {
-  //   let r = await fetch('http://localhost:3002/reslist')
-  //   let j = await r.json()
-  //   if (j.length) {
-  //     /** apiData包存原始資料，filterData設定渲染所需的資料 */
-  //     setApiData(j)
-  //     setFilterData(j)
-  //   }
-  // }
-  // useEffect(() => {
-  //   listData()
-  // }, [])
+
 
   const mySubmit = () => {
     // listData()
