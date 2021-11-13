@@ -27,6 +27,8 @@ const NoDataView = styled.div`
   text-align: center;
   font-weight: 700;
   padding-top: 80px;
+  letter-spacing: 5px;
+  text-indent: 5px;
 
 `;
 const NoDataViewImg =styled.div`
@@ -303,7 +305,7 @@ function ResMap() {
             )
           }) :
           <NoDataView>
-            附近無健康餐盒<br/>請重新查詢!
+            附近無健康餐盒!<br/>
             <NoDataViewImg>
             <img src={'http://localhost:3000/images/Restaurant/lunchbox.png'}
             alt=""/>
