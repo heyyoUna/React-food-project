@@ -127,12 +127,24 @@ function MemberChangePassword(props) {
                 <label htmlFor="password" className="col-sm-3 col-form-label">確認新密碼</label>
                 <div className="col-sm-9">
                   <input
-                    type="password"
+                    type={typeAnother}
                     className="karin-profile-form-control"
                     name="checknewpassword"
                     value={changepassword.checknewpassword}
                     onChange={handlePasswordChange}
                   />
+                  <i
+                    className={`mt-3 mt-md-3 ml-2 ${closeAnother}`}
+                    onClick={() => {
+                      if (typeAnother === 'password') {
+                        setTypeAnother('text')
+                        setCloseAnother('far fa-eye')
+                      } else {
+                        setTypeAnother('password')
+                        setCloseAnother('far fa-eye-slash')
+                      }
+                    }}
+                  ></i>
                 </div>
               </div>
               {/* 送出按鈕  */}
