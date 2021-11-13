@@ -19,6 +19,21 @@ import centericon from '../../imgs/centericon.png'
 import mapicon from '../../imgs/mapicon.png'
 // import { css } from '@emotion/react'
 // import PacmanLoader from 'react-spinners/PacmanLoader'
+import styled from 'styled-components'
+
+const NoDataView = styled.div`
+  color:#fb6107;
+  font-size: 40px;
+  text-align: center;
+  font-weight: 700;
+  padding-top: 80px;
+
+`;
+const NoDataViewImg =styled.div`
+width: 100%;
+height: 200px;
+> img {margin: 0 auto;}
+`;
 
 function ResMap() {
   delete L.Icon.Default.prototype._getIconUrl
@@ -115,12 +130,19 @@ function ResMap() {
         )
       }
 
+   
+
       setFilterData(processFilterData)
       setListData(processFilterData)
-    } else {
+          } else {
       setFilterData(history.location.state.mapData)
       setListData(history.location.state.mapData)
     }
+      if (filter.distance==='0.5'){
+        setFilterData([])
+        setListData([])
+     }
+
   }, [filter])
 
   const markerChange = (e) => {
@@ -200,7 +222,9 @@ function ResMap() {
 
       <div className=" map-wrapper ">
         <div className=" col-md-4  col-12 map-list ">
-          {listData.map((item, index) => {
+          {
+            listData.length ? 
+          listData.map((item, index) => {
             return (
               <>
                 <div key={index} className="map-res-introduce d-flex">
@@ -277,7 +301,15 @@ function ResMap() {
                 </div>
               </>
             )
-          })}
+          }) :
+          <NoDataView>
+            附近無健康餐盒<br/>請重新查詢!
+            <NoDataViewImg>
+            <img src={'http://localhost:3000/images/Restaurant/lunchbox.png'}
+            alt=""/>
+          </NoDataViewImg>
+          </NoDataView>
+          }
         </div>
 
         <div className="map-container p-0 col-md-8 col-12">

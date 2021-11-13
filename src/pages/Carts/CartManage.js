@@ -375,7 +375,7 @@ function CartManage(props) {
                 icon: 'warning',
                 title: '您尚未選擇付款方式或發票類型喔!',
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 1500,
               })
             } else {
               // 判斷有選擇發票形式但未填裡面的資料
@@ -389,7 +389,7 @@ function CartManage(props) {
                   title:
                     '您尚未填寫手機條碼載具或是公司統編喔!',
                   showConfirmButton: false,
-                  timer: 1000,
+                  timer: 1500,
                 })
               } else {
                 // 如果是 7-11 取貨付款
@@ -401,7 +401,7 @@ function CartManage(props) {
                         title:
                           '您尚未填寫 7-11 收件資料或是填寫格式錯誤喔!',
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer: 1500,
                       })
                       break
                     }
@@ -428,7 +428,7 @@ function CartManage(props) {
                         title:
                           '您尚未填寫宅配收件資料或是填寫格式錯誤喔!',
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer: 1500,
                       })
                       break
                     } else if (i == 5) {

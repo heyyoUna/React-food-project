@@ -17,7 +17,7 @@ import ProductCard from './../../components/Product/ProductCard'
 import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
-  const { setFavArr, favArr} = props
+  const { setFavArr, favArr } = props
   const token = localStorage.getItem('token')
   const searchParams = new URLSearchParams(
     props.location.search
@@ -36,7 +36,7 @@ function Products(props) {
   )
   // 總頁數
   const [totalpages, setTotalPages] = useState('')
-  
+
   // 設定目前頁數狀態
   const [nowpage, setNowPage] = useState(
     searchParams.get('page') || 1
@@ -71,34 +71,39 @@ function Products(props) {
       setTotalPages(obj.totalPages)
 
       //  拿收藏商品
-      if(token){
+      if (token) {
         // 有token 的話去拿到ID
         ;(async () => {
           const r = await fetch(
-            `http://localhost:3002/member/memberprofile`,{
+            `http://localhost:3002/member/memberprofile`,
+            {
               method: 'GET',
               headers: {
-                'Authorization': 'Bearer ' + token
-              }
-            })
+                Authorization: 'Bearer ' + token,
+              },
+            }
+          )
           const obj = await r.json()
-          if(obj.data[0].sid){
-            const rs = await fetch(`http://localhost:3002/product/fav/${obj.data[0].sid}`,{
-              headers:{
-                'Authorization': 'Bearer ' + token
+          if (obj.data[0].sid) {
+            const rs = await fetch(
+              `http://localhost:3002/product/fav/${obj.data[0].sid}`,
+              {
+                headers: {
+                  Authorization: 'Bearer ' + token,
+                },
               }
-            })
+            )
             const favlist = await rs.json()
             const favData = {};
-            //錯誤處理防呆
+            //錯誤處理
             if (favlist.success) {
               if(favlist.data.length){
                 favlist.data.forEach(el=>{
                   favData[el.product_id] = 1
                 })
               }
+              setFavArr(favData)
             }
-            setFavArr(favData)
           }
         })()
       }else{
@@ -128,7 +133,6 @@ function Products(props) {
         return All
     }
   }
-  
 
   return (
     <>
@@ -138,9 +142,12 @@ function Products(props) {
       <div className="pd-filter-mb-wrap">
         <div className="pd-cate-mb ">
           商品分類
-        <i class="fas fa-chevron-down"></i></div>
-        <div className="pd-filter-mb ">篩選條件
-        <i class="fas fa-chevron-down"></i></div>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div className="pd-filter-mb ">
+          篩選條件
+          <i class="fas fa-chevron-down"></i>
+        </div>
       </div>
       <div className="container">
         <div className="row pd-row">
