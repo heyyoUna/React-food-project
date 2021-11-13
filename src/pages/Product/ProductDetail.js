@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import conf, {
-  ProductDetail_API, 
-} from './../../config/config.js'
+import { ProductDetail_API } from './../../config/config.js'
 import {withRouter} from 'react-router-dom'
 
 // 組合用元件
@@ -71,7 +69,6 @@ function ProductDetail(props) {
       <div className="container dt-pd-container">
         <div className="row d-flex dt-product">
           <ProductWrap
-          // {...p}
             sid={p.sid}
             name={p.name}
             product_id={p.product_id}
@@ -115,7 +112,6 @@ function ProductDetail(props) {
           <div className="dt-sub-title">
             <h4>Reviews</h4>
           </div>
-          {/* <div className="dt-review mb80"> */}
             <div className="dt-reviews-wrap d-flex ">
               {/* 評論框 */}
               {review.length ===0 ? (
@@ -133,7 +129,6 @@ function ProductDetail(props) {
                 )
               }))}
             </div>
-          {/* </div> */}
         </div>
       </div>
     </>
