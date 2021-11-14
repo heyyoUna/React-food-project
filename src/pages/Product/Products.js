@@ -58,37 +58,7 @@ function Products(props) {
     setNowPage(page)
   }
 
-<<<<<<< HEAD
-  // 拿到會員收藏商品資料
-  useEffect(() => {
-    // if(token){
-    //   // 有token 的話去拿到ID
-    //   ;(async () => {
-    //     const r = await fetch(
-    //       `http://localhost:3002/member/memberprofile`,{
-    //         method: 'GET',
-    //         headers: {
-    //           'Authorization': 'Bearer ' + token
-    //         }
-    //       })
-    //     const obj = await r.json()
-    //     if(obj.data[0].sid){
-    //       const rs = await fetch(`http://localhost:3002/product/fav/${obj.data[0].sid}`,{
-    //         headers:{
-    //           'Authorization': 'Bearer ' + token
-    //         }
-    //       })
-    //       const favlist = await rs.json()
-    //       console.log(favlist.data)
-    //       setFavArr(favlist.data)
-    //       console.log('favlist.data:', favlist.data)
-    //     }
-    //   })()
-    // }
-  }, [])
-=======
   const [reset, setReset] = useState(0)
->>>>>>> cbbb406227f40ad0d094f2d7e4c9da5e017132fb
 
   //要所有資料
   useEffect(() => {
@@ -125,17 +95,10 @@ function Products(props) {
               }
             )
             const favlist = await rs.json()
-<<<<<<< HEAD
-            console.log('favlist', favlist)
-            const favData = {}
-            if (favlist.data.length) {
-              favlist.data.forEach((el) => {
-=======
             // console.log('favlist', favlist)
             const favData = {};
             if(favlist.data.length){
               favlist.data.forEach(el=>{
->>>>>>> cbbb406227f40ad0d094f2d7e4c9da5e017132fb
                 favData[el.product_id] = 1
               })
             }
