@@ -71,7 +71,6 @@ main {
 footer {
   color: $light-green;
 
-
   .logo {
     margin: auto;
     text-align: center;
@@ -566,6 +565,12 @@ footer {
   }
 
   /*---------- 餐廳  ----------*/
+  .hpResRun {
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+
   #hpRes {
     @include spaceBetweenCat;
     .txtWrap {
@@ -652,7 +657,24 @@ footer {
         }
         @include NOmobile;
       }
+      @media (max-width: 992px) {
+        display: none;
+        width: 0;
+        height: 0;
+        // #deliveryImg{
+        //   width: 0;
+        //   height: 0;
+        //   display:none;
+
+        // }
+
+      }
     }
+  }
+}
+#deliveryImg {
+  @media (max-width: 992px) {
+    display: none;
   }
 }
 /*----------- 轉盤 -----------*/
