@@ -237,7 +237,7 @@ function Customize(props) {
   // 客製化按鈕滑動
   const scroll = () => {
     window.scroll({
-      top: 800,
+      top: 820,
       behavior: 'smooth',
     })
   }
@@ -323,7 +323,7 @@ function Customize(props) {
       </div>
       {/* 推薦區 */}
       <div className="container d-flex pd-sug-wrap">
-        <h1>商品推薦</h1>
+        <div className="title"><h1>商品推薦</h1></div>
         <div className="pd-card-wrap d-flex col-12">
           {sugProducts.map((v, i) => {
             return (
@@ -352,7 +352,7 @@ function Customize(props) {
             <i className="fas fa-angle-double-right back"></i>
           </div>
         </div>
-        <h1>餐盒推薦</h1>
+        <div className="title"><h1>餐盒推薦</h1></div>
         <div className="container mx-auto mb50">
           <div className="row  justify-content-center ">
             {sugFoodBox.map((v, i) => {
@@ -413,7 +413,7 @@ function Customize(props) {
             </div>
           </div>
         </div>
-        <h1>文章推薦</h1>
+        <div className="title"><h1>文章推薦</h1></div>
         <div className="container col-cat-article client-sugArt">
           <div className="row">
             <div className="col-md-12 client-art-wrap d-flex flex-wrap">

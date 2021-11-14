@@ -11,7 +11,7 @@ function MemberChangePassword(props) {
     'newpassword': '',
     'checknewpassword': ''
   })
-  
+
   //小眼睛設定，因為有兩個input要用，所以需要另設狀態，不能共用狀態
   const [close, setClose] = useState('far fa-eye-slash')
   const [closeAnother, setCloseAnother] = useState(
@@ -53,9 +53,17 @@ function MemberChangePassword(props) {
     }).then(r => r.json())
       .then(obj => {
         if (obj.success) {
-          Swal.fire('密碼修改成功')
+          Swal.fire({
+            icon: 'success',
+            title: '密碼修改成功',
+            showConfirmButton: false,
+            timer: 1500,
+          })
         } else {
-          Swal.fire(obj.error || '密碼修改失敗')
+          Swal.fire({
+            icon: 'error',
+            text: (obj.error || '密碼修改失敗')
+          });
         }
         setChangePassword({
           'oldpassword': '',

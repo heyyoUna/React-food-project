@@ -493,6 +493,7 @@ function Home(props) {
             </div>
             <div className="col-lg-1 deliveryWrap">
               <img
+                id="deliveryImg"
                 src={`${imgUrl}/images/hp_res_delivery.png`}
                 alt=""
               />

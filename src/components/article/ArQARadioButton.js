@@ -69,7 +69,7 @@ function ArQARadioButton(props) {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '答錯囉！再次一次吧',
+                text: '答錯囉！再試一次吧',
               })
             } else {
               EngagementAdd(data.sid)

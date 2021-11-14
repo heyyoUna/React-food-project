@@ -44,11 +44,15 @@ function Products(props) {
   // 篩選radio
   const [filter, setFilter] = useState('')
 
+  const [url, setUrl]= useState(sp)
+
   // 解析URL參數
   const sp = searchParams.toString()
   // 跳轉頁面都會觸發,將URL參數設定回狀態
   useEffect(() => {
     setUpdateState()
+    setUrl(sp)
+    console.log('sp',sp)
   }, [sp])
   // 當跳頁的時候把URL參數設定回狀態
   const setUpdateState = () => {
@@ -102,6 +106,7 @@ function Products(props) {
                   favData[el.product_id] = 1
                 })
               }
+              console.log('更新商品收藏')
               setFavArr(favData)
             }
           }
@@ -110,7 +115,7 @@ function Products(props) {
         setFavArr({})
       }
     })()
-  }, [nowpage, productCate, searchWord, filter, reset])
+  }, [nowpage, productCate, searchWord, filter, reset,url])
 
   // 切換banner
   const All = <AllBanner />
