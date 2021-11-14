@@ -7,6 +7,8 @@ import {
   FaLongArrowAltRight,
   FaRegEdit,
   FaCheck,
+  FaTruckMoving,
+  FaStoreAlt,
 } from 'react-icons/fa'
 import '../../styles/Carts/CartConfirmOrder.scss'
 import '../../styles/Carts/Banner.scss'
@@ -91,7 +93,7 @@ function Cart_ConfimOrder(props) {
       setpointChange(M.data[0].left_point)
       setTimeout(() => {
         setLoading(false)
-      }, 2000)
+      }, 1000)
     }
   }
 
@@ -118,7 +120,7 @@ function Cart_ConfimOrder(props) {
     // console.log('確認訂單資訊', DataDetail)
 
     if (a[1] !== 0) {
-      console.log('會員點數', a[1])
+      // console.log('會員點數', a[1])
       await axios.post(
         `http://localhost:3002/cart/modifyPoint`,
         {
@@ -287,7 +289,11 @@ function Cart_ConfimOrder(props) {
             <h2>以下列方式支付金額</h2>
             <h6>{DataDetail.Payment_Type}</h6>
           </div>
-          {DataDetail.Payment_Type === '信用卡支付' ? (
+          {DataDetail.Payment_Type === '7-11取貨付款' ? (
+            <FaStoreAlt className="fastore" />
+          ) : DataDetail.Payment_Type === '宅配貨到付款' ? (
+            <FaTruckMoving className="fatruck" />
+          ) : DataDetail.Payment_Type === '信用卡支付' ? (
             <FaCcVisa className="favisa" />
           ) : (
             ''

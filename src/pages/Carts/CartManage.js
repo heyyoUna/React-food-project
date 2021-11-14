@@ -113,7 +113,7 @@ function CartManage(props) {
       // console.log('抓回來的資料', r.data)
       setTimeout(() => {
         setLoading(false)
-      }, 2000)
+      }, 1000)
     }
   }
 
@@ -386,7 +386,8 @@ function CartManage(props) {
               ) {
                 Swal.fire({
                   icon: 'warning',
-                  title: '資料未填寫，或是載具統編格式有誤!',
+                  title:
+                    '資料未填寫，或是載具統編格式有誤!',
                   showConfirmButton: false,
                   timer: 1500,
                 })

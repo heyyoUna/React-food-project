@@ -6,6 +6,18 @@
   }
 }
 
+@keyframes movepoint {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: -10px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
 // .Process {
 //   .first,
 //   .firstArrow,
@@ -160,7 +172,7 @@
   .check {
     width: 100%;
     margin-bottom: 50px;
-    .choose{
+    .choose {
       display: flex;
     }
     span {
@@ -274,6 +286,7 @@
       height: 400px;
       font-family: var(--Font-Family);
       .PopCard {
+        
         h6 {
           font-weight: var(--Second-Font-Weight);
           color: var(--Third-color);
@@ -300,6 +313,13 @@
           font-weight: var(--Second-Font-Weight);
           transition: 0.5s;
         }
+      }
+      .markerIcon {
+        animation: movepoint 1s infinite;
+        // -webkit-animation: movepoint 2s infinite;
+      }
+      .markerIcon:hover {
+        animation: movepoint 0s infinite;
       }
     }
     .storeinput {
