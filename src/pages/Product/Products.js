@@ -63,7 +63,6 @@ function Products(props) {
   //要所有資料
   useEffect(() => {
     ;(async () => {
-      console.log('test')
       const r = await fetch(
         `${Product_API}` + `${props.location.search}`
       )
@@ -95,18 +94,20 @@ function Products(props) {
               }
             )
             const favlist = await rs.json()
-            // console.log('favlist', favlist)
             const favData = {};
-            if(favlist.data.length){
-              favlist.data.forEach(el=>{
-                favData[el.product_id] = 1
-              })
+            //錯誤處理
+            if (favlist.success) {
+              if(favlist.data.length){
+                favlist.data.forEach(el=>{
+                  favData[el.product_id] = 1
+                })
+              }
+              setFavArr(favData)
             }
-            setFavArr(favData)
           }
         })()
       }else{
-        setFavArr([])
+        setFavArr({})
       }
     })()
   }, [nowpage, productCate, searchWord, filter, reset])

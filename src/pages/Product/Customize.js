@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   withRouter,
   Link,
-  useHistory,
 } from 'react-router-dom'
 import { API_img } from '../../config/index'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
@@ -78,9 +77,9 @@ function Customize(props) {
               },
             }
           )
+          // 回傳的收藏商品
           const favlist = await rs.json()
           const favData = {}
-          console.log('favlist', favlist)
           if (favlist.success) {
             if (favlist.data.length) {
               favlist.data.forEach((el) => {
@@ -317,9 +316,7 @@ function Customize(props) {
               }else{
                 scroll()
               }
-            }}
-            
-          >
+            }}>
             查看飲食推薦
           </button>
         </div>
@@ -363,9 +360,9 @@ function Customize(props) {
                 <div className="col-md-4 col-12 ">
                   <div class="res-menu m-4">
                     <div className="res-pic-wrapper">
-                      <div className="res-product-card-overlay d-flex justify-content-center  ">
+                      <div className="res-product-card-overlay d-flex justify-content-center">
                         <Link to={'/restaurants'}>
-                          <div className="res-orderBtn  ">
+                          <div className="res-orderBtn">
                             前往訂餐
                           </div>
                         </Link>
