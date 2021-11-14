@@ -373,7 +373,7 @@ function CartManage(props) {
             ) {
               Swal.fire({
                 icon: 'warning',
-                title: '您尚未選擇付款方式或發票類型喔!',
+                title: '未選擇付款方式或發票類型!',
                 showConfirmButton: false,
                 timer: 1500,
               })
@@ -386,8 +386,7 @@ function CartManage(props) {
               ) {
                 Swal.fire({
                   icon: 'warning',
-                  title:
-                    '您尚未填寫手機條碼載具或是公司統編喔!',
+                  title: '資料未填寫，或是載具統編格式有誤!',
                   showConfirmButton: false,
                   timer: 1500,
                 })
