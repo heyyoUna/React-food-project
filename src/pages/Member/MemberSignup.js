@@ -29,8 +29,9 @@ function MemberSignup(props) {
         Swal.fire({
           icon: 'success',
           title: '註冊成功',
+          text:'獲得新進會員贈點 +50點',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
         history.push('/login')
       } else {
