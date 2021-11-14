@@ -73,7 +73,7 @@
 }
 .pd-target-wrap h1 {
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
   letter-spacing: 3px;
   font-size: 32px;
   color: #fb6107;
@@ -200,15 +200,32 @@
 }
 .pd-sug-wrap {
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
-.pd-sug-wrap h1 {
-  margin-bottom: 50px;
+.pd-sug-wrap{
+  .title {
+    margin:80px 0px;
+    color: #2a593e;
+    top: -18px;
+    text-indent: 3px;
+    border-bottom: 2px solid #2a593e;
+    position: relative;
+  }
+  
+  h1{
   font-size: 32px;
   color: #2a593e;
   font-weight: bold;
   letter-spacing: 3px;
+  background-color: #fff;
+  position: absolute;
+  padding: 0px 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -20px;
 }
+}
+
 .pd-card-intro {
   flex-direction: column;
   justify-content: center;
@@ -246,6 +263,7 @@
   justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 50px;
+  margin: auto;
   position: relative;
 }
 // 查看更多連結

@@ -60,7 +60,7 @@ body {
       )
       center center / 100% 100%,
     url('http://localhost:3000/images/Product/pd-banner-workout.jpeg')
-      100% center / 50% auto !important;
+      100% center / auto 100% !important;
 }
 
 /* 嚴選食材 */
@@ -73,7 +73,7 @@ body {
         transparent 10%
       )
       center center / 100% 100%,
-    url('http://localhost:3000/images/Product/pd-banner-material.jpg')
+    url('http://localhost:3000/images/Product/material-test.jpeg')
       100% center / auto 100% !important;
 }
 
@@ -359,20 +359,20 @@ input[name='pd-filter'] + label {
   .pd-banner-workout {
     background: linear-gradient(
           90deg,
-          rgb(255, 255, 255) 50%,
+          rgba(255, 255, 255, 0) 50%,
           transparent 10%
         )
         center center / 100% 100%,
-        url('http://localhost:3000/images/Product/pd-banner-workout.jpeg') 100% center / auto 100% !important;
+        url('http://localhost:3000/images/Product/pd-banner-workout.jpeg') 60% center / auto 100% !important;
   }
   .pd-banner-material {
     background: linear-gradient(
           110deg,
-          rgb(255, 255, 255) 60%,
-          transparent 10%
+          transparent 30%,
+          transparent 100%
         )
         center center / 100% 100%,
-      url() 100% center / auto 100%;
+      url('http://localhost:3000/images/Product/pd-banner-material.jpeg') 30% center / auto 100% !important;
   }
   .pd-banner-text{
     padding-left: 0px;
@@ -426,36 +426,6 @@ input[name='pd-filter'] + label {
     display: block;
   }
 
-
-  /* 手機板篩選器 (舊)*/
-  // .mb-filter-wrap {
-  //   width: 100%;
-  //   display: flex;
-  //   justify-content: space-evenly;
-  //   margin-bottom: 30px;
-  //   display: block;
-  // }
 }
 
-/* 手機板篩選器 */
-// .mb-filter-wrap {
-//   width: 100%;
-//   justify-content: space-evenly;
-//   margin-bottom: 30px;
-//   display: none;
-// }
-// .mb-cate-btn,
-// .mb-filter-btn {
-//   width: 45%;
-//   border: 1px solid #8fc065;
-//   border-radius: 100px;
-//   text-align: center;
-//   font-size: 14px;
-//   padding: 5px 0px 5px 35px;
-//   color: #8fc065;
-//   text-align: center;
-//   /* display: none; */
-// }
-// .mb-filter-wrap i {
-//   margin-left: 30px;
-// }
+
