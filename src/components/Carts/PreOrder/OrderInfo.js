@@ -23,7 +23,7 @@ function OrderInfo(props) {
     setPromotion,
   } = props
 
-  const numberJudge = new RegExp(/\d/)
+  const numberJudge = new RegExp(/^[0-9]*$/)
 
   // 清空 localstorage 裡的資訊
   localStorage.removeItem('訂單編號')

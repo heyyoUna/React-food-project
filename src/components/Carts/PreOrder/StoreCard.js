@@ -71,7 +71,7 @@ function StoreCard(props) {
           className="morecard my-lg-auto mt-5 justify-content-lg-start justify-content-center"
           onClick={() => {
             // console.log('點擊')
-            props.history.push('/products')
+            props.history.push('/products/?cate=0&page=1')
           }}
         >
           <FaAngleDoubleRight className="DoubleRight" />

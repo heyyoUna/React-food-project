@@ -10,7 +10,7 @@ import {
   useMapEvent,
   Tooltip,
 } from 'react-leaflet'
-import markerIconPng from '../../../../node_modules/leaflet/dist/images/marker-icon.png'
+import markerIconPng from '../../../../node_modules/leaflet/dist/images/Marker.png'
 import { Icon } from 'leaflet'
 import InputWarning from './InputWarning'
 import '../../../../node_modules/leaflet/dist/leaflet.css'
@@ -365,8 +365,9 @@ function Cart_Store(props) {
                     icon={
                       new Icon({
                         iconUrl: markerIconPng,
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
+                        iconSize: [60, 40],
+                        iconAnchor: [30, 20],
+                        className:'markerIcon',
                       })
                     }
                   >

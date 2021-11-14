@@ -52,7 +52,7 @@ function CartPreOrder(props) {
 
   useEffect(() => {
     // 修改購物車內的商品資料
-    // console.log('讀取Modify')
+    // console.log('Delete後重新 Render Modify', Count, Pos)
     ModifyProduct(Count, Pos, ODPos)
   }, [Count[Pos]])
 
@@ -102,14 +102,13 @@ function CartPreOrder(props) {
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-      // console.log('讀取到的 preorder data', r)
+      // console.log('讀取到的 data', r.data)
       Count = []
       // 讀取裡面的商品數量
       for (let i = 0; i < r.data.length; i++) {
         Count[i] = r.data[i].Order_Amount
       }
       CountNav = r.data.length
-      // console.log('por', CountNav)
 
       // 設定商品初始數量
       setCount(Count)
@@ -123,7 +122,7 @@ function CartPreOrder(props) {
       totalPrice()
       setTimeout(() => {
         setLoading(false)
-      }, 2000)
+      }, 1000)
     }
   }
 
@@ -141,18 +140,21 @@ function CartPreOrder(props) {
       }
     )
     if (m.data.success) {
-      // console.log('會員成功登入 id', m.data.data[0].sid)
-      let Mod = await axios.put(
-        `http://localhost:3002/cart/${ODPos}`,
-        {
-          Order_Amount: Count[Pos],
-        }
-      )
-      if (Mod.status === 200) {
-        // console.log('經過 Modify')
-        DataAxios(m.data.data[0].sid)
-        return Count
+      console.log('Modify 位置', ODPos)
+      console.log('Modify 數量', Count[Pos])
+      if (!Count[Pos]) {
+        console.log('ODPOS為 Undefined')
+      } else {
+        await axios.put(
+          `http://localhost:3002/cart/${ODPos}`,
+          {
+            Order_Amount: Count[Pos],
+          }
+        )
       }
+      DataAxios(m.data.data[0].sid)
+
+      // return Count
     }
   }
 

@@ -27,7 +27,9 @@
       }
     }
   }
-  .favisa {
+  .favisa,
+  .fatruck,
+  .fastore {
     font-size: 40px;
     color: var(--Third-color);
     margin: auto 0;
@@ -60,7 +62,9 @@
 
     .table {
       td {
-        font-size: var(--Font-orderconfirmdetail-size-mobile);
+        font-size: var(
+          --Font-orderconfirmdetail-size-mobile
+        );
       }
     }
     h1 {
