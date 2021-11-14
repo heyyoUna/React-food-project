@@ -25,7 +25,7 @@ function Heart(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       let NewPos = v.sid
       let p = await axios.post(
         'http://localhost:3002/cart',
@@ -121,9 +121,6 @@ function Heart(props) {
     let r = await axios.delete(
       `http://localhost:3002/cart/FavProduct/${sid}`
     )
-    if (r.status === 200) {
-      console.log('刪除成功')
-    }
   }
 
   return (
@@ -179,8 +176,8 @@ function Heart(props) {
             <FaShoppingCart
               className="cartlike"
               onClick={() => {
-                console.log('點擊', i)
-                console.log('產品', v.product_id)
+                // console.log('點擊', i)
+                // console.log('產品', v.product_id)
                 AddtoCart()
               }}
             />

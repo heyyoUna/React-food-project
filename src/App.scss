@@ -693,19 +693,25 @@ footer {
 }
 
 @keyframes rotation {
-  from {
+  0% {
     -webkit-transform: rotate(0deg);
   }
-  to {
-    -webkit-transform: rotate(360deg);
+  100% {
+    -webkit-transform: rotate(1440deg);
   }
 }
 
 .img-rotate {
   border-radius: 50%;
-  transform: rotate(360deg);
-  animation: rotation 1.4s linear infinite;
-  -moz-animation: rotation 1.4s linear infinite;
-  -webkit-animation: rotation 1.4s linear infinite;
-  -o-animation: rotation 1.4s linear infinite;
+  // transform: rotate(360deg);
+  animation: rotation 3s cubic-bezier(.61,.02,0,.91) infinite;
+  // -moz-animation: rotation 1.4s linear infinite;
+  // -webkit-animation: rotation 1.4s linear infinite;
+  // -o-animation: rotation 1.4s linear infinite;
+}
+
+.navbar-nav{
+  .fa-user{
+    font-size: 20px;
+  }
 }

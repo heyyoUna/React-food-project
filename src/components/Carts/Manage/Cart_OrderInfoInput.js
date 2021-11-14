@@ -27,7 +27,7 @@ function Cart_OrderInfoInput(props) {
   function UpdateInfo(value, index) {
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo[index] = value
-    // console.log('123', NewOrderInfo)
+    console.log('收件資料', NewOrderInfo)
     setOrderInfo(NewOrderInfo)
   }
 
@@ -50,15 +50,15 @@ function Cart_OrderInfoInput(props) {
     setName(NewData[0].name)
     setEmail(NewData[0].email)
     setPhone(NewData[0].mobile)
-    // console.log('New', NewData)
     let NewOrderInfo = [...OrderInfo]
     NewOrderInfo.push(NewData[0].name)
-    NewOrderInfo.push(NewData[0].email)
     NewOrderInfo.push(NewData[0].mobile)
-    setOrderInfo(NewOrderInfo)
+    NewOrderInfo.push(NewData[0].email)
+    console.log('新訂單', NewOrderInfo)
     WarningText[0] = ''
     WarningText[1] = ''
     WarningText[2] = ''
+    setOrderInfo(NewOrderInfo)
     setWarningText(WarningText)
   }
 
@@ -100,15 +100,15 @@ function Cart_OrderInfoInput(props) {
             name="Name"
             value={Name}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (e.target.value === '') {
                 WarningText[0] = '您尚未輸入收件人姓名喔'
                 setWarningText(WarningText)
               } else {
                 WarningText[0] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 0)
               }
-              UpdateInfo(e.target.value, 0)
             }}
             onChange={(e) => {
               setName(e.target.value)
@@ -126,7 +126,7 @@ function Cart_OrderInfoInput(props) {
             name="Phone"
             value={Phone}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (
                 !PhoneCheck.test(e.target.value) ||
                 e.target.value === ''
@@ -137,8 +137,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[1] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 1)
               }
-              UpdateInfo(e.target.value, 1)
             }}
             onChange={(e) => {
               setPhone(e.target.value)
@@ -156,7 +156,7 @@ function Cart_OrderInfoInput(props) {
             name="Email"
             value={Email}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (
                 !EmailCheck.test(e.target.value) ||
                 e.target.value === ''
@@ -167,8 +167,8 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[2] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 2)
               }
-              UpdateInfo(e.target.value, 2)
             }}
             onChange={(e) => {
               setEmail(e.target.value)
@@ -201,14 +201,15 @@ function Cart_OrderInfoInput(props) {
               } else {
                 WarningText[3] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 3)
               }
-              UpdateInfo(e.target.value, 3)
             }}
             onChange={(e) => {
               // console.log('選到的A', e.target.value)
               setCity(e.target.value)
             }}
           >
+            <option>請選擇縣市</option>
             {CityArr.map((v, i) => {
               return (
                 <option value={v.City}>{v.City}</option>
@@ -236,22 +237,23 @@ function Cart_OrderInfoInput(props) {
             name="districts"
             id="districts"
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (e.target.value === '') {
                 WarningText[4] = '尚未選擇行政區喔'
                 setWarningText(WarningText)
               } else {
                 WarningText[4] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 4)
               }
-              UpdateInfo(e.target.value, 4)
             }}
             onChange={(e) => {
               setDistrict(e.target.value)
             }}
           >
+            <option>請選擇行政區</option>
             {!OrderInfo[3] ? (
-              <option selected>請選擇地區</option>
+              <option selected>請選擇行政區</option>
             ) : (
               CityArr.map((v, i) => {
                 if (v.City === OrderInfo[3]) {
@@ -279,15 +281,15 @@ function Cart_OrderInfoInput(props) {
             name="Address"
             value={Address}
             onBlur={(e) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
               if (e.target.value === '') {
                 WarningText[5] = '尚未輸入地址喔'
                 setWarningText(WarningText)
               } else {
                 WarningText[5] = ''
                 setWarningText(WarningText)
+                UpdateInfo(e.target.value, 5)
               }
-              UpdateInfo(e.target.value, 5)
             }}
             onChange={(e) => {
               setAddress(e.target.value)

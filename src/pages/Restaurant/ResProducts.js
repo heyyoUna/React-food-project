@@ -127,8 +127,8 @@ function ResPrdoucts(props) {
                   <div class="res-menu m-4">
                     <div className="res-pic-wrapper">
                       <div className="res-product-card-overlay d-flex justify-content-center  ">
-                        <a href="https://www.ubereats.com/tw/store/life-kitchen-%E7%94%9F%E6%B4%BB%E5%80%89%E5%BB%9A-%E5%A4%A7%E5%AE%89%E9%96%80%E5%B8%82/tpFP_EXWSCuQHvr2nzwlmQ?pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMiVFNSVCRSVBOSVFOCU4OCU4OCVFNSU4RCU5NyVFOCVCNyVBRiVFNCVCOCU4MCVFNiVBRSVCNSUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkVqMVRaV04wYVc5dUlERXNJRVoxZUdsdVp5QlRJRkprTENCRVllS0FtV0Z1SUVScGMzUnlhV04wTENCVVlXbHdaV2tnUTJsMGVTd2dWR0ZwZDJGdUlpNHFMQW9VQ2hJSkI4cFB4OUNyUWpRUk5ZOWR3VlRkNURVU0ZBb1NDVTM0YVJrc3FrSTBFVjJWMmZMTHRhQnUlMjIlMkMlMjJyZWZlcmVuY2VUeXBlJTIyJTNBJTIyZ29vZ2xlX3BsYWNlcyUyMiUyQyUyMmxhdGl0dWRlJTIyJTNBMjUuMDM5Nzg1MyUyQyUyMmxvbmdpdHVkZSUyMiUzQTEyMS41NDM4MjU5JTdE">
-                          <div className="res-orderBtn  ">
+                        <a target="_blank" href="https://www.ubereats.com/tw/store/life-kitchen-%E7%94%9F%E6%B4%BB%E5%80%89%E5%BB%9A-%E5%A4%A7%E5%AE%89%E9%96%80%E5%B8%82/tpFP_EXWSCuQHvr2nzwlmQ?pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMiVFNSVCRSVBOSVFOCU4OCU4OCVFNSU4RCU5NyVFOCVCNyVBRiVFNCVCOCU4MCVFNiVBRSVCNSUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkVqMVRaV04wYVc5dUlERXNJRVoxZUdsdVp5QlRJRkprTENCRVllS0FtV0Z1SUVScGMzUnlhV04wTENCVVlXbHdaV2tnUTJsMGVTd2dWR0ZwZDJGdUlpNHFMQW9VQ2hJSkI4cFB4OUNyUWpRUk5ZOWR3VlRkNURVU0ZBb1NDVTM0YVJrc3FrSTBFVjJWMmZMTHRhQnUlMjIlMkMlMjJyZWZlcmVuY2VUeXBlJTIyJTNBJTIyZ29vZ2xlX3BsYWNlcyUyMiUyQyUyMmxhdGl0dWRlJTIyJTNBMjUuMDM5Nzg1MyUyQyUyMmxvbmdpdHVkZSUyMiUzQTEyMS41NDM4MjU5JTdE">
+                          <div className="res-orderBtn">
                             前往訂餐
                           </div>
                         </a>

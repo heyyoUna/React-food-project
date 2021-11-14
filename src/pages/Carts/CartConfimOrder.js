@@ -19,7 +19,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 import emailjs from 'emailjs-com'
 import { init } from 'emailjs-com'
 import Spinner from '../../components/SpinnerCart'
-init('user_DhpBZeJsJ1uk9kl5grjzX')
+init('user_YM7Y1JKslMi9OVCYc197i')
 
 function Cart_ConfimOrder(props) {
   let [data, setData] = useState([{}])
@@ -114,8 +114,23 @@ function Cart_ConfimOrder(props) {
     let s
     let NewData = [...data]
     a = JSON.parse(localStorage.getItem('訂單價格資訊'))
-    console.log('這是暫存資料', a)
-    console.log('確認訂單資訊', DataDetail)
+    // console.log('這是暫存資料', a)
+    // console.log('確認訂單資訊', DataDetail)
+
+    if (a[1] !== 0) {
+      console.log('會員點數', a[1])
+      await axios.post(
+        `http://localhost:3002/cart/modifyPoint`,
+        {
+          member_sid: MemberPoint[0].member_sid,
+          change_point: a[1],
+          change_type: 'USE',
+          left_point: MemberPoint[0].left_point - a[1],
+          change_reason: '會員使用點數',
+          // create_at: '',
+        }
+      )
+    }
 
     await axios.post(
       'http://localhost:3002/cart/ConfirmList',
@@ -133,20 +148,8 @@ function Cart_ConfimOrder(props) {
       }
     )
 
-    await axios.post(
-      `http://localhost:3002/cart/modifyPoint`,
-      {
-        member_sid: MemberPoint[0].member_sid,
-        change_point: a[1],
-        change_type: 'USE',
-        left_point: MemberPoint[0].left_point - a[1],
-        change_reason: '會員使用點數',
-        // create_at: '',
-      }
-    )
-
     for (let i in NewData) {
-      console.log('訂單內容', DataDetail.Order_Name)
+      // console.log('訂單內容', DataDetail.Order_Name)
       s = await axios.post(
         'http://localhost:3002/cart/addDetail',
         {
@@ -160,7 +163,7 @@ function Cart_ConfimOrder(props) {
     }
     if (s.status === 200) {
       sendEmail()
-      console.log('已完成訂單，請到 DB 查看')
+      // console.log('已完成訂單，請到 DB 查看')
       props.history.push('/carts/Complete')
     }
   }
@@ -178,12 +181,12 @@ function Cart_ConfimOrder(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       let r = await axios.delete(
         `http://localhost:3002/cart/deleteList/${m.data.data[0].sid}`
       )
       if (r.status === 200) {
-        console.log('刪除成功')
+        // console.log('刪除成功')
         setLoading(false)
         props.history.push('/carts/Manage')
       }
@@ -216,9 +219,9 @@ function Cart_ConfimOrder(props) {
         DataDetail.Invoice_Number,
     }
 
-    let service_id = 'service_txsprev'
-    let template_id = 'template_3g1239b'
-    let userID = 'user_DhpBZeJsJ1uk9kl5grjzX'
+    let service_id = 'EatHealthy'
+    let template_id = 'template_wiunfpk'
+    let userID = 'user_YM7Y1JKslMi9OVCYc197i'
     emailjs
       .send(service_id, template_id, templateParams, userID)
       .then((response) => {
@@ -390,7 +393,7 @@ function Cart_ConfimOrder(props) {
         <button
           class="confirminfo"
           onClick={() => {
-            console.log('確認')
+            // console.log('確認')
             ConfirmOrder()
           }}
         >

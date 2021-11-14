@@ -22,7 +22,8 @@
 
 .map-select,
 .map-seacrh {
-  @include sortBtn($light-green, 5px 32px, 20px);
+
+  @include sortBtn($light-green, 5px 30px, 20px);
 }
 
 .orange-btn {
@@ -31,8 +32,8 @@
   &:hover {
     background-color: #fb6007c0;
     color: white;
-    // box-shadow: 8px 8px 0 0 #fb600769;
-    // transition: 0.5s;
+    cursor: pointer;
+
   }
   @include mobile {
     // width: 101%;

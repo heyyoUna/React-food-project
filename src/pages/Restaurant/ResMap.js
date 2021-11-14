@@ -1,30 +1,41 @@
-import React, { useRef, useState, useEffect } from 'react'
 import L from 'leaflet'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+import 'leaflet/dist/leaflet.css'
+import React, { useEffect, useState } from 'react'
+import { BsClock, BsFilterLeft, BsStarFill } from 'react-icons/bs'
+import { FiPhone } from 'react-icons/fi'
+import { RiMapPinLine } from 'react-icons/ri'
 import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
+  MapContainer, Marker,
+  Popup, TileLayer
 } from 'react-leaflet'
+import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
+import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
+import MapSortButton from '../../components/Restaurant/MapSortButton'
 // import centericon from 'leaflet/dist/images/centericon.png'
 // import mapicon from 'leaflet/dist/images/mapicon.png'
 import centericon from '../../imgs/centericon.png'
 import mapicon from '../../imgs/mapicon.png'
-import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import 'leaflet/dist/leaflet.css'
-import { BsStarFill } from 'react-icons/bs'
-import { BsClock } from 'react-icons/bs'
-import { RiMapPinLine } from 'react-icons/ri'
-import { MdOutlineAttachMoney } from 'react-icons/md'
-import { FiPhone } from 'react-icons/fi'
-import { useHistory } from 'react-router'
-import MapButtonGroup from '../../components/Restaurant/MapButtonGroup'
-import { Link } from 'react-router-dom'
-import ResMapsearch from '../../components/Restaurant/ResMapsearch'
-import MapSortButton from '../../components/Restaurant/MapSortButton'
-import { BsFilterLeft } from 'react-icons/bs'
 // import { css } from '@emotion/react'
 // import PacmanLoader from 'react-spinners/PacmanLoader'
+import styled from 'styled-components'
+
+const NoDataView = styled.div`
+  color:#fb6107;
+  font-size: 40px;
+  text-align: center;
+  font-weight: 700;
+  padding-top: 80px;
+  letter-spacing: 5px;
+  text-indent: 5px;
+
+`;
+const NoDataViewImg =styled.div`
+width: 100%;
+height: 200px;
+> img {margin: 0 auto;}
+`;
 
 function ResMap() {
   delete L.Icon.Default.prototype._getIconUrl
@@ -41,7 +52,6 @@ function ResMap() {
     iconRetinaUrl: centericon,
   })
 
-  const [location, setLocation] = useState()
   const [filterData, setFilterData] = useState([])
   const [listData, setListData] = useState([])
 
@@ -98,7 +108,7 @@ function ResMap() {
           }
         )
       }
-      // TODO: 評分排序
+
       if (filter.rate) {
         // rate ===0  就用 原始資料由小到大排序
         // rate ===1  就用 原始資料由大到小排序
@@ -117,17 +127,24 @@ function ResMap() {
           (d) => {
             console.log(d)
             console.log(d.distance)
-            return d.distance <= filter.distance
+            return parseInt(d.distance) <= parseInt(filter.distance)
           }
         )
       }
 
+   
+
       setFilterData(processFilterData)
       setListData(processFilterData)
-    } else {
+          } else {
       setFilterData(history.location.state.mapData)
       setListData(history.location.state.mapData)
     }
+      if (filter.distance==='0.5'){
+        setFilterData([])
+        setListData([])
+     }
+
   }, [filter])
 
   const markerChange = (e) => {
@@ -207,10 +224,12 @@ function ResMap() {
 
       <div className=" map-wrapper ">
         <div className=" col-md-4  col-12 map-list ">
-          {listData.map((item, index) => {
+          {
+            listData.length ? 
+          listData.map((item, index) => {
             return (
               <>
-                <div className="map-res-introduce d-flex key={index}">
+                <div key={index} className="map-res-introduce d-flex">
                   <div class="col-md-4 col-4  p-0 ">
                     <img
                       className="mapImg"
@@ -284,7 +303,15 @@ function ResMap() {
                 </div>
               </>
             )
-          })}
+          }) :
+          <NoDataView>
+            附近無健康餐盒!<br/>
+            <NoDataViewImg>
+            <img src={'http://localhost:3000/images/Restaurant/lunchbox.png'}
+            alt=""/>
+          </NoDataViewImg>
+          </NoDataView>
+          }
         </div>
 
         <div className="map-container p-0 col-md-8 col-12">
@@ -321,15 +348,6 @@ function ResMap() {
                     key={index}
                     markerIndex={index}
                     position={[item.res_lat, item.res_lng]}
-                    // eventHandlers={{
-                    //   click: (e) => {
-                    //     console.log(
-                    //       'marker clicked',
-                    //       e.latlng.lat,
-                    //       e.latlng.lng
-                    //     )
-                    //   },
-                    // }}
                     eventHandlers={{
                       click: (e) => {
                         markerChange(e)
@@ -342,8 +360,7 @@ function ResMap() {
                           <img
                             className="mapImg"
                             src={
-                              'http://localhost:3002/img/restaurant/' +
-                              item.res_img
+                              'http://localhost:3002/img/restaurant/' +item.res_img
                             }
                             alt=""
                           />

@@ -12,6 +12,7 @@ import {
   FaLongArrowAltRight,
   FaRegEdit,
   FaCheck,
+  FaExclamationTriangle,
 } from 'react-icons/fa'
 import '../../styles/Carts/CartManage.scss'
 import '../../styles/Carts/Banner.scss'
@@ -36,21 +37,15 @@ function CartManage(props) {
   let [StoreInfo, setStoreInfo] = useState([])
   let [Credit, setCredit] = useState([])
   let [CityArr, setCityArr] = useState([{}])
-  let OrderSid =
-    'order' +
-    moment(OrderSid).format('YYYYMMDDHH') +
-    Math.floor(Math.random() * 89) +
-    parseInt(10)
   let member
   let token = localStorage.getItem('token')
   let [loading, setLoading] = useState(true)
-
   var a = momentTZ
     .utc()
     .tz('Asia/Taipei')
     .format('YYYY-MM-DD HH:mm:ss')
   useEffect(() => {
-    console.log('這邊是初始化')
+    // console.log('這邊是初始化')
     CityAxios()
     MemberLogin()
   }, [])
@@ -58,7 +53,7 @@ function CartManage(props) {
   useEffect(() => {
     // console.log('訂購資料', OrderInfo)
     // console.log('付款資料', Checkout)
-    console.log('發票資料', Invoice)
+    // console.log('發票資料', Invoice)
   }, [OrderInfo, Checkout, Invoice])
 
   async function CityAxios() {
@@ -67,14 +62,14 @@ function CartManage(props) {
     )
     if (r.status === 200) {
       // setData(r.data)
-      console.log(r.data)
+      // console.log(r.data)
       for (let i = 0; i < r.data.length; i++) {
         CityArr[i] = {
           City: r.data[i].name,
           districts: r.data[i].districts,
         }
       }
-      console.log('Store城市', CityArr)
+      // console.log('Store城市', CityArr)
     }
   }
   async function MemberLogin() {
@@ -90,7 +85,7 @@ function CartManage(props) {
       }
     )
     if (m.data.success) {
-      console.log('會員成功登入 id', m.data.data[0].sid)
+      // console.log('會員成功登入 id', m.data.data[0].sid)
       DataAxios(m.data.data[0].sid)
     } else {
       Swal.fire({
@@ -108,27 +103,19 @@ function CartManage(props) {
   }
   // 讀取商品資料的 function
   async function DataAxios(Member_id) {
-    console.log('會員 id', Member_id)
+    // console.log('會員 id', Member_id)
     let r = await axios.get(
       `http://localhost:3002/cart/ordertempmember/${Member_id}`
     )
     if (r.status === 200) {
       // 設定 data
       setData(r.data)
-      console.log('抓回來的資料', r.data)
+      // console.log('抓回來的資料', r.data)
       setTimeout(() => {
         setLoading(false)
       }, 2000)
     }
   }
-
-  // async function DataAxios() {
-  //   let r = await axios.get('http://localhost:3002/cart/')
-  //   if (r.status === 200) {
-  //     setData(r.data)
-  //     console.log(r.data)
-  //   }
-  // }
 
   async function AddOrder(
     OrderInfo,
@@ -151,6 +138,16 @@ function CartManage(props) {
       })
     // console.log('寫出訂單')
     let NewOrderInfo
+    var b = momentTZ
+      .utc()
+      .tz('Asia/Taipei')
+      .format('YYYYMMDDHHmmss')
+    let OrderSid =
+      'order' +
+      b +
+      '-' +
+      Math.floor(Math.random() * (9999 - 1000)) +
+      parseInt(1000)
     localStorage.setItem('訂單編號', OrderSid)
     // console.log('CHECKOUT', Checkout)
 
@@ -161,8 +158,8 @@ function CartManage(props) {
       NewOrderInfo = [
         Checkout,
         StoreInfo[4],
-        StoreInfo[6],
         StoreInfo[5],
+        StoreInfo[6],
         StoreInfo[3] + '-' + StoreInfo[0],
         StoreInfo[1],
         StoreInfo[2],
@@ -192,7 +189,7 @@ function CartManage(props) {
         // ...Invoice,
       ]
     }
-    console.log('寫出的訂購資料', NewOrderInfo)
+    // console.log('寫出的訂購資料', NewOrderInfo)
 
     // let NewOrderInfo = [Checkout, ...OrderInfo]
     if (!NewOrderInfo[7]) {
@@ -201,7 +198,7 @@ function CartManage(props) {
       // console.log('寫出的訂購資料_加入備註', NewOrderInfo)
     }
     NewOrderInfo = [...NewOrderInfo, ...Invoice]
-    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+    console.log('寫出的訂購資料_加入發票', NewOrderInfo)
 
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
@@ -209,8 +206,8 @@ function CartManage(props) {
         Order_Sid: localStorage.getItem('訂單編號'),
         Payment_Type: NewOrderInfo[0],
         Order_Name: NewOrderInfo[1],
-        E_Mail: NewOrderInfo[2],
-        Order_Phone: NewOrderInfo[3],
+        E_Mail: NewOrderInfo[3],
+        Order_Phone: NewOrderInfo[2],
         Order_Address:
           NewOrderInfo[4] +
           NewOrderInfo[5] +
@@ -223,14 +220,14 @@ function CartManage(props) {
       }
     )
     if (r.status === 200) {
-      console.log('寫入 DB')
+      // console.log('寫入 DB')
       localStorage.removeItem('門市')
       props.history.push('/carts/ConfirmOrder')
     }
   }
 
   function DeliveryJudge() {
-    console.log('測試checkout', Checkout)
+    // console.log('測試checkout', Checkout)
     if (Checkout === '7-11取貨付款') {
       return (
         <Cart_Store
@@ -315,7 +312,39 @@ function CartManage(props) {
       <Cart_CheckOut setCheckout={setCheckout} />
       <TitleBorder name="取貨資料" />
 
-      {DeliveryJudge()}
+      {!Checkout ? (
+        <div
+          className="container col-10"
+          style={{
+            height: '200px',
+            // backgroundColor: '#2A593E',
+            textAlign: 'center',
+            lineHeight: '120px',
+            borderRadius: '20px',
+          }}
+        >
+          <FaExclamationTriangle
+            style={{
+              // color: '#ffffff',
+              color: '#fb620980',
+              // color: '#2a593e',
+              fontSize: '70px',
+            }}
+          />
+          <h3
+            style={{
+              color: '#fb620980',
+              // color: '#2a593e',
+              fontFamily: 'Noto Sans TC',
+              fontWeight: '500',
+            }}
+          >
+            Oops...請記得選擇付款與運送方式唷!
+          </h3>
+        </div>
+      ) : (
+        DeliveryJudge()
+      )}
       <TitleBorder name="發票方式" />
       <Cart_Invoice
         Invoice={Invoice}
@@ -333,43 +362,45 @@ function CartManage(props) {
         <button
           className="confirminfo"
           onClick={() => {
-            console.log('付款方式', Checkout)
+            // console.log('付款方式', Checkout)
             console.log('確認訂單', OrderInfo)
-            console.log('發票', Invoice)
+            // console.log('發票', Invoice)
+
+            // 判斷是否都有選擇付款方式與發票形式
             if (
               Checkout.length === 0 ||
               Invoice.length === 0
             ) {
-              // console.log('沒選到')
               Swal.fire({
                 icon: 'warning',
-                title: '您有資料尚未填寫喔!',
+                title: '未選擇付款方式或發票類型!',
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 1500,
               })
             } else {
+              // 判斷有選擇發票形式但未填裡面的資料
               if (
                 (Invoice[0] === '手機條碼載具' ||
                   Invoice[0] === '電子發票 - 公司') &&
                 (Invoice[1] === '' || !Invoice[1])
               ) {
-                console.log('有近來')
                 Swal.fire({
                   icon: 'warning',
-                  title: '您有資料尚未填寫喔!',
+                  title: '資料未填寫，或是載具統編格式有誤!',
                   showConfirmButton: false,
-                  timer: 1000,
+                  timer: 1500,
                 })
               } else {
+                // 如果是 7-11 取貨付款
                 if (Checkout === '7-11取貨付款') {
                   for (let i = 0; i < 7; i++) {
                     if (!StoreInfo[i]) {
                       Swal.fire({
                         icon: 'warning',
                         title:
-                          '您有資料尚未填寫或資料格式錯誤喔!',
+                          '您尚未填寫 7-11 收件資料或是填寫格式錯誤喔!',
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer: 1500,
                       })
                       break
                     }
@@ -383,6 +414,8 @@ function CartManage(props) {
                     }
                   }
                 }
+
+                // 如果是宅配付款或信用卡支付
                 if (
                   Checkout === '宅配貨到付款' ||
                   Checkout === '信用卡支付 - 宅配到府'
@@ -392,9 +425,9 @@ function CartManage(props) {
                       Swal.fire({
                         icon: 'warning',
                         title:
-                          '您有資料尚未填寫或資料格式錯誤喔!',
+                          '您尚未填寫宅配收件資料或是填寫格式錯誤喔!',
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer: 1500,
                       })
                       break
                     } else if (i == 5) {

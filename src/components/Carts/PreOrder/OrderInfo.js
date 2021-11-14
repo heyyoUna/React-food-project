@@ -29,7 +29,7 @@ function OrderInfo(props) {
   localStorage.removeItem('訂單編號')
   localStorage.setItem('運費', 0)
 
-  console.log('優惠點數', Promotion)
+  // console.log('優惠點數', Promotion)
   // 記錄會員優惠點數
 
   // 記錄訂單小計、優惠總額與訂單總計
@@ -83,12 +83,12 @@ function OrderInfo(props) {
     )
     if (M.status === 200) {
       setdata(M.data)
-      console.log('會員點數資料', M.data)
+      // console.log('會員點數資料', M.data)
       if (!token) {
       } else {
         setpointChange(M.data[0].left_point)
       }
-      console.log('會員資料', M.data)
+      // console.log('會員資料', M.data)
     }
   }
 
@@ -130,7 +130,7 @@ function OrderInfo(props) {
       // console.log('會員點數')
       // 如果購物車內沒商品
       if (productPrice() === 0) {
-        console.log('點數', data[0].left_point)
+        // console.log('點數', data[0].left_point)
 
         // 跳出 Modal 顯示購物車內沒商品
         Swal.fire({
@@ -157,10 +157,10 @@ function OrderInfo(props) {
             timer: 1500,
           })
         } else if (textvalue > productPrice()) {
-          console.log('總價', productPrice())
+          // console.log('總價', productPrice())
           Swal.fire({
             icon: 'error',
-            title: '金額不能為負值喔，請調整使用的會員點數',
+            title: '點數大於商品小計，請調整會員點數',
             showConfirmButton: false,
             timer: 1500,
           })
@@ -195,7 +195,6 @@ function OrderInfo(props) {
         if (textvalue !== 0 && textvalue && Promotion) {
           // console.log('文字', textvalue)
           // localStorage.setItem('會員使用點數', textvalue)
-
           // let R = await axios.post(
           //   `http://localhost:3002/cart/modifyPoint`,
           //   {
@@ -379,7 +378,7 @@ function OrderInfo(props) {
             onClick={() => {
               // 到填寫資料頁面
               nextStep = true
-              console.log('nextstep', nextStep)
+              // console.log('nextstep', nextStep)
 
               // 交給函式處理
               getLoginData()

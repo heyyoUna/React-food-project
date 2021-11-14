@@ -28,7 +28,7 @@ function Cart_CreditPay(props) {
   function UpdateInfo(value, index) {
     let NewCredit = [...Credit]
     NewCredit[index] = value
-    console.log('信用卡', NewCredit)
+    // console.log('信用卡', NewCredit)
     setCredit(NewCredit)
   }
 

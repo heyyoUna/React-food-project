@@ -5,7 +5,6 @@ function Cart_OrderDetail(props) {
   let [trans, settrans] = useState(false)
   let a = []
   let b
-  console.log('這是裡面的', data)
   a = JSON.parse(localStorage.getItem('訂單價格資訊'))
   b =
     parseInt(a[2]) -

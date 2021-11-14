@@ -3,7 +3,7 @@ import {
   withRouter,
 } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
-import conf, { Product_API } from './../../config/config.js'
+import { Product_API } from './../../config/config.js'
 
 // 組合用元件
 import AllBanner from './../../components/Product/AllBanner'
@@ -17,8 +17,8 @@ import ProductCard from './../../components/Product/ProductCard'
 import PageBtn from './../../components/Product/PageBtn'
 
 function Products(props) {
-  const { setFavArr, favArr} = props
-  const ID = localStorage.getItem('id')
+  const { setFavArr, favArr } = props
+  const token = localStorage.getItem('token')
   const searchParams = new URLSearchParams(
     props.location.search
   )
@@ -36,21 +36,23 @@ function Products(props) {
   )
   // 總頁數
   const [totalpages, setTotalPages] = useState('')
-  
+
   // 設定目前頁數狀態
   const [nowpage, setNowPage] = useState(
     searchParams.get('page') || 1
   )
   // 篩選radio
   const [filter, setFilter] = useState('')
-  // 收藏商品陣列
-  // const [ favArr, setFavArr] = useState([])
+
+  const [url, setUrl]= useState(sp)
 
   // 解析URL參數
   const sp = searchParams.toString()
   // 跳轉頁面都會觸發,將URL參數設定回狀態
   useEffect(() => {
     setUpdateState()
+    setUrl(sp)
+    console.log('sp',sp)
   }, [sp])
   // 當跳頁的時候把URL參數設定回狀態
   const setUpdateState = () => {
@@ -60,17 +62,7 @@ function Products(props) {
     setNowPage(page)
   }
 
-  
-  // 拿到會員收藏商品資料
-  useEffect(() => {
-    ;(async () => {
-      const r = await fetch(
-        'http://localhost:3002/product/fav/' + ID
-      )
-      const obj = await r.json()
-      setFavArr(obj.data)
-    })()
-  }, [])
+  const [reset, setReset] = useState(0)
 
   //要所有資料
   useEffect(() => {
@@ -81,8 +73,49 @@ function Products(props) {
       const obj = await r.json()
       setDisplayProducts(obj.rows)
       setTotalPages(obj.totalPages)
+
+      //  拿收藏商品
+      if (token) {
+        // 有token 的話去拿到ID
+        ;(async () => {
+          const r = await fetch(
+            `http://localhost:3002/member/memberprofile`,
+            {
+              method: 'GET',
+              headers: {
+                Authorization: 'Bearer ' + token,
+              },
+            }
+          )
+          const obj = await r.json()
+          if (obj.data[0].sid) {
+            const rs = await fetch(
+              `http://localhost:3002/product/fav/${obj.data[0].sid}`,
+              {
+                headers: {
+                  Authorization: 'Bearer ' + token,
+                },
+              }
+            )
+            const favlist = await rs.json()
+            const favData = {};
+            //錯誤處理
+            if (favlist.success) {
+              if(favlist.data.length){
+                favlist.data.forEach(el=>{
+                  favData[el.product_id] = 1
+                })
+              }
+              console.log('更新商品收藏')
+              setFavArr(favData)
+            }
+          }
+        })()
+      }else{
+        setFavArr({})
+      }
     })()
-  }, [nowpage, productCate, searchWord, filter])
+  }, [nowpage, productCate, searchWord, filter, reset,url])
 
   // 切換banner
   const All = <AllBanner />
@@ -105,7 +138,6 @@ function Products(props) {
         return All
     }
   }
-  
 
   return (
     <>
@@ -115,9 +147,12 @@ function Products(props) {
       <div className="pd-filter-mb-wrap">
         <div className="pd-cate-mb ">
           商品分類
-        <i class="fas fa-chevron-down"></i></div>
-        <div className="pd-filter-mb ">篩選條件
-        <i class="fas fa-chevron-down"></i></div>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div className="pd-filter-mb ">
+          篩選條件
+          <i class="fas fa-chevron-down"></i>
+        </div>
       </div>
       <div className="container">
         <div className="row pd-row">
@@ -139,6 +174,7 @@ function Products(props) {
                 searchWord={searchWord}
                 setSearchWord={setSearchWord}
                 setProductCate={setProductCate}
+                setReset={setReset}
               />
             </div>
           </div>
@@ -149,6 +185,7 @@ function Products(props) {
               return (
                 <ProductCard
                   favArr={favArr}
+                  setFavArr={setFavArr}
                   index={i}
                   key={v.sid}
                   sid={v.sid}

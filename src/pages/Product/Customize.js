@@ -1,8 +1,9 @@
-import React, { useRef,useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Customize_API } from './../../config/config.js'
 import {
   BrowserRouter as Router,
-  withRouter,Link, useHistory,
+  withRouter,
+  Link,
 } from 'react-router-dom'
 import { API_img } from '../../config/index'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
@@ -15,14 +16,13 @@ import Target from '../../components/Product/Target'
 import Clientinfo from '../../components/Product/Clientinfo'
 
 function Customize(props) {
-  const ID = localStorage.getItem('id')
   const token = localStorage.getItem('token')
-  let history = useHistory()
+  // let history = useHistory()
   const [display, setDisplay] = useState(true)
 
-  const { 
+  const {
     setProductId,
-    setFavArr, 
+    setFavArr,
     favArr,
     gender,
     setGender,
@@ -47,33 +47,67 @@ function Customize(props) {
   // 推薦商品
   const [sugProducts, setSugProducts] = useState([])
   // 推薦餐盒
-  const [ sugFoodBox, setSugFoodBox] = useState([])
+  const [sugFoodBox, setSugFoodBox] = useState([])
   // 推薦文章
-  const [ sugArt, setSugArt] = useState([])
-  
+  const [sugArt, setSugArt] = useState([])
 
   const myRef = useRef(null)
 
   // 拿到會員收藏商品資料
   useEffect(() => {
-    ;(async () => {
-      const r = await fetch(
-        'http://localhost:3002/product/fav/' + ID
-      )
-      const obj = await r.json()
-      setFavArr(obj.data)
-    })()
+    if (token) {
+      // 有token 的話去拿到ID
+      ;(async () => {
+        const r = await fetch(
+          `http://localhost:3002/member/memberprofile`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: 'Bearer ' + token,
+            },
+          }
+        )
+        const obj = await r.json()
+        if (obj.data[0].sid) {
+          const rs = await fetch(
+            `http://localhost:3002/product/fav/${obj.data[0].sid}`,
+            {
+              headers: {
+                Authorization: 'Bearer ' + token,
+              },
+            }
+          )
+          // 回傳的收藏商品
+          const favlist = await rs.json()
+          const favData = {}
+          if (favlist.success) {
+            if (favlist.data.length) {
+              favlist.data.forEach((el) => {
+                favData[el.product_id] = 1
+              })
+            }
+          }
+          setFavArr(favData)
+        }
+      })()
+    } else {
+      setFavArr({})
+    }
   }, [])
 
   // 商品區要資料
   useEffect(() => {
-    ; (async () => {
-      if(target==='變瘦'){
-        const r = await fetch(`${Customize_API}` + `?target=變瘦`)
-      const obj = await r.json()
-      setSugProducts(obj.rows)
-      }else{
-        const r = await fetch(`${Customize_API}` + `${props.location.search}`)
+    ;(async () => {
+      if (target === '變瘦') {
+        const r = await fetch(
+          `${Customize_API}` + `?target=變瘦`
+        )
+        const obj = await r.json()
+        setSugProducts(obj.rows)
+      } else {
+        const r = await fetch(
+          `${Customize_API}` + `${props.location.search}`
+        )
         const obj = await r.json()
         setSugProducts(obj.rows)
       }
@@ -82,14 +116,18 @@ function Customize(props) {
 
   //餐盒要資料
   useEffect(() => {
-    ; (async () => {
-      if(target==='變瘦'){
-        const r = await fetch(`http://localhost:3002/reslist/introduce/calories`)
+    ;(async () => {
+      if (target === '變瘦') {
+        const r = await fetch(
+          `http://localhost:3002/reslist/introduce/calories`
+        )
         const obj = await r.json()
         setSugFoodBox(obj)
       }
-      if(target==='增肌減脂'){
-        const r = await fetch(`http://localhost:3002/reslist/introduce/protein`)
+      if (target === '增肌減脂') {
+        const r = await fetch(
+          `http://localhost:3002/reslist/introduce/protein`
+        )
         const obj = await r.json()
         setSugFoodBox(obj)
       }
@@ -98,14 +136,18 @@ function Customize(props) {
 
   // 文章要資料
   useEffect(() => {
-    ; (async () => {
-      if(target==='變瘦'){
-        const r = await fetch(`http://localhost:3002/ArtExercise/article/lostweight`)
+    ;(async () => {
+      if (target === '變瘦') {
+        const r = await fetch(
+          `http://localhost:3002/ArtExercise/article/lostweight`
+        )
         const obj = await r.json()
         setSugArt(obj)
       }
-      if(target==='增肌減脂'){
-        const r = await fetch(`http://localhost:3002/ArtExercise/article/muscle`)
+      if (target === '增肌減脂') {
+        const r = await fetch(
+          `http://localhost:3002/ArtExercise/article/muscle`
+        )
         const obj = await r.json()
         setSugArt(obj)
       }
@@ -156,7 +198,7 @@ function Customize(props) {
     if (target === '增肌減脂' && exercises === '不運動') {
       let newTDEE = Math.ceil(oriTDEE)
       let sugCal = Math.ceil(oriTDEE * 1.2)
-      let targetProtein = (Math.ceil(weight*1.6))
+      let targetProtein = Math.ceil(weight * 1.6)
       setSugCal(sugCal)
       setTDEE(newTDEE)
       setSugProtein(targetProtein)
@@ -164,7 +206,7 @@ function Customize(props) {
     if (target === '增肌減脂' && exercises === '三次左右') {
       let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.375)
       let sugCal = Math.ceil((oriTDEE / 1.2) * 1.375 * 1.2)
-      let targetProtein = (Math.ceil(weight*1.6))
+      let targetProtein = Math.ceil(weight * 1.6)
       setSugCal(sugCal)
       setTDEE(newTDEE)
       setSugProtein(targetProtein)
@@ -172,7 +214,7 @@ function Customize(props) {
     if (target === '增肌減脂' && exercises === '五次以上') {
       let newTDEE = Math.ceil((oriTDEE / 1.2) * 1.55)
       let sugCal = Math.ceil((oriTDEE / 1.2) * 1.55 * 1.2)
-      let targetProtein = (Math.ceil(weight*1.6))
+      let targetProtein = Math.ceil(weight * 1.6)
       setSugCal(sugCal)
       setTDEE(newTDEE)
       setSugProtein(targetProtein)
@@ -181,7 +223,8 @@ function Customize(props) {
   // 有變動的時候重新計算
   useEffect(() => {
     calculate()
-  }, [target, exercises,TDEE])
+    
+  }, [target, exercises, TDEE])
 
   const mySubmit = () => {
     //滾動效果
@@ -192,28 +235,29 @@ function Customize(props) {
   }
 
   // 客製化按鈕滑動
-  const scroll = ()=>{
+  const scroll = () => {
     window.scroll({
-      top: 800,
+      top: 820,
       behavior: 'smooth',
     })
   }
- 
+
   // 按鈕特效
-  const buttonCSS = ()=>{
+  const buttonCSS = () => {
     const btn = document.querySelector('.pd-client-btn')
     btn.classList.remove('animate__pulse')
     setTimeout(() => {
-      btn.classList.add('animate__pulse')},
-       500);
+      btn.classList.add('animate__pulse')
+    }, 500)
   }
 
+  //目標跟習慣都有的時候btn加classname
   useEffect(() => {
-    if(exercises&&target){
+    if (exercises && target && TDEE) {
       buttonCSS()
     }
-  }, [exercises,target]);
-  
+  }, [exercises, target])
+
   return (
     <>
       <div className="pd-client-banner d-flex">
@@ -246,26 +290,45 @@ function Customize(props) {
             />
           </div>
           <div className="pd-suggest d-flex">
-            <p className="dkgreen">每日消耗熱量{TDEE}大卡</p>
+            <p className="dkgreen">
+              每日消耗熱量{TDEE}大卡
+            </p>
             <p className="pd-day">建議每日攝取</p>
-            <p className="dkgreen">熱量<span className="orange">{sugCal}</span>大卡</p>
-            <p className="dkgreen">蛋白質<span className="orange">{sugProtein}</span>克</p>
+            <p className="dkgreen">
+              熱量<span className="orange">{sugCal}</span>
+              大卡
+            </p>
+            <p className="dkgreen">
+              蛋白質
+              <span className="orange">{sugProtein}</span>克
+            </p>
           </div>
-          <button className="pd-client-btn animate__animated animate__pulse" 
-          // onClick={mySubmit}
-          onClick={scroll}
-          >
+          <button
+            className="pd-client-btn animate__animated animate__pulse"
+            onClick={(e) => {
+              if(!TDEE){
+                  Swal.fire({
+                      icon: 'warning',
+                      title: '請先填寫基本資料',
+                      showConfirmButton: false,
+                      timer: 1000,
+                    })
+              }else{
+                scroll()
+              }
+            }}>
             查看飲食推薦
           </button>
         </div>
       </div>
       {/* 推薦區 */}
       <div className="container d-flex pd-sug-wrap">
-        <h1>商品推薦</h1>
+        <div className="title"><h1>商品推薦</h1></div>
         <div className="pd-card-wrap d-flex col-12">
           {sugProducts.map((v, i) => {
             return (
               <ProductCard
+                setFavArr={setFavArr}
                 favArr={favArr}
                 key={v.sid}
                 sid={v.sid}
@@ -281,154 +344,172 @@ function Customize(props) {
             <i className="fas fa-angle-double-right front"></i>
 
             <Link to={'/products/?cate=0&page=1'}>
-            <div className="pd-viewmore">查看更多商品</div>
+              <div className="pd-viewmore">
+                查看更多商品
+              </div>
             </Link>
 
             <i className="fas fa-angle-double-right back"></i>
           </div>
         </div>
-        <h1>餐盒推薦</h1>
+        <div className="title"><h1>餐盒推薦</h1></div>
         <div className="container mx-auto mb50">
-        <div className="row  justify-content-center ">
-        {sugFoodBox.map((v,i)=>{
-        return (
-          <div className="col-md-4 col-12 ">
-            <div class="res-menu m-4">
-              <div className="res-pic-wrapper">
-                <div className="res-product-card-overlay d-flex justify-content-center  ">
-                  <Link to={'/restaurants'}>
-                    <div className="res-orderBtn  ">
-                      前往訂餐
-                    </div>
-                  </Link>
-                </div>
-                <img
-                  className="res-product-Img"
-                  src={
-                    'http://localhost:3002/img/restaurant/' +
-                    v.res_product_img
-                  }
-                  alt=""
-                  style={{
-                    width: '100%',
-                    height: '165px',
-                    borderRadius: '15px 15px 0 0',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-              <div className="res-product-body fw-700  ">
-                <div className="res-product-title d-flex justify-content-between">
-                  <h3>{v.res_product_name}</h3>
-                  <h3>NT$ {v.res_product_price}</h3>
-                </div>
-                <div className="res-product-kcal d-flex justify-content-between">
-                  <p>蛋白質:{v.protein}g</p>
-                  <p>碳水:{v.adipose}g</p>
-                  <p>脂防:{v.carbohydrate}g</p>
-                </div>
-                <p className="text-right">
-                  熱量:{v.calories}kcal
-                </p>
-              </div>
-            </div>
-          </div>
-              )
-        })}
-          <div className="pd-viewmore-wrap">
-            <i className="fas fa-angle-double-right front"></i>
-
-            <Link to={'/restaurants'}>
-            <div className="pd-viewmore">查看更多餐盒</div>
-            </Link>
-
-            <i className="fas fa-angle-double-right back"></i>
-          </div>
-          </div>
-        </div>
-        <h1>文章推薦</h1>
-        <div className="container col-cat-article">
-          <div className="row">
-            <div className="col-md-12 client-art-wrap d-flex flex-wrap">
-            {sugArt.map((v,i)=>{
+          <div className="row  justify-content-center ">
+            {sugFoodBox.map((v, i) => {
               return (
-              <div className="artColCards client-art cardsHover sug-art">
-                <Link to={`/ExerciseContent/${v.sid}`}>
-                  <div className="imgWrap col-lg">
-                    <img src={`${API_img}` + v.ar_pic} alt="" />
-                  </div>
-                </Link>
-
-                <div className="px-1 py-1 arCardTxt">
-                  <div className="d-flex justify-content-between pr-5">
-                    <p className="grey">運動訓練</p>
-                    <div className="pd-love-icon">
-                      <IoIosHeartEmpty
-                        onClick={(e) => {
-                          if (!token) {
-                            Swal.fire({
-                              title: '請先登入會員',
-                              icon: 'warning',
-                              showCancelButton: true,
-                              confirmButtonColor: '#3085d6',
-                              cancelButtonColor: '#d33',
-                              confirmButtonText: '前往登入頁面',
-                            }).then((result) => {
-                              if (result.isConfirmed) {
-                                props.history.push('/login')
-                              }
-                            })
-                          } else {
-                            Swal.fire({
-                              icon: 'success',
-                              title: '已加入收藏清單',
-                              showConfirmButton: false,
-                              timer: 1000,
-                            })
-                            if (display) {
-                              setDisplay(false)
-                            } else {
-                              setDisplay(true)
-                            }
-                          }
-                        }}
+                <div className="col-md-4 col-12 ">
+                  <div class="res-menu m-4">
+                    <div className="res-pic-wrapper">
+                      <div className="res-product-card-overlay d-flex justify-content-center">
+                        <Link to={'/restaurants'}>
+                          <div className="res-orderBtn">
+                            前往訂餐
+                          </div>
+                        </Link>
+                      </div>
+                      <img
+                        className="res-product-Img"
+                        src={
+                          'http://localhost:3002/img/restaurant/' +
+                          v.res_product_img
+                        }
+                        alt=""
                         style={{
-                          display: display ? 'block' : 'none',
-                        }}
-                      />
-                      <IoIosHeart
-                        onClick={(e) => {
-                          if (display) {
-                            setDisplay(false)
-                          } else {
-                            setDisplay(true)
-                          }
-                        }}
-                        style={{
-                          display: display ? 'none' : 'block',
+                          width: '100%',
+                          height: '165px',
+                          borderRadius: '15px 15px 0 0',
+                          objectFit: 'cover',
                         }}
                       />
                     </div>
+                    <div className="res-product-body fw-700  ">
+                      <div className="res-product-title d-flex justify-content-between">
+                        <h3>{v.res_product_name}</h3>
+                        <h3>NT$ {v.res_product_price}</h3>
+                      </div>
+                      <div className="res-product-kcal d-flex justify-content-between">
+                        <p>蛋白質:{v.protein}g</p>
+                        <p>碳水:{v.adipose}g</p>
+                        <p>脂防:{v.carbohydrate}g</p>
+                      </div>
+                      <p className="text-right">
+                        熱量:{v.calories}kcal
+                      </p>
+                    </div>
                   </div>
-
-                  <h6 className="productTitle f_darkgreen pt-1">
-                    {v.ar_title}
-                  </h6>
-                  <p className="pb-1 grey articleDate">{articleDate(v.ar_date)}</p>
                 </div>
-              </div>
               )
             })}
-              {/* 看更多按鈕 */}
-            <div className="ar-viewmore-wrap">
+            <div className="pd-viewmore-wrap">
               <i className="fas fa-angle-double-right front"></i>
-              <Link to={'/article/exercise'}>
-              <div className="pd-viewmore">查看更多文章</div>
+
+              <Link to={'/restaurants'}>
+                <div className="pd-viewmore">
+                  查看更多餐盒
+                </div>
               </Link>
+
               <i className="fas fa-angle-double-right back"></i>
             </div>
+          </div>
+        </div>
+        <div className="title"><h1>文章推薦</h1></div>
+        <div className="container col-cat-article client-sugArt">
+          <div className="row">
+            <div className="col-md-12 client-art-wrap d-flex flex-wrap">
+              {sugArt.map((v, i) => {
+                return (
+                  <div className="artColCards client-art cardsHover sug-art">
+                    <Link to={`/ExerciseContent/${v.sid}`}>
+                      <div className="imgWrap col-lg">
+                        <img
+                          src={`${API_img}` + v.ar_pic}
+                          alt=""
+                        />
+                      </div>
+                    </Link>
+
+                    <div className="px-1 py-1 arCardTxt">
+                      <div className="d-flex justify-content-between pr-5">
+                        <p className="grey">運動訓練</p>
+                        <div className="pd-love-icon">
+                          <IoIosHeartEmpty
+                            onClick={(e) => {
+                              if (!token) {
+                                Swal.fire({
+                                  title: '請先登入會員',
+                                  icon: 'warning',
+                                  showCancelButton: true,
+                                  confirmButtonColor:
+                                    '#3085d6',
+                                  cancelButtonColor: '#d33',
+                                  confirmButtonText:
+                                    '前往登入頁面',
+                                }).then((result) => {
+                                  if (result.isConfirmed) {
+                                    props.history.push(
+                                      '/login'
+                                    )
+                                  }
+                                })
+                              } else {
+                                Swal.fire({
+                                  icon: 'success',
+                                  title: '已加入收藏清單',
+                                  showConfirmButton: false,
+                                  timer: 1000,
+                                })
+                                if (display) {
+                                  setDisplay(false)
+                                } else {
+                                  setDisplay(true)
+                                }
+                              }
+                            }}
+                            style={{
+                              display: display
+                                ? 'block'
+                                : 'none',
+                            }}
+                          />
+                          <IoIosHeart
+                            onClick={(e) => {
+                              if (display) {
+                                setDisplay(false)
+                              } else {
+                                setDisplay(true)
+                              }
+                            }}
+                            style={{
+                              display: display
+                                ? 'none'
+                                : 'block',
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <h6 className="productTitle f_darkgreen pt-1">
+                        {v.ar_title}
+                      </h6>
+                      <p className="pb-1 grey articleDate">
+                        {articleDate(v.ar_date)}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+              {/* 看更多按鈕 */}
+              <div className="ar-viewmore-wrap">
+                <i className="fas fa-angle-double-right front"></i>
+                <Link to={'/article/exercise'}>
+                  <div className="pd-viewmore">
+                    查看更多文章
+                  </div>
+                </Link>
+                <i className="fas fa-angle-double-right back"></i>
+              </div>
             </div>
-            
           </div>
         </div>
       </div>

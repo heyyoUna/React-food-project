@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import conf, {
-  ProductDetail_API, 
-} from './../../config/config.js'
+import { ProductDetail_API } from './../../config/config.js'
 import {withRouter} from 'react-router-dom'
 
 // 組合用元件
@@ -14,7 +12,7 @@ import Comments from './../../components/Product/Comments'
 
 // 細節頁
 function ProductDetail(props) {
-  const { CountNav,setCountNav} = props
+  const { CountNav,setCountNav,setFavArr,favArr} = props
   // 解析路徑
   const searchParams = (
     props.location.pathname
@@ -48,13 +46,15 @@ function ProductDetail(props) {
         })
         const obj2 = await rs.json()
         if(obj2.success){
-          setReview(obj2.data)
-          
+          const newReview = obj2.data.filter(function(value){
+            return value.Review_Level !==0
+          })
+          setReview(newReview)
         } 
       }
     })()
   }, [])
-
+  
   //  判斷收藏
   const setFavIndicator = (indicator) => {
     let tempProduct = { ...ProductDetail }
@@ -80,6 +80,8 @@ function ProductDetail(props) {
             fat={p.content_fat}
             carbon={p.content_carbon}
             price={p.price}
+            setFavArr={setFavArr}
+            favArr={favArr}
             CountNav={CountNav}
             setCountNav={setCountNav}
             favIndicator={p.favIndicator}
@@ -110,14 +112,12 @@ function ProductDetail(props) {
           <div className="dt-sub-title">
             <h4>Reviews</h4>
           </div>
-          {/* <div className="dt-review mb80"> */}
             <div className="dt-reviews-wrap d-flex ">
               {/* 評論框 */}
               {review.length ===0 ? (
                 <p>此商品目前無評論</p>
               ) :(
                 review.map((v,i)=>{
-                  console.log(v.Review_Timestamp)
                 return (
                 <Comments 
                   key={i}
@@ -129,7 +129,6 @@ function ProductDetail(props) {
                 )
               }))}
             </div>
-          {/* </div> */}
         </div>
       </div>
     </>

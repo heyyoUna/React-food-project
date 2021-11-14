@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   withRouter,
 } from 'react-router-dom'
 
 function Filter(props) {
-  const [input, setInput] = useState('')
   const {
     searchWord,
     setSearchWord,
     filter,
     setFilter,
     setProductCate,
+    setReset,
   } = props
 
   return (
@@ -30,31 +30,31 @@ function Filter(props) {
           onChange={(e) => {
             setSearchWord(e.target.value)
             // 如果沒有關鍵字, 回到全部商品
-            if (!e.target.value) {
-              setSearchWord('')
+            if (e.target.value==='') {
+              console.log('123')
               setProductCate('0')
-              props.history.push('/products/?cate=0')
+              props.history.push('/products/?cate=0&page=1')
             }
           }}
           // 按enter之後
           onKeyPress={(e) => {
             // 如果有關鍵字
-            if (e.target.value) {
+            if (e.target.value!=='') {
               if (e.key === 'Enter') {
-                // setSearchWord(input)
+                setReset(Math.random())
                 setProductCate('0')
                 setFilter('')
                 const keyword = e.target.value
                 props.history.push(
-                  '/products/?keyword=' + `${keyword}&page=1`
+                  '/products/?keyword=' + `${keyword}&page=1&cate=0`
                 )
               } 
             }// 如果沒有關鍵字
-            if (!e.target.value) {
-              setSearchWord('')
-              props.history.push('/products/?cate=0&page=1')
-              setProductCate('0')
-            }
+            // if (!e.target.value) {
+            //   setSearchWord('')
+            //   props.history.push('/products/?cate=0&page=1')
+            //   setProductCate('0')
+            // }
           }}
         />
       </div>

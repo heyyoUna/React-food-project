@@ -49,7 +49,7 @@ function MemberLogin(props) {
         } else {
           Swal.fire({
             icon: 'error',
-            confirmButtonColoe:'#8fc065',
+            confirmButtonColoe: '#8fc065',
             text: '登入失敗\n' + (obj.error || '')
           });
         }
@@ -88,7 +88,7 @@ function MemberLogin(props) {
 
   const sendEmail = (data) => {
     //send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', content, 'YOUR_USER_ID')
-    emailjs.send('EatHealthy', 'template_cz0cu1b', { email: data.email, password: data.password.replaceAll('\/', '%2f')}, 'user_YM7Y1JKslMi9OVCYc197i')
+    emailjs.send('EatHealthy', 'template_cz0cu1b', { email: data.email, password: data.password.replaceAll('\/', '%2f') }, 'user_YM7Y1JKslMi9OVCYc197i')
       .then((result) => {
         console.log(result.text);
       }, (error) => {
@@ -113,6 +113,10 @@ function MemberLogin(props) {
                 required />
             </div>
             <div className="karin-form-group">
+              <div className="eye"  >
+                <i className={`mt-4 mt-md-3 ml-2 ${close}`} style={{ 'visibility': 'hidden' }}
+                ></i>
+              </div>
               <input
                 type={type}
                 name="password"
@@ -122,22 +126,25 @@ function MemberLogin(props) {
                 value={info.password}
                 onChange={handleInfoChange}
                 required />
-              <i
-                className={`mt-4 mt-md-3 ml-2 ${close}`}
-                onClick={() => {
-                  if (type === 'password') {
-                    setType('text')
-                    setClose('far fa-eye')
-                  } else {
-                    setType('password')
-                    setClose('far fa-eye-slash')
-                  }
-                }}
-              ></i>
+              <div className="eye" >
+                <i
+                  className={`mt-4 mt-md-3 ml-2 ${close}`}
+                  onClick={() => {
+                    if (type === 'password') {
+                      setType('text')
+                      setClose('far fa-eye')
+                    } else {
+                      setType('password')
+                      setClose('far fa-eye-slash')
+                    }
+                  }}
+                ></i>
+              </div>
+
             </div>
             <button type="submit" className="btn karin-btn-login">LOG IN</button>
             <Link to="/signup"
-              button type="submit" className="btn karin-btn-signup">SIGN UP</Link>
+              type="submit" className="btn karin-btn-signup">SIGN UP</Link>
             <div className="forgot-password">
               <a id="karin-forgot-password" onClick={handlingForgotPassword}>Forgot Password?</a>
             </div>

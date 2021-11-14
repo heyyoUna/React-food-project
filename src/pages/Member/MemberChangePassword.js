@@ -11,7 +11,7 @@ function MemberChangePassword(props) {
     'newpassword': '',
     'checknewpassword': ''
   })
-  
+
   //小眼睛設定，因為有兩個input要用，所以需要另設狀態，不能共用狀態
   const [close, setClose] = useState('far fa-eye-slash')
   const [closeAnother, setCloseAnother] = useState(
@@ -53,9 +53,17 @@ function MemberChangePassword(props) {
     }).then(r => r.json())
       .then(obj => {
         if (obj.success) {
-          Swal.fire('密碼修改成功')
+          Swal.fire({
+            icon: 'success',
+            title: '密碼修改成功',
+            showConfirmButton: false,
+            timer: 1500,
+          })
         } else {
-          Swal.fire(obj.error || '密碼修改失敗')
+          Swal.fire({
+            icon: 'error',
+            text: (obj.error || '密碼修改失敗')
+          });
         }
         setChangePassword({
           'oldpassword': '',
@@ -76,7 +84,7 @@ function MemberChangePassword(props) {
           <div className="karin-profile-main col-8">
             <form name="memberForm" onSubmit={handleSubmit}>
               <div className="karin-form-group row">
-                <label for="password" className="col-sm-3 col-form-label">舊密碼</label>
+                <label htmlFor="password" className="col-sm-3 col-form-label">舊密碼</label>
                 <div className="col-sm-9">
                   <input
                     type={type}
@@ -100,7 +108,7 @@ function MemberChangePassword(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="password" className="col-sm-3 col-form-label">新密碼</label>
+                <label htmlFor="password" className="col-sm-3 col-form-label">新密碼</label>
                 <div className="col-sm-9">
                   <input
                     type={typeAnother}
@@ -124,15 +132,27 @@ function MemberChangePassword(props) {
                 </div>
               </div>
               <div className="karin-form-group row">
-                <label for="password" className="col-sm-3 col-form-label">確認新密碼</label>
+                <label htmlFor="password" className="col-sm-3 col-form-label">確認新密碼</label>
                 <div className="col-sm-9">
                   <input
-                    type="password"
+                    type={typeAnother}
                     className="karin-profile-form-control"
                     name="checknewpassword"
                     value={changepassword.checknewpassword}
                     onChange={handlePasswordChange}
                   />
+                  <i
+                    className={`mt-3 mt-md-3 ml-2 ${closeAnother}`}
+                    onClick={() => {
+                      if (typeAnother === 'password') {
+                        setTypeAnother('text')
+                        setCloseAnother('far fa-eye')
+                      } else {
+                        setTypeAnother('password')
+                        setCloseAnother('far fa-eye-slash')
+                      }
+                    }}
+                  ></i>
                 </div>
               </div>
               {/* 送出按鈕  */}

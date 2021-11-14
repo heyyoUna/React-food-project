@@ -23,7 +23,7 @@ function GameDelivery(props) {
           setTimeout(() => {
             handleShow()
             setRotate(false)
-          }, 1500);
+          }, 3000);
         } else {
           Swal.fire(obj.error)
         }
