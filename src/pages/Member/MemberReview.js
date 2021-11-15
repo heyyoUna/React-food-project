@@ -126,6 +126,7 @@ function MemberReview(props) {
                       <div className="member-review-right">
                         <div className="member-review-text">
                           <input type="text"
+                            placeholder="請輸入心得"
                             className="member-review-text-input"
                             value={v.description}
                             readOnly={evaluating ? false : true}
@@ -204,6 +205,7 @@ function MemberReview(props) {
                       <div className="member-review-right">
                         <div className="member-review-text">
                           <input type="text"
+                            placeholder="請輸入心得"
                             className="member-review-text-input"
                             value={v.description}
                             readOnly={evaluating ? false : true}
