@@ -21,7 +21,13 @@ function Cart_CheckOut(props) {
                 localStorage.setItem('運費', 60)
               }}
             />
-            <label>7-11取貨付款</label>
+            <label>
+              7-11取貨付款
+              <span>
+                <br />
+                (全國門市適用 運費 60 元)
+              </span>
+            </label>
           </div>
           <div className="choose">
             <input
@@ -35,7 +41,13 @@ function Cart_CheckOut(props) {
                 // UpdateInfo(e.target.value, 1)
               }}
             />
-            <label>全家取貨付款</label>
+            <label>
+              全家取貨付款
+              <span>
+                <br />
+                (全國門市適用 運費 60 元)
+              </span>
+            </label>
           </div>
           <div className="choose">
             <input
@@ -51,7 +63,11 @@ function Cart_CheckOut(props) {
               }}
             />
             <label>
-              宅配 貨到付款<span>(僅限台灣本島)</span>
+              宅配 貨到付款
+              <span>
+                <br />
+                (僅限台灣本島，運費 80 元)
+              </span>
             </label>
           </div>
         </div>
@@ -69,7 +85,13 @@ function Cart_CheckOut(props) {
                 // UpdateInfo(e.target.value, 1)
               }}
             />
-            <label>信用卡支付</label>
+            <label>
+              信用卡支付{' '}
+              <span>
+                <br />
+                (僅限台灣本島，運費 100 元)
+              </span>
+            </label>
             <div className="payicon mx-2">
               <img
                 src="http://localhost:3000/image/cc-apple-pay-brands.svg"
@@ -101,7 +123,13 @@ function Cart_CheckOut(props) {
                 // UpdateInfo(e.target.value, 1)
               }}
             />
-            <label>LINE PAY 支付</label>
+            <label>
+              LINE PAY 支付
+              <span>
+                <br />
+                (僅限台灣本島，運費 100 元)
+              </span>
+            </label>
           </div>
         </div>
       </div>

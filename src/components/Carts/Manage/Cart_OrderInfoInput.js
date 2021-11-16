@@ -54,7 +54,7 @@ function Cart_OrderInfoInput(props) {
     NewOrderInfo.push(NewData[0].name)
     NewOrderInfo.push(NewData[0].mobile)
     NewOrderInfo.push(NewData[0].email)
-    console.log('新訂單', NewOrderInfo)
+    // console.log('新訂單', NewOrderInfo)
     WarningText[0] = ''
     WarningText[1] = ''
     WarningText[2] = ''
@@ -134,7 +134,9 @@ function Cart_OrderInfoInput(props) {
                 WarningText[1] =
                   '手機格式不正確，例如:0910xxxxxx。或尚未輸入'
                 setWarningText(WarningText)
+                // console.log('手機格式不對')
               } else {
+                // console.log('手機格式')
                 WarningText[1] = ''
                 setWarningText(WarningText)
                 UpdateInfo(e.target.value, 1)
@@ -142,6 +144,7 @@ function Cart_OrderInfoInput(props) {
             }}
             onChange={(e) => {
               setPhone(e.target.value)
+              // console.log('手機', e.target.value)
             }}
           />
         </div>
