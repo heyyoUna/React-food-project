@@ -198,7 +198,7 @@ function CartManage(props) {
       // console.log('寫出的訂購資料_加入備註', NewOrderInfo)
     }
     NewOrderInfo = [...NewOrderInfo, ...Invoice]
-    console.log('寫出的訂購資料_加入發票', NewOrderInfo)
+    // console.log('寫出的訂購資料_加入發票', NewOrderInfo)
 
     let r = await axios.post(
       'http://localhost:3002/cart/addList',
