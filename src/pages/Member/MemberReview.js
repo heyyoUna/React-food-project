@@ -12,11 +12,12 @@ function MemberReview(props) {
   const [evaluating, setEvaluating] = useState(true)
 
   useEffect(() => {
-
     if (!token) {
       Swal.fire('尚未登入，請連到登入頁面')
       history.push('/login')
     }
+
+    setProduct([])
 
     fetch(`http://localhost:3002/member/review-data-get/${evaluating}`, {
       method: 'GET',
