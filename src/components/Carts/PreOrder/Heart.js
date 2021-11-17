@@ -42,7 +42,6 @@ function Heart(props) {
           showConfirmButton: false,
           timer: 1000,
         })
-        DataAxios()
       } else {
         Swal.fire({
           icon: 'success',
@@ -119,6 +118,7 @@ function Heart(props) {
         title: '請先登入會員哦',
         showConfirmButton: true,
         confirmButtonText: '我知道了',
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
           props.history.push('/login')

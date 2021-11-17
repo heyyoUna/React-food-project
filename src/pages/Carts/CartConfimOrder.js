@@ -60,6 +60,7 @@ function Cart_ConfimOrder(props) {
         showConfirmButton: true,
         confirmButtonColor: '#8FC065',
         confirmButtonText: '我知道了',
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
           props.history.push('/login')
@@ -199,6 +200,7 @@ function Cart_ConfimOrder(props) {
         showConfirmButton: true,
         confirmButtonColor: '#8FC065',
         confirmButtonText: '我知道了',
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
           props.history.push('/login')
