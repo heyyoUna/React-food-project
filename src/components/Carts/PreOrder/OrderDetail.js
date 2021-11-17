@@ -8,6 +8,8 @@ import {
   FaMinusCircle,
   FaAngleDoubleRight,
 } from 'react-icons/fa'
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 // import CART from '../../config'
 //示意圖
 
@@ -73,16 +75,26 @@ function OrderDetail(props) {
                       <FaPlusCircle
                         className="countIcon"
                         onClick={() => {
-                          NewCount[i] += 1
+                          if (NewCount[i] >= 10) {
+                            Swal.fire({
+                              icon: 'error',
+                              title:
+                                '目前庫存量不足哦，請調整',
+                              showConfirmButton: false,
+                              timer: 1500,
+                            })
+                          } else {
+                            NewCount[i] += 1
 
-                          // 設定新的訂單數量
-                          setCount(NewCount)
+                            // 設定新的訂單數量
+                            setCount(NewCount)
 
-                          // 指定要改變商品數量的位置
-                          setPos(i)
+                            // 指定要改變商品數量的位置
+                            setPos(i)
 
-                          // 更新 sql 路由的訂單 ID
-                          setODPos(v.Sid)
+                            // 更新 sql 路由的訂單 ID
+                            setODPos(v.Sid)
+                          }
                         }}
                       />
                     </td>

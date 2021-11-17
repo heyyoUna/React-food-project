@@ -140,8 +140,8 @@ function CartPreOrder(props) {
       }
     )
     if (m.data.success) {
-      console.log('Modify 位置', ODPos)
-      console.log('Modify 數量', Count[Pos])
+      // console.log('Modify 位置', ODPos)
+      // console.log('Modify 數量', Count[Pos])
       if (!Count[Pos]) {
         console.log('ODPOS為 Undefined')
       } else {

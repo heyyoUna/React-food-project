@@ -35,13 +35,23 @@ function Heart(props) {
           Order_Amount: '1',
         }
       )
-      Swal.fire({
-        icon: 'success',
-        title: '已成功加入購物車',
-        showConfirmButton: false,
-        timer: 1000,
-      })
-      DataAxios(NewPos, m.data.data[0].sid)
+      if (!p.data.success) {
+        Swal.fire({
+          icon: 'error',
+          title: '已存在於購物車，請重新選購',
+          showConfirmButton: false,
+          timer: 1000,
+        })
+        DataAxios()
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: '已成功加入購物車',
+          showConfirmButton: false,
+          timer: 1000,
+        })
+        DataAxios(NewPos, m.data.data[0].sid)
+      }
     }
   }
 
